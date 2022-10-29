@@ -28,11 +28,13 @@ app.use( express.json() );
 * 2) Bandas
 * 3) Directivos
 * 4) Músicos
+* 5) Archiveros
 */
 app.use('/api/auth', require('./routes/auth'));
 app.use('/api/bandas', require('./routes/bandas'));
 app.use('/api/directivos', require('./routes/directivos'));
 app.use('/api/musicos', require('./routes/musicos'));
+app.use('/api/archiveros', require('./routes/archiveros'));
 
 
 // Escuchar peticiones
