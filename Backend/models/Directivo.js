@@ -7,7 +7,7 @@ const DirectivoSchema = Schema({
     },
     cargo: {
         type: String,
-        enum: ['Presidente', 'Vicepresidente', 'Tesorero', 'Secretario', 'Vocal', 'Representante', 'Community Manager', 'Director', 'Subdirector'],
+        enum: ['Presidente', 'Vicepresidente', 'Tesorero', 'Secretario', 'Vocal', 'Representante', 'Manager', 'Director', 'Subdirector'],
         required: true
     },
     fecha_final: {
@@ -16,6 +16,11 @@ const DirectivoSchema = Schema({
     usuario: {
         type: Schema.Types.ObjectId,
         ref: 'Usuario',
+        required: true
+    },
+    banda: {
+        type: Schema.Types.ObjectId,
+        ref: 'Banda',
         required: true
     }
 });

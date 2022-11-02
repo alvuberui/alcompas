@@ -4,7 +4,26 @@ const Archivero = require('../models/Archivero');
 const crearArchivero = async(req, res = express.response) => {
     try {
         const usuarioId = req.uid;
+        let archiveroNuevo = new Archivero(req.body);
 
+        // Comrpobamos que la banda tenga sitio para más archiveros
+        const bandaId = archiveroNuevo.banda;
+        const archiveros_banda = await Archivero.find({'banda': bandaId});
+        const archiveros_actuales = []
+        for (i=0; i<archiveros_banda.length; i++) {
+            let archivero = archiveros_banda[i];
+            if(!archivero.fecha_final){
+                archiveros_actuales.push(archivero);
+            }
+        }
+        if(archiveros_actuales.length >= 3) {
+            return res.status(400).json({
+                ok: false,
+                msg: 'No están permitidos más archiveros actualmente'
+            });
+        }
+
+        // Comprobamos que no sea archivero actualmente
         const roles_archivero = await Archivero.find({'usuario': usuarioId});
         
         for (i=0; i<roles_archivero.length; i++) {
@@ -17,7 +36,7 @@ const crearArchivero = async(req, res = express.response) => {
             }
         }
 
-        let archiveroNuevo = new Archivero(req.body);
+        
         archiveroNuevo.usuario = req.uid;
         const archiveroDB = await archiveroNuevo.save();
 

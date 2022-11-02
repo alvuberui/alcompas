@@ -1,7 +1,7 @@
 
 const validarVoz = (value) => {
     // Manejo de errores
-    const voces = ['Primero', 'Segundo', 'Tercero'];
+    const voces = ['Principal', 'Primero', 'Segundo', 'Tercero'];
     
     if (voces.includes(value)) {
         return true;

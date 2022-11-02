@@ -28,12 +28,13 @@ router.post(
         }),
         check('cargo', 'El cargo es obligatorio').not().isEmpty(),
         check('fecha_final', 'La fecha final no es válida').isEmpty(),
+        check('banda', 'La banda es obligatoria').not().isEmpty(),
         validarCampos
     ],
     crearDirectivo);
 
 // Finalizar rol de directivo
-router.put('/', finalizarDirectivo);
+router.put('/:id', finalizarDirectivo);
 
 // Eliminar todos los roles de directivo de un usuario
 router.delete('/:id', eliminarDirectivos);

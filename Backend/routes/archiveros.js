@@ -25,6 +25,7 @@ router.post('/',
            return true;
        }),
        check('fecha_final', "La fecha final no debe estar definida").isEmpty(),
+       check('banda', 'La banda es obligatoria').not().isEmpty(),
        validarCampos
    ],
    crearArchivero);

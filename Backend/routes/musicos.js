@@ -42,6 +42,7 @@ router.post('/',
             }
             return true;
         }),
+        check('banda', 'La banda es obligatoria').not().isEmpty(),
         validarCampos
     ],
     crearMusico);
