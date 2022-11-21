@@ -211,12 +211,30 @@ const eliminar_banda = async(req, res = express.response) => {
             msg: error.codeName
         });
     }
-    
+}
 
+const getBandaById = async( req, res = express.response ) => {
+    try {
+        const bandaId = req.params.id;
+        const banda = await Banda.findById(bandaId);
+
+        res.status(201).json({
+            ok: true,
+            banda
+        });
+
+    } catch (error) {
+        console.log(error)
+        res.status(500).json({
+            ok: false,
+            msg: 'Por favor hable con el administrador.'
+        });
+    }
 }
 
 module.exports = {
     crearBanda,
     actualizar_banda,
-    eliminar_banda
+    eliminar_banda,
+    getBandaById
 }

@@ -1,34 +1,28 @@
 const { Router }= require('express');
 const router = Router();
-
-
 const { check } = require('express-validator');
 const { validarJWT } = require('../middlewares/validar-jwt');
-// const { crearBanda, actualizar_banda, eliminar_banda} = require('../controllers/bandas');
-
 const { validarCampos } = require('../middlewares/validar-campos');
 const { validarCargo } = require('../middlewares/validar-cargo');
 const { validarInstrumentos } = require('../middlewares/validar-instrumento');
 const { validarVoz } = require('../middlewares/validar-voz');
+const { crearPeticion, getPeticionesByUserId, aceptarPeticion, rechazarPeticion } = require('../controllers/peticiones');
 
     // Validar JWT
-    router.use( validarJWT );
+router.use( validarJWT, validarCampos);
 
+    // Obtener peticiones de un usuario
+router.get('/:userId', getPeticionesByUserId);
 
-    // Crear banda
+    // Aceptar petición
+router.put('/aceptar/:id/:userId', aceptarPeticion);
+
+    // Rechazar petición
+router.put('/rechazar/:id/:userId', rechazarPeticion);
+
+    // Crear peticion
 router.post('/',
     [
-        check('fecha', 'La fecha no es válida').isISO8601().toDate().custom( value => {
-            let fecha_entrada = new Date(value)
-            let fecha_actual = new Date()
-            
-            if( fecha_actual.getDate() != fecha_entrada.getDate() 
-                || fecha_actual.getMonth() != fecha_entrada.getMonth() 
-                || fecha_actual.getFullYear() != fecha_entrada.getFullYear() ) {
-                throw new Error("La fecha de inicio no es la actual");
-            }
-            return true;
-        }),
         check('rol', 'El rol no es válido').notEmpty().custom( value => {
             const condicion1 = rol == 'Presidente';
             const condicion2 = rol == 'Archivero';
@@ -66,12 +60,12 @@ router.post('/',
                 }
             }
         }),
-        check('estado', 'El estado de la petición no es valido').custom( value => {
-            const estados = ['Pendiente', 'Aceptada', 'Denegada'];
-            if(!estados.includes(value)) {
-                throw new Error("El estado de la petición no es válido");
-            }
-        })
+        check('usuario', 'El usuario es obligatorio').isMongoId(),
+        check('banda', 'La banda es obligatoria').isMongoId(),
+        check('directivo', 'El directivo es obligatorio').isMongoId()
     ],
     validarCampos,
     crearPeticion);
+
+    
+module.exports = router;  

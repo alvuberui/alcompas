@@ -4,7 +4,7 @@ const { check } = require('express-validator');
 
 
 
-const { crearUsuario, revalidarToken, loginUsuario } = require('../controllers/auth');
+const { crearUsuario, revalidarToken, loginUsuario, getById } = require('../controllers/auth');
 const { validarCampos } = require('../middlewares/validar-campos');
 const { validarJWT } = require('../middlewares/validar-jwt');
 // Aquí se configuran todas las subrutas de /api/auth
@@ -27,9 +27,9 @@ router.post(
 router.post(
     '/register',
     [
-        check('nombre', 'El nombre es obligatorio').not().isEmpty(),
-        check('primer_apellido', "El primer apellido es obligatorio").not().isEmpty(),
-        check('segundo_apellido', 'El segundo apellido es obligatorio').not().isEmpty(),
+        check('nombre', 'El nombre debe de contener mínimo un caracter y máximo 15').notEmpty().isLength({ min: 1, max: 15 }),
+        check('primer_apellido', "El primer apellido debe de contener mínimo un caracter y máximo 15").not().isEmpty().isLength({ min: 1, max: 15 }),
+        check('segundo_apellido', 'El segundo apellido debe de contener mínimo un caracter y máximo 15').not().isEmpty().isLength({ min: 1, max: 15 }),
         check('fecha_nacimiento', 'La fecha de nacimiento no es válida').isISO8601().toDate().custom(value=>{
             let fecha_entrada = new Date(value);
             var diferencia = Date.now() - fecha_entrada;
@@ -42,16 +42,15 @@ router.post(
             return true;
         }),
         check('correo', "El correo electrónico no es válido").isEmail(),
-        check('descripcion', 'La descripción es obligatoria').not().isEmpty(),
-        check('localidad', 'La localidad es obligatoria').not().isEmpty(),
-        check('provincia', 'La provincia es obligatoria').not().isEmpty(),
+        check('descripcion', 'La descripción debe de contener mínimo un caracter y máximo 200').not().isEmpty().isLength({ min: 1, max: 200 }),
+        check('localidad', 'La localidad debe de contener mínimo un caracter y máximo 15').not().isEmpty().isLength({ min: 1, max: 15 }),
+        check('provincia', 'La provincia debe de contener mínimo un caracter y máximo 15').not().isEmpty().isLength({ min: 1, max: 15 }),
         check('codigo_postal', 'El codigo postal no es válido').isPostalCode('ES'),
-        check('direccion', 'La dirección es obligatoria').not().isEmpty(),
+        check('direccion', 'La dirección debe de contener mínimo un caracter y máximo 30').not().isEmpty().isLength({ min: 1, max: 100 }),
         check('nif', 'El nif nos es válido').isIdentityCard('ES'),
         check('telefono', 'El telefono no es válido').isMobilePhone(),
-        check('usuario', 'El nombre de usuario es obligatorio').not().isEmpty(),
-        check('contraseña', 'La contraseña es obligatoria').not().isEmpty(),
-        check('administrador', 'Administrador es obligatorio').isBoolean(), 
+        check('usuario', 'El usuario debe de contener mínimo un caracter y máximo 12').not().isEmpty().isLength({ min: 1, max: 30 }),
+        check('contraseña', 'La contraseña debe de contener mínimo 5 caracteres y máximo 20').not().isEmpty().isLength({ min: 5, max: 20 }),
         validarCampos
     ],
     crearUsuario);
@@ -60,6 +59,11 @@ router.post(
 * Este middelware es para la actualización del token
 */
 router.get('/renew', validarJWT , revalidarToken);
+
+/*
+* Este middelware es para obtener un usuario a través de su id
+*/
+router.get('/:id', validarJWT , getById);
 
 
 module.exports = router;

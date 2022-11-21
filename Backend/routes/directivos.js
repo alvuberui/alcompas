@@ -2,7 +2,7 @@ const { Router }= require('express');
 const router = Router();
 const { check } = require('express-validator');
 
-const { crearDirectivo, finalizarDirectivo, eliminarDirectivos } = require('../controllers/directivos');
+const { crearDirectivo, finalizarDirectivo, eliminarDirectivos, getDirectivoById } = require('../controllers/directivos');
 const { validarCampos } = require('../middlewares/validar-campos');
 const { validarJWT } = require('../middlewares/validar-jwt');
 
@@ -33,10 +33,13 @@ router.post(
     ],
     crearDirectivo);
 
-// Finalizar rol de directivo
+    // Finalizar rol de directivo
 router.put('/:id', finalizarDirectivo);
 
-// Eliminar todos los roles de directivo de un usuario
+    // Eliminar todos los roles de directivo de un usuario
 router.delete('/:id', eliminarDirectivos);
+
+    // Obtener un directivo a través de su id
+router.get('/:id', getDirectivoById);
 
 module.exports = router;

@@ -1,20 +1,44 @@
+import { useEffect } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
-import { LoginPage } from '../auth';
-import { BandaPage } from '../banda';
+import { LoginPage, PersonalRegister, RegisterFrom } from '../auth';
+import { Dashboard  } from '../modules/dashboard/dashboard';
+import { useAuthStore } from '../hooks';
+import { Inicial } from '../invitado';
+import { Perfil } from '../modules/user';
+import { Peticiones } from '../modules/peticiones/pages/Peticiones';
 
 export const AppRouter = () => {
   
 
-    const authEstado = 'no-autenticado'
-    return (
-        <Routes>
-            {
-                (authEstado == 'no-autenticado')
-                    ? <Route path="/auth/*" element={ <LoginPage/>} />
-                    : <Route path="/*" element={ <BandaPage/>} />
-            }
+    const { status, checkAuthToken } = useAuthStore();
 
-            <Route path="/*" element={ <Navigate to="/auth/login"/> } />
-        </Routes>
-  )
+    useEffect(() => {
+      checkAuthToken()
+    }, [])
+
+    switch(status) {
+      case 'autenticado':
+          return (
+            <Routes>
+            
+            <Route path="/" element={ <Dashboard/>} />
+            <Route path="/*" element={ <Navigate to="/"/>} />
+            <Route path="/perfil/:id" element={ <Perfil/>} />,
+            <Route path="/peticiones/:id" element={ <Peticiones/>} />,
+        
+            </Routes>
+          );
+      case 'no-autenticado':
+        return (
+          <Routes>
+              <Route path="/" element={ <Inicial/>} />,
+              <Route path="/*" element={ <Navigate to="/"/>} />
+              <Route path="/auth/login/*" element={ <LoginPage/>} />,
+              <Route path="/auth/register/*" element={ <RegisterFrom/>} />
+            
+      
+          </Routes>
+        );
+}
+    
 }

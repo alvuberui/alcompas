@@ -45,6 +45,7 @@ const crearUsuario = async(req, res = express.response) => {
         }
 
         nuevo_usuario = new Usuario(req.body);
+        nuevo_usuario.administrador = false;
 
         // Encriptar contraseña 
         const salt = bcrypt.genSaltSync();
@@ -95,8 +96,8 @@ const loginUsuario = async(req, res = express.response) => {
 
         res.status(200).json({
             ok: true,
-            correo,
-            contraseña,
+            uid: nuevo_usuario.id,
+            nombre: nuevo_usuario.nombre,
             token
         });
     } catch {
@@ -118,12 +119,36 @@ const revalidarToken = async(req, res = express.response) => {
 
     res.json({
         ok: true,
+        uid, nombre,
         token
     });
+}
+
+const getById = async(req, res = express.response) => {
+    
+    try {
+
+        const uid = req.params.id;
+        const usuario = await Usuario.findById(uid);
+
+
+        res.json({
+            ok: true,
+            usuario
+        });
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({
+            ok: false, 
+            msg: 'Por favor hable con el administrador'
+        });
+    }
+    
 }
 
 module.exports = {
     crearUsuario,
     loginUsuario,
-    revalidarToken
+    revalidarToken,
+    getById
 }
