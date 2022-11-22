@@ -7,7 +7,8 @@ export const validarRegistro = (values) => {
     var diferencia = Date.now() - fecha_entrada;
     var diferencia_fechas = new Date(diferencia); 
     let años = Math.abs(diferencia_fechas.getUTCFullYear() - 1970);
-    console.log(años)
+
+
 
     // Comprobamos el nombre 
     if( values.nombre.length < 1)  error = 'El nombre es obligatorio';
@@ -41,6 +42,7 @@ export const validarRegistro = (values) => {
     else if( values.usuario.length < 1)  error = 'El nombre de usuario es obligatorio';
     else if( values.usuario.length > 30) error = 'La longitud máxima del nombre de usuario es 12 caracteres';
     // Comprobamos la contraseña
+    
     else if( values.contraseña.length < 5)  error = 'La contraseña debe de tener al menos 5 caracteres';
     else if( values.contraseña.length > 20) error = 'La longitud máxima de la contraseña es de 20 caracteres';
     else if( values.contraseña != values.confirmacion_contraseña ) error = "La contraseña no coincide con la confirmación de la misma";
@@ -50,3 +52,4 @@ export const validarRegistro = (values) => {
     
     return error;
 }
+

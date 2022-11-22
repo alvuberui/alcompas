@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
-import { LoginPage, PersonalRegister, RegisterFrom } from '../auth';
+import { LoginPage, PersonalRegister, RegisterFrom, UpdateForm } from '../auth';
 import { Dashboard  } from '../modules/dashboard/dashboard';
 import { useAuthStore } from '../hooks';
 import { Inicial } from '../invitado';
@@ -21,10 +21,11 @@ export const AppRouter = () => {
           return (
             <Routes>
             
-            <Route path="/" element={ <Dashboard/>} />
-            <Route path="/*" element={ <Navigate to="/"/>} />
-            <Route path="/perfil/:id" element={ <Perfil/>} />,
-            <Route path="/peticiones/:id" element={ <Peticiones/>} />,
+              <Route path="/" element={ <Dashboard/>} />
+              <Route path="/*" element={ <Navigate to="/"/>} />
+              <Route path="/perfil/:id/*" element={ <Perfil/>} />,
+              <Route path="/peticiones/:id/*" element={ <Peticiones/>} />,
+              <Route path="/modificar/:id/*" element={ <UpdateForm/>} />
         
             </Routes>
           );

@@ -9,9 +9,10 @@ export class PersonalRegister extends Component {ç
         this.props.siguiente()
     }
   render() {
-    const { values, handleChange } = this.props;
+    const { values, handleChange, titulo } = this.props;
+    
     return (
-        <AuthLayout  title="Crear cuenta" >
+        <AuthLayout  title={titulo} >
         <form>
           <Grid container>
   
@@ -23,6 +24,7 @@ export class PersonalRegister extends Component {ç
                 fullWidth
                 onChange={handleChange('nombre')}
                 defaultValue={values.nombre}
+
               />
             </Grid>
             <Grid item xs={ 12 } sx={{ mt: 2}}>

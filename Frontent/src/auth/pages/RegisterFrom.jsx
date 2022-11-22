@@ -68,7 +68,7 @@ export const  RegisterFrom = () => {
                  fecha_nacimiento: values.fecha_nacimiento});
         }
         else {
-            Swal.fire('Error en la autenticación', error, 'error');
+            Swal.fire('Error en la autenticación', error, 'error') 
         }
 
         
@@ -91,6 +91,7 @@ export const  RegisterFrom = () => {
                         siguiente = {siguiente}
                         handleChange = { handleChange }
                         values = { values }
+                        titulo = 'Crear Cuenta'
                     />
                 );
             case 2:
@@ -99,6 +100,7 @@ export const  RegisterFrom = () => {
                 retroceder = { previo }
                 handleChange = { handleChange }
                 values = { values }
+                titulo = 'Crear Cuenta'
                 />);
             case 3:
                 return  <UserRegister
@@ -106,12 +108,14 @@ export const  RegisterFrom = () => {
                 retroceder = { previo }
                 handleChange = { handleChange }
                 values = { values }
+                titulo = 'Crear Cuenta'
                 />
             case 4:
                 return  <ConfirmationRegister
                 confirmar = {confirmar}
                 retroceder = { previo }
                 values = { values }
+                titulo = 'Crear Cuenta'
                 />
        // }
     }

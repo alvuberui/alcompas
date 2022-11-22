@@ -16,7 +16,7 @@ export class ConfirmationRegister extends Component {
 
     confirmar = e => {
       e.preventDefault();
-      this.props.confirmar();
+      this.props.confirmar(e);
   }
 
   
@@ -26,11 +26,11 @@ export class ConfirmationRegister extends Component {
   render() {
     const { values: {  nombre, primer_apellido, segundo_apellido, correo,
         descripcion, localidad, provincia, codigo_postal, direccion,
-        nif, telefono, usuario, fecha_nacimiento }} = this.props;
+        nif, telefono, usuario, fecha_nacimiento, titulo }} = this.props;
 
     
     return (
-        <AuthLayout  title="Crear cuenta" >
+        <AuthLayout  title={titulo} >
         <form>
           <Grid container>
   

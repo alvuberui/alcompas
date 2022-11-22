@@ -15,9 +15,9 @@ export class UserRegister extends Component {
     }
 
   render() {
-    const { values, handleChange } = this.props;
+    const { values, handleChange, titulo } = this.props;
     return (
-        <AuthLayout  title="Crear cuenta" >
+        <AuthLayout  title={titulo} >
         <form>
           <Grid container>
   
@@ -29,9 +29,12 @@ export class UserRegister extends Component {
                 fullWidth
                 onChange={handleChange('usuario')}
                 defaultValue={values.usuario}
+                style={{borderColor:'white'}}
+                focused
                 
               />
             </Grid>
+            { titulo == 'Crear Cuenta' && 
             <Grid item xs={ 12 } sx={{ mt: 2}}>
               <TextField 
                 label="Contraseña"
@@ -42,6 +45,8 @@ export class UserRegister extends Component {
                 onChange={handleChange('contraseña')}
               />
             </Grid>
+            }
+            { titulo == 'Crear Cuenta' &&
             <Grid item xs={ 12 } sx={{ mt: 2}}>
               <TextField 
                 label="Confirmar contraseña"
@@ -52,6 +57,7 @@ export class UserRegister extends Component {
                 onChange={handleChange('confirmacion_contraseña')}
               />
             </Grid>
+            }
             <Grid item xs={ 12 } sx={{ mt: 2} }>
               <TextField 
                 label="Descripción"

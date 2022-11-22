@@ -15,9 +15,9 @@ export class LocationRegister extends Component {
     }
 
   render() {
-    const { values, handleChange } = this.props;
+    const { values, handleChange, titulo } = this.props;
     return (
-        <AuthLayout  title="Crear cuenta" >
+        <AuthLayout  title={titulo} >
         <form>
           <Grid container>
   
