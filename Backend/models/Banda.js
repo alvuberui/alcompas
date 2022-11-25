@@ -5,7 +5,7 @@ const BandaSchema = Schema({
         type: String,
         required: true
     },
-    tipo_banda: {
+    tipo: {
         type: String,
         enum: ['Agrupación Musical', 'Banda de Cornetas y Tambores', 'Banda de Música' ],
         require: true

@@ -5,6 +5,7 @@ const Archivero = require('../models/Archivero');
 const Directivo = require('../models/Directivo');
 const Usuario = require('../models/Usuario');
 
+
 const crearBanda = async(req, res = express.response) => {
 
     const { nombre, tipo_banda, localidad, provincia, codigo_postal,
@@ -180,6 +181,59 @@ const eliminar_banda = async(req, res = express.response) => {
     }
 }
 
+const getBandasByUserId = async( req, res = express.response ) => {
+    try {
+        let bandas = [];
+
+        const userId = req.params.userId;
+
+        const directivos = await Directivo.find({'usuario': userId});
+        const musicos = await Musico.find({'usuario': userId});
+        const archiveros = await Archivero.find({'usuario': userId});
+
+        for(i=0; i < directivos.length; i++) {
+            let directivo = directivos[i];
+            if(!directivo.fecha_final) {
+                banda = await Banda.findById(directivo.banda);
+                if( bandas.indexOf(banda) === -1 ) {
+                    bandas.push(banda);
+                }
+            }
+        }
+        for(i=0; i < musicos.length; i++) {
+            let musico = musicos[i];
+            if(!musico.fecha_final) {
+                banda = await Banda.findById(musico.banda);
+                if( bandas.indexOf(banda) === -1 ) {
+                    bandas.push(banda);
+                }
+            }
+        }
+        for(i=0; i < archiveros.length; i++) {
+            let archivero = archiveros[i];
+            if(!archivero.fecha_final) {
+                banda = await Banda.findById(archivero.banda);
+                if( bandas.indexOf(banda) === -1 ) {
+                    bandas.push(banda);
+                }
+            }
+        }
+
+
+        res.status(201).json({
+            ok: true,
+            bandas
+        });
+
+    } catch (error) {
+        console.log(error)
+        res.status(500).json({
+            ok: false,
+            msg: 'Por favor hable con el administrador.'
+        });
+    }
+}
+
 const getBandaById = async( req, res = express.response ) => {
     try {
         const bandaId = req.params.id;
@@ -203,5 +257,6 @@ module.exports = {
     crearBanda,
     actualizar_banda,
     eliminar_banda,
-    getBandaById
+    getBandaById,
+    getBandasByUserId
 }

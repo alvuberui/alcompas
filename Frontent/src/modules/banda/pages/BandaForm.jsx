@@ -8,7 +8,7 @@ import { useBandasStore } from '../../../hooks/useBandasStore';
 
 const state = {
     nombre: '',
-    tipo_banda: '',
+    tipo: '',
     localidad: '',
     provincia: '',
     codigo_postal: '',

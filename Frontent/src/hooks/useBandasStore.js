@@ -12,7 +12,19 @@ export const useBandasStore = () => {
             
             return banda;
         } catch(error) {
-            console.log('Error cargando peticiones');
+            console.log('Error cargando banda');
+            console.log(error)
+        }
+    }
+
+    const getBandasByUserId = async(userId) => {
+        try {
+            const { data } = await alcompasAPI.get('bandas/misbandas/' + userId);
+            const bandas = data.bandas;
+            
+            return bandas;
+        } catch(error) {
+            console.log('Error cargando bandas');
             console.log(error)
         }
     }
@@ -48,6 +60,7 @@ export const useBandasStore = () => {
         mensajeError,
         // Métodos
         getBandaById,
-        crearBanda
+        crearBanda,
+        getBandasByUserId
     }
 }
