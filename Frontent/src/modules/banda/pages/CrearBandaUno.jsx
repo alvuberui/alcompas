@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
-import { AuthLayout } from '../layout/AuthLayout';
-import { Grid, TextField, Button, Link } from '@mui/material';
+import { AuthLayout } from '../../../auth/layout/AuthLayout';
+import { Grid, TextField, Button, Link, Select, MenuItem } from '@mui/material';
 import { Link as RouterLink} from 'react-router-dom';
 
-export class PersonalRegister extends Component {
+export class CrearBandaUno extends Component {
     continuar = e => {
         e.preventDefault();
         this.props.siguiente()
@@ -18,9 +18,9 @@ export class PersonalRegister extends Component {
   
             <Grid item xs={ 12 } sx={{ mt: 2}}>
               <TextField 
-                label="Nombre"
+                label="Nombre de banda"
                 type="text"
-                placeholder="Nombre"
+                placeholder="Nombre de banda"
                 fullWidth
                 onChange={handleChange('nombre')}
                 defaultValue={values.nombre}
@@ -28,47 +28,37 @@ export class PersonalRegister extends Component {
               />
             </Grid>
             <Grid item xs={ 12 } sx={{ mt: 2}}>
-              <TextField 
-                label="Primer apellido"
-                type="text"
-                placeholder="Apellido 1"
+              <Select
+                labelId="demo-simple-select-label"
+                id="demo-simple-select"
                 fullWidth
-                onChange={handleChange('primer_apellido')}
-                defaultValue={values.primer_apellido}
+                defaultValue={values.tipo?values.tipo:'Agrupación Musical'}
+                label="Tipo"
+                onChange={handleChange('tipo')}
+              >
+                <MenuItem value={'Agrupación Musical'}>Agrupación Musical</MenuItem>
+                <MenuItem value={'Banda de Cornetas y Tambores'}>Banda de Cornetas y Tambores</MenuItem>
+                <MenuItem value={'Banda de Música'}>Banda de Música</MenuItem>
+              </Select>
+            </Grid>
+            <Grid item xs={ 12 } sx={{ mt: 2}}>
+              <TextField 
+                label="Año fundación"
+                type="number"
+                placeholder="Año fundación"
+                fullWidth
+                onChange={handleChange('año_fundacion')}
+                defaultValue={values.año_fundacion}
               />
             </Grid>
             <Grid item xs={ 12 } sx={{ mt: 2}}>
               <TextField 
-                label="Segundo Apellido"
+                label="CIF"
                 type="text"
-                placeholder="Apellido 2"
+                placeholder="CIF"
                 fullWidth
-                onChange={handleChange('segundo_apellido')}
-                defaultValue={values.segundo_apellido}
-              />
-            </Grid>
-            <Grid item xs={ 12 } sx={{ mt: 2}}>
-              <TextField 
-                label="DNI"
-                type="text"
-                placeholder="DNI"
-                fullWidth
-                onChange={handleChange('nif')}
-                defaultValue={values.nif}
-              />
-            </Grid>
-            <Grid item xs={ 12 } sx={{ mt: 2}}>
-              <TextField
-                label="Fecha nacimiento"
-                type="date"
-                fullWidth
-                InputLabelProps={{
-                shrink: true,
-                }}
-                onChange={handleChange('fecha_nacimiento')}
-                
-                defaultValue={values.fecha_nacimiento}
-                
+                onChange={handleChange('cif')}
+                defaultValue={values.cif}
               />
             </Grid>
             <Grid item xs={ 12 } sx={{ mt: 2}}>
@@ -111,5 +101,3 @@ export class PersonalRegister extends Component {
     )
   }
 }
-
-export default PersonalRegister

@@ -7,9 +7,7 @@ const { validarJWT } = require('../middlewares/validar-jwt');
 const { crearBanda, actualizar_banda, eliminar_banda, getBandaById} = require('../controllers/bandas');
 
 const { validarCampos } = require('../middlewares/validar-campos');
-/*
-* En primer lugar se crea el CRUD de bandas
-* */
+
 
     // Validar JWT
 router.use( validarJWT );
@@ -20,7 +18,7 @@ router.post(
     '/', 
     [
         check('nombre', 'El nombre es obligatorio').not().isEmpty(),
-        check('tipo_banda', 'El tipo de banda es obligatorio').not().isEmpty().custom(value => {
+        check('tipo', 'El tipo de banda es obligatorio').not().isEmpty().custom(value => {
             condicion_a = value == 'Banda de Música';
             condicion_b = value == 'Banda de Cornetas y Tambores';
             condicion_c = value == 'Agrupación Musical';

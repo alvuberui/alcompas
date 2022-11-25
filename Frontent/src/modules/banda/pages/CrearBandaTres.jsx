@@ -1,12 +1,12 @@
 import React, { Component } from 'react'
-import { AuthLayout } from '../layout/AuthLayout';
+import { AuthLayout } from '../../../auth/layout/AuthLayout';
 import { Grid, Button, Link } from '@mui/material';
 import { Link as RouterLink} from 'react-router-dom';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 
-export class ConfirmationRegister extends Component {
+export class CrearBandaTres extends Component {
 
 
     retroceder = e => {
@@ -24,9 +24,8 @@ export class ConfirmationRegister extends Component {
     
 
   render() {
-    const { values: {  nombre, primer_apellido, segundo_apellido, correo,
-        descripcion, localidad, provincia, codigo_postal, direccion,
-        nif, telefono, usuario, fecha_nacimiento }, titulo } = this.props;
+    const { values: {  nombre, tipo, localidad, provincia, codigo_postal,
+        direccion, año_fundacion, descripcion, telefono, correo, cif}, titulo} = this.props;
 
     
     return (
@@ -46,32 +45,32 @@ export class ConfirmationRegister extends Component {
                     </ListItem>
                     <ListItem>
                     <ListItemText
-                        primary="Primer Apellido:"
-                        secondary={primer_apellido}
+                        primary="Tipo:"
+                        secondary={tipo}
                     />
                     </ListItem>
                     <ListItem>
                     <ListItemText
-                        primary="Segundo Apellido:"
-                        secondary={segundo_apellido}
+                        primary="Dirección:"
+                        secondary={direccion}
                     />
                     </ListItem>
                     <ListItem>
                     <ListItemText
-                        primary="Correo:"
-                        secondary={correo}
-                    />
-                    </ListItem>
-                    <ListItem>
-                    <ListItemText
-                        primary="Nif:"
-                        secondary={nif}
+                        primary="Año de funcionación:"
+                        secondary={año_fundacion}
                     />
                     </ListItem>
                     <ListItem>
                     <ListItemText
                         primary="Teléfono:"
                         secondary={telefono}
+                    />
+                    </ListItem>
+                    <ListItem>
+                    <ListItemText
+                        primary="Correo electrónico:"
+                        secondary={correo}
                     />
                     </ListItem>
                     
@@ -82,12 +81,6 @@ export class ConfirmationRegister extends Component {
             <Grid item xs={ 6 } sx={{ mt: 2}}>
                 
                 <List dense={true}>
-                    <ListItem>
-                    <ListItemText
-                        primary="Fecha Nacimiento:"
-                        secondary={fecha_nacimiento}
-                    />
-                    </ListItem>
                     <ListItem>
                     <ListItemText
                         primary="Localidad:"
@@ -114,8 +107,8 @@ export class ConfirmationRegister extends Component {
                     </ListItem>
                     <ListItem>
                     <ListItemText
-                        primary="Usuario:"
-                        secondary={usuario}
+                        primary="CIF:"
+                        secondary={cif}
                     />
                     </ListItem>
                 
@@ -149,4 +142,4 @@ export class ConfirmationRegister extends Component {
   }
 }
 
-export default ConfirmationRegister
+export default CrearBandaTres

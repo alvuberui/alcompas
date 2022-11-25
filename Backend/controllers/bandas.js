@@ -38,39 +38,6 @@ const crearBanda = async(req, res = express.response) => {
 
         const usuarioId = req.uid;
 
-        // Comprobar que ese usuario no pertenezca ya a alguna banda:
-        const directivos_usuario = await Directivo.find({'usuario': usuarioId});
-        const archiveros_usuario = await Archivero.find({'usuario': usuarioId});
-        const musicos_usuario = await Musico.find({'usuario': usuarioId});
-        
-        for(i=0; i<directivos_usuario.length; i++) {
-            let rol_directivo = directivos_usuario[i];
-            if(!rol_directivo.fecha_final) {
-                return res.status(400).json({
-                    ok: false,
-                    msg: 'El usuario ya pertenece a una banda'
-                });
-            }
-        }
-        for(i=0; i<archiveros_usuario.length; i++) {
-            let rol_archivero = archiveros_usuario[i];
-            if(!rol_archivero.fecha_final) {
-                return res.status(400).json({
-                    ok: false,
-                    msg: 'El usuario ya pertenece a una banda'
-                });
-            }
-        }
-        for(i=0; i<musicos_usuario.length; i++) {
-            let rol_musico = musicos_usuario[i];
-            if(!rol_musico.fecha_final) {
-                return res.status(400).json({
-                    ok: false,
-                    msg: 'El usuario ya pertenece a una banda'
-                });
-            }
-        }
-
         
 
         banda = new Banda(req.body);
