@@ -17,10 +17,34 @@ export const useBandasStore = () => {
         }
     }
 
+    const getBandas = async() => {
+        try {
+            const { data } = await alcompasAPI.get('bandas/');
+            const bandas = data.bandas;
+            
+            return bandas;
+        } catch(error) {
+            console.log('Error cargando banda');
+            console.log(error)
+        }
+    }
+
     const getBandasByUserId = async(userId) => {
         try {
             const { data } = await alcompasAPI.get('bandas/misbandas/' + userId);
             const bandas = data.bandas;
+            
+            return bandas;
+        } catch(error) {
+            console.log('Error cargando bandas');
+            console.log(error)
+        }
+    }
+
+    const getBandasByNombre= async(nombre) => {
+        try {
+            const { data } = await alcompasAPI.get('bandas/buscar/' + nombre);
+            const bandas = data.resultado;
             
             return bandas;
         } catch(error) {
@@ -61,6 +85,8 @@ export const useBandasStore = () => {
         // Métodos
         getBandaById,
         crearBanda,
-        getBandasByUserId
+        getBandasByUserId,
+        getBandas,
+        getBandasByNombre
     }
 }

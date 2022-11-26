@@ -23,6 +23,7 @@ import {
   Link,
   NavLink,
 }  from "react-router-dom";
+import { Buscador } from './Buscador';
 
 const Search = styled('div')(({ theme }) => ({
     position: 'relative',
@@ -203,13 +204,7 @@ export const NavBar = () => {
           </Typography>
           </a>
           <Search>
-            <SearchIconWrapper>
-              <SearchIcon />
-            </SearchIconWrapper>
-            <StyledInputBase
-              placeholder="Buscar banda…"
-              inputProps={{ 'aria-label': 'search' }}
-            />
+            <Buscador></Buscador>
           </Search>
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: { xs: 'none', md: 'flex' } }}>

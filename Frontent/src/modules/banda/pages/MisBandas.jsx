@@ -10,20 +10,32 @@ import {
   NavLink,
 }  from "react-router-dom";
 
-export const MisBandas = () => {
+export const MisBandas = ( titulo ) => {
   
   const [bandas, setBandas] = useState([]);
-  const { getBandasByUserId } = useBandasStore();
-  const { userId } = useParams();
+  const { getBandasByUserId, getBandasByNombre } = useBandasStore();
 
-  useEffect(() => {
-    const getBandas = async () => {
-      const userreq = await getBandasByUserId(userId);
-      setBandas(userreq);  
-    }
-    getBandas();
-  }, []); 
-
+  if( titulo.titulo == 'Mis Bandas' ){
+    const { userId } = useParams();
+    
+    useEffect(() => {
+      const getBandas = async () => {
+        const userreq = await getBandasByUserId(userId);
+        setBandas(userreq);  
+      }
+      getBandas();
+    }, []); 
+  } else {
+    const { nombre } = useParams();
+    useEffect(() => {
+      const getBandas = async () => {
+        const userreq = await getBandasByNombre(nombre);
+        setBandas(userreq);  
+      }
+      getBandas();
+    }, []); 
+  }
+  
   return (
     <>
     <NavBar/>
@@ -48,16 +60,17 @@ export const MisBandas = () => {
             >
                 <Typography variant='h4' sx={{textAlign:'center', color:'white'}}>MIS BANDAS</Typography>
             </Grid>
-            
-            <NavLink style={{textDecoration: "none", color: "black"}}  to='/bandas/crear'>
-              <Grid 
-              item
-              xs= { 0.5 }
-              sx={{ ml:'15px', minWidth:'40px', backgroundColor:'primary.main', borderRadius:'5px', boxShadow:' 5px 5px 30px' }}
-              >
-                  <Typography variant='h4' sx={{textAlign:'center', color:'white'}}>+</Typography>
-              </Grid>
-            </NavLink>
+            { titulo.titulo === 'Mis Bandas' &&
+              <NavLink style={{textDecoration: "none", color: "black"}}  to='/bandas/crear'>
+                <Grid 
+                item
+                xs= { 0.5 }
+                sx={{ ml:'15px', minWidth:'40px', backgroundColor:'primary.main', borderRadius:'5px', boxShadow:' 5px 5px 30px' }}
+                >
+                    <Typography variant='h4' sx={{textAlign:'center', color:'white'}}>+</Typography>
+                </Grid>
+              </NavLink>
+            }
 
             {bandas.map((banda, index) =>
               <Banda

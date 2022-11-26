@@ -5,7 +5,7 @@ const router = Router();
 const { check } = require('express-validator');
 const { validarJWT } = require('../middlewares/validar-jwt');
 const { crearBanda, actualizar_banda, eliminar_banda, getBandaById
-        ,getBandasByUserId} = require('../controllers/bandas');
+        ,getBandasByUserId, getBandas, getBandasByNombre} = require('../controllers/bandas');
 
 const { validarCampos } = require('../middlewares/validar-campos');
 
@@ -115,6 +115,12 @@ router.get('/:id', getBandaById);
 
     // Obtener todas las banda de un usuario
 router.get('/misBandas/:userId', getBandasByUserId);
+
+    // Obtener todas las bandas
+router.get('/', getBandas);
+
+// Obtener todas las bandas
+router.get('/buscar/:nombre', getBandasByNombre);
 
 
 

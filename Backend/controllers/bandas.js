@@ -253,10 +253,55 @@ const getBandaById = async( req, res = express.response ) => {
     }
 }
 
+const getBandas = async( req, res = express.response ) => {
+    try {
+        const bandas = await Banda.find();
+
+        res.status(201).json({
+            ok: true,
+            bandas
+        });
+
+    } catch (error) {
+        console.log(error)
+        res.status(500).json({
+            ok: false,
+            msg: 'Por favor hable con el administrador.'
+        });
+    }
+}
+
+const getBandasByNombre = async( req, res = express.response ) => {
+    try {
+        const bandas = await Banda.find();
+        resultado = [];
+        for(i=0; i < bandas.length; i++) {
+            let banda = bandas[i];
+            if(banda.nombre.toLowerCase().includes(req.params.nombre.toLowerCase())) {
+                resultado.push(banda);
+            }
+        }
+
+        res.status(201).json({
+            ok: true,
+            resultado
+        });
+
+    } catch (error) {
+        console.log(error)
+        res.status(500).json({
+            ok: false,
+            msg: 'Por favor hable con el administrador.'
+        });
+    }
+}
+
 module.exports = {
     crearBanda,
     actualizar_banda,
     eliminar_banda,
     getBandaById,
-    getBandasByUserId
+    getBandasByUserId,
+    getBandas,
+    getBandasByNombre
 }

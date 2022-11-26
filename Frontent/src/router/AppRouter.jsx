@@ -28,7 +28,8 @@ export const AppRouter = () => {
               <Route path="/peticiones/:id/*" element={ <Peticiones/>} />,
               <Route path="/modificar/:id/*" element={ <UpdateForm/>} />
               <Route path="/bandas/crear/*" element={ <BandaForm/>} />
-              <Route path="/bandas/:userId/*" element={ <MisBandas/>} />
+              <Route path="/bandas/:userId/*" element={ <MisBandas titulo='Mis Bandas'/>} />
+              <Route path="/buscar/:nombre/*" element={ <MisBandas titulo='Buscar'/>} />
         
             </Routes>
           );

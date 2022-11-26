@@ -31,10 +31,10 @@ export const Banda = ({ _id, nombre, tipo }) => {
                 </Grid>
                 <Grid
                 item
-
+           
                 xs= { 10 }
                 >
-                    <Typography variant='h6' sx={{fontWeight: 'bold', textAlign:'left', color:'black'}}>{tipo} {nombre}</Typography>
+                    <Typography variant='h6' sx={{fontWeight: 'bold', textAlign:'left', color:'black', paddingLeft:'40px'}}>{tipo} {nombre}</Typography>
                 </Grid>
                 
                 
