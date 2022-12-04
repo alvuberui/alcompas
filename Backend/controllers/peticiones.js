@@ -47,8 +47,6 @@ const crearPeticion = async(req, res = express.response) => {
         });
     }
 
-    let datos = req.body;
-
 }
 
 const aceptarPeticion = async(req, res = express.response) => {

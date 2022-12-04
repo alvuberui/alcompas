@@ -55,7 +55,7 @@ export const Peticion = ({ _id, estado, instrumento, mensaje, rol, voz, cargo, b
             justifyContent="center"
             alignItems="baseline">
                 <>
-                    <Typography variant='h6' sx={{fontWeight: 'bold', textAlign:'center', color:'black', textDecoration: 'underline'}}>{banda_nombre.nombre}</Typography>
+                    <Typography variant='h6' sx={{fontWeight: 'bold', textAlign:'center', color:'black', textDecoration: 'underline'}}>{banda_nombre}</Typography>
                 </>
             </Grid>
             <Grid

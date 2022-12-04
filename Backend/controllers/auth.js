@@ -161,9 +161,7 @@ const modificarContraseña = async(req, res = express.response) => {
         res.status(201).json({
             ok: true,
             msg: 'actualizado datos de usuario',
-            uid: usuarioModificado._id,
-            nombre: usuarioModificado.nombre,
-            token
+            usuarioModificado
     });
     } catch (error) {
         console.log(error)

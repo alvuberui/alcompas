@@ -99,11 +99,21 @@ export class PersonalRegister extends Component {
                   </Button>
                 </Grid>
               </Grid>
-            <Grid container direction='row' justifyContent='end'>
-              <Link component={ RouterLink }color='inherit' to="/auth/login">
-                Iniciar sesión
+            <Grid container direction='row' >
+            <Grid item  justifyContent='start'>
+              <Link component={ RouterLink } style={{textDecoration:"none", color:"black"}} color='inherit' to="/">
+                Inicio
               </Link>
             </Grid>
+            { titulo === 'Crear Cuenta' &&
+            <Grid item  sx={{ ml:'20px' }} justifyContent='end'>
+              <Link component={ RouterLink } style={{textDecoration:"none", color:"black"}} color='inherit' to="/auth/login">
+                Iniciar Sesión
+              </Link>
+            </Grid>
+          }
+          </Grid>
+              
   
           </Grid>
         </form>

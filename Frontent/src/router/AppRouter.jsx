@@ -6,7 +6,7 @@ import { useAuthStore } from '../hooks';
 import { Inicial } from '../invitado';
 import { Perfil } from '../modules/user';
 import { Peticiones } from '../modules/peticiones/pages/Peticiones';
-import { BandaForm, MisBandas } from '../modules/banda';
+import { BandaForm, MisBandas, PerfilBanda } from '../modules/banda';
 
 export const AppRouter = () => {
   
@@ -30,6 +30,7 @@ export const AppRouter = () => {
               <Route path="/bandas/crear/*" element={ <BandaForm/>} />
               <Route path="/bandas/:userId/*" element={ <MisBandas titulo='Mis Bandas'/>} />
               <Route path="/buscar/:nombre/*" element={ <MisBandas titulo='Buscar'/>} />
+              <Route path="/banda/:bandaId" element={ <PerfilBanda/>} />
         
             </Routes>
           );

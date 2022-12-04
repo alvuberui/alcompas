@@ -20,8 +20,7 @@ export const  UpdateForm = () => {
     const [step, setStep] = useState(1);
 
     // Funciones y parámetros
-    const  { startUpdate, errorMessage } = useAuthStore();
-    const { getUserByiD } = useAuthStore();
+    const  { startUpdate, errorMessage, user, getUserByiD } = useAuthStore();
     const { id } = useParams();
     let navigate = useNavigate();
 
@@ -36,16 +35,21 @@ export const  UpdateForm = () => {
     }
 
     // Confirmar
-    const confirmar = () => {
+    const confirmar = async() => {
         values.contraseña = 'asdfgh123456';
         values.confirmacion_contraseña = 'asdfgh123456'
         let error = validarRegistro(values);
     
         if(error == '') {
-            startUpdate({nombre: values.nombre, primer_apellido: values.primer_apellido, segundo_apellido: values.segundo_apellido,
+            const respuesta = await startUpdate({nombre: values.nombre, primer_apellido: values.primer_apellido, segundo_apellido: values.segundo_apellido,
                 correo: values.correo, descripcion: values.descripcion, localidad: values.localidad, provincia: values.provincia,
                 codigo_postal: values.codigo_postal, direccion: values.direccion, nif: values.nif, telefono: values.telefono,
                 usuario: values.usuario, fecha_nacimiento: values.fecha_nacimiento});
+            if(respuesta[0 ] === ' ') {
+                Swal.fire('Error en la autenticación', respuesta , 'error');
+            } else {
+                navigate("/perfil/" + respuesta);
+            }
         }
         else {
             Swal.fire('Error en la autenticación', error, 'error');
@@ -60,7 +64,7 @@ export const  UpdateForm = () => {
     // Efectos
     useEffect(() => {
     const getUser = async () => {
-        const userreq = await getUserByiD(id);
+        const userreq = await getUserByiD(user.uid);
         
         const fecha = convertDateToForm(userreq.fecha_nacimiento);
         
@@ -71,15 +75,7 @@ export const  UpdateForm = () => {
     }, []);
 
     
-    useEffect(() => {
-        if(  errorMessage != '' && errorMessage != undefined) {
-          Swal.fire('Error en la autenticación', errorMessage, 'error');
-        }
-        if(  errorMessage== ''){
-            navigate('/');
-            window.location.reload(false);
-        }
-      }, [errorMessage])
+
   
     //const cambiar = (step) => {   
     if(values.length == 0) {

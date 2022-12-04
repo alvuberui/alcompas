@@ -6,6 +6,11 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
+import {
+  BrowserRouter as Router,
+  Link,
+  NavLink,
+}  from "react-router-dom";
 
 export const NavbarInvitado = () => {
   return (
@@ -26,18 +31,17 @@ export const NavbarInvitado = () => {
                 </Typography>
             </Box>
             <Box align='right' sx={{ flexGrow: 1, mr: 2, mt:0.5}}>
+              <NavLink style={{textDecoration: "none", color: "white"}}  to={'/auth/login'}>
                 <Typography  component="div"  >
                     Iniciar Sesión
                 </Typography>
+              </NavLink>
             </Box>
-            
-                <Typography  component="div"  sx={{  mr: 2, mt:0.5}} >
-                    o
-                </Typography>
+              <NavLink style={{textDecoration: "none", color: "white"}}  to={'/auth/register'}>
                 <Typography  component="div" sx={{ mt:0.5}}>
                     Crear Cuenta
                 </Typography>
-            
+              </NavLink>
         </Toolbar>
       </AppBar>
     </Box>

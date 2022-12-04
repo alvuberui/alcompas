@@ -23,11 +23,9 @@ export  function Buscador() {
     if(typeof event.target.value === 'number') {
       const parametro = options[event.target.value];
       navigate('/buscar/' + parametro.nombre);
-      window.location.reload(false);
     }
     else {
       navigate('/buscar/' + event.target.value);
-      window.location.reload(false);
     }
   }
 

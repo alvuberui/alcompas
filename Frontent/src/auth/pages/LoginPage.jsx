@@ -60,10 +60,18 @@ export const LoginPage = () => {
                 </Button>
               </Grid>
             </Grid>
-          <Grid container direction='row' justifyContent='end'>
-            <Link component={ RouterLink }color='inherit' to="/auth/register">
-              Crear una cuenta
-            </Link>
+          <Grid container direction='row' >
+            <Grid item  justifyContent='start'>
+              <Link component={ RouterLink } style={{textDecoration:"none", color:"black"}} color='inherit' to="/">
+                Volver al inicio
+              </Link>
+            </Grid>
+            
+            <Grid item  sx={{ ml:'20px' }} justifyContent='end'>
+              <Link component={ RouterLink } style={{textDecoration:"none", color:"black"}} color='inherit' to="/auth/register">
+                Crear una cuenta
+              </Link>
+            </Grid>
           </Grid>
 
         </Grid>

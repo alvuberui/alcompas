@@ -59,27 +59,16 @@ export const useAuthStore = () => {
     const startUpdate = async({ nombre, primer_apellido, segundo_apellido, correo, descripcion, localidad, provincia, codigo_postal, direccion, nif, telefono, usuario,fecha_nacimiento}) => {
         
         try{
-            
             const { data } = await alcompasAPI.put('/auth/update/' + user.uid, {nombre, primer_apellido, segundo_apellido, correo, descripcion, localidad, provincia, codigo_postal, direccion, nif, telefono, usuario,fecha_nacimiento});
             localStorage.setItem('token', data.token );
             localStorage.setItem('token-init-date', new Date().getTime());
             dispatch( onUpdate({ nombre: data.nombre, uid: data.uid }) );
-
+            return data.uid
         }catch (error) {
-            console.log(error)
-            let fallo = ''
-            const objetos = Object(error.response.data.errors); 
-            for(const objeto in objetos) {
-                let arreglo = objetos[objeto];
-                fallo = arreglo['msg'];
-                break;
-            }
-            
-            dispatch( onErrorUpdate(error.response.data?.msg || fallo));
-
-            setTimeout(()=> {
-                dispatch( ClearErrorMessage() );
-            }, 10);
+            let fallo = ' '
+            const objetos = error.response.data.msg; 
+            fallo = fallo + objetos;
+            return fallo;
             
         }
     }
@@ -91,7 +80,7 @@ export const useAuthStore = () => {
             localStorage.setItem('token', data.token );
             localStorage.setItem('token-init-date', new Date().getTime());
             dispatch( onUpdate({ nombre: data.nombre, uid: data.uid }) );
-
+            return data.usuarioModificado;
         }catch (error) {
             console.log(error)
             let fallo = ''

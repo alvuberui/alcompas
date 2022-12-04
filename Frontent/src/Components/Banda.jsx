@@ -15,9 +15,9 @@ export const Banda = ({ _id, nombre, tipo }) => {
         <Grid 
         item
         xs= { 10 }
-        sx={{ mt:'15px', maxWidth:'125vh', padding:2, backgroundColor:'white', borderRadius:'5px', border:1, borderColor:'gray', boxShadow:' 5px 5px 10px' }}
+        sx={{ mt:'15px', maxWidth:'125vh', padding:2, backgroundColor:'white', borderRadius:'5px', border:1, borderColor: 'white', boxShadow:' 1px 1px 1px 1px' }}
         >   
-            <NavLink style={{textDecoration: "none", color: "black"}}  to={`/bandas/${_id}`}>
+            <NavLink style={{textDecoration: "none", color: "black"}}  to={`/banda/${_id}`}>
             <Grid
             container
             display="flex"

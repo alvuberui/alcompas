@@ -33,7 +33,7 @@ export const MisBandas = ( titulo ) => {
         setBandas(userreq);  
       }
       getBandas();
-    }, []); 
+    }, [ nombre ]); 
   }
   
   return (
@@ -56,7 +56,7 @@ export const MisBandas = ( titulo ) => {
             <Grid 
             item
             xs= { 10 }
-            sx={{ padding:2, backgroundColor:'primary.main', borderRadius:'5px', boxShadow:' 5px 5px 30px' }}
+            sx={{ padding:2, backgroundColor:'primary.main', borderRadius:'5px', boxShadow:' 1px 1px 1px 1px' }}
             >
                 <Typography variant='h4' sx={{textAlign:'center', color:'white'}}>MIS BANDAS</Typography>
             </Grid>
@@ -65,7 +65,7 @@ export const MisBandas = ( titulo ) => {
                 <Grid 
                 item
                 xs= { 0.5 }
-                sx={{ ml:'15px', minWidth:'40px', backgroundColor:'primary.main', borderRadius:'5px', boxShadow:' 5px 5px 30px' }}
+                sx={{":hover":{} , ml:'15px', minWidth:'40px', backgroundColor:'primary.main', borderRadius:'5px', boxShadow:'1px 1px 1px 1px' }}
                 >
                     <Typography variant='h4' sx={{textAlign:'center', color:'white'}}>+</Typography>
                 </Grid>

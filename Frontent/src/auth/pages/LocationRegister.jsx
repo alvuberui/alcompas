@@ -73,11 +73,7 @@ export class LocationRegister extends Component {
                   </Button>
                 </Grid>
               </Grid>
-            <Grid container direction='row' justifyContent='end'>
-              <Link component={ RouterLink }color='inherit' to="/auth/login">
-                Iniciar sesión
-              </Link>
-            </Grid>
+   
   
           </Grid>
         </form>

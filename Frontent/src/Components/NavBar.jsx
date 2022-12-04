@@ -183,7 +183,7 @@ export const NavBar = () => {
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
         <Toolbar>
-            <a href='/'>
+            <NavLink style={{textDecoration: "none", color: "white"}}  to={"/"}>
               <img
                   src='/../../Resources/Imagenes/logo.png'
                   alt='logo'
@@ -192,8 +192,8 @@ export const NavBar = () => {
                   height={50}
                   style={{marginRight: 25 + 'px'}}
               />
-            </a>
-            <a href='/' style={{textDecoration:'none', color:'white'}}>
+            </NavLink>
+            <NavLink style={{textDecoration: "none", color: "white"}}  to={"/"}>
             <Typography
                 variant="h5"
                 noWrap
@@ -202,13 +202,13 @@ export const NavBar = () => {
             >
             AlCompás
           </Typography>
-          </a>
+          </NavLink>
           <Search>
             <Buscador></Buscador>
           </Search>
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-          <a href='/' style={{textDecoration:'none', color:'white'}}>
+          <NavLink style={{textDecoration: "none", color: "white"}}  to={"/"}>
           <Typography
                     variant="h6"
                     noWrap
@@ -217,7 +217,7 @@ export const NavBar = () => {
                 >
                 Inicio
             </Typography>
-            </a >
+          </NavLink>
             <Typography
                     variant="h6"
                     noWrap

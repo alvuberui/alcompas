@@ -47,8 +47,6 @@ export const Perfil = () => {
   const [user, setUser] = React.useState([]);
   let navigate = useNavigate();
 
-
-
   // Funciones y parámetros
   const  { startUpdatePassword, errorMessage, startDelete } = useAuthStore();
 
@@ -84,7 +82,8 @@ export const Perfil = () => {
       Swal.fire('Error al modificar contraseña', error, 'error');
     }
     else {
-      startUpdatePassword({contraseñaNueva: values.confirmarNueva});
+      const respuesta = startUpdatePassword({contraseñaNueva: values.confirmarNueva});
+      setOpen(false);
     }
   }
 
@@ -107,16 +106,6 @@ export const Perfil = () => {
     getUser();
   }, []);
 
-  useEffect(() => {
-    if(  errorMessage != '' && errorMessage != undefined) {
-      Swal.fire('Error en la autenticación', errorMessage, 'error');
-    }
-    if(  errorMessage== ''){
-        navigate('/perfil/'+ user._id);
-        window.location.reload(false);
-    }
-  }, [errorMessage])
-  
   return (
     <>
     <NavBar/>
