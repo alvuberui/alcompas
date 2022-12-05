@@ -234,15 +234,13 @@ export const PerfilBanda = () => {
               > 
                 { value === 2 &&
                 comentarios.map((comentario, index) =>
-                  <Comentario eliminar={eliminarComentario}
+                  <Instrumento eliminar={eliminarComentario}
                     { ...comentario }
                     key={index}
                   />
                 )}
             </Grid>
           </Grid>
-          
-
       </Grid>
     </>
   )

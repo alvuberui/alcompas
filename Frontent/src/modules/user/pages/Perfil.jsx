@@ -17,6 +17,9 @@ import {
   Link,
   NavLink,
 }  from "react-router-dom";
+import { Instrumento } from '../../../Components/Intrumento';
+import { AñadirInstrumentoModal } from '../';
+
 const style = {
   position: 'absolute',
   top: '50%',
@@ -44,7 +47,9 @@ export const Perfil = () => {
   const [value, setValue] = React.useState(0);
   const [values, setValues] = useState([]);
   const [open, setOpen] = React.useState(false);
+  const [openAñadir, setOpenAñadir] = React.useState(false);
   const [user, setUser] = React.useState([]);
+  const [instrumentos, setInstrumentos] = useState([]);
   let navigate = useNavigate();
 
   // Funciones y parámetros
@@ -94,6 +99,16 @@ export const Perfil = () => {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
+  const handleOpenAñadir = (event, newValue) => {
+    event.preventDefault();
+    setOpenAñadir(true);
+  };
+
+  const handleCloseAñadir = (event, newValue) => {
+    event.preventDefault();
+    setOpenAñadir(false);
+  };
+
   const { getUserByiD } = useAuthStore();
   const { id } = useParams();
 
@@ -103,12 +118,15 @@ export const Perfil = () => {
       const userreq = await getUserByiD(id);
       setUser(userreq);  
     }
+    const getInstrumentos = async () => {
+    }
     getUser();
   }, []);
 
   return (
     <>
     <NavBar/>
+    <AñadirInstrumentoModal open={openAñadir} handleClose={handleCloseAñadir} setOpen={setOpenAñadir} setInstrumentos={setInstrumentos}></AñadirInstrumentoModal>
     <div>
        
         <Modal
@@ -295,19 +313,37 @@ export const Perfil = () => {
         alignItems="baseline"
         >
           
-            <Box  xs={12}   sx={{ width: '95%', color:'white',  backgroundColor:'#262254', borderRadius:'5px' }}
-            >
-              <Tabs value={value} onChange={handleChange} textColor='inherit' centered>
-                <Tab label="Experiencias" />
-                <Tab label="Instrumentos" />
-                <Tab label="Estudios" />
-              </Tabs>
+          <Box  xs={12}   sx={{ width: '95%', color:'white',display:"flex", justifyContent: 'space-evenly', flexDirection:'column', backgroundColor:'#262254', borderRadius:'5px' }}>
+                  <Tabs value={value} onChange={handleChange} textColor='inherit' centered sx={{
+                    '& .MuiTabs-flexContainer': {
+                      flexWrap: 'wrap',
+                    }
+                  }}>
+                    <Tab label="Experiencias" />
+                    <Tab label="Instrumentos" />
+                    <Tab label="Estudios" />
+                  </Tabs>
+                  <Button color='secondary' onClick={handleOpenAñadir} sx={{ mx:'auto', mb:'5px', width:'20vh', maxWidth:'4opx', backgroundColor:'white', color:'black'}} variant='contained'>
+                      <Typography sx={{ fontWeight: 'bold' }} >AÑADIR</Typography>
+                  </Button>
             </Box>
-            
-
-          
         </Grid>
-
+        
+        <Grid 
+        container
+        sx = {{ mt: 3 }}
+        displey="flex"
+        justifyContent="center"
+        alignItems="center"
+        > 
+          { /*value === 1 &&
+            comentarios.map((comentario, index) =>
+            <Instrumento eliminar={eliminarComentario}
+            { ...comentario }
+            key={index}
+            />
+          )*/}
+        </Grid>
     </Grid>
     </>
   )

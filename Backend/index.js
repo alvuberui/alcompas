@@ -31,6 +31,7 @@ app.use( express.json() );
 * 5) Archiveros
 * 6) Peticiones
 * 7) Comentarios
+* 8) Instrumentos
 */
 app.use('/api/auth', require('./routes/auth'));
 app.use('/api/bandas', require('./routes/bandas'));
@@ -39,6 +40,7 @@ app.use('/api/musicos', require('./routes/musicos'));
 app.use('/api/archiveros', require('./routes/archiveros'));
 app.use('/api/peticiones', require('./routes/peticiones'));
 app.use('/api/comentarios', require('./routes/comentarios'));
+app.use('/api/instrumentos', require('./routes/instrumentos'));
 
 
 // Escuchar peticiones
