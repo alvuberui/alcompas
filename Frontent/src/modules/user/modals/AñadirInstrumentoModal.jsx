@@ -1,4 +1,4 @@
-import { Grid, Typography, Button, Checkbox, FormControlLabel, Box, Tabs, Tab } from '@mui/material';
+import { Grid, Typography, Button, Select, MenuItem, Checkbox, FormControlLabel, Box, Tabs, Tab } from '@mui/material';
 import Avatar from '@material-ui/core/Avatar';
 import * as React from 'react';
 import { NavBar } from '../../../Components';
@@ -35,33 +35,60 @@ const style = {
     alignContent:'center',
     justifyContent:'center'
 };
+const nombres = ['Corneta', 'Tambor', 'Bordonera', 'Caja', 'Bombo', 'Platos',
+                            'Percusionista', 'Tuba', 'Trombón', 'Bombardino', 'Trompa',
+                            'Fliscorno', 'Trompeta', 'Saxofón Alto', 'Saxofón Tenor', 
+                            'Saxofón Barítono', 'Clarinete', 'Flauta', 'Flautín', 'Oboe',
+                            'Fagot', 'Lira', 'Campana', 'Cascabeles', 'Batería', 'Xilófono',
+                            'Timbales', 'Campanilla', 'Clarinete Bajo', 'Requinto'];
 
-export const AñadirInstrumentoModal  = ( { open, handleClose, setInstrumentos, setOpen }) => {
+export const AñadirInstrumentoModal  = ( { open, handleClose, setInstrumentos, setOpen, editar, instrumentoId }) => {
 
-    const [instrumento, setInstrumento] = useState({instrumento:'', marca: '', modelo: '', numeroSerie: ''});
-    const [ isCreado, setIsCreado ] = useState(false);
+    // Estados
+    const [instrumento, setInstrumento] = useState({instrumento:'Corneta', marca: '', modelo: '', numeroSerie: ''});
 
-    const { crearInstrumentoUsuario, errores, setErrores } = useInstrumentosStore();
+    // Funciones
+    const { crearInstrumentoUsuario, errores, setErrores, getInstrumentosById,
+      editarInstrumentoUsuario } = useInstrumentosStore();
     const { user } = useAuthStore();
 
+    const validarInstrumento =  () => {
+      let error = "";
+      if(validarInstrumentos(instrumento.instrumento) === false) error = error + " El instrumento no es válido ";
+      if(instrumento.modelo.length > 50 ) error = error + " <br>  El modelo no puede contener más de 50 caracteres ";
+      if(instrumento.marca.length > 50 ) error = error + " <br>  La marca no puede contener más de 50 caracteres ";
+      if(instrumento.numeroSerie.length > 50 ) error = error + " <br>  El número de serie no puede contener más de 50 caracteres ";
 
+      return error;
+    }
+
+    const handleFormEditar = async e => {
+      e.preventDefault();
+      let error = validarInstrumento();
+      if(error != "") {
+        Swal.fire('Error al editar instrumento', error, 'error');
+      }
+      else {
+
+        const c = await editarInstrumentoUsuario( instrumento, user.uid, instrumentoId );
+        setInstrumentos( co => [...co, c]);
+        setInstrumento({instrumento:'Corneta', marca: '', modelo: '', numeroSerie: ''});
+        setOpen(false);
+      }
+    }
    
     const handleForm = async e => {
         e.preventDefault();
-        let error = "";
-        if(validarInstrumentos(instrumento.instrumento) === false) error = error + " El instrumento no es válido ";
-        if(instrumento.modelo.length > 50 ) error = error + " <br>  El modelo no puede contener más de 50 caracteres ";
-        if(instrumento.marca.length > 50 ) error = error + " <br>  La marca no puede contener más de 50 caracteres ";
-        if(instrumento.numeroSerie.length > 50 ) error = error + " <br>  El número de serie no puede contener más de 50 caracteres ";
+        let error = validarInstrumento();
 
         if(error != "") {
-          Swal.fire('Error al publicar comentario', error, 'error');
+          Swal.fire('Error al publicar instrumento', error, 'error');
         }
         else {
   
           const c = await crearInstrumentoUsuario( instrumento, user.uid );
           setInstrumentos( co => [...co, c]);
-          setInstrumento({instrumento:'', marca: '', modelo: '', numeroSerie: ''});
+          setInstrumento({instrumento:'Corneta', marca: '', modelo: '', numeroSerie: ''});
           setOpen(false);
         }
       }
@@ -81,6 +108,17 @@ export const AñadirInstrumentoModal  = ( { open, handleClose, setInstrumentos, 
         }
         
       }, [errores])
+
+      useEffect(() => {
+        const getInstrumento = async () => {
+          if( editar === true) {
+            const i = await getInstrumentosById(instrumentoId);
+            setInstrumento(i);
+          }
+        }
+        getInstrumento();
+      }, [editar])
+      
       
       
   return (
@@ -104,15 +142,20 @@ export const AñadirInstrumentoModal  = ( { open, handleClose, setInstrumentos, 
                     <Typography  sx={{ color:'white'}} >
                       Instrumento
                     </Typography>
-                    <TextField 
-                        sx={{ input: { color: 'white' }}}
-                        type="text"
-                        placeholder="Instrumento"
-                        fullWidth
-                        focused
-                        style={{ border: '1px solid #e2e2e1', borderRadius:'5px'}}
-                        onChange={handleChangeInput('instrumento')}
-                    />
+                    <Select
+                      style={{ color: 'white', border: '1px solid #e2e2e1' }}
+                      inputProps={{ style: { color: 'white' } }} 
+                      labelId="demo-simple-select-label"
+                      id="demo-simple-select"
+                      value={ instrumento.instrumento }
+                      label="Age"
+                      fullWidth
+                      onChange={handleChangeInput('instrumento')}
+                    >
+                      { nombres.map( (nombre, index) => (
+                        <MenuItem key={index} value={nombre}>{nombre}</MenuItem>
+                      ))}
+                    </Select>
                     </Grid>
                     <Grid item xs={ 12 } sx={{ mt: 2}}>
                     <Typography  sx={{ color:'white'}} >
@@ -125,6 +168,7 @@ export const AñadirInstrumentoModal  = ( { open, handleClose, setInstrumentos, 
                         placeholder="Marca"
                         fullWidth
                         focused
+                        value={ instrumento.marca }
                         style={{ border: '1px solid #e2e2e1', borderRadius:'5px'}}
                         onChange={handleChangeInput('marca')}
                         
@@ -137,6 +181,7 @@ export const AñadirInstrumentoModal  = ( { open, handleClose, setInstrumentos, 
                         inputProps={{ style: { color: 'white' } }}
                         type="text"
                         placeholder="Modelo"
+                        value={ instrumento.modelo }
                         fullWidth
                         focused
                         style={{ border: '1px solid #e2e2e1', borderRadius:'5px'}}
@@ -151,6 +196,7 @@ export const AñadirInstrumentoModal  = ( { open, handleClose, setInstrumentos, 
                         inputProps={{ style: { color: 'white' } }}
                         type="text"
                         placeholder="Número de serie"
+                        value={ instrumento.numeroSerie }
                         fullWidth
                         focused
                         style={{ border: '1px solid #e2e2e1', borderRadius:'5px'}}
@@ -159,9 +205,16 @@ export const AñadirInstrumentoModal  = ( { open, handleClose, setInstrumentos, 
                     </Grid>
                 </Grid>
                 <Box  sx={{mt:2, display:'flex', alignContent:'center', justifyContent:'center'}} >
+                    { editar === undefined &&
                       <Button color='secondary' sx={{ backgroundColor:'white', color:'black'}} variant='contained' onClick={handleForm}>
                         Crear instrumento
                       </Button>
+                    }
+                    { editar === true &&
+                      <Button color='secondary' sx={{ backgroundColor:'white', color:'black'}} variant='contained' onClick={handleFormEditar}>
+                        Editar instrumento
+                      </Button>
+                    } 
                 </Box>
             </form>
           </Box>

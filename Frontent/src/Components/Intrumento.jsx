@@ -8,15 +8,26 @@ import {
     NavLink,
   }  from "react-router-dom";
 import Swal from 'sweetalert2';
-export const Instrumento = ({ _id, titulo, texto, usuario, banda, fecha }, eliminar) => {
+import { useInstrumentosStore } from '../hooks/useInstrumentosStore';
+import { AñadirInstrumentoModal } from '../modules/user/';
+
+export const Instrumento = ({ _id, instrumento, marca, modelo, numeroSerie, usuario, setInstrumentos, eliminar }) => {
     // Estados
     const [ usuarioPet, setUsuario ] = useState([]);
-    const horas  = new Date(fecha).getHours() + ":" + new Date(fecha).getMinutes();
-    fecha = new Date(fecha).toLocaleDateString();
-    
+    const [ open, setOpen ] = useState(false);
     // Funciones
     const { getUserByiD } = useAuthStore();
-    const { eliminarComentario } = useComentariosStore();
+    const { eliminarInstrumento } = useInstrumentosStore();
+    
+
+    const handleOpenEditar = (event, newValue, editar) => {
+        event.preventDefault();
+        setOpen(true);
+    };
+    const handleCloseEditar = (event, newValue) => {
+        event.preventDefault();
+        setOpen(false);
+      };
 
     const handleElminar = e => {
         e.preventDefault();
@@ -32,7 +43,7 @@ export const Instrumento = ({ _id, titulo, texto, usuario, banda, fecha }, elimi
     .then(async resultado => {
         if (resultado.value) {
             // Hicieron click en "Sí"
-            const c = await eliminarComentario(_id);
+            const c = await eliminarInstrumento(_id);
             
             eliminar(_id);
         }
@@ -46,21 +57,23 @@ export const Instrumento = ({ _id, titulo, texto, usuario, banda, fecha }, elimi
             setUsuario(usuarioreq);  
         }
         getUsuario();
-    }, [ ]);
+    }, [open]);
 
   
   return (
+        
         <Grid 
         container
         sx={{ mt:'15px', maxWidth:'125vh', padding:2, backgroundColor:'white', borderRadius:'5px', border:1, borderColor:'white', boxShadow:' 1px 1px 1px 1px' }}
         >   
+            <AñadirInstrumentoModal  instrumentoId={_id} editar={open} open={open} handleClose={handleCloseEditar} setOpen={setOpen} setInstrumentos={setInstrumentos}></AñadirInstrumentoModal>
             <Grid
             container
             display="flex"
             justifyContent="center"
             alignItems="baseline">
                 <>
-                    <Typography variant='h6' sx={{fontWeight: 'bold', textAlign:'center', color:'black'}}>{titulo} </Typography>
+                    <Typography variant='h6' sx={{fontWeight: 'bold', textAlign:'center', color:'black'}}>{instrumento} </Typography>
                 </>
             </Grid>
             <Grid
@@ -73,10 +86,15 @@ export const Instrumento = ({ _id, titulo, texto, usuario, banda, fecha }, elimi
                 >   
                     <div>
                         <Typography style={{display: 'inline-block'}}>
-                            <NavLink style={{textDecoration: "none", fontWeight:'bold', color: "black"}}  to={`/perfil/${usuarioPet._id}`}>
-                                @{usuarioPet.usuario}: &nbsp;
-                            </NavLink>
-                            "{ texto }"
+                            <b>Marca:</b> { marca || 'No especificado' }
+                        </Typography>
+                        <br></br>
+                        <Typography style={{display: 'inline-block'}}>
+                            <b>Modelo:</b> {modelo || 'No especificado'}
+                        </Typography>
+                        <br></br>
+                        <Typography style={{display: 'inline-block'}}>
+                            <b>Número de serie:</b> {numeroSerie || 'No especificado'}
                         </Typography>
                     </div>
                 </Grid> 
@@ -89,10 +107,10 @@ export const Instrumento = ({ _id, titulo, texto, usuario, banda, fecha }, elimi
                 alignItems="baseline"
                 >   
                     <div>
-                        <Typography style={{display: 'inline-block', fontSize:'13px'}}>
-                            { fecha} a las { horas } horas
-                        </Typography>
-                        <Button color='primary' onClick={handleElminar} sx={{ml:'40px'}} variant='contained'>
+                        <Button color='primary' onClick={handleOpenEditar}  sx={{mr:'5px'}} variant='contained'>
+                            <Typography sx={{ fontWeight: 'bold', fontSize:'12px' }} >Editar</Typography>
+                        </Button>
+                        <Button color='primary' onClick={handleElminar} sx={{ml:'5px'}} variant='contained'>
                             <Typography sx={{ fontWeight: 'bold', fontSize:'12px' }} >Eliminar</Typography>
                         </Button>
                     </div>

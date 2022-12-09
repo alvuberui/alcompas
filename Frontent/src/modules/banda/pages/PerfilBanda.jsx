@@ -219,9 +219,11 @@ export const PerfilBanda = () => {
                     <Tab label="Plantilla" />
                     
                   </Tabs>
-                  <Button color='secondary' onClick={handleOpen} sx={{ mx:'auto', mb:'5px', width:'20vh', maxWidth:'4opx', backgroundColor:'white', color:'black'}} variant='contained'>
-                      <Typography sx={{ fontWeight: 'bold' }} >+</Typography>
-                  </Button>
+                  { value === 2 &&
+                    <Button color='secondary' onClick={handleOpen} sx={{ mx:'auto', mb:'5px', width:'20vh', maxWidth:'4opx', backgroundColor:'white', color:'black'}} variant='contained'>
+                        <Typography sx={{ fontWeight: 'bold' }} >+</Typography>
+                    </Button>
+                  }
                 </Box>
                 
             </Grid>

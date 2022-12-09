@@ -6,6 +6,26 @@ export const useInstrumentosStore = () => {
 
     const [ errores, setErrores ] = useState([]); 
 
+    const getInstrumentosByUserId = async(userId) => {
+        try {
+            const { data } = await alcompasAPI.get('instrumentos/instrumentosByUserId/' + userId);
+            const instrumentos = data.instrumentos;
+            return instrumentos;
+        } catch(error) {
+            console.log('Error cargando instrumentos');
+        }
+    }
+
+    const getInstrumentosById = async(instrumentoId) => {
+        try {
+            const { data } = await alcompasAPI.get('instrumentos/instrumentosById/' + instrumentoId);
+            const instrumento = data.instrumento;
+            return instrumento;
+        } catch(error) {
+            console.log('Error cargando instrumento');
+        }
+    }
+
     const crearInstrumentoUsuario = async(instrumentoNuevo, userId) => {
         try {
             instrumentoNuevo.usuario = userId;
@@ -23,6 +43,35 @@ export const useInstrumentosStore = () => {
         }
     }
 
+    const editarInstrumentoUsuario = async(instrumentoNuevo, userId, instrumentoId) => {
+        try {
+            instrumentoNuevo.usuario = userId;
+            console.log(instrumentoId)
+            const { data } = await alcompasAPI.put('instrumentos/usuario/' + instrumentoId, instrumentoNuevo);
+            const instrumento = data.instrumentoActualizado;
+            return instrumento;
+        } catch(error) {
+            console.log(error)
+            const erroresObj = error.response.data.errors;
+            let res = [];
+            
+            for(const error in erroresObj) {
+                res.push(erroresObj[error].msg);7
+            }
+            setErrores(res);
+        }
+    }
+
+    const eliminarInstrumento = async(instrumentoId) => {
+        try {
+            const { data } = await alcompasAPI.delete('instrumentos/' + instrumentoId);
+            return data.instrumento
+        } catch(error) {
+            console.log('Error eliminando instrumento');
+         
+        }
+    }
+
 
 
     return {
@@ -31,5 +80,9 @@ export const useInstrumentosStore = () => {
         // Métodos
         setErrores,
         crearInstrumentoUsuario,
+        getInstrumentosByUserId,
+        eliminarInstrumento,
+        getInstrumentosById,
+        editarInstrumentoUsuario
     }
 }

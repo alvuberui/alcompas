@@ -10,11 +10,9 @@ export const useComentariosStore = () => {
         try {
             const { data } = await alcompasAPI.get('comentarios/' + bandaId);
             const comentarios = data.comentarios;
-            
             return comentarios;
         } catch(error) {
             console.log('Error cargando comentarios');
-            console.log(error)
         }
     }
 
