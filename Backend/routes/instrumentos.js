@@ -13,7 +13,7 @@ router.use( validarJWT, validarCampos);
     // Obtener instrumentos de un usuario
 router.get('/instrumentosByUserId/:userId', getInstrumentosByUserId);
 
-    // Obtener instrumentos de un usuario
+    // Obtener instrumento
 router.get('/instrumentosById/:instrumentoId', getinstrumentosById);
 
     // Crear instrumento usuario

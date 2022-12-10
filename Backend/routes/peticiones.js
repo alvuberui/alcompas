@@ -24,9 +24,9 @@ router.put('/rechazar/:id/:userId', rechazarPeticion);
 router.post('/',
     [
         check('rol', 'El rol no es válido').notEmpty().custom( value => {
-            const condicion1 = rol == 'Presidente';
-            const condicion2 = rol == 'Archivero';
-            const condicion3 = rol == 'Músico'
+            const condicion1 = value == 'Presidente';
+            const condicion2 = value == 'Archivero';
+            const condicion3 = value == 'Músico'
 
             if(!condicion1 && !condicion2 && !condicion3) {
                 throw new Error("El rol no es válido");
@@ -59,6 +59,7 @@ router.post('/',
                     throw new Error("La voz no es válida");
                 }
             }
+            return true;
         }),
         check('usuario', 'El usuario es obligatorio').isMongoId(),
         check('banda', 'La banda es obligatoria').isMongoId(),

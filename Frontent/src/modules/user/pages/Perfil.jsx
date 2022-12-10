@@ -17,9 +17,9 @@ import {
   Link,
   NavLink,
 }  from "react-router-dom";
-import { Instrumento } from '../../../Components/Intrumento';
-import { AñadirInstrumentoModal } from '../';
-import { useInstrumentosStore } from '../../../hooks/useInstrumentosStore';
+import { Instrumento, Estudio } from '../../../Components';
+import { AñadirEstudioModal, AñadirInstrumentoModal } from '../';
+import { useInstrumentosStore, useEstudiosStore } from '../../../hooks';
 
 const style = {
   position: 'absolute',
@@ -49,13 +49,16 @@ export const Perfil = () => {
   const [values, setValues] = useState([]);
   const [open, setOpen] = React.useState(false);
   const [openAñadir, setOpenAñadir] = React.useState(false);
+  const [ openEstudio, setOpenEstudio ] = React.useState(false);
   const [user, setUser] = React.useState([]);
   const [instrumentos, setInstrumentos] = useState([]);
+  const [ estudios, setEstudios ] = useState([]);
   let navigate = useNavigate();
 
   // Funciones y parámetros
   const  { startUpdatePassword, errorMessage, startDelete } = useAuthStore();
   const  { getInstrumentosByUserId } = useInstrumentosStore();
+  const  { getEstudiosByUserId } = useEstudiosStore();
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -106,15 +109,32 @@ export const Perfil = () => {
     setOpenAñadir(true);
   };
 
+  const handleOpenEstudio = (event, newValue, editar) => {
+    event.preventDefault();
+    setOpenEstudio(true);
+  };
+
   const handleCloseAñadir = (event, newValue) => {
     event.preventDefault();
     setOpenAñadir(false);
+  };
+
+  const handleCloseEstudio = (event, newValue) => {
+    event.preventDefault();
+    setOpenEstudio(false);
   };
 
   const eliminarInstrumento = (instrumentoId) => {
     // "current" contains the latest state array
     setInstrumentos((current) =>
       current.filter((c) => c.id !== instrumentoId)
+    );
+  };
+
+  const eliminarEstudio = (estudioId) => {
+    // "current" contains the latest state array
+    setEstudios((current) =>
+      current.filter((c) => c.id !== estudioId)
     );
   };
 
@@ -131,14 +151,20 @@ export const Perfil = () => {
       const instrumentos = await getInstrumentosByUserId(id);
       setInstrumentos(instrumentos);
     }
+    const getEstudios = async () => {
+      const estudios = await getEstudiosByUserId(id);
+      setEstudios(estudios);
+    }
     getUser();
     getInstrumentos();
-  }, [instrumentos]);
+    getEstudios();
+  }, [instrumentos, estudios]);
 
   return (
     <>
     <NavBar/>
     <AñadirInstrumentoModal  open={openAñadir} handleClose={handleCloseAñadir} setOpen={setOpenAñadir} setInstrumentos={setInstrumentos}></AñadirInstrumentoModal>
+    <AñadirEstudioModal  open={openEstudio} handleClose={handleCloseEstudio} setOpen={setOpenEstudio} setEstudios={setEstudios}></AñadirEstudioModal>
     <div>
        
         <Modal
@@ -342,6 +368,11 @@ export const Perfil = () => {
                               <Typography sx={{ fontWeight: 'bold' }} >AÑADIR</Typography>
                           </Button>
                         }
+                        { value === 0 &&
+                          <Button color='secondary' onClick={handleOpenEstudio} sx={{ mx:'auto', mb:'5px', width:'20vh', maxWidth:'4opx', backgroundColor:'white', color:'black'}} variant='contained'>
+                              <Typography sx={{ fontWeight: 'bold' }} >AÑADIR</Typography>
+                          </Button>
+                        }
                   </Box>
             </Grid>
             <Grid 
@@ -351,6 +382,16 @@ export const Perfil = () => {
             justifyContent="center"
             alignItems="center"
             > 
+              { value === 0 &&
+                estudios.map((estudio, index) =>
+                <Estudio 
+                { ...estudio }
+                key={index}
+                eliminar={eliminarEstudio}
+                setEstudios={setEstudios}
+                />
+              )}
+
               { value === 1 &&
                 instrumentos.map((instrumento, index) =>
                 <Instrumento 

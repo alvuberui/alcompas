@@ -46,7 +46,6 @@ export const useInstrumentosStore = () => {
     const editarInstrumentoUsuario = async(instrumentoNuevo, userId, instrumentoId) => {
         try {
             instrumentoNuevo.usuario = userId;
-            console.log(instrumentoId)
             const { data } = await alcompasAPI.put('instrumentos/usuario/' + instrumentoId, instrumentoNuevo);
             const instrumento = data.instrumentoActualizado;
             return instrumento;

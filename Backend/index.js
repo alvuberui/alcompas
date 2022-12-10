@@ -13,9 +13,6 @@ dbConnection();
 // CORS
 app.use(cors());
 
-
-
-
 // Directorio público
 app.use( express.static('public') );
 
@@ -32,6 +29,7 @@ app.use( express.json() );
 * 6) Peticiones
 * 7) Comentarios
 * 8) Instrumentos
+* 9) Estudios
 */
 app.use('/api/auth', require('./routes/auth'));
 app.use('/api/bandas', require('./routes/bandas'));
@@ -41,7 +39,7 @@ app.use('/api/archiveros', require('./routes/archiveros'));
 app.use('/api/peticiones', require('./routes/peticiones'));
 app.use('/api/comentarios', require('./routes/comentarios'));
 app.use('/api/instrumentos', require('./routes/instrumentos'));
-
+app.use('/api/estudios', require('./routes/estudios'));
 
 // Escuchar peticiones
 app.listen( process.env.PORT, () => {
