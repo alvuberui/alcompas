@@ -20,23 +20,23 @@ export const Comentario = ({ _id, titulo, texto, usuario, banda, fecha }, elimin
 
     const handleElminar = e => {
         e.preventDefault();
-    Swal
-    .fire({
-        title: "¿Está seguro de que desea eliminar su comentario?",
-        text: "Esta acción será irreversible y no podrá recuperarlo",
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonText: "Sí, eliminar",
-        cancelButtonText: "Cancelar",
-    })
-    .then(async resultado => {
-        if (resultado.value) {
-            // Hicieron click en "Sí"
-            const c = await eliminarComentario(_id);
-            
-            eliminar(_id);
-        }
-    });
+        Swal
+        .fire({
+            title: "¿Está seguro de que desea eliminar su comentario?",
+            text: "Esta acción será irreversible y no podrá recuperarlo",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: "Sí, eliminar",
+            cancelButtonText: "Cancelar",
+        })
+        .then(async resultado => {
+            if (resultado.value) {
+                // Hicieron click en "Sí"
+                const c = await eliminarComentario(_id);
+                
+                eliminar(_id);
+            }
+        });
     }
 
     // Efectos

@@ -4,7 +4,8 @@ const { check } = require('express-validator');
 
 
 
-const { crearUsuario, revalidarToken, loginUsuario, getById, cambiarDatos, modificarContraseña,deleteById } = require('../controllers/auth');
+const { crearUsuario, revalidarToken, loginUsuario, getById, cambiarDatos, modificarContraseña, deleteById,
+        getAll, getByUsername } = require('../controllers/auth');
 const { validarCampos } = require('../middlewares/validar-campos');
 const { validarJWT } = require('../middlewares/validar-jwt');
 // Aquí se configuran todas las subrutas de /api/auth
@@ -108,6 +109,16 @@ router.get('/renew', validarJWT , revalidarToken);
 * Este middelware es para obtener un usuario a través de su id
 */
 router.get('/:id', validarJWT , getById);
+
+/*
+* Este middelware es para obtener un usuario a través de su id
+*/
+router.get('/', validarJWT , getAll);
+
+/*
+* Este middelware obtiene el usuario a partir de su username
+*/
+router.get('/getByUsername/:username', validarJWT , getByUsername);
 
 /*
 * Este middelware es para obtener un usuario a través de su id

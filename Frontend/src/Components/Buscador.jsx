@@ -18,15 +18,10 @@ export  function Buscador() {
   const { getBandas } = useBandasStore();
   let navigate = useNavigate();
 
-  const handleChange = (event) => {
+  const handleChange = (event, values) => {
     event.preventDefault();
-    if(typeof event.target.value === 'number') {
-      const parametro = options[event.target.value];
-      navigate('/buscar/' + parametro.nombre);
-    }
-    else {
-      navigate('/buscar/' + event.target.value);
-    }
+    navigate('/buscar/' + values.nombre);
+    
   }
 
   React.useEffect(() => {

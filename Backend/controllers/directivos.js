@@ -190,9 +190,31 @@ const getDirectivoById = async(req, res = express.response) => {
     }
 }
 
+const getDirectivoByUserId = async(req, res = express.response) => {
+    try {
+        const usuarioId = req.params.id;
+        const directivo = await Directivo.find({'usuario': usuarioId});
+
+        res.status(201).json({
+            ok: true,
+            directivo
+        });
+
+    } catch (error) {
+        console.log(error)
+        res.status(500).json({
+            ok: false,
+            msg: 'Por favor hable con el administrador.'
+        });
+    }
+}
+
+
+
 module.exports = {
     crearDirectivo,
     finalizarDirectivo,
     eliminarDirectivos,
-    getDirectivoById
+    getDirectivoById,
+    getDirectivoByUserId
 }

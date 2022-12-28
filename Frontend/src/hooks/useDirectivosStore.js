@@ -15,8 +15,20 @@ export const useDirectivosStore = () => {
         }
     }
 
+    const getDirectivoByUserId = async(userId) => {
+        try {
+            const { data } = await alcompasAPI.get('directivos/byUserId/' + userId);
+            const directivo = data.directivo;
+            
+            return directivo;
+        } catch(error) {
+            console.log('Error cargando directivos');
+        }
+    }
+
     return {
         // Métodos
         getDirectivoById,
+        getDirectivoByUserId
     }
 }

@@ -267,6 +267,38 @@ const deleteById = async(req, res = express.response) => {
     
 }
 
+const getAll = async(req, res = express.response) => {
+    try {
+        const usuarios = await Usuario.find();
+        res.json({
+            ok: true,
+            usuarios
+        });
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({
+            ok: false,
+            msg: 'Por favor hable con el administrador'
+        });
+    }
+}
+
+const getByUsername = async(req, res = express.response) => {
+    try {
+        const username = req.params.username;
+        const usuario = await Usuario.find({usuario: username});
+        res.json({
+            ok: true,
+            usuario
+        });
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({
+            ok: false,
+            msg: 'Por favor hable con el administrador'
+        });
+    }
+}
 module.exports = {
     crearUsuario,
     loginUsuario,
@@ -274,5 +306,7 @@ module.exports = {
     getById,
     cambiarDatos,
     modificarContraseña,
-    deleteById
+    deleteById,
+    getAll,
+    getByUsername
 }

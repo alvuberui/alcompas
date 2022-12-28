@@ -36,26 +36,23 @@ const crearMusico = async(req, res = express.response) => {
 
 const finalizarMusico = async(req, res = express.response) => { 
     try {
-        const usuarioId = req.uid;
-        const roles_musico = await Musico.find({'usuario': usuarioId});
-        condicion = false;
-        for(i=0; i < roles_musico.length; i++) {
-            rol = roles_musico[i];
-            console.log(rol.fecha_final)
-            if(!rol.fecha_final) {
-                const fecha_final = new Date();
-                rol.fecha_final = fecha_final;
-                const rolDB = await rol.save();
-                
-                return res.status(201).json({
-                    ok: true,
-                    rolDB
-                });
-            }
+        const userId = req.params.userId;
+        const bandaId = req.params.bandaId;
+        const musico = await Musico.find({'usuario': userId, 'banda': bandaId});
+
+        if(!musico) {   
+            return res.status(404).json({
+                ok: false,
+                msg: 'No existe un músico con ese id'
+            });
         }
-        return res.status(400).json({
-            ok: false,
-            msg: 'No hay ningún rol musico sin finalizar'
+
+        musico.fecha_final = new Date();
+        const musicoDB = await musico.save();
+        
+        res.status(201).json({
+            ok: true,
+            musicoDB,
         });
     } catch (error) {
         console.log(error)

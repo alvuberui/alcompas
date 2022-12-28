@@ -11,7 +11,11 @@ import { alpha, styled } from '@mui/material/styles';
 import { pink } from '@mui/material/colors';
 import Swal from 'sweetalert2';
 import { useNavigate } from 'react-router-dom';
-
+import {
+  BrowserRouter as Router,
+  Link,
+  NavLink,
+}  from "react-router-dom";
 import { Comentario } from '../../../Components/Comentario';
 import { NuevoComentario } from '../modals/NuevoComentario';
 
@@ -45,6 +49,27 @@ export const PerfilBanda = () => {
       current.filter((c) => c.id !== comentarioId)
     );
   };
+
+  const handleAbadonarBanda = e => {
+    e.preventDefault();
+    Swal
+    .fire({
+        title: "¿Está seguro de que desea deja la banda?",
+        text: "Esta acción será irreversible",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: "Sí, abandonar banda",
+        cancelButtonText: "Cancelar",
+    })
+    .then(async resultado => {
+        if (resultado.value) {
+            // Hicieron click en "Sí"
+            const c = await eliminarComentario(_id);
+            
+            //Redireccionar al inicio
+        }
+    });
+  }
 
 
   
@@ -187,6 +212,13 @@ export const PerfilBanda = () => {
             >
               <Typography  sx={{textAlign: 'center'}} variant='h6'>{banda.descripcion}</Typography> 
             </Grid>
+
+            <Box textAlign='center' sx={{mt:2}}>
+              <Button  variant='contained' align="center" onClick={handleAbadonarBanda} >Abandonar Banda</Button>
+            </Box>
+            <Box textAlign='center' sx={{mt:2}}>
+              <Button  variant='contained' align="center" ><NavLink style={{textDecoration: "none", color: "white"}}  to={`/banda/panel/${ banda._id }`}>Panel Directivo</NavLink></Button>
+            </Box>
             
             
           </Grid>
@@ -236,7 +268,7 @@ export const PerfilBanda = () => {
               > 
                 { value === 2 &&
                 comentarios.map((comentario, index) =>
-                  <Instrumento eliminar={eliminarComentario}
+                  <Comentario eliminar={eliminarComentario}
                     { ...comentario }
                     key={index}
                   />

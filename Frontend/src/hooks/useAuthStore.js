@@ -167,12 +167,37 @@ export const useAuthStore = () => {
         }
     }
 
+    /*
+    *  Obtiene todos los usuarios
+    */
+    const getAllUsers = async() => {
+        try {
+            const { data } = await alcompasAPI.get('auth');
+            const usuarios = data.usuarios;
+            return usuarios;
+        } catch(error) {
+            console.log('Error cargando usuarios');
+        }
+    }
+
+    /*
+    *  Obtiene el usuario a partir de su username
+    */
+    const getUserByUsername = async(username) => {
+        try {
+            const { data } = await alcompasAPI.get('auth/getByUsername/' + username);
+            const usuario = data.usuario;
+            return usuario;
+        } catch(error) {
+            console.log('Error cargando usuario');
+        }
+    }
+
     return {
         // Propiedades
         status, 
         user, 
         errorMessage,
-
 
         // Métodos
         startLogin,
@@ -182,6 +207,8 @@ export const useAuthStore = () => {
         getUserByiD,
         startUpdate,
         startUpdatePassword,
-        startDelete
+        startDelete,
+        getAllUsers,
+        getUserByUsername
     }
 }

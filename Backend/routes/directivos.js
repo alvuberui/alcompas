@@ -2,7 +2,7 @@ const { Router }= require('express');
 const router = Router();
 const { check } = require('express-validator');
 
-const { crearDirectivo, finalizarDirectivo, eliminarDirectivos, getDirectivoById } = require('../controllers/directivos');
+const { crearDirectivo, finalizarDirectivo, eliminarDirectivos, getDirectivoById, getDirectivoByUserId } = require('../controllers/directivos');
 const { validarCampos } = require('../middlewares/validar-campos');
 const { validarJWT } = require('../middlewares/validar-jwt');
 
@@ -41,5 +41,10 @@ router.delete('/:id', eliminarDirectivos);
 
     // Obtener un directivo a través de su id
 router.get('/:id', getDirectivoById);
+
+    // Obtener un directivo a través de su userId
+router.get('/byUserId/:id', getDirectivoByUserId);
+
+
 
 module.exports = router;

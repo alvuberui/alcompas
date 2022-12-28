@@ -2,29 +2,33 @@
 import { Grid, Typography, Button, Box } from '@mui/material';
 import { useBandasStore, useDirectivosStore, useAuthStore, usePeticionesStore } from '../hooks';
 import { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
+import { margin } from '@mui/system';
 
 export const Peticion = ({ _id, estado, instrumento, mensaje, rol, voz, cargo, banda, usuario,  directivo, fecha }) => {
     // Estados
     const [ banda_nombre, setBanda ] = useState([]);
     const [ directivo_nombre, setDirectivo_nombre ] = useState([]);
+    const { id } = useParams();
+    const [ fechaLocal, setFechaLocal ] = useState();
     
-
+    
     // Funciones
     const { getBandaById } = useBandasStore();
     const { getDirectivoById } = useDirectivosStore();
-    const { getUserByiD } = useAuthStore();
+    const { getUserByiD, user } = useAuthStore();
     const { aceptarPeticion, rechazarPeticion } = usePeticionesStore();
 
     const handleButtonAceptar = (event)  => {
         event.preventDefault();
-        aceptarPeticion(_id);
-        window.location.reload(false);
+        const peticion = aceptarPeticion(_id);
+        estado = 'Aceptada';
     };
 
     const handleButtonRechazar = (event)  => {  
         event.preventDefault();
         rechazarPeticion(_id);
-        window.location.reload(false);
+        estado = 'Rechazada';
     };
 
     // Efectos
@@ -38,10 +42,15 @@ export const Peticion = ({ _id, estado, instrumento, mensaje, rol, voz, cargo, b
             const usuarioreq = await getUserByiD(directivoreq.usuario);
             setDirectivo_nombre(usuarioreq)
         }
+        const convertirFecha = () => {
+            const fechaConvertida = new Date(fecha);
+            setFechaLocal( fechaConvertida.toLocaleDateString());
+        }
         
 
         getBanda();
         getDirectivo();
+        convertirFecha();
     }, []);
     
   return (
@@ -55,7 +64,7 @@ export const Peticion = ({ _id, estado, instrumento, mensaje, rol, voz, cargo, b
             justifyContent="center"
             alignItems="baseline">
                 <>
-                    <Typography variant='h6' sx={{fontWeight: 'bold', textAlign:'center', color:'black', textDecoration: 'underline'}}>{banda_nombre}</Typography>
+                    <Typography variant='h6' sx={{fontWeight: 'bold', textAlign:'center', color:'black', textDecoration: 'underline'}}>{banda_nombre.nombre}</Typography>
                 </>
             </Grid>
             <Grid
@@ -68,18 +77,18 @@ export const Peticion = ({ _id, estado, instrumento, mensaje, rol, voz, cargo, b
                 sx={{ padding:2 }}
                 >   
                     <div>
-                        <Typography style={{display: 'inline-block', fontWeight: 'bold'}}>Fecha: <Typography  style={{display: 'inline-block'}}> { fecha }</Typography></Typography>
+                        <Typography style={{display: 'inline-block'}}> <b>Fecha:</b>  { fechaLocal }</Typography>
                     </div>
                     <div>
-                        <Typography style={{display: 'inline-block', fontWeight: 'bold'}}>Estado: <Typography style={{display: 'inline-block'}}>{ estado } </Typography>   </Typography>
+                        <Typography style={{display: 'inline-block'}}><b>Estado:</b> { estado }  </Typography>
                     </div>
                     <div>
-                        <Typography style={{display: 'inline-block', fontWeight: 'bold'}}>Rol: <Typography style={{display: 'inline-block'}}>{ rol }</Typography>   </Typography>
+                        <Typography style={{display: 'inline-block'}}><b>Rol:</b> { rol }  </Typography>
                     </div>
                     {
                         cargo &&
                         <div>
-                                <Typography style={{display: 'inline-block', fontWeight: 'bold'}}>Instrumento: <Typography style={{display: 'inline-block'}}> { instrumento } </Typography></Typography>
+                                <Typography style={{display: 'inline-block'}}><b>Instrumento:</b> { instrumento } </Typography>
                         </div>
                         
                     }
@@ -87,17 +96,17 @@ export const Peticion = ({ _id, estado, instrumento, mensaje, rol, voz, cargo, b
                     {
                         instrumento &&
                             <div>
-                                <Typography style={{display: 'inline-block', fontWeight: 'bold'}}>Instrumento: <Typography style={{display: 'inline-block'}}> { instrumento } </Typography></Typography>
+                                <Typography style={{display: 'inline-block'}}><b>Instrumento:</b> { instrumento } </Typography>
                             </div>
                         
                     }
                     {   voz &&
                         <div>
-                            <Typography style={{display: 'inline-block', fontWeight: 'bold'}}>Voz: <Typography style={{display: 'inline-block'}}>{ voz } </Typography></Typography>
+                            <Typography style={{display: 'inline-block'}}><b>Voz:</b> { voz }</Typography>
                         </div>
                     }
                     <div>
-                        <Typography style={{display: 'inline-block', fontWeight: 'bold'}}>Directivo: <Typography style={{display: 'inline-block'}}>{ directivo_nombre.nombre} { directivo_nombre.primer_apellido} { directivo_nombre.segundo_apellido}</Typography></Typography>
+                        <Typography style={{display: 'inline-block'}}><b>Directivo:</b> { directivo_nombre.nombre} { directivo_nombre.primer_apellido} { directivo_nombre.segundo_apellido}</Typography>
                     </div>
                 </Grid>
                 <Grid 
@@ -107,14 +116,11 @@ export const Peticion = ({ _id, estado, instrumento, mensaje, rol, voz, cargo, b
                     sx={{ padding:2 }}
                     >   
                         <Box>
-                            <Typography style={{ fontWeight: 'bold'}}>Mensaje:</Typography>
-                        </Box>
-                        <Box>
-                            <Typography > {mensaje}   </Typography>
-                        </Box>
+                            <Typography ><b>Mensaje:</b> { mensaje } </Typography>
+                        </Box> 
                 </Grid>
                 </Grid>
-            { estado == 'Pendiente' &&
+            { estado == 'Pendiente' && user.uid == usuario &&
                 <Grid
                 container
                 display="flex"
@@ -122,7 +128,7 @@ export const Peticion = ({ _id, estado, instrumento, mensaje, rol, voz, cargo, b
                 alignItems="baseline"
                 sx={{mt:'5px'}}>
                     <Button onClick={handleButtonAceptar} sx={{mr:'20px'}} variant='contained' align="center" >Aceptar</Button>
-                    <Button  onClick={handleButtonRechazar} variant='contained' align="center" href="/auth/register">Denegar</Button>
+                    <Button onClick={handleButtonRechazar} variant='contained' align="center" >Denegar</Button>
                 </Grid>
             }
         </Grid>
