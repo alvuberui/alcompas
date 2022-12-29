@@ -67,7 +67,7 @@ const crearPeticion = async(req, res = express.response) => {
         if(peticion.rol == 'Directivo') {
             const roles = await Directivo.find({"usuario": usuarioId, "banda": bandaId});
             for(const rol of roles) {
-                if(!rol.fecha_final  && rol.cargo === peticion.cargo) {
+                if( rol.fecha_final === undefined) {
                     return res.status(400).json({
                         ok: false, 
                         msg: 'El usuario ya tiene este rol en la banda'
@@ -89,7 +89,7 @@ const crearPeticion = async(req, res = express.response) => {
         if(peticion.rol == 'Archivero') {
             const roles = await Archivero.find({"usuario": usuarioId, "banda": bandaId});
             for(const rol of roles) {
-                if(!rol.fecha_final ) {
+                if( rol.fecha_final === undefined ) {
                     return res.status(400).json({
                         ok: false,
                         msg: 'El usuario ya tiene este rol en la banda'

@@ -25,9 +25,21 @@ export const useDirectivosStore = () => {
         }
     }
 
+    const abandonarBandaDirectivo = async(bandaId, usuarioId) => {
+        try {
+            const { data } = await alcompasAPI.put('directivos/finalizar/' + usuarioId + '/' + bandaId);
+            const directivo = data.directivoDB;
+            
+            return directivo;
+        } catch(error) {
+            console.log('Error finalizando directivo');
+        }
+    }
+
     return {
         // Métodos
         getDirectivoById,
-        getDirectivoByUserId
+        getDirectivoByUserId,
+        abandonarBandaDirectivo
     }
 }

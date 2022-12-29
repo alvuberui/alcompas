@@ -34,7 +34,7 @@ router.post(
     crearDirectivo);
 
     // Finalizar rol de directivo
-router.put('/:id', finalizarDirectivo);
+router.put('/finalizar/:userId/:bandaId', finalizarDirectivo);
 
     // Eliminar todos los roles de directivo de un usuario
 router.delete('/:id', eliminarDirectivos);

@@ -117,30 +117,32 @@ const crearDirectivo = async(req, res = express.response) => {
 }
 
 const finalizarDirectivo = async(req, res = express.response) => { 
-    const directivoId = req.params.id;
     try {
-        let directivo_antiguo = await Directivo.findById(directivoId);
-        const bandaId = directivo_antiguo.banda;
-        const roles_directivos = await Directivo.find({'banda': bandaId});
-        const directivos_actuales = [];
+        const userId = req.params.userId;
+        const bandaId = req.params.bandaId;
+        const directivo = await Directivo.find({'usuario': userId, 'banda': bandaId, 'fecha_final': undefined});
+        
+        if(!directivo) {   
+            return res.status(404).json({
+                ok: false,
+                msg: 'No existe un directivo con ese id'
+            });
+        }
+  
+        directivo[0].fecha_final = new Date();
+        const newDirectivo = new Directivo(directivo[0]);
+        const directivoDB = await newDirectivo.save();
 
-        for(i=0; i < roles_directivos.length; i++) {
-            let rol = roles_directivos[i];
-            if(!rol.fecha_final) {
-                directivos_actuales.push(rol);
-            }
+        const directivos = await Directivo.find({'banda': bandaId, 'fecha_final': undefined});
+
+        if(directivos.length === 0) {
+            const banda = await Banda.deleteOne({'_id': bandaId});
         }
 
-        if(directivos_actuales.length <= 1) {
-            const banda = Banda.findById(bandaId);
-            await Banda.deleteOne(banda);
-        }
-        directivo_antiguo.fecha_final = new Date();
-        const directivo_finalizado = await directivo_antiguo.save();
-       
-        return res.status(201).json({
+        
+        res.status(201).json({
             ok: true,
-            directivo_finalizado
+            directivoDB,
         });
     } catch (error) {
         console.log(error)
