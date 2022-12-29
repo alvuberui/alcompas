@@ -34,21 +34,25 @@ const crearMusico = async(req, res = express.response) => {
     }
 }
 
+/*
+* Finalizar el rol de Músico de una banda, solo puede tener un
+* rol de músico activo a la vez, por lo que se elimina solo ese.
+*/
 const finalizarMusico = async(req, res = express.response) => { 
     try {
         const userId = req.params.userId;
         const bandaId = req.params.bandaId;
-        const musico = await Musico.find({'usuario': userId, 'banda': bandaId});
-
+        const musico = await Musico.find({'usuario': userId, 'banda': bandaId, 'fecha_final': undefined});
         if(!musico) {   
             return res.status(404).json({
                 ok: false,
                 msg: 'No existe un músico con ese id'
             });
         }
-
-        musico.fecha_final = new Date();
-        const musicoDB = await musico.save();
+  
+        musico[0].fecha_final = new Date();
+        const newMusico = new Musico(musico[0]);
+        const musicoDB = await newMusico.save();
         
         res.status(201).json({
             ok: true,

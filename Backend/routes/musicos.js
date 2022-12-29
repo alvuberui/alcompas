@@ -48,7 +48,7 @@ router.post('/',
     crearMusico);
 
     // Finalizar rol de músico
-router.put('/:userId/:bandaId', finalizarMusico);
+router.put('/finalizar/:userId/:bandaId', finalizarMusico);
 
     // Eliminar músicos
 router.delete('/:id', eliminarMusicos);

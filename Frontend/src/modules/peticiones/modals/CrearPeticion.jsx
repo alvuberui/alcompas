@@ -121,7 +121,7 @@ export const CrearPeticion  = ( { open, handleClose, setPeticiones, setOpen} ) =
               setPeticion({rol: 'Músico', cargo: 'Presidente', mensaje: '', instrumento:'Corneta', voz:'Primero', usuario:''});
               setOpen(false);
             }
-          }, 10);
+          }, 8);
         }
       }
     

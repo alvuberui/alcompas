@@ -119,7 +119,7 @@ router.get('/misBandas/:userId', getBandasByUserId);
     // Obtener todas las bandas
 router.get('/', getBandas);
 
-// Obtener todas las bandas
+// Obtener una banda por el nombre
 router.get('/buscar/:nombre', getBandasByNombre);
 
 

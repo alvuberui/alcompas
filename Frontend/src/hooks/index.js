@@ -6,3 +6,4 @@ export * from './useDirectivosStore';
 export * from './useComentariosStore';
 export * from './useEstudiosStore';
 export * from './useInstrumentosStore';
+export * from './useMusicosStore';

@@ -2,7 +2,7 @@ import { Grid, Typography, Button, IconButton, Checkbox, FormControlLabel, Box, 
 import Avatar from '@material-ui/core/Avatar';
 import * as React from 'react';
 import { NavBar } from '../../../Components';
-import { useBandasStore, useComentariosStore } from '../../../hooks';
+import { useAuthStore, useBandasStore, useComentariosStore, useMusicosStore } from '../../../hooks';
 import { useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import Modal from '@mui/material/Modal';
@@ -64,9 +64,9 @@ export const PerfilBanda = () => {
     .then(async resultado => {
         if (resultado.value) {
             // Hicieron click en "Sí"
-            const c = await eliminarComentario(_id);
-            
+            const c = await abandonarBanda(bandaId, user.uid);
             //Redireccionar al inicio
+            navigate('/');
         }
     });
   }
@@ -78,6 +78,9 @@ export const PerfilBanda = () => {
   const { getBandaById } = useBandasStore();
   const { getComentariosByBandaId } = useComentariosStore();
   const { bandaId } = useParams();
+  const { abandonarBanda } = useMusicosStore();
+  const { user } = useAuthStore();
+  const navigate = useNavigate();
 
   // Efectos  
   useEffect(() => {

@@ -16,7 +16,7 @@ export const usePeticionesStore = () => {
             return peticiones;
         } catch(error) {
             console.log('Error cargando peticiones');
-            console.log(error)
+
         }
     }
 
@@ -28,7 +28,7 @@ export const usePeticionesStore = () => {
             return peticiones;
         } catch(error) {
             console.log('Error cargando peticiones');
-            console.log(error)
+
         }
     }
 
@@ -60,7 +60,6 @@ export const usePeticionesStore = () => {
             const peticion = data.peticion;
             return peticion;
         } catch(error) {
-            console.log(error)
             const erroresObj = error.response.data.errors;
             let res = [];
             

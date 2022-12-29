@@ -187,24 +187,25 @@ const getBandasByUserId = async( req, res = express.response ) => {
 
         const userId = req.params.userId;
 
-        const directivos = await Directivo.find({'usuario': userId});
-        const musicos = await Musico.find({'usuario': userId});
-        const archiveros = await Archivero.find({'usuario': userId});
+        const directivos = await Directivo.find({'usuario': userId, 'fecha_final': null});
+        const musicos = await Musico.find({'usuario': userId, 'fecha_final': null});
+        const archiveros = await Archivero.find({'usuario': userId, 'fecha_final': null});
 
         for(i=0; i < directivos.length; i++) {
             let directivo = directivos[i];
             if(!directivo.fecha_final) {
-                banda = await Banda.findById(directivo.banda);
-                if( bandas.indexOf(banda) === -1 ) {
+                const banda = await Banda.findById(directivo.banda);
+                if(!  bandas.some(e => e.cif === banda.cif) ) {
                     bandas.push(banda);
                 }
             }
         }
+        
         for(i=0; i < musicos.length; i++) {
             let musico = musicos[i];
             if(!musico.fecha_final) {
-                banda = await Banda.findById(musico.banda);
-                if( bandas.indexOf(banda) === -1 ) {
+                const banda = await Banda.findById(musico.banda);
+                if( ! bandas.some(e => e.cif === banda.cif)) {
                     bandas.push(banda);
                 }
             }
@@ -212,8 +213,8 @@ const getBandasByUserId = async( req, res = express.response ) => {
         for(i=0; i < archiveros.length; i++) {
             let archivero = archiveros[i];
             if(!archivero.fecha_final) {
-                banda = await Banda.findById(archivero.banda);
-                if( bandas.indexOf(banda) === -1 ) {
+                const banda = await Banda.findById(archivero.banda);
+                if( ! bandas.some(e => e.cif === banda.cif) ) {
                     bandas.push(banda);
                 }
             }

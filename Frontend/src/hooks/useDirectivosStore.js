@@ -11,7 +11,6 @@ export const useDirectivosStore = () => {
             return directivo;
         } catch(error) {
             console.log('Error cargando directivos');
-            console.log(error)
         }
     }
 

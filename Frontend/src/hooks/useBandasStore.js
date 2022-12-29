@@ -13,7 +13,7 @@ export const useBandasStore = () => {
             return banda;
         } catch(error) {
             console.log('Error cargando banda');
-            console.log(error)
+   
         }
     }
 
@@ -25,7 +25,7 @@ export const useBandasStore = () => {
             return bandas;
         } catch(error) {
             console.log('Error cargando banda');
-            console.log(error)
+         
         }
     }
 
@@ -37,7 +37,7 @@ export const useBandasStore = () => {
             return bandas;
         } catch(error) {
             console.log('Error cargando bandas');
-            console.log(error)
+        
         }
     }
 
@@ -49,7 +49,7 @@ export const useBandasStore = () => {
             return bandas;
         } catch(error) {
             console.log('Error cargando bandas');
-            console.log(error)
+           
         }
     }
 

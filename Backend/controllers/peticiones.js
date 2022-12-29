@@ -53,7 +53,7 @@ const crearPeticion = async(req, res = express.response) => {
 
         // Comprobar que el receptor de la petición no tiene ya un mismo rol en la banda o pendiente de aceptar.
         const usuarioId = peticion.usuario;
-        const peticiones = await Peticion.find({"Usuario": usuarioId, "Banda": bandaId});
+        const peticiones = await Peticion.find({"usuario": usuarioId, "banda": bandaId});
 
         for(const peticiondbl of peticiones) {
             if(peticiondbl.estado == 'Pendiente' && peticiondbl.rol == peticion.rol) {
@@ -65,9 +65,9 @@ const crearPeticion = async(req, res = express.response) => {
         }
 
         if(peticion.rol == 'Directivo') {
-            const roles = await Directivo.find({"Usuario": usuarioId, "Banda": bandaId});
+            const roles = await Directivo.find({"usuario": usuarioId, "banda": bandaId});
             for(const rol of roles) {
-                if(rol.fecha_final == null && rol.cargo === peticion.cargo) {
+                if(!rol.fecha_final  && rol.cargo === peticion.cargo) {
                     return res.status(400).json({
                         ok: false, 
                         msg: 'El usuario ya tiene este rol en la banda'
@@ -76,9 +76,9 @@ const crearPeticion = async(req, res = express.response) => {
             }
         }
         if(peticion.rol == 'Músico') {
-            const roles = await Musico.find({"Usuario": usuarioId, "Banda": bandaId});
-            for(const rol of roles) {
-                if(rol.fecha_final == null && rol.instrumento === peticion.instrumento && rol.voz === peticion.voz) {
+            const roles = await Musico.find({"usuario": usuarioId, "banda": bandaId});
+            for(const rol of roles) {     
+                if(rol.fecha_final === undefined ) {
                     return res.status(400).json({
                         ok: false,
                         msg: 'El usuario ya tiene este rol en la banda'
@@ -87,9 +87,9 @@ const crearPeticion = async(req, res = express.response) => {
             }
         }
         if(peticion.rol == 'Archivero') {
-            const roles = await Archivero.find({"Usuario": usuarioId, "Banda": bandaId});
+            const roles = await Archivero.find({"usuario": usuarioId, "banda": bandaId});
             for(const rol of roles) {
-                if(rol.fecha_final == null) {
+                if(!rol.fecha_final ) {
                     return res.status(400).json({
                         ok: false,
                         msg: 'El usuario ya tiene este rol en la banda'
