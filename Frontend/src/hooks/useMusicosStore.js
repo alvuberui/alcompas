@@ -15,9 +15,21 @@ export const useMusicosStore = () => {
         }
     }
 
+    const getMusicosBanda = async(bandaId) => {
+        try {
+            const { data } = await alcompasAPI.get('musicos/byAllByBandaId/' + bandaId);
+            const musicos = data.diccionario;
+            return musicos;
+        }
+        catch(error) {
+            console.log('Error obteniendo músicos de la banda');
+        }
+    }
+
 
     return {
         // Métodos
         abandonarBanda,
+        getMusicosBanda
     }
 }

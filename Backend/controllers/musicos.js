@@ -87,9 +87,37 @@ const eliminarMusicos = async(req, res = express.response) => {
     }
 }
 
+const getMusicosByBandaId = async(req, res = express.response) => {
+
+    try {
+        const bandaId = req.params.bandaId;
+        const musicos = await Musico.find({'banda': bandaId, fecha_final: undefined});
+        const diccionario = {};
+        for(i=0; i<musicos.length; i++) {
+            let musico = musicos[i];
+            if(diccionario[musico.instrumento] == undefined) {
+                diccionario[musico.instrumento] = [musico];
+            } else {
+                diccionario[musico.instrumento] = [...diccionario[musico.instrumento], musico];
+            }
+        }
+        return res.status(201).json({
+            ok: true,
+            diccionario
+        });
+    } catch(error) {
+        console.log(error)
+        res.status(500).json({
+            ok: false,
+            msg: 'Por favor hable con el administrador.'
+        });
+    }
+}
+
 
 module.exports = {
     crearMusico,
     finalizarMusico,
     eliminarMusicos,
+    getMusicosByBandaId
 }

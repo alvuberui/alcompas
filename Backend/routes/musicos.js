@@ -2,7 +2,7 @@ const { Router }= require('express');
 const router = Router();
 const { check } = require('express-validator');
 
-const { crearMusico, finalizarMusico, eliminarMusicos } = require('../controllers/musicos');
+const { crearMusico, finalizarMusico, eliminarMusicos, getMusicosByBandaId } = require('../controllers/musicos');
 const { validarCampos } = require('../middlewares/validar-campos');
 const { validarInstrumentos } = require('../middlewares/validar-instrumento');
 const { validarVoz } = require('../middlewares/validar-voz');
@@ -52,5 +52,8 @@ router.put('/finalizar/:userId/:bandaId', finalizarMusico);
 
     // Eliminar músicos
 router.delete('/:id', eliminarMusicos);
+
+    // Eliminar músicos
+router.get('/byAllByBandaId/:bandaId', getMusicosByBandaId);
 
 module.exports = router;    

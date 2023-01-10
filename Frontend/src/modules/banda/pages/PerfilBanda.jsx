@@ -1,7 +1,7 @@
 import { Grid, Typography, Button, IconButton, Checkbox, FormControlLabel, Box, Tabs, Tab} from '@mui/material';
 import Avatar from '@material-ui/core/Avatar';
 import * as React from 'react';
-import { NavBar } from '../../../Components';
+import { NavBar, Plantilla } from '../../../Components';
 import { useAuthStore, useBandasStore, useComentariosStore, useMusicosStore } from '../../../hooks';
 import { useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
@@ -26,7 +26,8 @@ export const PerfilBanda = () => {
   const [value, setValue] = React.useState(0);
   const [comentarios, setComentarios] = useState([]);
   const [open, setOpen] = React.useState(false);
-  const [actualizar, setActualizar] = useState(false);
+  const [ musicos, setMusicos ] = useState({});
+  const [ usuariosMusicos, setUsuariosMusicos ] = useState([]);
 
   // Funciones
   const handleChange = (event, newValue) => {
@@ -72,15 +73,16 @@ export const PerfilBanda = () => {
   }
 
 
-  
-
   // Hooks
   const { getBandaById } = useBandasStore();
   const { getComentariosByBandaId } = useComentariosStore();
   const { bandaId } = useParams();
-  const { abandonarBanda } = useMusicosStore();
+  const { abandonarBanda, getMusicosBanda } = useMusicosStore();
+  const { getUserByiD } = useAuthStore();
   const { user } = useAuthStore();
   const navigate = useNavigate();
+
+  
 
   // Efectos  
   useEffect(() => {
@@ -92,11 +94,34 @@ export const PerfilBanda = () => {
       const userreq = await getComentariosByBandaId(bandaId);
       setComentarios(userreq.reverse());
     }
+    const getMusicos = async () => {
+      const musreq = await getMusicosBanda(bandaId);
+      setMusicos(musreq);
+    }
+    const getUsuariosMusicos = async () => {
+      const keys = Object.keys(musicos);
+      let res = {}
+
+      for( let i = 0; i < keys.length; i++) {
+        const key = keys[i];
+        const element = musicos[key];
+        let lista = []
+        for(let j = 0; j < element.length; j++) {
+          const mus = element[j];
+          const usuario = await getUserByiD(mus.usuario)
+          lista.push(usuario);
+        }
+        res[key] = lista;
+      }
+      setUsuariosMusicos(res);
+    }
     getBanda();
     getComentarios();
-  },[ comentarios ]);
+    getMusicos();
+    getUsuariosMusicos();
+  },[ comentarios, musicos ]);
   
-  
+
   return (
     <>
     <NavBar/>
@@ -109,7 +134,7 @@ export const PerfilBanda = () => {
           item
           lg={3}
           xs= { 12 }
-          sx={{minHeight: '50vh', padding: 4 }}
+          sx={{minHeight: '50vh', padding: 4, margin:'10px', backgroundColor: '#262254', borderRadius: '25px', boxShadow: '0px 0px 10px 0px rgba(0,0,0,0.75)' }}
           
           >
             <Grid 
@@ -117,7 +142,7 @@ export const PerfilBanda = () => {
             justifyContent="center"
             alignItems="center" 
             xs= { 12 }
-            sx={{ backgroundColor: 'white', justifyContent: "center", display: "flex"  }}
+            sx={{  justifyContent: "center", display: "flex", backgroundColor: '#262254'  }}
             >
               <Avatar   style={{ height: '150px', width: '150px' }} alt="Remy Sharp" src="/static/images/avatar/1.jpg"  />
             </Grid>
@@ -126,45 +151,45 @@ export const PerfilBanda = () => {
             justifyContent="center"
             alignItems="center" 
             xs= { 12 }
-            sx={{ backgroundColor: 'white', justifyContent: "center", display: "flex"  }}
+            sx={{  justifyContent: "center", display: "flex" ,  backgroundColor: '#262254' }}
             >
-              <Typography sx={{ fontWeight: 'bold', mt:'10px', textAlign:'center' }} variant='h5'>{ banda.tipo } { banda.nombre }</Typography>
+              <Typography color='white' sx={{ fontWeight: 'bold', mt:'10px', textAlign:'center' }} variant='h5'>{ banda.tipo } { banda.nombre }</Typography>
             </Grid>
             <Grid 
             item
             justifyContent="center"
             alignItems="center" 
             xs= { 12 }
-            sx={{ backgroundColor: 'white', justifyContent: "center", display: "flex"  }}
+            sx={{  justifyContent: "center", display: "flex",  backgroundColor: '#262254'  }}
             >
-              <Typography sx={{ fontWeight: 'bold' }} variant='h5'>Fundada en { banda.año_fundacion }</Typography>
+              <Typography color='white' sx={{ fontWeight: 'bold' }} variant='h5'>Fundada en { banda.año_fundacion }</Typography>
             </Grid>
             <Grid 
             item
             justifyContent="center"
             alignItems="center" 
             xs= { 12 }
-            sx={{ backgroundColor: 'white', justifyContent: "center", display: "flex"  }}
+            sx={{  justifyContent: "center", display: "flex",  backgroundColor: '#262254'  }}
             >
-              <Typography variant='h6'>{banda.localidad} ({banda.provincia})</Typography>
+              <Typography color='white' variant='h6'>{banda.localidad} ({banda.provincia})</Typography>
             </Grid>
             <Grid 
             item
             justifyContent="center"
             alignItems="center" 
             xs= { 12 }
-            sx={{ backgroundColor: 'white', justifyContent: "center", display: "flex"  }}
+            sx={{  justifyContent: "center", display: "flex",  backgroundColor: '#262254'  }}
             >
-              <Typography variant='h6'>{banda.codigo_postal}</Typography>
+              <Typography color='white' variant='h6'>{banda.codigo_postal}</Typography>
             </Grid>
             <Grid 
             item
             justifyContent="center"
             alignItems="center" 
             xs= { 12 }
-            sx={{ backgroundColor: 'white', justifyContent: "center", display: "flex"  }}
+            sx={{  justifyContent: "center", display: "flex",  backgroundColor: '#262254'  }}
             >
-              <Typography variant='h6'>{banda.direccion}</Typography>
+              <Typography color='white' variant='h6'>{banda.direccion}</Typography>
             </Grid>
             
             <Grid 
@@ -172,9 +197,9 @@ export const PerfilBanda = () => {
             justifyContent="center"
             alignItems="center" 
             xs= { 12 }
-            sx={{ backgroundColor: 'white', justifyContent: "center", display: "flex"  }}
+            sx={{  justifyContent: "center", display: "flex",  backgroundColor: '#262254'  }}
             >
-              <Typography sx={{textDecoration: 'underline',  fontWeight: 'bold', mt:'10px' }} variant='h5'>Contacto</Typography>
+              <Typography color='white' sx={{textDecoration: 'underline',  fontWeight: 'bold', mt:'10px' }} variant='h5'>Contacto</Typography>
 
             </Grid>
             <Grid 
@@ -182,18 +207,18 @@ export const PerfilBanda = () => {
             justifyContent="center"
             alignItems="center" 
             xs= { 12 }
-            sx={{ backgroundColor: 'white', justifyContent: "center", display: "flex"  }}
+            sx={{  justifyContent: "center", display: "flex",  backgroundColor: '#262254'  }}
             >
-              <Typography  variant='h6'>{banda.correo}</Typography> 
+              <Typography color='white' variant='h6'>{banda.correo}</Typography> 
             </Grid>
             <Grid 
             item
             justifyContent="center"
             alignItems="center" 
             xs= { 12 }
-            sx={{ backgroundColor: 'white', justifyContent: "center", display: "flex"  }}
+            sx={{  justifyContent: "center", display: "flex",  backgroundColor: '#262254'  }}
             >
-              <Typography  variant='h6'>{banda.telefono}</Typography> 
+              <Typography  color='white' variant='h6'>{banda.telefono}</Typography> 
             </Grid>
 
             <Grid 
@@ -201,9 +226,9 @@ export const PerfilBanda = () => {
             justifyContent="center"
             alignItems="center" 
             xs= { 12 }
-            sx={{ backgroundColor: 'white', justifyContent: "center", display: "flex"  }}
+            sx={{ justifyContent: "center", display: "flex",  backgroundColor: '#262254'  }}
             >
-              <Typography sx={{textDecoration: 'underline',  fontWeight: 'bold', mt:'10px' }} variant='h5'>Descripción</Typography>
+              <Typography color='white' sx={{textDecoration: 'underline',  fontWeight: 'bold', mt:'10px' }} variant='h5'>Descripción</Typography>
 
             </Grid>
             <Grid 
@@ -211,16 +236,16 @@ export const PerfilBanda = () => {
             justifyContent="center"
             alignItems="center" 
             xs= { 12 }
-            sx={{ backgroundColor: 'white', justifyContent: "center", display: "flex"  }}
+            sx={{  justifyContent: "center", display: "flex",  backgroundColor: '#262254'  }}
             >
-              <Typography  sx={{textAlign: 'center'}} variant='h6'>{banda.descripcion}</Typography> 
+              <Typography color='white' sx={{textAlign: 'center'}} variant='h6'>{banda.descripcion}</Typography> 
             </Grid>
 
             <Box textAlign='center' sx={{mt:2}}>
-              <Button  variant='contained' align="center" onClick={handleAbadonarBanda} >Abandonar Banda</Button>
+              <Button  color="secondary" variant='contained' align="center" onClick={handleAbadonarBanda} >Abandonar Banda</Button>
             </Box>
             <Box textAlign='center' sx={{mt:2}}>
-              <Button  variant='contained' align="center" ><NavLink style={{textDecoration: "none", color: "white"}}  to={`/banda/panel/${ banda._id }`}>Panel Directivo</NavLink></Button>
+              <Button  color="secondary" variant='contained' align="center" ><NavLink style={{textDecoration: "none", color: "black"}}  to={`/banda/panel/${ banda._id }`}>Panel Directivo</NavLink></Button>
             </Box>
             
             
@@ -264,7 +289,7 @@ export const PerfilBanda = () => {
             </Grid>
             <Grid 
                 container
-                sx = {{ mt: 3 }}
+                sx = {{ mt: 3}}
                 displey="flex"
                 justifyContent="center"
                 alignItems="center"
@@ -276,6 +301,10 @@ export const PerfilBanda = () => {
                     key={index}
                   />
                 )}
+
+                { value === 5 &&
+                  <Plantilla musicos={musicos} key={"asdasdas"} usuarios={usuariosMusicos} />
+                }
             </Grid>
           </Grid>
       </Grid>

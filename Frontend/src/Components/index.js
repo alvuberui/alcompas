@@ -5,3 +5,5 @@ export * from './Peticion';
 export * from './Banda';
 export * from './Estudio';
 export * from './Intrumento';
+export * from './Plantilla';
+export * from './Musico';

@@ -1,0 +1,66 @@
+import { Grid, Paper, Typography } from '@mui/material'
+import Avatar from '@material-ui/core/Avatar';
+import React from 'react'
+import { Box } from '@mui/system';
+import { Musico } from './Musico';
+import { useState, useEffect } from 'react';
+import { useAuthStore } from '../hooks/useAuthStore';
+
+export const Plantilla = ( { musicos, usuarios } ) => {
+
+  const { getUserByiD } = useAuthStore();
+
+  const renderizar = () => {
+    let html = [];
+      const keys = Object.keys(musicos);
+
+      for(let i = 0; i < keys.length; i++){
+        const key = keys[i];
+        html.push(<Grid justifyContent="center" alignItems="center" key={key}  container><Typography   variant='h6' align='center' color='white'> {key} </Typography></Grid>);
+
+        const listaUsuarios = usuarios[key]
+        if(listaUsuarios === undefined) continue;
+        for(let j = 0; j < listaUsuarios.length; j++){
+          const value = listaUsuarios[j];
+          html.push(<Musico key={value._id} musico={value} usuario={value} />);
+    
+        }
+      }
+      return html;
+  }
+      
+
+  return (
+    <Grid
+    container
+    sx={{ backgroundColor:'#262254', borderRadius: '5px'}}
+    justifyContent="center"
+      alignItems="center" >
+      <Grid
+      item
+      xs={11}
+      justifyContent="center"
+      alignItems="center" 
+      >
+        <Grid
+          container
+          justifyContent="center"
+          alignItems="center" 
+        >
+          <Typography variant='h3' align='center' color='white'> Plantilla </Typography>
+        </Grid>
+        <Grid
+          container
+          spacing={1}
+          
+        >
+          { renderizar().map( (item, key) => {
+              return item;
+            })
+          }
+        </Grid>
+      </Grid>
+    </Grid>
+    
+  )
+}
