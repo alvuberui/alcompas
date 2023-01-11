@@ -26,10 +26,22 @@ export const useMusicosStore = () => {
         }
     }
 
+    const finalizarMusico = async(userId, bandaId) => {
+        try {
+            const { data } = await alcompasAPI.put('musicos/finalizar/' + userId +'/' + bandaId);
+            const musico = data.musicoDB;
+            return musico;
+        }
+        catch(error) {
+            console.log('Error finalizando rol de musico');
+        }
+    }
+
 
     return {
         // Métodos
         abandonarBanda,
-        getMusicosBanda
+        getMusicosBanda,
+        finalizarMusico
     }
 }

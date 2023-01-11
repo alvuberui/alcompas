@@ -34,10 +34,8 @@ const crearMusico = async(req, res = express.response) => {
     }
 }
 
-/*
-* Finalizar el rol de Músico de una banda, solo puede tener un
-* rol de músico activo a la vez, por lo que se elimina solo ese.
-*/
+
+
 const finalizarMusico = async(req, res = express.response) => { 
     try {
         const userId = req.params.userId;
@@ -64,7 +62,6 @@ const finalizarMusico = async(req, res = express.response) => {
             ok: false,
             msg: 'Por favor hable con el administrador.'
         });
-
     }
 }
 
