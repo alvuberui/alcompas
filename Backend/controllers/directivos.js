@@ -136,7 +136,7 @@ const finalizarDirectivo = async(req, res = express.response) => {
         const directivos = await Directivo.find({'banda': bandaId, 'fecha_final': undefined});
 
         if(directivos.length === 0) {
-            const banda = await Banda.deleteOne({'_id': bandaId});
+            await Banda.deleteOne({'_id': bandaId});
         }
 
         
@@ -211,6 +211,35 @@ const getDirectivoByUserId = async(req, res = express.response) => {
     }
 }
 
+const getDirectivoByBandaId = async(req, res = express.response) => {
+
+    try {
+        const bandaId = req.params.id;
+        const directivos = await Directivo.find({'banda': bandaId, 'fecha_final': undefined});
+
+        const diccionario = {};
+        for(i=0; i<directivos.length; i++) {
+            let directivo = directivos[i];
+            if(diccionario[directivo.cargo] == undefined) {
+                diccionario[directivo.cargo] = [directivo];
+            } else {
+                diccionario[directivo.cargo] = [...diccionario[musico.cargo], directivo];
+            }
+        }
+        return res.status(201).json({
+            ok: true,
+            diccionario
+        });
+    }
+    catch (error) {
+        console.log(error)
+        res.status(500).json({
+            ok: false,
+            msg: 'Por favor hable con el administrador.'
+        });
+    }
+}
+
 
 
 module.exports = {
@@ -218,5 +247,6 @@ module.exports = {
     finalizarDirectivo,
     eliminarDirectivos,
     getDirectivoById,
-    getDirectivoByUserId
+    getDirectivoByUserId,
+    getDirectivoByBandaId
 }

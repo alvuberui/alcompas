@@ -2,7 +2,7 @@ import { Grid, Typography, Button, IconButton, Checkbox, FormControlLabel, Box, 
 import Avatar from '@material-ui/core/Avatar';
 import * as React from 'react';
 import { NavBar, Plantilla } from '../../../Components';
-import { useAuthStore, useBandasStore, useComentariosStore, useMusicosStore, useUploadsStore } from '../../../hooks';
+import { useAuthStore, useBandasStore, useComentariosStore, useDirectivosStore, useMusicosStore, useUploadsStore } from '../../../hooks';
 import { useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import Modal from '@mui/material/Modal';
@@ -32,6 +32,7 @@ export const PerfilBanda = () => {
   const [ musicos, setMusicos ] = useState({});
   const [ usuariosMusicos, setUsuariosMusicos ] = useState([]);
   const [ fotoPerfil, setFotoPerfil ] = useState('');
+  const [ directivos, setDirectivos ] = useState({});
 
   // Funciones
   const handleChange = (event, newValue) => {
@@ -98,6 +99,7 @@ export const PerfilBanda = () => {
   const { user } = useAuthStore();
   const navigate = useNavigate();
   const { getFotoPerfilBanda } = useUploadsStore();
+  const { getDirectivosByBandaId } = useDirectivosStore();
 
   
 
@@ -113,15 +115,30 @@ export const PerfilBanda = () => {
     }
     const getMusicos = async () => {
       const musreq = await getMusicosBanda(bandaId);
-      setMusicos(musreq);
+      const dirreq = await getDirectivosByBandaId(bandaId);
+      const modelo = Object.assign({}, musreq, dirreq);
+      setMusicos(modelo);
     }
     const getUsuariosMusicos = async () => {
-      const keys = Object.keys(musicos);
+      let keys = Object.keys(musicos);
       let res = {}
 
       for( let i = 0; i < keys.length; i++) {
         const key = keys[i];
         const element = musicos[key];
+        let lista = []
+        for(let j = 0; j < element.length; j++) {
+          const mus = element[j];
+          const usuario = await getUserByiD(mus.usuario)
+          lista.push(usuario);
+        }
+        res[key] = lista;
+      }
+
+      keys = Object.keys(directivos);
+      for( let i = 0; i < keys.length; i++) {
+        const key = keys[i];
+        const element = directivos[key];
         let lista = []
         for(let j = 0; j < element.length; j++) {
           const mus = element[j];
@@ -143,6 +160,7 @@ export const PerfilBanda = () => {
     getFotoPerfil()
   },[ comentarios, musicos ]);
   
+ 
 
   return (
     <>

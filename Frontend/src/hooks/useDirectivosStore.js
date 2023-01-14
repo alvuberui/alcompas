@@ -25,6 +25,17 @@ export const useDirectivosStore = () => {
         }
     }
 
+    const getDirectivosByBandaId = async(bandaId) => {
+        try {
+            const { data } = await alcompasAPI.get('directivos/banda/id/' + bandaId);
+            const directivos = data.diccionario;
+            
+            return directivos;
+        } catch(error) {
+            console.log('Error cargando directivos');
+        }
+    }
+
     const abandonarBandaDirectivo = async(bandaId, usuarioId) => {
         try {
             const { data } = await alcompasAPI.put('directivos/finalizar/' + usuarioId + '/' + bandaId);
@@ -36,10 +47,25 @@ export const useDirectivosStore = () => {
         }
     }
 
+    const finalizarDirectivo = async(userId, bandaId) => {
+        try {
+            const { data } = await alcompasAPI.put('directivos/finalizar/' + userId +'/' + bandaId);
+            const directivo = data.directivoDB;
+            return directivo;
+        }
+        catch(error) {
+            console.log('Error finalizando rol de directivo');
+        }
+    }
+
+    
+
     return {
         // Métodos
         getDirectivoById,
         getDirectivoByUserId,
-        abandonarBandaDirectivo
+        abandonarBandaDirectivo,
+        getDirectivosByBandaId,
+        finalizarDirectivo
     }
 }

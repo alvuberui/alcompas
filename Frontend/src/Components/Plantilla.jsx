@@ -17,13 +17,17 @@ export const Plantilla = ( { musicos, usuarios } ) => {
       for(let i = 0; i < keys.length; i++){
         const key = keys[i];
         html.push(<Grid justifyContent="center" alignItems="center" key={key}  container><Typography   variant='h6' align='center' color='white'> {key} </Typography></Grid>);
-
+        const lista = [];
         const listaUsuarios = usuarios[key]
         if(listaUsuarios === undefined) continue;
         for(let j = 0; j < listaUsuarios.length; j++){
           const value = listaUsuarios[j];
-          html.push(<Musico key={value._id} musico={value} usuario={value} />);
-    
+          if(lista.includes(value)) {
+            html.push(<Musico key={ (j+1) * (i+1) } musico={value} usuario={value} tipo={"musico"} />);
+          } else {
+            html.push(<Musico key={ (j+1) * (i+1) } musico={value} usuario={value} tipo={"directivo"}/>);
+          }
+          
         }
       }
       return html;

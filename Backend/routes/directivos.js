@@ -2,7 +2,8 @@ const { Router }= require('express');
 const router = Router();
 const { check } = require('express-validator');
 
-const { crearDirectivo, finalizarDirectivo, eliminarDirectivos, getDirectivoById, getDirectivoByUserId } = require('../controllers/directivos');
+const { crearDirectivo, finalizarDirectivo, eliminarDirectivos, getDirectivoById, getDirectivoByUserId,
+        getDirectivoByBandaId} = require('../controllers/directivos');
 const { validarCampos } = require('../middlewares/validar-campos');
 const { validarJWT } = require('../middlewares/validar-jwt');
 
@@ -44,6 +45,9 @@ router.get('/:id', getDirectivoById);
 
     // Obtener un directivo a través de su userId
 router.get('/byUserId/:id', getDirectivoByUserId);
+
+    // Obtener todos los directivos de una banda
+router.get('/banda/id/:id', getDirectivoByBandaId);
 
 
 
