@@ -7,3 +7,4 @@ export * from './useComentariosStore';
 export * from './useEstudiosStore';
 export * from './useInstrumentosStore';
 export * from './useMusicosStore';
+export * from './useUploadsStore';

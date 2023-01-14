@@ -1,6 +1,6 @@
 
 import { Grid, Typography, Button, Box } from '@mui/material';
-import { useBandasStore, useDirectivosStore, useAuthStore, usePeticionesStore } from '../hooks';
+import { useBandasStore, useDirectivosStore, useAuthStore, usePeticionesStore, useUploadsStore } from '../hooks';
 import { useState, useEffect } from 'react';
 import Avatar from '@mui/material/Avatar';
 import {
@@ -9,8 +9,19 @@ import {
     NavLink,
 }  from "react-router-dom";
 
-export const Banda = ({ _id, nombre, tipo }) => {
-    
+
+export const Banda = ({ _id, nombre, tipo, img }) => {
+    const [ fotoPerfil, setFotoPerfil ] = useState('');
+    const { getFotoPerfilBanda } = useUploadsStore();
+
+    useEffect(() => {
+        const getFoto = async () => {
+            const foto = await getFotoPerfilBanda(_id);
+            setFotoPerfil(foto);
+        }
+        getFoto();
+    }, []);
+
   return (
         <Grid 
         item
@@ -26,8 +37,10 @@ export const Banda = ({ _id, nombre, tipo }) => {
                 <Grid
                 item
                 xs= { 1.5 }
-                >
-                    <Avatar sx={{width:'80px', height:'80px'}} src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSDsbH-wextgQ3BwgF5gWCU7DptFzzA-4veD7V6_vi8ug&s" />
+                >   
+                    { fotoPerfil !== undefined && 
+                        <Avatar sx={{width:'80px', height:'80px'}} src={`data:image/png;base64,${fotoPerfil}`} />
+                    }
                 </Grid>
                 <Grid
                 item

@@ -18,8 +18,8 @@ import {
   NavLink,
 }  from "react-router-dom";
 import { Instrumento, Estudio } from '../../../Components';
-import { AñadirEstudioModal, AñadirInstrumentoModal } from '../';
-import { useInstrumentosStore, useEstudiosStore } from '../../../hooks';
+import { AñadirEstudioModal, AñadirInstrumentoModal, EditarFoto } from '../';
+import { useInstrumentosStore, useEstudiosStore, useUploadsStore } from '../../../hooks';
 
 const style = {
   position: 'absolute',
@@ -50,15 +50,18 @@ export const Perfil = () => {
   const [open, setOpen] = React.useState(false);
   const [openAñadir, setOpenAñadir] = React.useState(false);
   const [ openEstudio, setOpenEstudio ] = React.useState(false);
+  const [ openEditarFoto, setOpenEditarFoto ] = React.useState(false);
   const [user, setUser] = React.useState([]);
   const [instrumentos, setInstrumentos] = useState([]);
   const [ estudios, setEstudios ] = useState([]);
+  const [ fotoPerfil, setFotoPerfil ] = useState([]);
   let navigate = useNavigate();
 
   // Funciones y parámetros
   const  { startUpdatePassword, errorMessage, startDelete } = useAuthStore();
   const  { getInstrumentosByUserId } = useInstrumentosStore();
   const  { getEstudiosByUserId } = useEstudiosStore();
+  const { getFotoPerfilUsuario, fotoUsuario} = useUploadsStore();
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -109,6 +112,11 @@ export const Perfil = () => {
     setOpenAñadir(true);
   };
 
+  const handleOpenEditarFoto = (event, newValue, editar) => {
+    event.preventDefault();
+    setOpenEditarFoto(true);
+  };
+
   const handleOpenEstudio = (event, newValue, editar) => {
     event.preventDefault();
     setOpenEstudio(true);
@@ -122,6 +130,11 @@ export const Perfil = () => {
   const handleCloseEstudio = (event, newValue) => {
     event.preventDefault();
     setOpenEstudio(false);
+  };
+
+  const handleCloseEditarFoto = (event, newValue) => {
+    event.preventDefault();
+    setOpenEditarFoto(false);
   };
 
   const eliminarInstrumento = (instrumentoId) => {
@@ -155,9 +168,14 @@ export const Perfil = () => {
       const estudios = await getEstudiosByUserId(id);
       setEstudios(estudios);
     }
+    const getFotoPerfil = async () => {
+      const resultado = await getFotoPerfilUsuario(id);
+      setFotoPerfil(resultado);
+    }
     getUser();
     getInstrumentos();
     getEstudios();
+    getFotoPerfil();
   }, [instrumentos, estudios]);
 
   return (
@@ -165,6 +183,7 @@ export const Perfil = () => {
     <NavBar/>
     <AñadirInstrumentoModal  open={openAñadir} handleClose={handleCloseAñadir} setOpen={setOpenAñadir} setInstrumentos={setInstrumentos}></AñadirInstrumentoModal>
     <AñadirEstudioModal  open={openEstudio} handleClose={handleCloseEstudio} setOpen={setOpenEstudio} setEstudios={setEstudios}></AñadirEstudioModal>
+    <EditarFoto   open={openEditarFoto} handleClose={handleCloseEditarFoto} setOpen={setOpenEditarFoto} tipo={'usuario'}></EditarFoto>
     <div>
        
         <Modal
@@ -240,8 +259,12 @@ export const Perfil = () => {
           alignItems="center" 
           xs= { 12 }
           sx={{ backgroundColor: 'white', justifyContent: "center", display: "flex"  }}
-          >
-            <Avatar   style={{ height: '150px', width: '150px' }} alt="Remy Sharp" src="/static/images/avatar/1.jpg"  />
+          > 
+            <a onClick={ handleOpenEditarFoto }>
+              { fotoPerfil !== undefined && 
+                <Avatar   style={{ height: '150px', width: '150px' }} alt="Remy Sharp" src={`data:image/png;base64,${fotoPerfil}`}  />
+              }
+            </a>
           </Grid>
           <Grid 
           item

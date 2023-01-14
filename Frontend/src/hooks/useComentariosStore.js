@@ -23,7 +23,6 @@ export const useComentariosStore = () => {
             comentarioNuevo.usuario = userId;
             const { data } = await alcompasAPI.post('comentarios/', comentarioNuevo);
             const comentario = data.nuevoComentario;
-            console.log(comentario);
             setErrores('200');
             return comentario;
         } catch(error) {

@@ -1,6 +1,6 @@
 import React from 'react'
-
-
+import { useState, useEffect } from 'react';
+import Avatar from '@mui/material/Avatar';
 import { styled, alpha } from '@mui/material/styles';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -24,6 +24,7 @@ import {
   NavLink,
 }  from "react-router-dom";
 import { Buscador } from './Buscador';
+import { useUploadsStore } from '../hooks';
 
 const Search = styled('div')(({ theme }) => ({
     position: 'relative',
@@ -68,6 +69,16 @@ const Search = styled('div')(({ theme }) => ({
 export const NavBar = () => {
 
   const { startLogout, user, getUserByiD } = useAuthStore();
+  const [ fotoPerfil, setFotoPerfil ] = useState();
+  const { getFotoPerfilUsuario } = useUploadsStore();
+
+  useEffect(() => {
+    const getFoto = async () => {
+        const foto = await getFotoPerfilUsuario(user.uid);
+        setFotoPerfil(foto);
+    }
+    getFoto();
+  }, []);
 
   const cerrarSesion = () => {
 
@@ -157,23 +168,23 @@ export const NavBar = () => {
         
         <p>Estadísticas</p>
       </MenuItem>
-      <MenuItem onClick={handleProfileMenuOpen}>
+      <MenuItem >
         
         <p>Pefil</p>
       </MenuItem>
-      <MenuItem onClick={handleProfileMenuOpen}>
+      <MenuItem >
         
         <p>Préstamos</p>
       </MenuItem>
-      <MenuItem onClick={handleProfileMenuOpen}>
+      <MenuItem >
         
         <p>Bandas</p>
       </MenuItem>
-      <MenuItem onClick={handleProfileMenuOpen}>
+      <MenuItem>
         
         <p>Admin</p>
       </MenuItem>
-      <MenuItem onClick={handleProfileMenuOpen}>
+      <MenuItem >
         <p>Cerrar sesión</p>
       </MenuItem>
     </Menu>
@@ -236,7 +247,10 @@ export const NavBar = () => {
               color="inherit"
               sx={{fontSize:'40px'}}
             >
-              <AccountCircle  sx={{fontSize:'50px'}}/>
+              { fotoPerfil !== undefined &&
+                <Avatar sx={{width:'50px', height:'50px', }} src={`data:image/png;base64, ${fotoPerfil}`} />
+              }
+              
             </IconButton>
           </Box>
           <Box sx={{ display: { xs: 'flex', md: 'none' } }}>

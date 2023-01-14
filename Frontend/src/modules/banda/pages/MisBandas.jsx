@@ -1,7 +1,7 @@
 import React from 'react'
 import { NavBar, Banda } from '../../../Components';
 import { Grid, Typography, Button, Box, Tabs, Tab } from '@mui/material';
-import { useBandasStore } from '../../../hooks';
+import { useBandasStore, useUploadsStore } from '../../../hooks';
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import {
@@ -14,6 +14,7 @@ export const MisBandas = ( titulo ) => {
   
   const [bandas, setBandas] = useState([]);
   const { getBandasByUserId, getBandasByNombre } = useBandasStore();
+  
 
   if( titulo.titulo == 'Mis Bandas' ){
     const { userId } = useParams();
@@ -35,6 +36,8 @@ export const MisBandas = ( titulo ) => {
       getBandas();
     }, [ nombre ]); 
   }
+
+  
   
   return (
     <>

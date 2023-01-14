@@ -2,7 +2,7 @@ import { Grid, Typography, Button, IconButton, Checkbox, FormControlLabel, Box, 
 import Avatar from '@material-ui/core/Avatar';
 import * as React from 'react';
 import { NavBar, Plantilla } from '../../../Components';
-import { useAuthStore, useBandasStore, useComentariosStore, useMusicosStore } from '../../../hooks';
+import { useAuthStore, useBandasStore, useComentariosStore, useMusicosStore, useUploadsStore } from '../../../hooks';
 import { useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import Modal from '@mui/material/Modal';
@@ -18,6 +18,8 @@ import {
 }  from "react-router-dom";
 import { Comentario } from '../../../Components/Comentario';
 import { NuevoComentario } from '../modals/NuevoComentario';
+import { EditarFoto } from '../../user';
+
 
 export const PerfilBanda = () => {
 
@@ -26,8 +28,10 @@ export const PerfilBanda = () => {
   const [value, setValue] = React.useState(0);
   const [comentarios, setComentarios] = useState([]);
   const [open, setOpen] = React.useState(false);
+  const [ openEditarFoto, setOpenEditarFoto ] = useState(false);
   const [ musicos, setMusicos ] = useState({});
   const [ usuariosMusicos, setUsuariosMusicos ] = useState([]);
+  const [ fotoPerfil, setFotoPerfil ] = useState('');
 
   // Funciones
   const handleChange = (event, newValue) => {
@@ -39,9 +43,21 @@ export const PerfilBanda = () => {
     setOpen(false);
   };
 
+
   const handleOpen = (event, newValue) => {
     event.preventDefault();
     setOpen(true);
+  };
+
+  const handleOpenEditarFoto = (event, newValue) => {
+    event.preventDefault();
+    setOpenEditarFoto(true);
+  };
+
+
+  const handleCloseEditarFoto = (event, newValue) => {
+    event.preventDefault();
+    setOpenEditarFoto(false);
   };
 
   const eliminarComentario = (comentarioId) => {
@@ -81,6 +97,7 @@ export const PerfilBanda = () => {
   const { getUserByiD } = useAuthStore();
   const { user } = useAuthStore();
   const navigate = useNavigate();
+  const { getFotoPerfilBanda } = useUploadsStore();
 
   
 
@@ -115,10 +132,15 @@ export const PerfilBanda = () => {
       }
       setUsuariosMusicos(res);
     }
+    const getFotoPerfil = async () => {
+      const foto = await getFotoPerfilBanda(bandaId);
+      setFotoPerfil(foto);
+    }
     getBanda();
     getComentarios();
     getMusicos();
     getUsuariosMusicos();
+    getFotoPerfil()
   },[ comentarios, musicos ]);
   
 
@@ -126,6 +148,7 @@ export const PerfilBanda = () => {
     <>
     <NavBar/>
       <NuevoComentario open={open} handleClose={handleClose} setOpen={setOpen} setComentarios={setComentarios}></NuevoComentario>
+      <EditarFoto open={openEditarFoto} handleClose={handleCloseEditarFoto} setOpen={setOpenEditarFoto} tipo={"banda"}></EditarFoto>
       <Grid 
         container 
      
@@ -144,7 +167,9 @@ export const PerfilBanda = () => {
             xs= { 12 }
             sx={{  justifyContent: "center", display: "flex", backgroundColor: '#262254'  }}
             >
-              <Avatar   style={{ height: '150px', width: '150px' }} alt="Remy Sharp" src="/static/images/avatar/1.jpg"  />
+              <a onClick={handleOpenEditarFoto}>
+                <Avatar style={{ height: '150px', width: '150px' }} alt="Remy Sharp" src={`data:image/png;base64,${fotoPerfil}`} />
+              </a>
             </Grid>
             <Grid 
             item

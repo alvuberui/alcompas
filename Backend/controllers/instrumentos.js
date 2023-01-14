@@ -41,7 +41,6 @@ const crearInstrumentoUsuario = async(req, res = express.response) => {
         const instrumento = req.body
 
         const nuevoInstrumento = new Instrumento(instrumento);
-        console.log(nuevoInstrumento);
         const instrumentoGuardado = await nuevoInstrumento.save();
         res.json({
             ok: true,

@@ -7,7 +7,6 @@ const getComentarioByBandaId = async(req, res = express.response) => {
     try {
         const bandaId = req.params.bandaId;
         const comentarios = await Comentario.find({'Banda': bandaId});
-        console.log(bandaId);
         res.json({
             ok: true,
             comentarios
