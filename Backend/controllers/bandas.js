@@ -4,7 +4,10 @@ const Musico = require('../models/Musico');
 const Archivero = require('../models/Archivero');
 const Directivo = require('../models/Directivo');
 const Usuario = require('../models/Usuario');
-
+const RedSocial = require('../models/RedSocial');
+const Comentario = require('../models/Comentario');
+const path = require('path');
+const fs   = require('fs');
 
 const crearBanda = async(req, res = express.response) => {
 
@@ -127,16 +130,28 @@ const eliminar_banda = async(req, res = express.response) => {
         const archiveros = await Archivero.find({'banda': bandaId});
         const musicos = await Musico.find({'banda': bandaId});
         const directivos = await  Directivo.find({'banda': bandaId});
-        const presidentes = await Directivo.find({'cargo': 'Presidente'});
+        const presidentes = await Directivo.find({'cargo': 'Presidente', 'banda': bandaId});
         let presidente_actual;
+
+        const d = await Directivo.find({'usuario': usuarioId, 'banda': bandaId});
+
+        if(d.length == 0) {
+            return res.status(400).json({
+                ok: false,
+                msg: 'No eres directivo de esta banda'
+            });
+        }
 
         // Comprobar que es el presidente quien quiere eliminar la banda
         for(i=0; i < presidentes.length; i++) {
             let presidente = presidentes[i];
-            if(!presidente.fecha_final) {
+            if(!presidente.fecha_final && presidente.usuario == usuarioId) {
                 presidente_actual = presidente;
             }
         }
+
+
+
         if(presidente_actual.usuario != usuarioId) {
             return res.status(400).json({
                 ok: false,
@@ -164,6 +179,27 @@ const eliminar_banda = async(req, res = express.response) => {
             if(!directivo.fecha_final) {
                 directivo.fecha_final = new Date();
                 await directivo.save();
+            }
+        }
+
+        // Eliminamos todas las composiciones de la banda
+        const redes = RedSocial.find({'banda': bandaId});
+        const comentarios = Comentario.find({'banda': bandaId});
+
+        for(i=0; i < redes.length; i++) {
+            let red = redes[i];
+            await red.remove();
+        }
+        for(i=0; i < comentarios.length; i++) {
+            let comentario = comentarios[i];
+            await comentario.remove();
+        }
+
+        // Eliminamos la foto de perfil de la banda
+        if( banda.img ) {
+            const pathImagen = path.join( __dirname, '../uploads/imgs/bandas', banda.img );
+            if ( fs.existsSync( pathImagen ) ) {
+                fs.unlinkSync( pathImagen );
             }
         }
 

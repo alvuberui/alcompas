@@ -8,14 +8,17 @@ import {
 }  from "react-router-dom";
 import { useParams } from 'react-router-dom';
 import Swal from 'sweetalert2';
-import { useAuthStore, useDirectivosStore } from '../../../hooks';
+import { useAuthStore, useBandasStore, useDirectivosStore } from '../../../hooks';
 import { useNavigate } from 'react-router-dom';
+import { useState, useEffect } from 'react';
 
 export const PanelDirectivo = () => {
     const { bandaId } = useParams();
     const { abandonarBandaDirectivo } = useDirectivosStore();
+    const { eliminarBanda, mensajeError } = useBandasStore()
     const { user } = useAuthStore();
     const navigate  = useNavigate();
+    
 
     // Funcion para abandonar una banda como directivo
     const handleAbadonarBanda = e => {
@@ -34,10 +37,38 @@ export const PanelDirectivo = () => {
                 // Hicieron click en "Sí"
                 const c = await abandonarBandaDirectivo(bandaId, user.uid);
                 //Redireccionar al inicio
-                navigate('/');
+                console.log(c)
+                
             }
         });
     }
+
+    // Funcion para eliminar banda
+    const handleEliminarBanda = e => {
+        e.preventDefault();
+        Swal
+        .fire({
+            title: "¿Está seguro de que desea eliminar la banda?",
+            text: "Esta acción será irreversible",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: "Sí, eliminar banda",
+            cancelButtonText: "Cancelar",
+        })
+        .then(async resultado => {
+            if (resultado.value) {
+                // Hicieron click en "Sí"
+                const c = await eliminarBanda(bandaId);
+                //Redireccionar al inicio
+                if(c){
+                    navigate('/bandas')
+                }
+            }
+        });
+    }
+
+
+
 
 
   return (
@@ -80,7 +111,7 @@ export const PanelDirectivo = () => {
                     <Button  onClick={handleAbadonarBanda} variant='contained' sx={{color:'black', fontWeight:'bold'}} align="center" color="error" fullWidth >Abandonar Banda Como Directivo</Button>
                 </Box>
                 <Box textAlign='center' sx={{mt:"10px", mb:"10px", minWidth:'50vh'}}>
-                    <Button  variant='contained' align="center" color="error" fullWidth ><NavLink style={{textDecoration: "none", color: "black",  fontWeight: 'bold'}}  to={`/banda/panel/`}>Eliminar Banda</NavLink></Button>
+                    <Button  onClick={ handleEliminarBanda } variant='contained' align="center" color="error" sx={{color:'black', fontWeight:'bold'}} fullWidth >Eliminar Banda</Button>
                 </Box>
                 
             </Grid>

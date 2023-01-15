@@ -1,6 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { alcompasAPI} from '../api';
 import React, { Component, useState, useEffect} from 'react'
+import Swal from 'sweetalert2';
 export const useBandasStore = () => {
 
     const [ mensajeError, setMensajeError ] = useState('');
@@ -80,6 +81,21 @@ export const useBandasStore = () => {
         }
     }
 
+    const eliminarBanda = async(bandaId) => {
+        try {
+            const { data } = await alcompasAPI.delete('bandas/' + bandaId);
+            const banda = data.banda_eliminada;
+            return banda;
+        } catch(error) {
+            Swal.fire({
+                title: 'Error',
+                text: 'No tiene permisos para eliminar la banda',
+                icon: 'error',
+                confirmButtonText: 'Aceptar'
+            })
+        }
+    }
+
     return {
         mensajeError,
         // Métodos
@@ -87,6 +103,7 @@ export const useBandasStore = () => {
         crearBanda,
         getBandasByUserId,
         getBandas,
-        getBandasByNombre
+        getBandasByNombre,
+        eliminarBanda
     }
 }

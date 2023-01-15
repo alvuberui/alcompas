@@ -120,7 +120,7 @@ const mostrarImagenBanda = async(req, res = response ) => {
         }
 
         // Si no tiene imagen devuelve la imagen por defecto
-        const pathImagen = path.join( __dirname, '../uploads/imgs/bandas/no-image.webp');
+        const pathImagen = path.join( __dirname, '../uploads/imgs/bandas/no-image.png');
         res.sendFile( pathImagen );
     } catch (error) {
         console.log(error)
