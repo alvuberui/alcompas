@@ -41,7 +41,6 @@ export const MisBandas = ( titulo ) => {
   
   return (
     <>
-    <NavBar/>
 
     <Grid 
         container 

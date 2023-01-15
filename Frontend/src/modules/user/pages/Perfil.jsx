@@ -180,7 +180,7 @@ export const Perfil = () => {
 
   return (
     <>
-    <NavBar/>
+
     <AñadirInstrumentoModal  open={openAñadir} handleClose={handleCloseAñadir} setOpen={setOpenAñadir} setInstrumentos={setInstrumentos}></AñadirInstrumentoModal>
     <AñadirEstudioModal  open={openEstudio} handleClose={handleCloseEstudio} setOpen={setOpenEstudio} setEstudios={setEstudios}></AñadirEstudioModal>
     <EditarFoto   open={openEditarFoto} handleClose={handleCloseEditarFoto} setOpen={setOpenEditarFoto} tipo={'usuario'}></EditarFoto>

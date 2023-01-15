@@ -9,7 +9,6 @@ import {
 export const Inicial = () => {
   return (
     <>
-    <NavbarInvitado/>
     <Grid 
       container
       direction="column"

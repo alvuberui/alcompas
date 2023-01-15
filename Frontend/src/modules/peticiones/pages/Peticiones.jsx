@@ -26,7 +26,7 @@ export const Peticiones = ( ) => {
   
   return (
     <>
-    <NavBar/>
+
     <Grid 
         container 
         display="flex"

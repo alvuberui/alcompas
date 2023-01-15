@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { alcompasAPI} from '../api';
-import { useAuthStore } from './';
+import { useAuthStore } from '.';
 import React, { Component, useState, useEffect} from 'react';
 import axios from 'axios';
 import { getEnvVariables } from '../helpers';

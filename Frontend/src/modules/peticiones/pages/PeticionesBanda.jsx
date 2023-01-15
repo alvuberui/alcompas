@@ -36,7 +36,7 @@ export const PeticionesBanda = ( ) => {
   
   return (
     <>
-    <NavBar/>
+
     <CrearPeticion open={openAñadir} handleClose={handleCloseAñadir} setOpen={setOpenAñadir} setPeticiones={setPeticiones}></CrearPeticion>
     <Grid 
         container 

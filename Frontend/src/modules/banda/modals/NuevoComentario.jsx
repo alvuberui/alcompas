@@ -37,7 +37,6 @@ const style = {
 export const NuevoComentario  = ( { open, handleClose, setComentarios, setOpen }) => {
 
     const [values, setValues] = useState({titulo:'', texto: ''});
-    const [ isCreado, setIsCreado ] = useState(false);
 
     const { crearComentario, errores } = useComentariosStore();
 

@@ -38,6 +38,7 @@ app.use(fileUpload({
 * 8) Instrumentos
 * 9) Estudios
 * 10) Foto
+* 11) Redes Sociales
 */
 app.use('/api/auth', require('./routes/auth'));
 app.use('/api/bandas', require('./routes/bandas'));
@@ -49,6 +50,7 @@ app.use('/api/comentarios', require('./routes/comentarios'));
 app.use('/api/instrumentos', require('./routes/instrumentos'));
 app.use('/api/estudios', require('./routes/estudios'));
 app.use('/api/fotos', require('./routes/uploads'));
+app.use('/api/redes', require('./routes/redesSociales'));
 
 // Escuchar peticiones
 app.listen( process.env.PORT, () => {

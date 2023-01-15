@@ -19,7 +19,9 @@ import {
 import { Comentario } from '../../../Components/Comentario';
 import { NuevoComentario } from '../modals/NuevoComentario';
 import { EditarFoto } from '../../user';
+import { useRedesSocialesStore } from '../../../hooks/useRedesSocialesStore';
 
+const r = [ 'Email', 'Facebook', 'Instagram', 'Twitter', 'Youtube', 'Apple Music', ' Soundcloud', 'Spotify', 'TikTok' ]
 
 export const PerfilBanda = () => {
 
@@ -33,6 +35,7 @@ export const PerfilBanda = () => {
   const [ usuariosMusicos, setUsuariosMusicos ] = useState([]);
   const [ fotoPerfil, setFotoPerfil ] = useState('');
   const [ directivos, setDirectivos ] = useState({});
+  const [ redesSociales, setRedesSociales ] = useState([]);
 
   // Funciones
   const handleChange = (event, newValue) => {
@@ -100,6 +103,7 @@ export const PerfilBanda = () => {
   const navigate = useNavigate();
   const { getFotoPerfilBanda } = useUploadsStore();
   const { getDirectivosByBandaId } = useDirectivosStore();
+  const { getAllByBandaId } = useRedesSocialesStore();
 
   
 
@@ -153,18 +157,22 @@ export const PerfilBanda = () => {
       const foto = await getFotoPerfilBanda(bandaId);
       setFotoPerfil(foto);
     }
+    const getRedes = async () => {
+      const redes = await getAllByBandaId(bandaId);
+      setRedesSociales(redes);
+    }
     getBanda();
     getComentarios();
     getMusicos();
     getUsuariosMusicos();
-    getFotoPerfil()
+    getFotoPerfil();
+    getRedes();
   },[ comentarios, musicos ]);
   
- 
 
   return (
     <>
-    <NavBar/>
+
       <NuevoComentario open={open} handleClose={handleClose} setOpen={setOpen} setComentarios={setComentarios}></NuevoComentario>
       <EditarFoto open={openEditarFoto} handleClose={handleCloseEditarFoto} setOpen={setOpenEditarFoto} tipo={"banda"}></EditarFoto>
       <Grid 
@@ -283,7 +291,26 @@ export const PerfilBanda = () => {
             >
               <Typography color='white' sx={{textAlign: 'center'}} variant='h6'>{banda.descripcion}</Typography> 
             </Grid>
-
+            
+            <Grid  sx={{ backgroundColor: '#262254'  }}>
+                { redesSociales.map( (redSocial) => (
+                  <Grid key={redSocial._id} item xs={4} display='inline-block'>
+                    <Button sx={{backgroundColor:'white', color:'primary.main', mt:1, ml:2}} color='secondary' href={redSocial.url} size="small"variant='contained' align="center" >
+                      { redSocial.nombre === 'Facebook' && <img src='/../../Resources/Imagenes/facebook.png'alt='logo'loading="lazy"/> }
+                      { redSocial.nombre === 'Instagram' && <img src='../../../../Resources/Imagenes/instagram.png'alt='logo'loading="lazy"/> }
+                      { redSocial.nombre === 'Twitter' && <img src='/../../Resources/Imagenes/twitter.png'alt='logo'loading="lazy"/> }
+                      { redSocial.nombre === 'Youtube' && <img src='/../../Resources/Imagenes/youtube.png'alt='logo'loading="lazy"/> }
+                      { redSocial.nombre === 'Spotify' && <img src='/../../Resources/Imagenes/spotify.png'alt='logo'loading="lazy"/> }
+                      { redSocial.nombre === 'Soundcloud' && <img src='/../../Resources/Imagenes/soundcloud.png'alt='logo'loading="lazy"/> }
+                      { redSocial.nombre === 'Apple Music' && <img src='/../../Resources/Imagenes/music.png'alt='logo'loading="lazy"/> }
+                      { redSocial.nombre === 'TikTok' && <img src='/../../Resources/Imagenes/tik-tok.png'alt='logo'loading="lazy"/> }
+                      { redSocial.nombre === 'Email' && <img src='/../../Resources/Imagenes/email.png'alt='logo'loading="lazy"/> }
+                      { ! r.includes(redSocial.nombre) && <img src='/../../Resources/Imagenes/enlace.png'alt='logo'loading="lazy"/>}
+                    </Button>
+                  </Grid>
+                  ))
+                }
+            </Grid>
             <Box textAlign='center' sx={{mt:2}}>
               <Button  color="secondary" variant='contained' align="center" onClick={handleAbadonarBanda} >Abandonar Banda</Button>
             </Box>
