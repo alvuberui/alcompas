@@ -137,7 +137,7 @@ export const NavBar = () => {
       <MenuItem onClick={handleMenuClose}><NavLink style={{textDecoration: "none", color: "black"}}  to={`/peticiones/${user.uid}`}>Peticiones</NavLink></MenuItem>
       <MenuItem onClick={handleMenuClose}><NavLink style={{textDecoration: "none", color: "black"}}  to={`/bandas/${user.uid}`}>Mis Bandas</NavLink></MenuItem>
       <MenuItem onClick={handleMenuClose}>Mis Préstamos</MenuItem>
-      <MenuItem onClick={handleMenuClose}>Admin</MenuItem>
+      <MenuItem onClick={handleMenuClose}><NavLink style={{textDecoration: "none", color: "black"}}  to={`/admin`}>Administrador</NavLink></MenuItem>
       <MenuItem onClick={cerrarSesion}  href='/'>Cerrar sesión</MenuItem>
     </Menu>
   );

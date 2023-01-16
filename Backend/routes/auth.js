@@ -5,7 +5,7 @@ const { check } = require('express-validator');
 
 
 const { crearUsuario, revalidarToken, loginUsuario, getById, cambiarDatos, modificarContraseña, deleteById,
-        getAll, getByUsername } = require('../controllers/auth');
+        getAll, getByUsername, deleteAdminById } = require('../controllers/auth');
 const { validarCampos } = require('../middlewares/validar-campos');
 const { validarJWT } = require('../middlewares/validar-jwt');
 // Aquí se configuran todas las subrutas de /api/auth
@@ -121,9 +121,14 @@ router.get('/', validarJWT , getAll);
 router.get('/getByUsername/:username', validarJWT , getByUsername);
 
 /*
-* Este middelware es para obtener un usuario a través de su id
+* Este middelware es para eliminar (el mismo) un usuario a través de su id
 */
 router.delete('/:id', validarJWT , deleteById);
+
+/*
+* Este middelware es para eliminar (el administrador) un usuario a través de su id
+*/
+router.delete('/admin/:id', validarJWT , deleteAdminById);
 
 
 

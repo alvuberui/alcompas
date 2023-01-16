@@ -10,6 +10,7 @@ import { PeticionesBanda } from '../modules/peticiones/pages/PeticionesBanda';
 import { BandaForm, MisBandas, PerfilBanda, RedesSociales } from '../modules/banda';
 import { PanelDirectivo } from '../modules/banda/pages/PanelDirectivo';
 import { NavBar, NavbarInvitado } from '../Components';
+import { AdministrarUsuarios, Menu } from '../modules/admin';
 
 export const AppRouter = () => {
   
@@ -39,7 +40,8 @@ export const AppRouter = () => {
                   <Route path="/banda/:bandaId" element={ <PerfilBanda/>} />
                   <Route path="/banda/panel/:bandaId" element={ <PanelDirectivo/>} />
                   <Route path="/banda/panel/redes/:bandaId" element={ <RedesSociales/>} />
-            
+                  <Route path="/admin" element={ <Menu/>} />
+                  <Route path="/admin/usuarios" element={ <AdministrarUsuarios/>} />
                 </Routes>
               </>
           );

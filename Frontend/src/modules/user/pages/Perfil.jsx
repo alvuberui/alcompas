@@ -61,7 +61,7 @@ export const Perfil = () => {
   const  { startUpdatePassword, errorMessage, startDelete } = useAuthStore();
   const  { getInstrumentosByUserId } = useInstrumentosStore();
   const  { getEstudiosByUserId } = useEstudiosStore();
-  const { getFotoPerfilUsuario, fotoUsuario} = useUploadsStore();
+  const { getFotoPerfilUsuario} = useUploadsStore();
 
   const handleChange = (event, newValue) => {
     setValue(newValue);

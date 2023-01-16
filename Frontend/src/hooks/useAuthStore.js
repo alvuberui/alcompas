@@ -149,6 +149,15 @@ export const useAuthStore = () => {
 
     }
 
+    const deleteAdminById = async(id) => {
+        try{
+            const { data } = await alcompasAPI.delete('/auth/admin/' + id);
+            return data.usuario;
+        }catch (error) {
+            console.log("Error eliminando usuario")
+        }
+    }
+
     const getUserByiD = async(id) => {
         try {
             
@@ -209,6 +218,7 @@ export const useAuthStore = () => {
         startUpdatePassword,
         startDelete,
         getAllUsers,
-        getUserByUsername
+        getUserByUsername,
+        deleteAdminById
     }
 }

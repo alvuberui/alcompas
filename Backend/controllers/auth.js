@@ -256,6 +256,7 @@ const deleteById = async(req, res = express.response) => {
 
         res.json({
             ok: true,
+            usuario
         });
     } catch (error) {
         console.log(error);
@@ -265,6 +266,25 @@ const deleteById = async(req, res = express.response) => {
         });
     }
     
+}
+
+const deleteAdminById = async(req, res = express.response) => {
+    try {
+        const uid = req.params.id;
+        
+        const usuario = await Usuario.findByIdAndDelete(uid);
+        res.json({
+            ok: true,
+            usuario
+        });
+    }
+    catch (error) {
+        console.log(error);
+        res.status(500).json({
+            ok: false,
+            msg: 'Por favor hable con el administrador'
+        });
+    }
 }
 
 const getAll = async(req, res = express.response) => {
@@ -308,5 +328,6 @@ module.exports = {
     modificarContraseña,
     deleteById,
     getAll,
-    getByUsername
+    getByUsername,
+    deleteAdminById
 }
