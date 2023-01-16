@@ -49,7 +49,7 @@ export const Menu = () => {
                     justifyContent="center"
                     display="flex"
                  sx={{mt:"10px", mb:'10px', backgroundColor:'#262254'}}>
-                    <Button  variant='contained'  color="secondary"  sx={{ width:'50vh'}}><NavLink style={{textDecoration: "none", color: "black",  fontWeight: 'bold'}}  to={`/peticiones/banda`}>Administrar Bandas</NavLink></Button>
+                    <Button  variant='contained'  color="secondary"  sx={{ width:'50vh'}}><NavLink style={{textDecoration: "none", color: "black",  fontWeight: 'bold'}}  to={`/admin/bandas`}>Administrar Bandas</NavLink></Button>
                 </Box>
             </Grid>
             

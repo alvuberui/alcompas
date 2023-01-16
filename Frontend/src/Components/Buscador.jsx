@@ -11,7 +11,7 @@ function sleep(delay = 0) {
   });
 }
 
-export  function Buscador() {
+export  function Buscador( { tipo, setBanda}) {
   const [open, setOpen] = React.useState(false);
   const [options, setOptions] = React.useState([]);
   const loading = open && options.length === 0;
@@ -20,7 +20,14 @@ export  function Buscador() {
 
   const handleChange = (event, values) => {
     event.preventDefault();
-    navigate('/buscar/' + values.nombre);
+    if(values !== null) {
+      if(tipo === 'admin') {
+        setBanda(values);
+      } else {
+        navigate('/buscar/' + values.nombre);
+      }
+    }
+    
     
   }
 
