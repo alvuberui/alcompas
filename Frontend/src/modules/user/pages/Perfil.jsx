@@ -1,25 +1,15 @@
 
-import { Grid, Typography, Button, Checkbox, FormControlLabel, Box, Tabs, Tab } from '@mui/material';
 import Avatar from '@material-ui/core/Avatar';
-import * as React from 'react';
-import { NavBar } from '../../../Components';
-import { useAuthStore } from '../../../hooks/useAuthStore';
-import { useParams } from 'react-router-dom';
-import { useState, useEffect } from 'react';
+import { Box, Button, Grid, Tab, Tabs, TextField, Typography } from '@mui/material';
 import Modal from '@mui/material/Modal';
-import {  TextField } from '@mui/material';
-import { alpha, styled } from '@mui/material/styles';
-import { pink } from '@mui/material/colors';
+import * as React from 'react';
+import { useEffect, useState } from 'react';
+import { NavLink, useNavigate, useParams } from 'react-router-dom';
 import Swal from 'sweetalert2';
-import { useNavigate } from 'react-router-dom';
-import {
-  BrowserRouter as Router,
-  Link,
-  NavLink,
-}  from "react-router-dom";
-import { Instrumento, Estudio } from '../../../Components';
 import { AñadirEstudioModal, AñadirInstrumentoModal, EditarFoto } from '../';
-import { useInstrumentosStore, useEstudiosStore, useUploadsStore } from '../../../hooks';
+import { Estudio, Instrumento } from '../../../Components';
+import { useEstudiosStore, useInstrumentosStore, useUploadsStore } from '../../../hooks';
+import { useAuthStore } from '../../../hooks/useAuthStore';
 
 const style = {
   position: 'absolute',
@@ -81,6 +71,7 @@ export const Perfil = () => {
         if (resultado.value) {
             // Hicieron click en "Sí"
             startDelete()
+            navigate('/');
         }
     });
   }
@@ -88,14 +79,15 @@ export const Perfil = () => {
     e.preventDefault();
     let error = ""
     if(values.contraseñaNueva != values.confirmarNueva ) error = "*La contraseña nueva no coincide con la confirmación \n";
-    if(values.contraseñaNueva.length > 20 ) error = error + "*La contraseña debe de tener como máximo 20 caracteres \n";
-    if(values.contraseñaNueva.length < 5 ) error = error + "*La contraseña debe de tener como mínimo 5 caracteres";
+    if(values.contraseñaNueva.length > 20 ) error = error + "*La contraseña debe de tener como máximo 200 caracteres \n";
+    if(values.contraseñaNueva.length < 8 ) error = error + "*La contraseña debe de tener como mínimo 7 caracteres";
 
     if(error != "") {
       Swal.fire('Error al modificar contraseña', error, 'error');
     }
     else {
       const respuesta = startUpdatePassword({contraseñaNueva: values.confirmarNueva});
+      setUser(respuesta);
       setOpen(false);
     }
   }
@@ -158,6 +150,7 @@ export const Perfil = () => {
   useEffect(() => {
     const getUser = async () => {
       const userreq = await getUserByiD(id);
+      userreq.fecha_nacimiento = new Date(userreq.fecha_nacimiento).toLocaleDateString();
       setUser(userreq);  
     }
     const getInstrumentos = async () => {
@@ -273,7 +266,7 @@ export const Perfil = () => {
           xs= { 12 }
           sx={{ backgroundColor: 'white', justifyContent: "center", display: "flex"  }}
           >
-            <Typography sx={{ fontWeight: 'bold', mt:'10px' }} variant='h5'>{ user.nombre } {user.primer_apellido} {user.segundo_apellido}</Typography>
+            <Typography sx={{ fontWeight: 'bold', mt:'10px', textAlign:'center' }} variant='h5'>{ user.nombre } {user.primer_apellido} {user.segundo_apellido}</Typography>
           </Grid>
           <Grid 
           item
@@ -282,7 +275,7 @@ export const Perfil = () => {
           xs= { 12 }
           sx={{ backgroundColor: 'white', justifyContent: "center", display: "flex"  }}
           >
-            <Typography sx={{ fontWeight: 'bold' }} variant='h5'>@{user.usuario}</Typography>
+            <Typography sx={{ fontWeight: 'bold', textAlign:'center' }} variant='h5'>@{user.usuario}</Typography>
           </Grid>
           <Grid 
           item
@@ -291,7 +284,7 @@ export const Perfil = () => {
           xs= { 12 }
           sx={{ backgroundColor: 'white', justifyContent: "center", display: "flex"  }}
           >
-            <Typography variant='h6'>{user.localidad} ({user.provincia})</Typography>
+            <Typography variant='h6' sx={{textAlign:'center'}}>{user.localidad} ({user.provincia})</Typography>
           </Grid>
           <Grid 
           item
@@ -300,7 +293,7 @@ export const Perfil = () => {
           xs= { 12 }
           sx={{ backgroundColor: 'white', justifyContent: "center", display: "flex"  }}
           >
-            <Typography variant='h6'>{user.fecha_nacimiento}</Typography>
+            <Typography variant='h6' sx={{textAlign:'center'}}>{user.fecha_nacimiento}</Typography>
           </Grid>
           <Grid 
           item
@@ -309,7 +302,7 @@ export const Perfil = () => {
           xs= { 12 }
           sx={{ backgroundColor: 'white', justifyContent: "center", display: "flex"  }}
           >
-            <Typography sx={{textDecoration: 'underline',  fontWeight: 'bold', mt:'10px' }} variant='h5'>Contacto</Typography>
+            <Typography sx={{textDecoration: 'underline',  fontWeight: 'bold', mt:'10px', textAlign:'center' }} variant='h5'>Contacto</Typography>
 
           </Grid>
           <Grid 
@@ -319,7 +312,7 @@ export const Perfil = () => {
           xs= { 12 }
           sx={{ backgroundColor: 'white', justifyContent: "center", display: "flex"  }}
           >
-            <Typography  variant='h6'>{user.correo}</Typography> 
+            <Typography sx={{textAlign:'center'}} variant='h6'>{user.correo}</Typography> 
           </Grid>
           <Grid 
           item
@@ -328,7 +321,7 @@ export const Perfil = () => {
           xs= { 12 }
           sx={{ backgroundColor: 'white', justifyContent: "center", display: "flex"  }}
           >
-            <Typography  variant='h6'>{user.telefono}</Typography> 
+            <Typography sx={{textAlign:'center'}} variant='h6'>{user.telefono}</Typography> 
           </Grid>
 
           <Grid 
@@ -338,7 +331,7 @@ export const Perfil = () => {
           xs= { 12 }
           sx={{ backgroundColor: 'white', justifyContent: "center", display: "flex"  }}
           >
-            <Typography sx={{textDecoration: 'underline',  fontWeight: 'bold', mt:'10px' }} variant='h5'>Descripción</Typography>
+            <Typography sx={{textDecoration: 'underline',  fontWeight: 'bold', mt:'10px', textAlign:'center' }} variant='h5'>Descripción</Typography>
 
           </Grid>
           <Grid 
@@ -391,7 +384,7 @@ export const Perfil = () => {
                               <Typography sx={{ fontWeight: 'bold' }} >AÑADIR</Typography>
                           </Button>
                         }
-                        { value === 0 &&
+                        { value === 2 &&
                           <Button color='secondary' onClick={handleOpenEstudio} sx={{ mx:'auto', mb:'5px', width:'20vh', maxWidth:'4opx', backgroundColor:'white', color:'black'}} variant='contained'>
                               <Typography sx={{ fontWeight: 'bold' }} >AÑADIR</Typography>
                           </Button>
@@ -405,7 +398,7 @@ export const Perfil = () => {
             justifyContent="center"
             alignItems="center"
             > 
-              { value === 0 &&
+              { value === 2 &&
                 estudios.map((estudio, index) =>
                 <Estudio 
                 { ...estudio }

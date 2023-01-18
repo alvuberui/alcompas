@@ -1,14 +1,14 @@
-import React, { Component, useState, useEffect} from 'react'
+import React, { useEffect, useState } from 'react';
 
-import { CrearBandaUno, CrearBandaDos, CrearBandaTres } from '../';
-import { validarBanda } from '../../../helpers/validarBanda';
 import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
+import { CrearBandaDos, CrearBandaTres, CrearBandaUno } from '../';
+import { validarBanda } from '../../../helpers/validarBanda';
 import { useBandasStore } from '../../../hooks/useBandasStore';
 
 const state = {
     nombre: '',
-    tipo: '',
+    tipo: 'Agrupación Musical',
     localidad: '',
     provincia: '',
     codigo_postal: '',
@@ -38,7 +38,7 @@ export const  BandaForm = () => {
         }, 100);
       }, [mensajeError])
 
-    const [values, setValues] = useState({})
+    const [values, setValues] = useState(state)
       
 
     // Siguiente paso

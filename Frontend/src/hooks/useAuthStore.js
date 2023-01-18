@@ -1,7 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { alcompasAPI} from '../api';
-import { onChecking, onLogin, onLogout, ClearErrorMessage, onErrorUpdate, onUpdate } from '../store/auth/authSlice';
-import Swal from 'sweetalert2';
+import { alcompasAPI } from '../api';
+import { ClearErrorMessage, onChecking, onErrorUpdate, onLogin, onLogout, onUpdate } from '../store/auth/authSlice';
 
 export const useAuthStore = () => {
 
@@ -77,9 +76,6 @@ export const useAuthStore = () => {
         try{
             
             const { data } = await alcompasAPI.put('/auth/update/contrasena/' + user.uid, {contraseñaNueva});
-            localStorage.setItem('token', data.token );
-            localStorage.setItem('token-init-date', new Date().getTime());
-            dispatch( onUpdate({ nombre: data.nombre, uid: data.uid }) );
             return data.usuarioModificado;
         }catch (error) {
             console.log(error)

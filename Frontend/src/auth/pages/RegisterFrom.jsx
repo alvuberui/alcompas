@@ -1,11 +1,11 @@
-import React, { Component, useState, useEffect} from 'react'
-import { PersonalRegister } from './PersonalRegister';
-import { LocationRegister } from './LocationRegister';
-import { UserRegister } from './UserRegister';
-import { ConfirmationRegister } from './ConfirmationRegister';
-import { useForm, useAuthStore } from '../../hooks';
+import React, { useEffect, useState } from 'react';
 import Swal from 'sweetalert2';
 import { validarRegistro } from '../../helpers/validarRegistro';
+import { useAuthStore } from '../../hooks';
+import { ConfirmationRegister } from './ConfirmationRegister';
+import { LocationRegister } from './LocationRegister';
+import { PersonalRegister } from './PersonalRegister';
+import { UserRegister } from './UserRegister';
 
 const state = {
     nombre: '',

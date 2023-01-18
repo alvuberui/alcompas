@@ -1,7 +1,6 @@
 const express = require('express');
 const Estudio = require('../models/Estudio');
-const Usuario = require('../models/Usuario');
-const { calcularDuracionEnDias } = require('../middlewares/calcularDuracion');
+
 
 const getEstudiosByUserId = async(req, res = express.response) => {
     const userId = req.params.userId;
@@ -24,8 +23,14 @@ const crearEstudio = async(req, res = express.response) => {
     
     try {
         const estudio = new Estudio(req.body);
-        const fechaInicio = estudio.fechaInicio;
-        const fechaFin = estudio.fechaFin;
+
+        if(estudio.fechaFin <= estudio.fechaInicio) {
+            return res.status(400).json({
+                ok: false,
+                msg: 'La fecha de finalización debe ser mayor a la fecha de inicio'
+            });
+        }
+
         await estudio.save();
     
         res.json({
@@ -63,6 +68,7 @@ const editarEstudio = async(req, res = express.response) => {
     try {
         const estudioId = req.params.estudioId;
         const estudio = await Estudio.findById(estudioId);
+
         if(!estudio) {
             return res.status(404).json({
                 ok: false,
@@ -72,6 +78,14 @@ const editarEstudio = async(req, res = express.response) => {
         const nuevoEstudio = {
             ...req.body
         }
+
+        if(nuevoEstudio.fechaFin <= nuevoEstudio.fechaInicio) {
+            return res.status(400).json({
+                ok: false,
+                msg: 'La fecha de finalización debe ser mayor a la fecha de inicio'
+            });
+        }
+
         const estudioActualizado = await Estudio.findByIdAndUpdate(estudioId, nuevoEstudio, {new: true});
         res.json({
             ok: true,

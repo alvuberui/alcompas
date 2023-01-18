@@ -1,6 +1,5 @@
 const express = require('express');
 const Instrumento = require('../models/Instrumento');
-const Usuario = require('../models/Usuario');
 
 const getInstrumentosByUserId = async(req, res = express.response) => {
     try {

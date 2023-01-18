@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { AuthLayout } from '../layout/AuthLayout';
-import { Grid, Button, Link } from '@mui/material';
+import { Grid, Button, Link, Typography } from '@mui/material';
 import { Link as RouterLink} from 'react-router-dom';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
@@ -41,37 +41,43 @@ export class ConfirmationRegister extends Component {
                     <ListItem>
                     <ListItemText
                         primary="Nombre:"
-                        secondary={nombre}
+                        secondary={<Typography sx = {{ color: 'white'}}>{nombre}</Typography>}
+                        sx={{ color:'white'}}
                     />
                     </ListItem>
                     <ListItem>
                     <ListItemText
                         primary="Primer Apellido:"
-                        secondary={primer_apellido}
+                        secondary={<Typography sx = {{ color: 'white'}}>{primer_apellido}</Typography>}
+                        sx={{ color:'white'}}
                     />
                     </ListItem>
                     <ListItem>
                     <ListItemText
                         primary="Segundo Apellido:"
-                        secondary={segundo_apellido}
+                        secondary={<Typography sx = {{ color: 'white'}}>{segundo_apellido}</Typography>}
+                        sx={{ color:'white'}}
                     />
                     </ListItem>
                     <ListItem>
                     <ListItemText
                         primary="Correo:"
-                        secondary={correo}
+                        secondary={<Typography sx = {{ color: 'white'}}>{correo}</Typography>}
+                        sx={{ color:'white'}}
                     />
                     </ListItem>
                     <ListItem>
                     <ListItemText
                         primary="Nif:"
-                        secondary={nif}
+                        secondary={<Typography sx = {{ color: 'white'}}>{nif}</Typography>}
+                        sx={{ color:'white'}}
                     />
                     </ListItem>
                     <ListItem>
                     <ListItemText
                         primary="Teléfono:"
-                        secondary={telefono}
+                        secondary={<Typography sx = {{ color: 'white'}}>{telefono}</Typography>}
+                        sx={{ color:'white'}}
                     />
                     </ListItem>
                     
@@ -85,37 +91,45 @@ export class ConfirmationRegister extends Component {
                     <ListItem>
                     <ListItemText
                         primary="Fecha Nacimiento:"
-                        secondary={fecha_nacimiento}
+                        secondary={<Typography sx = {{ color: 'white'}}>{fecha_nacimiento}</Typography>}
+                        color='white'
+                        sx={{ color:'white'}}
                     />
                     </ListItem>
                     <ListItem>
                     <ListItemText
                         primary="Localidad:"
-                        secondary={localidad}
+                        secondary={<Typography sx = {{ color: 'white'}}>{localidad}</Typography>}
+                        sx={{ color:'white'}}
                     />
                     </ListItem>
                     <ListItem>
                     <ListItemText
                         primary="Provincia:"
-                        secondary={provincia}
+                        secondary={<Typography sx = {{ color: 'white'}}>{provincia}</Typography>}
+                        sx={{ color:'white'}}
                     />
                     </ListItem>
                     <ListItem>
                     <ListItemText
                         primary="Código postal:"
-                        secondary={codigo_postal}
+                        secondary={<Typography sx = {{ color: 'white'}}>{codigo_postal}</Typography>}
+                        sx={{ color:'white'}}
                     />
                     </ListItem>
                     <ListItem>
                     <ListItemText
                         primary="Dirección:"
-                        secondary={direccion}
+                        secondary={<Typography sx = {{ color: 'white'}}>{direccion}</Typography>}
+                        sx={{ color:'white'}}
                     />
                     </ListItem>
                     <ListItem>
                     <ListItemText
                         primary="Usuario:"
-                        secondary={usuario}
+                        secondary={<Typography sx = {{ color: 'white'}}>{usuario}</Typography>}
+                        
+                        style={{ color:'white'}}
                     />
                     </ListItem>
                 
@@ -126,12 +140,12 @@ export class ConfirmationRegister extends Component {
             
             <Grid container justifyContent='center' spacing={ 2 } sx={{ mb: 2, mt: 1 }}>
                 <Grid  item xs={ 6 } >
-                  <Button  variant='contained' fullWidth onClick={this.retroceder}>
+                  <Button  variant='contained' color='secondary' fullWidth onClick={this.retroceder}>
                     Retroceder
                   </Button>
                 </Grid>
                 <Grid  item xs={ 6 } >
-                  <Button  variant='contained' fullWidth onClick={this.confirmar}>
+                  <Button  variant='contained' color='secondary' fullWidth onClick={this.confirmar}>
                     Finalizar
                   </Button>
                 </Grid>

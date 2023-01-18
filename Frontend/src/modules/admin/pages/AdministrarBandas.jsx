@@ -1,21 +1,9 @@
-import { Grid, Box, Button, Typography } from '@mui/material'
-import React from 'react'
-import { NavBar } from '../../../Components'
-import {
-    BrowserRouter as Router,
-    Link,
-    NavLink,
-}  from "react-router-dom";
-import { useParams } from 'react-router-dom';
-import Swal from 'sweetalert2';
-import { useAuthStore, useBandasStore, useDirectivosStore, useUploadsStore } from '../../../hooks';
-import { useNavigate } from 'react-router-dom';
-import { useState, useEffect } from 'react';
-import TextField from '@mui/material/TextField';
-import Autocomplete from '@mui/material/Autocomplete';
-import CircularProgress from '@mui/material/CircularProgress';
 import Avatar from '@material-ui/core/Avatar';
+import { Box, Button, Grid, Typography } from '@mui/material';
+import React, { useEffect, useState } from 'react';
+import Swal from 'sweetalert2';
 import { Buscador } from '../../../Components/Buscador';
+import { useBandasStore, useUploadsStore } from '../../../hooks';
 
 function sleep(delay = 0) {
     return new Promise((resolve) => {

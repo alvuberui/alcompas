@@ -1,17 +1,16 @@
-import React, { Component, useState, useEffect} from 'react'
-import { PersonalRegister } from './PersonalRegister';
-import { LocationRegister } from './LocationRegister';
-import { UserRegister } from './UserRegister';
-import { ConfirmationRegister } from './ConfirmationRegister';
-import { useForm, useAuthStore } from '../../hooks';
-import Swal from 'sweetalert2';
-import { validarRegistro } from '../../helpers/validarRegistro';
-import { Navigate, useParams } from 'react-router-dom';
-import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
-import { AuthLayout } from '../layout/AuthLayout';
+import CircularProgress from '@mui/material/CircularProgress';
+import React, { useEffect, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import Swal from 'sweetalert2';
 import { convertDateToForm } from '../../helpers';
-import { useNavigate } from 'react-router-dom';
+import { validarRegistro } from '../../helpers/validarRegistro';
+import { useAuthStore } from '../../hooks';
+import { AuthLayout } from '../layout/AuthLayout';
+import { ConfirmationRegister } from './ConfirmationRegister';
+import { LocationRegister } from './LocationRegister';
+import { PersonalRegister } from './PersonalRegister';
+import { UserRegister } from './UserRegister';
 
 export const  UpdateForm = () => {
 

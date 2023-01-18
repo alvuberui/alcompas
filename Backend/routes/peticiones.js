@@ -47,7 +47,7 @@ router.post('/',
             }
             return true;
         }),
-        check('mensaje', 'El mensaje es obligatorio').notEmpty(),
+        check('mensaje', 'El mensaje es obligatorio').notEmpty().isLength({min: 1, max: 1000 }),
         check('instrumento', 'El instrumento no es válido').custom(value => {
             if (value) {
                 const condicion = validarInstrumentos(value);

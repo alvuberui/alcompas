@@ -1,8 +1,6 @@
 const express = require('express');
 const Peticion = require('../models/Peticion');
-const Usuario = require('../models/Usuario');
 const Directivo = require('../models/Directivo');
-const Banda = require('../models/Banda');
 const Musico = require('../models/Musico');
 const Archivero = require('../models/Archivero');
 
@@ -17,7 +15,7 @@ const getPeticionesByUserId = async(req, res = express.response) => {
             peticiones
         });
     } catch (error) {
-        console.log(error);
+        console.log("Error obteniendo las peticiones");
         res.status(500).json({
             ok: false, 
             msg: 'Por favor hable con el administrador'
@@ -50,11 +48,11 @@ const crearPeticion = async(req, res = express.response) => {
                 msg: 'El directivo no pertenece a la banda'
             });
         }
-
+        
         // Comprobar que el receptor de la petición no tiene ya un mismo rol en la banda o pendiente de aceptar.
         const usuarioId = peticion.usuario;
         const peticiones = await Peticion.find({"usuario": usuarioId, "banda": bandaId});
-
+        
         for(const peticiondbl of peticiones) {
             if(peticiondbl.estado == 'Pendiente' && peticiondbl.rol == peticion.rol) {
                 return res.status(400).json({
@@ -63,7 +61,7 @@ const crearPeticion = async(req, res = express.response) => {
                 });
             }
         }
-
+        
         if(peticion.rol == 'Directivo') {
             const roles = await Directivo.find({"usuario": usuarioId, "banda": bandaId});
             for(const rol of roles) {
@@ -75,6 +73,7 @@ const crearPeticion = async(req, res = express.response) => {
                 }
             }
         }
+        
         if(peticion.rol == 'Músico') {
             const roles = await Musico.find({"usuario": usuarioId, "banda": bandaId});
             for(const rol of roles) {     
@@ -97,17 +96,19 @@ const crearPeticion = async(req, res = express.response) => {
                 }
             }
         }
-
+       
+        
         const peticionDB = new Peticion(peticion);
+       
         const nueva_peticion = await peticionDB.save();
-
+        
         res.json({
             ok: true,
             peticion: nueva_peticion
         });
 
     } catch (error) {
-        console.log(error);
+        console.log("Error obteniendo las peticiones");
         res.status(500).json({
             ok: false, 
             msg: 'Por favor hable con el administrador'
@@ -167,7 +168,7 @@ const aceptarPeticion = async(req, res = express.response) => {
         
 
     } catch (error) {
-        console.log(error);
+        console.log("Error obteniendo las peticiones");
         res.status(500).json({
             ok: false, 
             msg: 'Por favor hable con el administrador'
@@ -212,7 +213,7 @@ const rechazarPeticion = async(req, res = express.response) => {
         
 
     } catch (error) {
-        console.log(error);
+        console.log("Error rechazando la petición");
         res.status(500).json({
             ok: false, 
             msg: 'Por favor hable con el administrador'
@@ -231,7 +232,7 @@ const getPeticionesByBandaId = async(req, res = express.response) => {
                 peticiones
             });
         } catch (error) {
-            console.log(error);
+            console.log("Error obteniendo las peticiones");
             res.status(500).json({
                 ok: false, 
                 msg: 'Por favor hable con el administrador'

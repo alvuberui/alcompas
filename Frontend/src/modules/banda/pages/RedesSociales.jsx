@@ -1,13 +1,13 @@
-import React from 'react';
-import { Grid, Box, Button, styled, Table, TableBody, TableCell, tableCellClasses,
-          TableContainer, TableHead, TableRow, Paper  } from '@mui/material';
-import { NavBar } from '../../../Components';
-import { useState, useEffect } from 'react';
-import { useRedesSocialesStore } from '../../../hooks/useRedesSocialesStore';
-import { useParams } from 'react-router-dom';
-import { NuevasRedSocial } from '../modals/NuevasRedSocial';
-import IconButton from '@mui/material/IconButton';
 import DeleteIcon from '@mui/icons-material/Delete';
+import {
+  Button, Grid, Paper, styled, Table, TableBody, TableCell, tableCellClasses,
+  TableContainer, TableHead, TableRow
+} from '@mui/material';
+import IconButton from '@mui/material/IconButton';
+import React, { useEffect } from 'react';
+import { useParams } from 'react-router-dom';
+import { useRedesSocialesStore } from '../../../hooks/useRedesSocialesStore';
+import { NuevasRedSocial } from '../modals/NuevasRedSocial';
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {

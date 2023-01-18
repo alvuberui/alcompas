@@ -1,24 +1,10 @@
-import { Grid, Typography, Button, Checkbox,Select, MenuItem, FormControlLabel, Box, Tabs, Tab } from '@mui/material';
-import Avatar from '@material-ui/core/Avatar';
-import * as React from 'react';
-import { NavBar } from '../../../Components';
-import { useAuthStore } from '../../../hooks/useAuthStore';
-import { useParams } from 'react-router-dom';
-import { useState, useEffect } from 'react';
+import { Box, Button, Grid, MenuItem, Select, TextField, Typography } from '@mui/material';
 import Modal from '@mui/material/Modal';
-import {  TextField } from '@mui/material';
-import { alpha, styled } from '@mui/material/styles';
-import { pink } from '@mui/material/colors';
+import * as React from 'react';
+import { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import Swal from 'sweetalert2';
 
-import {
-  BrowserRouter as Router,
-  Link,
-  NavLink,
-}  from "react-router-dom";
-import { useComentariosStore } from '../../../hooks';
-import { useNavigate } from 'react-router-dom';
-import { PerfilBanda } from '../pages/PerfilBanda';
 import { useRedesSocialesStore } from '../../../hooks/useRedesSocialesStore';
 const style = {
     position: 'absolute',

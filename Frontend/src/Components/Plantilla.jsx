@@ -1,10 +1,7 @@
-import { Grid, Paper, Typography } from '@mui/material'
-import Avatar from '@material-ui/core/Avatar';
-import React from 'react'
-import { Box } from '@mui/system';
-import { Musico } from './Musico';
-import { useState, useEffect } from 'react';
+import { Grid, Typography } from '@mui/material';
+import React from 'react';
 import { useAuthStore } from '../hooks/useAuthStore';
+import { Musico } from './Musico';
 
 export const Plantilla = ( { musicos, usuarios } ) => {
 

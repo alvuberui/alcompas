@@ -1,7 +1,5 @@
-import { useDispatch, useSelector } from 'react-redux';
-import { alcompasAPI} from '../api';
-import { useAuthStore } from './';
-import React, { Component, useState, useEffect} from 'react';
+import { useState } from 'react';
+import { alcompasAPI } from '../api';
 export const useEstudiosStore = () => {
 
     const [ errores, setErrores ] = useState([]); 

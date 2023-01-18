@@ -3,9 +3,6 @@ const router = Router();
 const { check } = require('express-validator');
 const { validarJWT } = require('../middlewares/validar-jwt');
 const { validarCampos } = require('../middlewares/validar-campos');
-const { validarCargo } = require('../middlewares/validar-cargo');
-const { validarInstrumentos } = require('../middlewares/validar-instrumento');
-const { validarVoz } = require('../middlewares/validar-voz');
 const { crearEstudio, getEstudiosByUserId, eliminarEstudioById, editarEstudio,
             getEstudioById } = require('../controllers/estudios');
 
@@ -42,13 +39,6 @@ router.post('/',
             }
             return true;
         }),
-        check('fechaFin', 'La fecha de fin no es válida').notEmpty().custom( value => {
-            const fecha = new Date(value);
-            if(fecha > new Date()) {
-                throw new Error("La fecha de fin no puede ser mayor que la fecha actual");
-            }
-            return true;
-        }),
         check('usuario', 'El usuario es obligatorio').isMongoId(),
     ],
     validarCampos,
@@ -71,13 +61,6 @@ router.put('/:estudioId',
             const fecha = new Date(value);
             if(fecha > new Date()) {
                 throw new Error("La fecha de inicio no puede ser mayor que la fecha actual");
-            }
-            return true;
-        }),
-        check('fechaFin', 'La fecha de fin no es válida').notEmpty().custom( value => {
-            const fecha = new Date(value);
-            if(fecha > new Date()) {
-                throw new Error("La fecha de fin no puede ser mayor que la fecha actual");
             }
             return true;
         }),

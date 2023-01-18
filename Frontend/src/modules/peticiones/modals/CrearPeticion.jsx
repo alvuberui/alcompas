@@ -1,27 +1,15 @@
-import { Grid, Typography, Button, Select, MenuItem, Checkbox, FormControlLabel, Box, Tabs, Tab } from '@mui/material';
-import Avatar from '@material-ui/core/Avatar';
-import * as React from 'react';
-import { NavBar } from '../../../Components';
-import { useAuthStore } from '../../../hooks/useAuthStore';
-import { useParams } from 'react-router-dom';
-import { useState, useEffect } from 'react';
-import Modal from '@mui/material/Modal';
-import {  TextField } from '@mui/material';
-import { alpha, styled } from '@mui/material/styles';
-import { pink } from '@mui/material/colors';
-import Swal from 'sweetalert2';
+import { Box, Button, Grid, MenuItem, Select, TextField, Typography } from '@mui/material';
 import Autocomplete from '@mui/material/Autocomplete';
 import CircularProgress from '@mui/material/CircularProgress';
+import Modal from '@mui/material/Modal';
+import * as React from 'react';
+import { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import Swal from 'sweetalert2';
+import { useAuthStore } from '../../../hooks/useAuthStore';
 
-import {
-  BrowserRouter as Router,
-  Link,
-  NavLink,
-}  from "react-router-dom";
-import { useComentariosStore, useDirectivosStore, usePeticionesStore } from '../../../hooks';
-import { useNavigate } from 'react-router-dom';
-import { useInstrumentosStore } from '../../../hooks/useInstrumentosStore';
 import { validarInstrumentos } from '../../../helpers/validarInstrumento';
+import { useDirectivosStore, usePeticionesStore } from '../../../hooks';
 
 const style = {
     position: 'absolute',
@@ -45,7 +33,7 @@ const nombres = ['Corneta', 'Tambor', 'Bordonera', 'Caja', 'Bombo', 'Platos',
                             'Timbales', 'Campanilla', 'Clarinete Bajo', 'Requinto'];
 const roles = ['Músico', 'Directivo', 'Archivero']
 const cargos = ['Presidente', 'Vicepresidente', 'Tesorero', 'Secretario', 'Vocal', 'Representante', 'Community Manager', 'Director', 'Subdirector']
-const voces = ['Primero', 'Segundo', 'Tercero']
+const voces = ['Principal', 'Primero', 'Segundo', 'Tercero']
 
 function sleep(delay = 0) {
   return new Promise((resolve) => {
@@ -73,10 +61,10 @@ export const CrearPeticion  = ( { open, handleClose, setPeticiones, setOpen} ) =
       const todosUsuarios = await getAllUsers();
       const nombresUsuarios = todosUsuarios.map(usuario => usuario.usuario);
       if(validarInstrumentos(peticion.instrumento) === false) error = error + " El instrumento no es válido ";
-      if(!peticion['rol'] in roles) error = error + " <br>  El rol no es válido";
-      if(!peticion['cargo'] in cargos) error = error + " <br>  El cargo no es válido";
-      if(!peticion['voz'] in voces) error = error + " <br>  El rol no es válido";
-      if(peticion['mensaje'].length > 250 ) error = error + " <br>  El mensaje debe máximo 250 caracteres";
+      if(! roles.includes(peticion['rol'] )) error = error + " <br>  El rol no es válido";
+      if(! cargos.includes(peticion['cargo'])) error = error + " <br>  El cargo no es válido";
+      if(! voces.includes(peticion['voz'])) error = error + " <br>  El rol no es válido";
+      if(peticion['mensaje'].length > 1000 ) error = error + " <br>  El mensaje debe máximo 250 caracteres";
       if(peticion['mensaje'].length < 1 ) error = error + " <br>  El mensaje debe tener mínimo 1 caracter";
       if(! nombresUsuarios.includes(peticion.usuario)) error = error + " <br>  El usuario no existe";
       return error;
@@ -92,7 +80,7 @@ export const CrearPeticion  = ( { open, handleClose, setPeticiones, setOpen} ) =
         }
         else {
           // Obtener el id del directivo a partir del userId
-          const directivo = await getDirectivoByUserId(user.uid);
+          const directivos = await getDirectivoByUserId(user.uid);
           
           // Obtener el userId a partir del username
           const usuario = await getUserByUsername(peticion.usuario);
@@ -111,17 +99,18 @@ export const CrearPeticion  = ( { open, handleClose, setPeticiones, setOpen} ) =
             delete peticion.voz;
             delete peticion.cargo;
           }
-
-          // Crear la petición
-          const c = await crearPeticion( peticion, id, directivo[0]._id);
-          
-          setTimeout(()=> {
-            if(errores.length === 0) {
-              setPeticiones( co => [...co, c]);
-              setPeticion({rol: 'Músico', cargo: 'Presidente', mensaje: '', instrumento:'Corneta', voz:'Primero', usuario:''});
-              setOpen(false);
+          let d = undefined;
+          for(let i = 0; i < directivos.length; i++) {
+            const directivo = directivos[i];
+            if(directivo.banda === id && directivo.fecha_final == undefined) {
+              d = directivo;
+              break;
             }
-          }, 8);
+          }
+          // Crear la petición
+          await crearPeticion( peticion, id, d._id);
+          setPeticion({rol: 'Músico', cargo: 'Presidente', mensaje: '', instrumento:'Corneta', voz:'Primero', usuario:''});
+          setOpen(false);
         }
       }
     

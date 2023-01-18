@@ -1,7 +1,6 @@
-import React, { Component } from 'react'
+import { Button, Grid, TextField } from '@mui/material';
+import React, { Component } from 'react';
 import { AuthLayout } from '../layout/AuthLayout';
-import { Grid, TextField, Button, Link } from '@mui/material';
-import { Link as RouterLink} from 'react-router-dom';
 
 export class UserRegister extends Component {
     continuar = e => {
@@ -27,9 +26,11 @@ export class UserRegister extends Component {
                 type="text"
                 placeholder="Usuario"
                 fullWidth
+                color='secondary'
                 onChange={handleChange('usuario')}
                 defaultValue={values.usuario}
-                style={{borderColor:'white'}}
+                inputProps={{ style: { color: 'white' } }} 
+                style={{borderColor:'white', textDecorationColor:'white'}}
                 focused
                 
               />
@@ -40,9 +41,12 @@ export class UserRegister extends Component {
                 label="Contraseña"
                 type="password"
                 placeholder="Contraseña"
+                color='secondary'
+                inputProps={{ style: { color: 'white' } }} 
                 defaultValue={values.contraseña}
                 fullWidth
                 onChange={handleChange('contraseña')}
+                focused
               />
             </Grid>
             }
@@ -52,9 +56,12 @@ export class UserRegister extends Component {
                 label="Confirmar contraseña"
                 type="password"
                 placeholder="Confirmar contraseña"
+                inputProps={{ style: { color: 'white' } }} 
+                color='secondary'
                 defaultValue={values.confirmacion_contraseña}
                 fullWidth
                 onChange={handleChange('confirmacion_contraseña')}
+                focused
               />
             </Grid>
             }
@@ -64,20 +71,23 @@ export class UserRegister extends Component {
                 type="text"
                 placeholder="Descripción"
                 fullWidth
+                color='secondary'
                 onChange={handleChange('descripcion')}
+                inputProps={{ style: { color: 'white' } }} 
                 defaultValue={values.descripcion}
                 rows={10}
                 multiline
+                focused
               />
             </Grid>
               <Grid container justifyContent='center' spacing={ 2 } sx={{ mb: 2, mt: 1 }}>
                 <Grid  item xs={ 6 } >
-                  <Button  variant='contained' fullWidth onClick={this.retroceder}>
+                  <Button  variant='contained' color='secondary'  fullWidth onClick={this.retroceder}>
                     Retroceder
                   </Button>
                 </Grid>
                 <Grid  item xs={ 6 } >
-                  <Button  variant='contained' fullWidth onClick={this.continuar}>
+                  <Button  variant='contained' color='secondary' fullWidth onClick={this.continuar}>
                     Siguiente
                   </Button>
                 </Grid>

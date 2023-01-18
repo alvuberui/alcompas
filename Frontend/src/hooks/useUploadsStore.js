@@ -1,8 +1,5 @@
-import { useDispatch, useSelector } from 'react-redux';
-import { alcompasAPI} from '../api';
-import { useAuthStore } from '.';
-import React, { Component, useState, useEffect} from 'react';
 import axios from 'axios';
+import { useState } from 'react';
 import { getEnvVariables } from '../helpers';
 
 export const useUploadsStore = () => {

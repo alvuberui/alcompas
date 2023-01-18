@@ -1,30 +1,21 @@
-import React from 'react'
-import { useState, useEffect } from 'react';
-import Avatar from '@mui/material/Avatar';
-import { styled, alpha } from '@mui/material/styles';
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
-import InputBase from '@mui/material/InputBase';
-import Badge from '@mui/material/Badge';
-import MenuItem from '@mui/material/MenuItem';
-import Menu from '@mui/material/Menu';
-import MenuIcon from '@mui/icons-material/Menu';
-import SearchIcon from '@mui/icons-material/Search';
-import AccountCircle from '@mui/icons-material/AccountCircle';
-import MailIcon from '@mui/icons-material/Mail';
-import NotificationsIcon from '@mui/icons-material/Notifications';
 import MoreIcon from '@mui/icons-material/MoreVert';
-import { useAuthStore } from '../hooks/useAuthStore';
+import AppBar from '@mui/material/AppBar';
+import Avatar from '@mui/material/Avatar';
+import Box from '@mui/material/Box';
+import IconButton from '@mui/material/IconButton';
+import InputBase from '@mui/material/InputBase';
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
+import { alpha, styled } from '@mui/material/styles';
+import Toolbar from '@mui/material/Toolbar';
+import Typography from '@mui/material/Typography';
+import React, { useEffect, useState } from 'react';
 import {
-  BrowserRouter as Router,
-  Link,
-  NavLink,
-}  from "react-router-dom";
-import { Buscador } from './Buscador';
+  NavLink
+} from "react-router-dom";
 import { useUploadsStore } from '../hooks';
+import { useAuthStore } from '../hooks/useAuthStore';
+import { Buscador } from './Buscador';
 
 const Search = styled('div')(({ theme }) => ({
     position: 'relative',
@@ -133,12 +124,12 @@ export const NavBar = () => {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem onClick={perfil} ><NavLink style={{textDecoration: "none", color: "black"}}  to={`/perfil/${user.uid}`}>Perfil</NavLink></MenuItem>
-      <MenuItem onClick={handleMenuClose}><NavLink style={{textDecoration: "none", color: "black"}}  to={`/peticiones/${user.uid}`}>Peticiones</NavLink></MenuItem>
-      <MenuItem onClick={handleMenuClose}><NavLink style={{textDecoration: "none", color: "black"}}  to={`/bandas/${user.uid}`}>Mis Bandas</NavLink></MenuItem>
+      <NavLink style={{textDecoration: "none", color: "black"}}  to={`/perfil/${user.uid}`}><MenuItem onClick={perfil} sx={{ justifyContent:'center'}} >Perfil</MenuItem></NavLink>
+      <NavLink style={{textDecoration: "none", color: "black"}}  to={`/peticiones/${user.uid}`}><MenuItem onClick={handleMenuClose} sx={{ justifyContent:'center'}}>Peticiones</MenuItem></NavLink>
+      <NavLink style={{textDecoration: "none", color: "black"}}  to={`/bandas/${user.uid}`}><MenuItem onClick={handleMenuClose} sx={{ justifyContent:'center'}}>Mis Bandas</MenuItem></NavLink>
       <MenuItem onClick={handleMenuClose}>Mis Préstamos</MenuItem>
-      <MenuItem onClick={handleMenuClose}><NavLink style={{textDecoration: "none", color: "black"}}  to={`/admin`}>Administrador</NavLink></MenuItem>
-      <MenuItem onClick={cerrarSesion}  href='/'>Cerrar sesión</MenuItem>
+      <NavLink style={{textDecoration: "none", color: "black"}}  to={`/admin`}><MenuItem onClick={handleMenuClose} sx={{ justifyContent:'center'}}>Administrador</MenuItem></NavLink>
+      <MenuItem onClick={cerrarSesion} sx={{ justifyContent:'center', color:'red'}}  href='/'>Cerrar sesión</MenuItem>
     </Menu>
   );
 

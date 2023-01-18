@@ -1,13 +1,8 @@
 
-import { Grid, Typography, Button, Box } from '@mui/material';
-import { useBandasStore, useDirectivosStore, useAuthStore, usePeticionesStore, useComentariosStore } from '../hooks';
-import { useState, useEffect } from 'react';
-import {
-    BrowserRouter as Router,
-    Link,
-    NavLink,
-  }  from "react-router-dom";
+import { Button, Grid, Typography } from '@mui/material';
+import { useEffect, useState } from 'react';
 import Swal from 'sweetalert2';
+import { useAuthStore } from '../hooks';
 import { useEstudiosStore } from '../hooks/useEstudiosStore';
 import { AñadirEstudioModal } from '../modules/user/';
 

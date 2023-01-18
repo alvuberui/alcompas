@@ -1,10 +1,9 @@
-import React from 'react'
-import { NavBar, Peticion } from '../../../Components';
-import { Grid, Typography, Button, Box, Tabs, Tab } from '@mui/material';
-import { usePeticionesStore } from '../../../hooks';
-import { useState, useEffect } from 'react';
+import { Button, Grid, Typography } from '@mui/material';
+import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { CrearPeticion } from '../';
+import { Peticion } from '../../../Components';
+import { usePeticionesStore } from '../../../hooks';
 
 export const PeticionesBanda = ( ) => {
 

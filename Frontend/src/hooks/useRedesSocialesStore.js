@@ -1,6 +1,5 @@
-import React from 'react'
-import { Component, useState, useEffect} from 'react';
-import { alcompasAPI} from '../api';
+import { useState } from 'react';
+import { alcompasAPI } from '../api';
 export const useRedesSocialesStore = () => {
   
 

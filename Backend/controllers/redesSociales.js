@@ -1,6 +1,5 @@
 const express = require('express');
 const RedSocial = require('../models/RedSocial');
-const Banda = require('../models/Banda');
 
 const crearRedSocial = async(req, res = express.response) => {
     try {

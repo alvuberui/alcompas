@@ -1,5 +1,4 @@
-import { useDispatch, useSelector } from 'react-redux';
-import { alcompasAPI} from '../api';
+import { alcompasAPI } from '../api';
 
 export const useDirectivosStore = () => {
 

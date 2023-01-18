@@ -1,41 +1,34 @@
-import React from 'react'
-import { NavBar, Banda } from '../../../Components';
-import { Grid, Typography, Button, Box, Tabs, Tab } from '@mui/material';
-import { useBandasStore, useUploadsStore } from '../../../hooks';
-import { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
-import {
-  BrowserRouter as Router,
-  Link,
-  NavLink,
-}  from "react-router-dom";
+import { Grid, Typography } from '@mui/material';
+import React, { useEffect, useState } from 'react';
+import { NavLink, useParams } from 'react-router-dom';
+import { Banda } from '../../../Components';
+import { useBandasStore } from '../../../hooks';
 
-export const MisBandas = ( titulo ) => {
+export const MisBandas = ( { titulo }) => {
   
   const [bandas, setBandas] = useState([]);
   const { getBandasByUserId, getBandasByNombre } = useBandasStore();
+  const { nombre } = useParams();
+  const { userId } = useParams();
   
 
-  if( titulo.titulo == 'Mis Bandas' ){
-    const { userId } = useParams();
-    
-    useEffect(() => {
-      const getBandas = async () => {
+  useEffect(() => {
+    const getBandas = async () => {
+      if( titulo == 'Mis Bandas' ){
         const userreq = await getBandasByUserId(userId);
         setBandas(userreq);  
-      }
-      getBandas();
-    }, []); 
-  } else {
-    const { nombre } = useParams();
-    useEffect(() => {
-      const getBandas = async () => {
+       
+   
+      } else {
+        
+        
         const userreq = await getBandasByNombre(nombre);
         setBandas(userreq);  
+     
       }
-      getBandas();
-    }, [ nombre ]); 
-  }
+    }
+    getBandas();
+  }, [ titulo, nombre ]); 
 
   
   
@@ -60,9 +53,9 @@ export const MisBandas = ( titulo ) => {
             xs= { 10 }
             sx={{ padding:2, backgroundColor:'primary.main', borderRadius:'5px', boxShadow:' 1px 1px 1px 1px' }}
             >
-                <Typography variant='h4' sx={{textAlign:'center', color:'white'}}>MIS BANDAS</Typography>
+                <Typography variant='h4' sx={{textAlign:'center', color:'white'}}>{titulo}</Typography>
             </Grid>
-            { titulo.titulo === 'Mis Bandas' &&
+            { titulo === 'Mis Bandas' &&
               <NavLink style={{textDecoration: "none", color: "black"}}  to='/bandas/crear'>
                 <Grid 
                 item

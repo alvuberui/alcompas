@@ -1,13 +1,11 @@
 
-import { Grid, Typography, Button, Box } from '@mui/material';
-import { useBandasStore, useDirectivosStore, useAuthStore, usePeticionesStore, useUploadsStore } from '../hooks';
-import { useState, useEffect } from 'react';
+import { Grid, Typography } from '@mui/material';
 import Avatar from '@mui/material/Avatar';
+import { useEffect, useState } from 'react';
 import {
-    BrowserRouter as Router,
-    Link,
-    NavLink,
-}  from "react-router-dom";
+    NavLink
+} from "react-router-dom";
+import { useUploadsStore } from '../hooks';
 
 
 export const Banda = ({ _id, nombre, tipo, img }) => {

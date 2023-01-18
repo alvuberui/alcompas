@@ -1,16 +1,16 @@
 import { useEffect } from 'react';
-import { Routes, Route, Navigate } from 'react-router-dom';
-import { LoginPage, PersonalRegister, RegisterFrom, UpdateForm } from '../auth';
-import { Dashboard  } from '../modules/dashboard/dashboard';
+import { Navigate, Route, Routes } from 'react-router-dom';
+import { LoginPage, RegisterFrom, UpdateForm } from '../auth';
+import { NavBar, NavbarInvitado } from '../Components';
 import { useAuthStore } from '../hooks';
 import { Inicial } from '../invitado';
-import { Perfil } from '../modules/user';
-import { Peticiones } from '../modules/peticiones/pages/Peticiones';
-import { PeticionesBanda } from '../modules/peticiones/pages/PeticionesBanda';
+import { AdministrarBandas, AdministrarUsuarios, Menu } from '../modules/admin';
 import { BandaForm, MisBandas, PerfilBanda, RedesSociales } from '../modules/banda';
 import { PanelDirectivo } from '../modules/banda/pages/PanelDirectivo';
-import { NavBar, NavbarInvitado } from '../Components';
-import { AdministrarBandas, AdministrarUsuarios, Menu } from '../modules/admin';
+import { Dashboard } from '../modules/dashboard/dashboard';
+import { Peticiones } from '../modules/peticiones/pages/Peticiones';
+import { PeticionesBanda } from '../modules/peticiones/pages/PeticionesBanda';
+import { Perfil } from '../modules/user';
 
 export const AppRouter = () => {
   

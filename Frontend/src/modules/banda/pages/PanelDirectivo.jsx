@@ -1,16 +1,10 @@
-import { Grid, Box, Button } from '@mui/material'
-import React from 'react'
-import { NavBar } from '../../../Components'
+import { Box, Button, Grid } from '@mui/material';
+import React from 'react';
 import {
-    BrowserRouter as Router,
-    Link,
-    NavLink,
-}  from "react-router-dom";
-import { useParams } from 'react-router-dom';
+    NavLink, useNavigate, useParams
+} from "react-router-dom";
 import Swal from 'sweetalert2';
 import { useAuthStore, useBandasStore, useDirectivosStore } from '../../../hooks';
-import { useNavigate } from 'react-router-dom';
-import { useState, useEffect } from 'react';
 
 export const PanelDirectivo = () => {
     const { bandaId } = useParams();

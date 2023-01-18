@@ -1,12 +1,10 @@
-import React from 'react'
-import { useAuthStore } from '../../../hooks/useAuthStore';
-import { Grid, Typography, Button, Select, MenuItem, Checkbox, FormControlLabel, Box, Tabs, Tab } from '@mui/material';
-import {  TextField } from '@mui/material';
-import Swal from 'sweetalert2';
+import { Box, Button, Grid, Typography } from '@mui/material';
 import Modal from '@mui/material/Modal';
-import { useState, useEffect } from 'react';
-import { useUploadsStore } from '../../../hooks/useUploadsStore';
+import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import Swal from 'sweetalert2';
+import { useAuthStore } from '../../../hooks/useAuthStore';
+import { useUploadsStore } from '../../../hooks/useUploadsStore';
 
 const style = {
   position: 'absolute',
@@ -44,7 +42,6 @@ export const EditarFoto = ( { open, handleClose, setOpen, tipo } ) => {
       }
       else {
         const u = await editarFotoUsuario( img, user.uid );
-        setUsuario( u );
         setOpen(false);
         setNombre('');
       }

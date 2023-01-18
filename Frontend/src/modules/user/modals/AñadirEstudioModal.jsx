@@ -1,25 +1,12 @@
-import { Grid, Typography, Button, Select, MenuItem, Checkbox, FormControlLabel, Box, Tabs, Tab } from '@mui/material';
-import Avatar from '@material-ui/core/Avatar';
-import * as React from 'react';
-import { NavBar } from '../../../Components';
-import { useAuthStore } from '../../../hooks/useAuthStore';
-import { useParams } from 'react-router-dom';
-import { useState, useEffect } from 'react';
+import { Box, Button, Grid, MenuItem, Select, TextField, Typography } from '@mui/material';
 import Modal from '@mui/material/Modal';
-import {  TextField } from '@mui/material';
-import { alpha, styled } from '@mui/material/styles';
-import { pink } from '@mui/material/colors';
+import * as React from 'react';
+import { useEffect, useState } from 'react';
 import Swal from 'sweetalert2';
+import { useAuthStore } from '../../../hooks/useAuthStore';
 
-import {
-  BrowserRouter as Router,
-  Link,
-  NavLink,
-}  from "react-router-dom";
-import { useEstudiosStore } from '../../../hooks';
-import { useNavigate } from 'react-router-dom';
-import { validarInstrumentos } from '../../../helpers/validarInstrumento';
 import { convertDateToForm } from '../../../helpers/convertDate';
+import { useEstudiosStore } from '../../../hooks';
 
 const style = {
     position: 'absolute',
@@ -54,7 +41,7 @@ export const AñadirEstudioModal  = ( { open, handleClose, setEstudios, setOpen,
       if(estudio.fechaInicio === '') error = error + "<br> La fecha de inicio no puede estar vacía";
       if(estudio.fechaFin === '') error = error + "<br> La fecha de fin no puede estar vacía";
       if(estudio.fechaInicio > fechaActual) error = error + "<br> La fecha de inicio no puede ser mayor que la fecha actual";
-      if(estudio.fechaFin > fechaActual) error = error + "<br> La fecha de fin no puede ser mayor que la fecha actual";
+      if(estudio.fechaFin <= estudio.fechaInicio) error = error + "<br> La fecha final no puede ser igual o anterior a la fecha de inicio";
       return error;
     }
 
@@ -214,7 +201,7 @@ export const AñadirEstudioModal  = ( { open, handleClose, setEstudios, setOpen,
                         onChange={handleChangeInput('fechaInicio')}
                     />
                     <Typography  sx={{ color:'white'}} >
-                      Fecha de inicio
+                      Fecha de finalización
                     </Typography>
                     <TextField 
                         sx={{ input: { color: 'white' }}}

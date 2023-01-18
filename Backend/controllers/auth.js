@@ -9,8 +9,7 @@ const { generarJWT } = require('../helpers/jwt');
 */
 const crearUsuario = async(req, res = express.response) => {
 
-    const { nombre, primer_apellido, segundo_apellido, fecha_nacimiento, correo, descripcion, localidad,
-            provincia, codigo_postal, direccion, nif, telefono, usuario, contraseña, administrador} = req.body;
+    const {  correo, nif, telefono, usuario, contraseña} = req.body;
 
     try{
         let nuevo_usuario = await Usuario.findOne( {correo} );
@@ -69,7 +68,6 @@ const crearUsuario = async(req, res = express.response) => {
             msg: 'Por favor hable con el administrador.'
         });
     }
-    
 }
 
 /*

@@ -1,7 +1,6 @@
-import { useDispatch, useSelector } from 'react-redux';
-import { alcompasAPI} from '../api';
+import { useState } from 'react';
+import { alcompasAPI } from '../api';
 import { useAuthStore } from './';
-import { useState, useEffect } from 'react';
 
 export const usePeticionesStore = () => {
 

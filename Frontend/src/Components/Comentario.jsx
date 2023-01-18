@@ -1,14 +1,12 @@
 
-import { Grid, Typography, Button, Box } from '@mui/material';
-import { useBandasStore, useDirectivosStore, useAuthStore, usePeticionesStore, useComentariosStore } from '../hooks';
-import { useState, useEffect } from 'react';
+import { Button, Grid, Typography } from '@mui/material';
+import { useEffect, useState } from 'react';
 import {
-    BrowserRouter as Router,
-    Link,
-    NavLink,
-  }  from "react-router-dom";
+    NavLink
+} from "react-router-dom";
 import Swal from 'sweetalert2';
-export const Comentario = ({ _id, titulo, texto, usuario, banda, fecha }, eliminar) => {
+import { useAuthStore, useComentariosStore } from '../hooks';
+export const Comentario = ({ _id, titulo, texto, usuario, banda, fecha, eliminar }) => {
     // Estados
     const [ usuarioPet, setUsuario ] = useState([]);
     const horas  = new Date(fecha).getHours() + ":" + new Date(fecha).getMinutes();

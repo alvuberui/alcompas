@@ -28,9 +28,9 @@ router.post(
 router.post(
     '/register',
     [
-        check('nombre', 'El nombre debe de contener mínimo un caracter y máximo 15').notEmpty().isLength({ min: 1, max: 15 }),
-        check('primer_apellido', "El primer apellido debe de contener mínimo un caracter y máximo 15").not().isEmpty().isLength({ min: 1, max: 15 }),
-        check('segundo_apellido', 'El segundo apellido debe de contener mínimo un caracter y máximo 15').not().isEmpty().isLength({ min: 1, max: 15 }),
+        check('nombre', 'El nombre debe de contener mínimo un caracter y máximo 150').notEmpty().isLength({ min: 1, max: 150 }),
+        check('primer_apellido', "El primer apellido debe de contener mínimo un caracter y máximo 150").not().isEmpty().isLength({ min: 1, max: 150 }),
+        check('segundo_apellido', 'El segundo apellido debe de contener mínimo un caracter y máximo 150').not().isEmpty().isLength({ min: 1, max: 150 }),
         check('fecha_nacimiento', 'La fecha de nacimiento no es válida').isISO8601().toDate().custom(value=>{
             let fecha_entrada = new Date(value);
             var diferencia = Date.now() - fecha_entrada;
@@ -43,15 +43,15 @@ router.post(
             return true;
         }),
         check('correo', "El correo electrónico no es válido").isEmail(),
-        check('descripcion', 'La descripción debe de contener mínimo un caracter y máximo 200').not().isEmpty().isLength({ min: 1, max: 200 }),
-        check('localidad', 'La localidad debe de contener mínimo un caracter y máximo 15').not().isEmpty().isLength({ min: 1, max: 15 }),
-        check('provincia', 'La provincia debe de contener mínimo un caracter y máximo 15').not().isEmpty().isLength({ min: 1, max: 15 }),
+        check('descripcion', 'La descripción debe de contener mínimo un caracter y máximo 500').not().isEmpty().isLength({ min: 1, max: 500 }),
+        check('localidad', 'La localidad debe de contener mínimo un caracter y máximo 50').not().isEmpty().isLength({ min: 1, max: 50 }),
+        check('provincia', 'La provincia debe de contener mínimo un caracter y máximo 50').not().isEmpty().isLength({ min: 1, max: 50 }),
         check('codigo_postal', 'El codigo postal no es válido').isPostalCode('ES'),
-        check('direccion', 'La dirección debe de contener mínimo un caracter y máximo 30').not().isEmpty().isLength({ min: 1, max: 100 }),
+        check('direccion', 'La dirección debe de contener mínimo un caracter y máximo 150').not().isEmpty().isLength({ min: 1, max: 150 }),
         check('nif', 'El nif nos es válido').isIdentityCard('ES'),
         check('telefono', 'El telefono no es válido').isMobilePhone(),
-        check('usuario', 'El usuario debe de contener mínimo un caracter y máximo 12').not().isEmpty().isLength({ min: 1, max: 30 }),
-        check('contraseña', 'La contraseña debe de contener mínimo 5 caracteres y máximo 20').not().isEmpty().isLength({ min: 5, max: 20 }),
+        check('usuario', 'El usuario debe de contener mínimo un caracter y máximo 20').not().isEmpty().isLength({ min: 1, max: 20 }),
+        check('contraseña', 'La contraseña debe de contener mínimo 7 caracteres y máximo 200').not().isEmpty().isLength({ min: 8, max: 200 }),
         validarCampos
     ],
     crearUsuario);
@@ -62,9 +62,9 @@ router.post(
 router.put(
     '/update/:id',
     [
-        check('nombre', 'El nombre debe de contener mínimo un caracter y máximo 15').notEmpty().isLength({ min: 1, max: 15 }),
-        check('primer_apellido', "El primer apellido debe de contener mínimo un caracter y máximo 15").not().isEmpty().isLength({ min: 1, max: 15 }),
-        check('segundo_apellido', 'El segundo apellido debe de contener mínimo un caracter y máximo 15').not().isEmpty().isLength({ min: 1, max: 15 }),
+        check('nombre', 'El nombre debe de contener mínimo un caracter y máximo 150').notEmpty().isLength({ min: 1, max: 150 }),
+        check('primer_apellido', "El primer apellido debe de contener mínimo un caracter y máximo 150").not().isEmpty().isLength({ min: 1, max: 150 }),
+        check('segundo_apellido', 'El segundo apellido debe de contener mínimo un caracter y máximo 150').not().isEmpty().isLength({ min: 1, max: 150 }),
         check('fecha_nacimiento', 'La fecha de nacimiento no es válida').isISO8601().toDate().custom(value=>{
             let fecha_entrada = new Date(value);
             var diferencia = Date.now() - fecha_entrada;
@@ -77,14 +77,14 @@ router.put(
             return true;
         }),
         check('correo', "El correo electrónico no es válido").isEmail(),
-        check('descripcion', 'La descripción debe de contener mínimo un caracter y máximo 200').not().isEmpty().isLength({ min: 1, max: 200 }),
-        check('localidad', 'La localidad debe de contener mínimo un caracter y máximo 15').not().isEmpty().isLength({ min: 1, max: 15 }),
-        check('provincia', 'La provincia debe de contener mínimo un caracter y máximo 15').not().isEmpty().isLength({ min: 1, max: 15 }),
+        check('descripcion', 'La descripción debe de contener mínimo un caracter y máximo 200').not().isEmpty().isLength({ min: 1, max: 500 }),
+        check('localidad', 'La localidad debe de contener mínimo un caracter y máximo 15').not().isEmpty().isLength({ min: 1, max: 50 }),
+        check('provincia', 'La provincia debe de contener mínimo un caracter y máximo 15').not().isEmpty().isLength({ min: 1, max: 50 }),
         check('codigo_postal', 'El codigo postal no es válido').isPostalCode('ES'),
-        check('direccion', 'La dirección debe de contener mínimo un caracter y máximo 30').not().isEmpty().isLength({ min: 1, max: 100 }),
+        check('direccion', 'La dirección debe de contener mínimo un caracter y máximo 30').not().isEmpty().isLength({ min: 1, max: 150 }),
         check('nif', 'El nif nos es válido').isIdentityCard('ES'),
         check('telefono', 'El telefono no es válido').isMobilePhone(),
-        check('usuario', 'El usuario debe de contener mínimo un caracter y máximo 12').not().isEmpty().isLength({ min: 1, max: 30 }),
+        check('usuario', 'El usuario debe de contener mínimo un caracter y máximo 12').not().isEmpty().isLength({ min: 1, max: 20 }),
         validarCampos
     ],
     cambiarDatos);
@@ -95,7 +95,7 @@ router.put(
 router.put(
     '/update/contrasena/:id',
     [
-        check('contraseñaNueva', 'La contraseña debe de contener mínimo 5 caracteres y máximo 20').not().isEmpty().isLength({ min: 5, max: 20 }),
+        check('contraseñaNueva', 'La contraseña debe de contener mínimo 7 caracteres y máximo 200').not().isEmpty().isLength({ min: 8, max: 200 }),
         validarCampos
     ],
     modificarContraseña);

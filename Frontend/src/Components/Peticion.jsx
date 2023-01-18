@@ -1,9 +1,8 @@
 
-import { Grid, Typography, Button, Box } from '@mui/material';
-import { useBandasStore, useDirectivosStore, useAuthStore, usePeticionesStore } from '../hooks';
-import { useState, useEffect } from 'react';
+import { Box, Button, Grid, Typography } from '@mui/material';
+import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { margin } from '@mui/system';
+import { useAuthStore, useBandasStore, useDirectivosStore, usePeticionesStore } from '../hooks';
 
 export const Peticion = ({ _id, estado, instrumento, mensaje, rol, voz, cargo, banda, usuario,  directivo, fecha }) => {
     // Estados

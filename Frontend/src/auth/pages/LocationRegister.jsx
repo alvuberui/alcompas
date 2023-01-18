@@ -27,8 +27,11 @@ export class LocationRegister extends Component {
                 type="text"
                 placeholder="Localidad"
                 fullWidth
+                color='secondary'
                 onChange={handleChange('localidad')}
                 defaultValue={values.localidad}
+                inputProps={{ style: { color: 'white' } }}
+                focused
               />
             </Grid>
             <Grid item xs={ 12 } sx={{ mt: 2}}>
@@ -37,8 +40,11 @@ export class LocationRegister extends Component {
                 type="text"
                 placeholder="Provincia"
                 fullWidth
+                color='secondary'
                 onChange={handleChange('provincia')}
                 defaultValue={values.provincia}
+                inputProps={{ style: { color: 'white' } }}
+                focused
               />
             </Grid>
             <Grid item xs={ 12 } sx={{ mt: 2}}>
@@ -47,8 +53,11 @@ export class LocationRegister extends Component {
                 type="text"
                 placeholder="Código postal"
                 fullWidth
+                color='secondary'
                 onChange={handleChange('codigo_postal')}
                 defaultValue={values.codigo_postal}
+                inputProps={{ style: { color: 'white' } }}
+                focused
               />
             </Grid>
             <Grid item xs={ 12 } sx={{ mt: 2}}>
@@ -57,18 +66,21 @@ export class LocationRegister extends Component {
                 type="text"
                 placeholder="Direccion"
                 fullWidth
+                color='secondary'
                 onChange={handleChange('direccion')}
                 defaultValue={values.direccion}
+                inputProps={{ style: { color: 'white' } }}
+                focused
               />
             </Grid>
               <Grid container justifyContent='center' spacing={ 2 } sx={{ mb: 2, mt: 1 }}>
                 <Grid  item xs={ 6 } >
-                  <Button  variant='contained' fullWidth onClick={this.retroceder}>
+                  <Button  variant='contained' color='secondary' fullWidth onClick={this.retroceder}>
                     Retroceder
                   </Button>
                 </Grid>
                 <Grid  item xs={ 6 } >
-                  <Button  variant='contained' fullWidth onClick={this.continuar}>
+                  <Button  variant='contained' color='secondary' fullWidth onClick={this.continuar}>
                     Siguiente
                   </Button>
                 </Grid>

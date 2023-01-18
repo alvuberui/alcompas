@@ -1,7 +1,6 @@
-import { useDispatch, useSelector } from 'react-redux';
-import { alcompasAPI} from '../api';
-import React, { Component, useState, useEffect} from 'react'
+import { useState } from 'react';
 import Swal from 'sweetalert2';
+import { alcompasAPI } from '../api';
 export const useBandasStore = () => {
 
     const [ mensajeError, setMensajeError ] = useState('');

@@ -1,25 +1,15 @@
-import { Grid, Typography, Button, IconButton, Checkbox, FormControlLabel, Box, Tabs, Tab} from '@mui/material';
 import Avatar from '@material-ui/core/Avatar';
+import { Box, Button, Grid, Tab, Tabs, Typography } from '@mui/material';
 import * as React from 'react';
-import { NavBar, Plantilla } from '../../../Components';
-import { useAuthStore, useBandasStore, useComentariosStore, useDirectivosStore, useMusicosStore, useUploadsStore } from '../../../hooks';
-import { useParams } from 'react-router-dom';
-import { useState, useEffect } from 'react';
-import Modal from '@mui/material/Modal';
-import {  TextField } from '@mui/material';
-import { alpha, styled } from '@mui/material/styles';
-import { pink } from '@mui/material/colors';
+import { useEffect, useState } from 'react';
+import { NavLink, useNavigate, useParams } from 'react-router-dom';
 import Swal from 'sweetalert2';
-import { useNavigate } from 'react-router-dom';
-import {
-  BrowserRouter as Router,
-  Link,
-  NavLink,
-}  from "react-router-dom";
+import { Plantilla } from '../../../Components';
 import { Comentario } from '../../../Components/Comentario';
-import { NuevoComentario } from '../modals/NuevoComentario';
-import { EditarFoto } from '../../user';
+import { useAuthStore, useBandasStore, useComentariosStore, useDirectivosStore, useMusicosStore, useUploadsStore } from '../../../hooks';
 import { useRedesSocialesStore } from '../../../hooks/useRedesSocialesStore';
+import { EditarFoto } from '../../user';
+import { NuevoComentario } from '../modals/NuevoComentario';
 
 const r = [ 'Email', 'Facebook', 'Instagram', 'Twitter', 'Youtube', 'Apple Music', ' Soundcloud', 'Spotify', 'TikTok' ]
 

@@ -1,7 +1,7 @@
-import React, { Component } from 'react'
+import { Button, Grid, Link, MenuItem, Select, TextField } from '@mui/material';
+import React, { Component } from 'react';
+import { Link as RouterLink } from 'react-router-dom';
 import { AuthLayout } from '../../../auth/layout/AuthLayout';
-import { Grid, TextField, Button, Link, Select, MenuItem } from '@mui/material';
-import { Link as RouterLink} from 'react-router-dom';
 
 export class CrearBandaUno extends Component {
     continuar = e => {
@@ -10,7 +10,7 @@ export class CrearBandaUno extends Component {
     }
   render() {
     const { values, handleChange, titulo } = this.props;
-    
+   
     return (
         <AuthLayout  title={titulo} >
         <form>
@@ -24,7 +24,9 @@ export class CrearBandaUno extends Component {
                 fullWidth
                 onChange={handleChange('nombre')}
                 defaultValue={values.nombre}
-
+                color='secondary'
+                inputProps={{ style: { color: 'white' } }} 
+                focused
               />
             </Grid>
             <Grid item xs={ 12 } sx={{ mt: 2}}>
@@ -32,11 +34,14 @@ export class CrearBandaUno extends Component {
                 labelId="demo-simple-select-label"
                 id="demo-simple-select"
                 fullWidth
-                defaultValue={values.tipo?values.tipo:'Agrupación Musical'}
+                value={values.tipo}
                 label="Tipo"
                 onChange={handleChange('tipo')}
+                color='secondary'
+                inputProps={{ style: { color: 'white' } }} 
+                style={{ color: 'gray', border: '2px solid #e2e2e1' }}
               >
-                <MenuItem value={'Agrupación Musical'}>Agrupación Musical</MenuItem>
+                <MenuItem value={'Agrupación Musical'} color='white'>Agrupación Musical</MenuItem>
                 <MenuItem value={'Banda de Cornetas y Tambores'}>Banda de Cornetas y Tambores</MenuItem>
                 <MenuItem value={'Banda de Música'}>Banda de Música</MenuItem>
               </Select>
@@ -49,6 +54,9 @@ export class CrearBandaUno extends Component {
                 fullWidth
                 onChange={handleChange('año_fundacion')}
                 defaultValue={values.año_fundacion}
+                color='secondary'
+                inputProps={{ style: { color: 'white' } }} 
+                focused
               />
             </Grid>
             <Grid item xs={ 12 } sx={{ mt: 2}}>
@@ -59,6 +67,9 @@ export class CrearBandaUno extends Component {
                 fullWidth
                 onChange={handleChange('cif')}
                 defaultValue={values.cif}
+                color='secondary'
+                inputProps={{ style: { color: 'white' } }} 
+                focused
               />
             </Grid>
             <Grid item xs={ 12 } sx={{ mt: 2}}>
@@ -69,6 +80,9 @@ export class CrearBandaUno extends Component {
                 fullWidth
                 onChange={handleChange('correo')}
                 defaultValue={values.correo}
+                color='secondary'
+                inputProps={{ style: { color: 'white' } }} 
+                focused
               />
             </Grid>
             <Grid item xs={ 12 } sx={{ mt: 2}}>
@@ -79,21 +93,20 @@ export class CrearBandaUno extends Component {
                 fullWidth
                 onChange={handleChange('telefono')}
                 defaultValue={values.telefono}
+                color='secondary'
+                inputProps={{ style: { color: 'white' } }} 
+                focused
               />
             </Grid>
             
               <Grid container justifyContent='center' spacing={ 2 } sx={{ mb: 2, mt: 1 }}>
                 <Grid  item xs={ 6 } >
-                  <Button  variant='contained' fullWidth onClick={this.continuar}>
+                  <Button  variant='contained' color='secondary' fullWidth onClick={this.continuar}>
                     Siguiente
                   </Button>
                 </Grid>
               </Grid>
-            <Grid container direction='row' justifyContent='end'>
-              <Link component={ RouterLink }color='inherit' to="/auth/login">
-                Iniciar sesión
-              </Link>
-            </Grid>
+      
   
           </Grid>
         </form>

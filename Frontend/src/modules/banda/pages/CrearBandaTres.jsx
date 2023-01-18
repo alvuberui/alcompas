@@ -1,10 +1,10 @@
-import React, { Component } from 'react'
-import { AuthLayout } from '../../../auth/layout/AuthLayout';
-import { Grid, Button, Link } from '@mui/material';
-import { Link as RouterLink} from 'react-router-dom';
+import {Typography, Button, Grid, Link } from '@mui/material';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
+import React, { Component } from 'react';
+import { Link as RouterLink } from 'react-router-dom';
+import { AuthLayout } from '../../../auth/layout/AuthLayout';
 
 export class CrearBandaTres extends Component {
 
@@ -40,37 +40,43 @@ export class CrearBandaTres extends Component {
                     <ListItem>
                     <ListItemText
                         primary="Nombre:"
-                        secondary={nombre}
+                        secondary={<Typography sx = {{ color: 'white'}}>{nombre}</Typography>}
+                        sx={{ color:'white'}}
                     />
                     </ListItem>
                     <ListItem>
                     <ListItemText
                         primary="Tipo:"
-                        secondary={tipo}
+                        secondary={<Typography sx = {{ color: 'white'}}>{tipo}</Typography>}
+                        sx={{ color:'white'}}
                     />
                     </ListItem>
                     <ListItem>
                     <ListItemText
                         primary="Dirección:"
-                        secondary={direccion}
+                        secondary={<Typography sx = {{ color: 'white'}}>{direccion}</Typography>}
+                        sx={{ color:'white'}}
                     />
                     </ListItem>
                     <ListItem>
                     <ListItemText
                         primary="Año de funcionación:"
-                        secondary={año_fundacion}
+                        secondary={<Typography sx = {{ color: 'white'}}>{año_fundacion}</Typography>}
+                        sx={{ color:'white'}}
                     />
                     </ListItem>
                     <ListItem>
                     <ListItemText
                         primary="Teléfono:"
-                        secondary={telefono}
+                        secondary={<Typography sx = {{ color: 'white'}}>{telefono}</Typography>}
+                        sx={{ color:'white'}}
                     />
                     </ListItem>
                     <ListItem>
                     <ListItemText
                         primary="Correo electrónico:"
-                        secondary={correo}
+                        secondary={<Typography sx = {{ color: 'white'}}>{correo}</Typography>}
+                        sx={{ color:'white'}}
                     />
                     </ListItem>
                     
@@ -84,31 +90,36 @@ export class CrearBandaTres extends Component {
                     <ListItem>
                     <ListItemText
                         primary="Localidad:"
-                        secondary={localidad}
+                        secondary={<Typography sx = {{ color: 'white'}}>{localidad}</Typography>}
+                        sx={{ color:'white'}}
                     />
                     </ListItem>
                     <ListItem>
                     <ListItemText
                         primary="Provincia:"
-                        secondary={provincia}
+                        secondary={<Typography sx = {{ color: 'white'}}>{provincia}</Typography>}
+                        sx={{ color:'white'}}
                     />
                     </ListItem>
                     <ListItem>
                     <ListItemText
                         primary="Código postal:"
-                        secondary={codigo_postal}
+                        secondary={<Typography sx = {{ color: 'white'}}>{codigo_postal}</Typography>}
+                        sx={{ color:'white'}}
                     />
                     </ListItem>
                     <ListItem>
                     <ListItemText
                         primary="Dirección:"
-                        secondary={direccion}
+                        secondary={<Typography sx = {{ color: 'white'}}>{direccion}</Typography>}
+                        sx={{ color:'white'}}
                     />
                     </ListItem>
                     <ListItem>
                     <ListItemText
                         primary="CIF:"
-                        secondary={cif}
+                        secondary={<Typography sx = {{ color: 'white'}}>{cif}</Typography>}
+                        sx={{ color:'white'}}
                     />
                     </ListItem>
                 
@@ -119,20 +130,15 @@ export class CrearBandaTres extends Component {
             
             <Grid container justifyContent='center' spacing={ 2 } sx={{ mb: 2, mt: 1 }}>
                 <Grid  item xs={ 6 } >
-                  <Button  variant='contained' fullWidth onClick={this.retroceder}>
+                  <Button  variant='contained' color="secondary" fullWidth onClick={this.retroceder}>
                     Retroceder
                   </Button>
                 </Grid>
                 <Grid  item xs={ 6 } >
-                  <Button  variant='contained' fullWidth onClick={this.confirmar}>
+                  <Button  variant='contained' color="secondary" fullWidth onClick={this.confirmar}>
                     Finalizar
                   </Button>
                 </Grid>
-              </Grid>
-            <Grid container direction='row' justifyContent='end'>
-              <Link component={ RouterLink }color='inherit' to="/auth/login">
-                Iniciar sesión
-              </Link>
             </Grid>
   
           </Grid>

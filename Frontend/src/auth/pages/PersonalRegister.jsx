@@ -20,41 +20,52 @@ export class PersonalRegister extends Component {
               <TextField 
                 label="Nombre"
                 type="text"
+                color='secondary'
                 placeholder="Nombre"
                 fullWidth
                 onChange={handleChange('nombre')}
+                inputProps={{ style: { color: 'white' } }} 
                 defaultValue={values.nombre}
-
+                focused
               />
             </Grid>
             <Grid item xs={ 12 } sx={{ mt: 2}}>
               <TextField 
                 label="Primer apellido"
                 type="text"
+                color='secondary'
                 placeholder="Apellido 1"
                 fullWidth
                 onChange={handleChange('primer_apellido')}
+                inputProps={{ style: { color: 'white' } }} 
                 defaultValue={values.primer_apellido}
+                focused
               />
             </Grid>
             <Grid item xs={ 12 } sx={{ mt: 2}}>
               <TextField 
                 label="Segundo Apellido"
                 type="text"
+                color='secondary'
                 placeholder="Apellido 2"
                 fullWidth
                 onChange={handleChange('segundo_apellido')}
+                inputProps={{ style: { color: 'white' } }} 
                 defaultValue={values.segundo_apellido}
+                focused
               />
             </Grid>
             <Grid item xs={ 12 } sx={{ mt: 2}}>
               <TextField 
                 label="DNI"
                 type="text"
+                color='secondary'
                 placeholder="DNI"
                 fullWidth
                 onChange={handleChange('nif')}
+                inputProps={{ style: { color: 'white' } }} 
                 defaultValue={values.nif}
+                focused
               />
             </Grid>
             <Grid item xs={ 12 } sx={{ mt: 2}}>
@@ -62,11 +73,13 @@ export class PersonalRegister extends Component {
                 label="Fecha nacimiento"
                 type="date"
                 fullWidth
+                color='secondary'
                 InputLabelProps={{
                 shrink: true,
                 }}
+                inputProps={{ style: { color: 'white' } }} 
                 onChange={handleChange('fecha_nacimiento')}
-                
+                focused
                 defaultValue={values.fecha_nacimiento}
                 
               />
@@ -75,39 +88,45 @@ export class PersonalRegister extends Component {
               <TextField
                 label="Correo electrónico"
                 type="email"
+                color='secondary'
                 placeholder="correo@gmail.com"
                 fullWidth
+                inputProps={{ style: { color: 'white' } }} 
                 onChange={handleChange('correo')}
                 defaultValue={values.correo}
+                focused
               />
             </Grid>
             <Grid item xs={ 12 } sx={{ mt: 2}}>
               <TextField
                 label="Teléfono"
                 type="tel"
+                color='secondary'
                 placeholder="666666666"
                 fullWidth
+                inputProps={{ style: { color: 'white' } }} 
                 onChange={handleChange('telefono')}
                 defaultValue={values.telefono}
+                focused
               />
             </Grid>
             
               <Grid container justifyContent='center' spacing={ 2 } sx={{ mb: 2, mt: 1 }}>
                 <Grid  item xs={ 6 } >
-                  <Button  variant='contained' fullWidth onClick={this.continuar}>
+                  <Button  variant='contained'  color='secondary' fullWidth onClick={this.continuar}>
                     Siguiente
                   </Button>
                 </Grid>
               </Grid>
             <Grid container direction='row' >
             <Grid item  justifyContent='start'>
-              <Link component={ RouterLink } style={{textDecoration:"none", color:"black"}} color='inherit' to="/">
+              <Link component={ RouterLink } color='secondary' style={{textDecoration:"none", color:"white"}}  to="/">
                 Inicio
               </Link>
             </Grid>
             { titulo === 'Crear Cuenta' &&
             <Grid item  sx={{ ml:'20px' }} justifyContent='end'>
-              <Link component={ RouterLink } style={{textDecoration:"none", color:"black"}} color='inherit' to="/auth/login">
+              <Link component={ RouterLink } color='secondary' style={{textDecoration:"none", color:"white"}}  to="/auth/login">
                 Iniciar Sesión
               </Link>
             </Grid>

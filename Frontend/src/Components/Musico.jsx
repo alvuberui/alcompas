@@ -1,20 +1,13 @@
 
-import { Grid, Paper, Typography } from '@mui/material'
-import Avatar from '@material-ui/core/Avatar';
-import React from 'react'
-import { Box } from '@mui/system';
-import {
-  BrowserRouter as Router,
-  Link,
-  NavLink,
-}  from "react-router-dom";
 import DeleteIcon from '@mui/icons-material/Delete';
-import { red } from "@mui/material/colors";
-import Button from '@mui/material/Button';
+import { Grid, Paper, Typography } from '@mui/material';
 import IconButton from '@mui/material/IconButton';
-import { useParams } from 'react-router-dom';
-import { useMusicosStore } from '../hooks/useMusicosStore';
+import React from 'react';
+import {
+  NavLink, useParams
+} from "react-router-dom";
 import { useDirectivosStore } from '../hooks/useDirectivosStore';
+import { useMusicosStore } from '../hooks/useMusicosStore';
 
 export const Musico = ({musico, usuario, tipo}) => {
 

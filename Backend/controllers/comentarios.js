@@ -1,6 +1,5 @@
 const express = require('express');
 const Comentario = require('../models/Comentario');
-const Usuario = require('../models/Usuario');
 
 const getComentarioByBandaId = async(req, res = express.response) => {
     

@@ -1,10 +1,7 @@
-import { NavbarInvitado } from "../../Components"
-import { Grid, Typography, Button, Box, Divider } from '@mui/material';
+import { Box, Button, Divider, Grid, Typography } from '@mui/material';
 import {
-  BrowserRouter as Router,
-  Link,
-  NavLink,
-}  from "react-router-dom";
+  NavLink
+} from "react-router-dom";
 
 export const Inicial = () => {
   return (
