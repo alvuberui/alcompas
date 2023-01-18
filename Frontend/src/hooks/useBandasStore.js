@@ -95,6 +95,34 @@ export const useBandasStore = () => {
         }
     }
 
+    const editarBandas = async(values, id) => {
+        try {
+            const { data } = await alcompasAPI.put('bandas/' + id, values );
+            const banda = data.banda;
+            setMensajeError('200');
+            setTimeout(()=> {
+                setMensajeError('');
+            }, 10);
+            return banda;
+        } catch(error) {
+            let fallo = ''
+            const objetos = Object(error.response.data.errors); 
+            for(const objeto in objetos) {
+                let arreglo = objetos[objeto];
+                fallo = arreglo['msg'];
+                break;
+            }
+            if(error.response.data) {
+                setMensajeError(error.response.data?.msg);
+            } else {
+                setMensajeError(fallo);
+            }
+            setTimeout(()=> {
+                setMensajeError('');
+            }, 10);
+        }
+    }
+
     return {
         mensajeError,
         // Métodos
@@ -103,6 +131,7 @@ export const useBandasStore = () => {
         getBandasByUserId,
         getBandas,
         getBandasByNombre,
-        eliminarBanda
+        eliminarBanda,
+        editarBandas
     }
 }

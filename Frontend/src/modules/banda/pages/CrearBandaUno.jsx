@@ -34,7 +34,7 @@ export class CrearBandaUno extends Component {
                 labelId="demo-simple-select-label"
                 id="demo-simple-select"
                 fullWidth
-                value={values.tipo}
+                defaultValue={values.tipo}
                 label="Tipo"
                 onChange={handleChange('tipo')}
                 color='secondary'

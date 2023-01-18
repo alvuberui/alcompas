@@ -66,8 +66,7 @@ const crearBanda = async(req, res = express.response) => {
 
 const actualizar_banda = async(req, res = express.response) => {
     const bandaId = req.params.id;
-    const { nombre, tipo_banda, localidad, provincia, codigo_postal,
-        direccion, año_fundacion, descripcion, telefono, correo, cif} = req.body;
+    const { telefono, correo, cif} = req.body;
     try {
         let banda = await Banda.findById( bandaId );
         if( !banda ) {
@@ -77,7 +76,7 @@ const actualizar_banda = async(req, res = express.response) => {
             });
         }
         banda = await Banda.findOne( {correo} );
-        if(banda) {
+        if(banda && banda._id != bandaId) {
             return res.status(400).json({
                 ok: false,
                 msg: 'Una banda existe con ese correo'
@@ -85,7 +84,7 @@ const actualizar_banda = async(req, res = express.response) => {
         }
 
         banda = await Banda.findOne( {telefono} );
-        if(banda) {
+        if(banda && banda._id != bandaId) {
             return res.status(400).json({
                 ok: false,
                 msg: 'Una banda existe con ese teléfono'
@@ -93,7 +92,7 @@ const actualizar_banda = async(req, res = express.response) => {
         }
 
         banda = await Banda.findOne( {cif} );
-        if(banda) {
+        if(banda && banda._id != bandaId) {
             return res.status(400).json({
                 ok: false,
                 msg: 'Una banda existe con ese cif'

@@ -19,7 +19,7 @@ export const  UpdateForm = () => {
     const [step, setStep] = useState(1);
 
     // Funciones y parámetros
-    const  { startUpdate, errorMessage, user, getUserByiD } = useAuthStore();
+    const  { startUpdate,  user, getUserByiD } = useAuthStore();
     const { id } = useParams();
     let navigate = useNavigate();
 

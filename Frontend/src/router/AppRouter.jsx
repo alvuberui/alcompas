@@ -5,7 +5,7 @@ import { NavBar, NavbarInvitado } from '../Components';
 import { useAuthStore } from '../hooks';
 import { Inicial } from '../invitado';
 import { AdministrarBandas, AdministrarUsuarios, Menu } from '../modules/admin';
-import { BandaForm, MisBandas, PerfilBanda, RedesSociales } from '../modules/banda';
+import { BandaForm, MisBandas, PerfilBanda, RedesSociales, UpdateBandaForm } from '../modules/banda';
 import { PanelDirectivo } from '../modules/banda/pages/PanelDirectivo';
 import { Dashboard } from '../modules/dashboard/dashboard';
 import { Peticiones } from '../modules/peticiones/pages/Peticiones';
@@ -35,6 +35,7 @@ export const AppRouter = () => {
                   <Route path="/peticiones/banda/:id/*" element={ <PeticionesBanda/>} />
                   <Route path="/modificar/:id/*" element={ <UpdateForm/>} />
                   <Route path="/bandas/crear/*" element={ <BandaForm/>} />
+                  <Route path="/bandas/actualizar/:bandaId" element={ <UpdateBandaForm/>} />
                   <Route path="/bandas/:userId/*" element={ <MisBandas titulo='Mis Bandas'/>} />
                   <Route path="/buscar/:nombre/*" element={ <MisBandas titulo='Buscar'/>} />
                   <Route path="/banda/:bandaId" element={ <PerfilBanda/>} />

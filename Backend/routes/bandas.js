@@ -65,11 +65,11 @@ router.put(
     '/:id',
     [
         check('nombre', 'El nombre es inválido').not().isEmpty().isLength({min:1, max:50}),
-        check('tipo_banda', 'El tipo de banda es obligatorio').not().isEmpty().custom(value => {
+        check('tipo', 'El tipo de banda es obligatorio').not().isEmpty().custom(value => {
             condicion_a = value == 'Banda de Música';
             condicion_b = value == 'Banda de Cornetas y Tambores';
             condicion_c = value == 'Agrupación Musical';
-
+            
             if(condicion_a == false && condicion_b == false && condicion_c == false) {
                 throw new Error("Tipo de banda incorrecto");
             }
