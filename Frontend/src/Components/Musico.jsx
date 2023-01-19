@@ -4,25 +4,42 @@ import { Grid, Paper, Typography } from '@mui/material';
 import IconButton from '@mui/material/IconButton';
 import React from 'react';
 import {
+  useNavigate,
   NavLink, useParams
 } from "react-router-dom";
 import { useDirectivosStore } from '../hooks/useDirectivosStore';
 import { useMusicosStore } from '../hooks/useMusicosStore';
 
-export const Musico = ({musico, usuario, tipo}) => {
+export const Musico = ({usuario, tipo}) => {
 
   const { bandaId } = useParams();
   const { finalizarMusico } = useMusicosStore();
-  const { finalizarDirectivo } = useDirectivosStore();
-  
+  const { finalizarDirectivo, getDirectivosByBandaId } = useDirectivosStore();
+  const navigate = useNavigate();
+
   const handleEliminarMusico = (e) => {
     e.preventDefault();
-    musico = finalizarMusico(usuario._id, bandaId);
+    finalizarMusico(usuario._id, bandaId);
   }
 
-  const handleEliminarDirectivo = (e) => {
+  const handleEliminarDirectivo = async(e) => {
     e.preventDefault();
-    directivo = finalizarDirectivo(usuario._id, bandaId);
+    const directivos = await getDirectivosByBandaId(bandaId);
+    const keys = Object.keys(directivos);
+    let contador = 0;
+    for( const key of keys) {
+      contador += directivos[key].length;
+    }
+    if(contador === 1){
+      navigate('/');
+      finalizarDirectivo(usuario._id, bandaId);
+    }
+    else {
+      finalizarDirectivo(usuario._id, bandaId);
+    }
+      
+  
+    
   }
 
   return (

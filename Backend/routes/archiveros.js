@@ -1,7 +1,7 @@
 const { Router }= require('express');
 const router = Router();
 const { check } = require('express-validator');
-const { crearArchivero, finalizarArchivero, eliminarArchiveros } = require('../controllers/archiveros');
+const { crearArchivero, finalizarArchivero, eliminarArchiveros, getArchiveroByUserId } = require('../controllers/archiveros');
 const { validarCampos } = require('../middlewares/validar-campos');
 const { validarJWT } = require('../middlewares/validar-jwt');
 
@@ -35,5 +35,8 @@ router.put('/', finalizarArchivero);
 
    // Eliminar archivero
 router.delete('/:id', eliminarArchiveros);
+
+   // Obtener archiveros a través del usuario id
+router.get('/usuario/id/:userId', getArchiveroByUserId);
 
 module.exports = router;    

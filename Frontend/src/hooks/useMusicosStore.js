@@ -1,3 +1,4 @@
+
 import { alcompasAPI } from '../api';
 
 export const useMusicosStore = () => {
@@ -36,11 +37,36 @@ export const useMusicosStore = () => {
         }
     }
 
+    const getMusicosByUserId = async(userId) => {
+        try {
+           
+            const { data } = await alcompasAPI.get('musicos/user/id/' + userId);
+            const musicos = data.musicos;
+            return musicos;
+        }
+        catch(error) {
+            console.log('Error obteniendo músicos del usuario');
+        }
+    }
+
+    const getMusicoById = async(musicoId) => {
+        try {
+            const { data } = await alcompasAPI.pet('musicos/' + musicoId);
+            const musico = data.musico;
+            return musico;
+        }
+        catch(error) {
+            console.log('Error obteniendo músico');
+        }
+    }
+
 
     return {
         // Métodos
         abandonarBanda,
         getMusicosBanda,
-        finalizarMusico
+        finalizarMusico,
+        getMusicoById,
+        getMusicosByUserId,
     }
 }

@@ -2,7 +2,8 @@ const { Router }= require('express');
 const router = Router();
 const { check } = require('express-validator');
 
-const { crearMusico, finalizarMusico, eliminarMusicos, getMusicosByBandaId } = require('../controllers/musicos');
+const { crearMusico, finalizarMusico, eliminarMusicos, getMusicosByBandaId, getMusicoById,
+        getMusicosByUserId } = require('../controllers/musicos');
 const { validarCampos } = require('../middlewares/validar-campos');
 const { validarInstrumentos } = require('../middlewares/validar-instrumento');
 const { validarVoz } = require('../middlewares/validar-voz');
@@ -53,7 +54,13 @@ router.put('/finalizar/:userId/:bandaId', finalizarMusico);
     // Eliminar músicos
 router.delete('/:id', eliminarMusicos);
 
-    // Eliminar músicos
+    // Obtener musicos a traves de la banda
 router.get('/byAllByBandaId/:bandaId', getMusicosByBandaId);
+
+    // Obtener los musicos a traves de la id del musico
+router.get('/:id', getMusicoById);
+
+    // Obtener los roles de músico de un usuario
+router.get('/user/id/:userId', getMusicosByUserId);
 
 module.exports = router;    

@@ -6,7 +6,7 @@ import { NavLink, useNavigate, useParams } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import { Plantilla } from '../../../Components';
 import { Comentario } from '../../../Components/Comentario';
-import { useAuthStore, useBandasStore, useComentariosStore, useDirectivosStore, useMusicosStore, useUploadsStore } from '../../../hooks';
+import { useArchiverosStore, useAuthStore, useBandasStore, useComentariosStore, useDirectivosStore, useMusicosStore, useUploadsStore } from '../../../hooks';
 import { useRedesSocialesStore } from '../../../hooks/useRedesSocialesStore';
 import { EditarFoto } from '../../user';
 import { NuevoComentario } from '../modals/NuevoComentario';
@@ -23,9 +23,11 @@ export const PerfilBanda = () => {
   const [ openEditarFoto, setOpenEditarFoto ] = useState(false);
   const [ musicos, setMusicos ] = useState({});
   const [ usuariosMusicos, setUsuariosMusicos ] = useState([]);
+  const [ usuariosDirectivos, setUsuariosDirectivos ] = useState([]);
   const [ fotoPerfil, setFotoPerfil ] = useState('');
   const [ directivos, setDirectivos ] = useState({});
   const [ redesSociales, setRedesSociales ] = useState([]);
+  
 
   // Funciones
   const handleChange = (event, newValue) => {
@@ -94,6 +96,7 @@ export const PerfilBanda = () => {
   const { getFotoPerfilBanda } = useUploadsStore();
   const { getDirectivosByBandaId } = useDirectivosStore();
   const { getAllByBandaId } = useRedesSocialesStore();
+  
 
   
 
@@ -109,9 +112,11 @@ export const PerfilBanda = () => {
     }
     const getMusicos = async () => {
       const musreq = await getMusicosBanda(bandaId);
+      setMusicos(musreq);
+    }
+    const getDirectivos = async () => {
       const dirreq = await getDirectivosByBandaId(bandaId);
-      const modelo = Object.assign({}, musreq, dirreq);
-      setMusicos(modelo);
+      setDirectivos(dirreq);
     }
     const getUsuariosMusicos = async () => {
       let keys = Object.keys(musicos);
@@ -143,6 +148,23 @@ export const PerfilBanda = () => {
       }
       setUsuariosMusicos(res);
     }
+    const getUsuariosDirectivos = async () => {
+      let res = {}
+      let keys = Object.keys(directivos);
+      for( let i = 0; i < keys.length; i++) {
+        const key = keys[i];
+        const element = directivos[key];
+        let lista = []
+        for(let j = 0; j < element.length; j++) {
+          const mus = element[j];
+          const usuario = await getUserByiD(mus.usuario)
+          lista.push(usuario);
+        }
+        res[key] = lista;
+      }
+      setUsuariosDirectivos(res);
+    }
+
     const getFotoPerfil = async () => {
       const foto = await getFotoPerfilBanda(bandaId);
       setFotoPerfil(foto);
@@ -155,11 +177,12 @@ export const PerfilBanda = () => {
     getComentarios();
     getMusicos();
     getUsuariosMusicos();
+    getUsuariosDirectivos();
     getFotoPerfil();
     getRedes();
-  },[ comentarios, musicos ]);
+    getDirectivos();
+  },[ comentarios, musicos, directivos ]);
   
-
   return (
     <>
 
@@ -302,7 +325,7 @@ export const PerfilBanda = () => {
                 }
             </Grid>
             <Box textAlign='center' sx={{mt:2}}>
-              <Button  color="secondary" variant='contained' align="center" onClick={handleAbadonarBanda} >Abandonar Banda</Button>
+              <Button  color="error" variant='contained' align="center" onClick={handleAbadonarBanda} >Abandonar Banda</Button>
             </Box>
             <Box textAlign='center' sx={{mt:2}}>
               <Button  color="secondary" variant='contained' align="center" ><NavLink style={{textDecoration: "none", color: "black"}}  to={`/banda/panel/${ banda._id }`}>Panel Directivo</NavLink></Button>
@@ -363,7 +386,10 @@ export const PerfilBanda = () => {
                 )}
 
                 { value === 5 &&
-                  <Plantilla musicos={musicos} key={"asdasdas"} usuarios={usuariosMusicos} />
+                  <>
+                    <Plantilla musicos={musicos}  usuarios={usuariosMusicos} tipo='Músicos' />
+                    <Plantilla  musicos={directivos}  usuarios={usuariosDirectivos} tipo='Directivos' />
+                  </>
                 }
             </Grid>
           </Grid>

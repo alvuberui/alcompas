@@ -2,7 +2,7 @@
 import { Box, Button, Grid, Typography } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { useAuthStore, useBandasStore, useDirectivosStore, usePeticionesStore } from '../hooks';
+import { useAuthStore, useBandasStore, useDirectivosStore, useMusicosStore, usePeticionesStore } from '../hooks';
 
 export const Peticion = ({ _id, estado, instrumento, mensaje, rol, voz, cargo, banda, usuario,  directivo, fecha }) => {
     // Estados
@@ -10,6 +10,7 @@ export const Peticion = ({ _id, estado, instrumento, mensaje, rol, voz, cargo, b
     const [ directivo_nombre, setDirectivo_nombre ] = useState([]);
     const { id } = useParams();
     const [ fechaLocal, setFechaLocal ] = useState();
+    const [ userp, setUserp ] = useState([]);
     
     
     // Funciones
@@ -45,13 +46,18 @@ export const Peticion = ({ _id, estado, instrumento, mensaje, rol, voz, cargo, b
             const fechaConvertida = new Date(fecha);
             setFechaLocal( fechaConvertida.toLocaleDateString());
         }
+        const getUsuario = async () => {
+            const u = await getUserByiD(usuario);
+            setUserp(u);
+        }
         
 
         getBanda();
         getDirectivo();
         convertirFecha();
+        getUsuario();
     }, []);
-    
+
   return (
         <Grid 
         container
@@ -106,6 +112,9 @@ export const Peticion = ({ _id, estado, instrumento, mensaje, rol, voz, cargo, b
                     }
                     <div>
                         <Typography style={{display: 'inline-block'}}><b>Directivo:</b> { directivo_nombre.nombre} { directivo_nombre.primer_apellido} { directivo_nombre.segundo_apellido}</Typography>
+                    </div>
+                    <div>
+                        <Typography style={{display: 'inline-block'}}><b>Destinatario:</b> { userp.nombre} { userp.primer_apellido} { userp.segundo_apellido}</Typography>
                     </div>
                 </Grid>
                 <Grid 

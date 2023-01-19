@@ -105,9 +105,26 @@ const eliminarArchiveros = async(req, res = express.response) => {
     }
 }
 
+const getArchiveroByUserId = async(req, res = express.response) => {
+    try {
+        const usuarioId = req.params.id;
+        const archivero = await Archivero.find({'usuario': usuarioId});
+        return res.status(201).json({
+            ok: true,
+            archivero
+        });
+    } catch (error) {
+        console.log(error)
+        res.status(500).json({
+            ok: false,
+            msg: 'Por favor hable con el administrador.'
+        });
+    }
+}
 
 module.exports = {
     crearArchivero,
     finalizarArchivero,
     eliminarArchiveros,
+    getArchiveroByUserId
 }

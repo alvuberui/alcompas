@@ -7,3 +7,4 @@ export * from './Estudio';
 export * from './Intrumento';
 export * from './Plantilla';
 export * from './Musico';
+export * from './Experiencia';

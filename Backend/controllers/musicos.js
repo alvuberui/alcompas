@@ -103,7 +103,40 @@ const getMusicosByBandaId = async(req, res = express.response) => {
             diccionario
         });
     } catch(error) {
-        console.log(error)
+      
+        res.status(500).json({
+            ok: false,
+            msg: 'Por favor hable con el administrador.'
+        });
+    }
+}
+
+const getMusicoById = async(req, res = express.response) => {
+    try {
+        const musicoId = req.params.musicoId;
+        const musico = await Musico.findById(musicoId);
+        return res.status(201).json({
+            ok: true,
+            musico
+        });
+    } catch(error) {
+       
+        res.status(500).json({
+            ok: false,
+            msg: 'Por favor hable con el administrador.'
+        });
+    }
+}
+
+const getMusicosByUserId = async(req, res = express.response) => {
+    try {
+        const userId = req.params.userId;
+        const musicos = await Musico.find({'usuario': userId});
+        return res.status(201).json({
+            ok: true,
+            musicos
+        });
+    } catch(error) {
         res.status(500).json({
             ok: false,
             msg: 'Por favor hable con el administrador.'
@@ -112,9 +145,12 @@ const getMusicosByBandaId = async(req, res = express.response) => {
 }
 
 
+
 module.exports = {
     crearMusico,
     finalizarMusico,
     eliminarMusicos,
-    getMusicosByBandaId
+    getMusicosByBandaId,
+    getMusicoById,
+    getMusicosByUserId
 }

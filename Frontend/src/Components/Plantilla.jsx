@@ -3,28 +3,36 @@ import React from 'react';
 import { useAuthStore } from '../hooks/useAuthStore';
 import { Musico } from './Musico';
 
-export const Plantilla = ( { musicos, usuarios } ) => {
+export const Plantilla = ( { musicos, usuarios, tipo } ) => {
 
   const { getUserByiD } = useAuthStore();
 
   const renderizar = () => {
     let html = [];
-      const keys = Object.keys(musicos);
+      if(tipo === "Músicos") {
+        const keys = Object.keys(musicos);
 
-      for(let i = 0; i < keys.length; i++){
-        const key = keys[i];
-        html.push(<Grid justifyContent="center" alignItems="center" key={key}  container><Typography   variant='h6' align='center' color='white'> {key} </Typography></Grid>);
-        const lista = [];
-        const listaUsuarios = usuarios[key]
-        if(listaUsuarios === undefined) continue;
-        for(let j = 0; j < listaUsuarios.length; j++){
-          const value = listaUsuarios[j];
-          if(lista.includes(value)) {
-            html.push(<Musico key={ (j+1) * (i+1) } musico={value} usuario={value} tipo={"musico"} />);
-          } else {
-            html.push(<Musico key={ (j+1) * (i+1) } musico={value} usuario={value} tipo={"directivo"}/>);
+        for(let i = 0; i < keys.length; i++){
+          const key = keys[i];
+          html.push(<Grid justifyContent="center" alignItems="center" key={key}  container><Typography   variant='h6' align='center' color='white'> {key} </Typography></Grid>);
+          const listaUsuarios = usuarios[key]
+          for(let j = 0; j < listaUsuarios.length; j++){
+            const value = listaUsuarios[j];
+            html.push(<Musico key={ (j+1) * (i+1) } usuario={value} tipo={"musico"} />);
           }
-          
+        }
+      }
+      else if(tipo === "Directivos") {
+        const keys = Object.keys(musicos);
+
+        for(let i = 0; i < keys.length; i++){
+          const key = keys[i];
+          html.push(<Grid justifyContent="center" alignItems="center" key={key}  container><Typography   variant='h6' align='center' color='white'> {key} </Typography></Grid>);
+          const listaUsuarios = usuarios[key]
+          for(let j = 0; j < listaUsuarios.length; j++){
+            const value = listaUsuarios[j];
+            html.push(<Musico key={ (j+1) * (i+1) }  usuario={value} tipo={"directivo"}/>); 
+          }
         }
       }
       return html;
@@ -48,7 +56,7 @@ export const Plantilla = ( { musicos, usuarios } ) => {
           justifyContent="center"
           alignItems="center" 
         >
-          <Typography variant='h3' align='center' color='white'> Plantilla </Typography>
+          <Typography variant='h3' align='center' color='white'> {tipo} </Typography>
         </Grid>
         <Grid
           container

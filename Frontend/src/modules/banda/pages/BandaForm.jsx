@@ -34,6 +34,7 @@ export const  BandaForm = () => {
         setTimeout(()=> {
             if ( mensajeError === '200') {
                 navigate('/');
+                setValues(state);
             }
         }, 100);
       }, [mensajeError])

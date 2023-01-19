@@ -7,8 +7,8 @@ import { useEffect, useState } from 'react';
 import { NavLink, useNavigate, useParams } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import { AñadirEstudioModal, AñadirInstrumentoModal, EditarFoto } from '../';
-import { Estudio, Instrumento } from '../../../Components';
-import { useEstudiosStore, useInstrumentosStore, useUploadsStore } from '../../../hooks';
+import { Estudio, Instrumento, Experiencia } from '../../../Components';
+import { useArchiverosStore, useDirectivosStore, useMusicosStore, useEstudiosStore, useInstrumentosStore, useUploadsStore } from '../../../hooks';
 import { useAuthStore } from '../../../hooks/useAuthStore';
 
 const style = {
@@ -45,6 +45,7 @@ export const Perfil = () => {
   const [instrumentos, setInstrumentos] = useState([]);
   const [ estudios, setEstudios ] = useState([]);
   const [ fotoPerfil, setFotoPerfil ] = useState([]);
+  const [ experiencias, setExperiencias ] = useState([]);
   let navigate = useNavigate();
 
   // Funciones y parámetros
@@ -52,7 +53,10 @@ export const Perfil = () => {
   const  { getInstrumentosByUserId } = useInstrumentosStore();
   const  { getEstudiosByUserId } = useEstudiosStore();
   const { getFotoPerfilUsuario} = useUploadsStore();
-
+  const { getArchiverosByUserId } = useArchiverosStore();
+  const {  getDirectivoByUserId } = useDirectivosStore();
+  const { getMusicosByUserId } = useMusicosStore();
+ 
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
@@ -165,11 +169,30 @@ export const Perfil = () => {
       const resultado = await getFotoPerfilUsuario(id);
       setFotoPerfil(resultado);
     }
+    const getExperiencias = async () => {
+        const archiveros = await getArchiverosByUserId(id);
+        const musicos = await getMusicosByUserId(id);
+        const directivos = await getDirectivoByUserId(id);
+        const union = archiveros.concat(musicos, directivos);
+        union.sort((a, b) => a.fechaInicio - b.fechaInicio).reverse();
+        let res = [];
+        for(let i = 0; i < union.length; i++) {
+          const u = union[i];
+          u.fecha_inicio = new Date(union[i].fecha_inicio).toLocaleDateString();
+          if(u.fecha_final) {
+            u.fecha_final = new Date(union[i].fecha_final).toLocaleDateString();
+          } else u.fecha_final = "Actualmente";
+          res.push(u);
+        }
+        setExperiencias(res);
+    }
     getUser();
     getInstrumentos();
     getEstudios();
     getFotoPerfil();
+    getExperiencias();
   }, [instrumentos, estudios]);
+
 
   return (
     <>
@@ -351,7 +374,7 @@ export const Perfil = () => {
             <Button  variant='contained' align="center"  onClick={handleOpen}>Modificar contraseña</Button>
           </Box>
           <Box textAlign='center' sx={{mt:2}}>
-            <Button  variant='contained' align="center"  onClick={handleDelete}>Eliminar cuenta</Button>
+            <Button  variant='contained' align="center" color='error' onClick={handleDelete}>Eliminar cuenta</Button>
           </Box>
           
           
@@ -415,6 +438,14 @@ export const Perfil = () => {
                 key={index}
                 eliminar={eliminarInstrumento}
                 setInstrumentos={setInstrumentos}
+                />
+              )}
+
+              { value === 0 &&
+                experiencias.map((experiencia, index) =>
+                <Experiencia
+                experiencia={experiencia}
+                key={index}
                 />
               )}
             </Grid>

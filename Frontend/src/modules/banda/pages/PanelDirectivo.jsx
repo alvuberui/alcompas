@@ -31,7 +31,7 @@ export const PanelDirectivo = () => {
                 // Hicieron click en "Sí"
                 const c = await abandonarBandaDirectivo(bandaId, user.uid);
                 //Redireccionar al inicio
-                console.log(c)
+                navigate('/');
                 
             }
         });
