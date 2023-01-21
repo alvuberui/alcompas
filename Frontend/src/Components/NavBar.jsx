@@ -62,12 +62,22 @@ export const NavBar = () => {
   const { startLogout, user, getUserByiD } = useAuthStore();
   const [ fotoPerfil, setFotoPerfil ] = useState();
   const { getFotoPerfilUsuario } = useUploadsStore();
+  const [ admin, setAdmin ] = useState('');
 
   useEffect(() => {
     const getFoto = async () => {
         const foto = await getFotoPerfilUsuario(user.uid);
         setFotoPerfil(foto);
     }
+    const getAdmin = async () => {
+      const u = await getUserByiD(user.uid);
+      if(u.admin){
+        setAdmin(true);
+      } else {
+        setAdmin(false);
+      }
+    }
+    getAdmin();
     getFoto();
   }, []);
 
@@ -128,7 +138,9 @@ export const NavBar = () => {
       <NavLink style={{textDecoration: "none", color: "black"}}  to={`/peticiones/${user.uid}`}><MenuItem onClick={handleMenuClose} sx={{ justifyContent:'center'}}>Peticiones</MenuItem></NavLink>
       <NavLink style={{textDecoration: "none", color: "black"}}  to={`/bandas/${user.uid}`}><MenuItem onClick={handleMenuClose} sx={{ justifyContent:'center'}}>Mis Bandas</MenuItem></NavLink>
       <MenuItem onClick={handleMenuClose}>Mis Préstamos</MenuItem>
-      <NavLink style={{textDecoration: "none", color: "black"}}  to={`/admin`}><MenuItem onClick={handleMenuClose} sx={{ justifyContent:'center'}}>Administrador</MenuItem></NavLink>
+      { admin && 
+        <NavLink style={{textDecoration: "none", color: "black"}}  to={`/admin`}><MenuItem onClick={handleMenuClose} sx={{ justifyContent:'center'}}>Administrador</MenuItem></NavLink>
+      }
       <MenuItem onClick={cerrarSesion} sx={{ justifyContent:'center', color:'red'}}  href='/'>Cerrar sesión</MenuItem>
     </Menu>
   );
@@ -151,33 +163,25 @@ export const NavBar = () => {
       onClose={handleMobileMenuClose}
     >
       
-      <MenuItem>
         
-        <p>Peticiones</p>
-      </MenuItem>
-      <MenuItem>
+      <NavLink style={{textDecoration: "none", color: "black"}}  to={`/peticiones/${user.uid}`}><MenuItem onClick={handleMenuClose} sx={{ justifyContent:'center'}}>Peticiones</MenuItem></NavLink>
+      
+      
         
-        <p>Estadísticas</p>
-      </MenuItem>
-      <MenuItem >
+      <NavLink style={{textDecoration: "none", color: "black"}}  to={`/perfil/${user.uid}`}><MenuItem onClick={perfil} sx={{ justifyContent:'center'}} >Perfil</MenuItem></NavLink>
+  
+      
         
-        <p>Pefil</p>
-      </MenuItem>
-      <MenuItem >
-        
-        <p>Préstamos</p>
-      </MenuItem>
-      <MenuItem >
-        
-        <p>Bandas</p>
-      </MenuItem>
-      <MenuItem>
-        
-        <p>Admin</p>
-      </MenuItem>
-      <MenuItem >
-        <p>Cerrar sesión</p>
-      </MenuItem>
+        <NavLink style={{textDecoration: "none", color: "black"}}  to={`/bandas/${user.uid}`}><MenuItem onClick={handleMenuClose} sx={{ justifyContent:'center'}}>Mis Bandas</MenuItem></NavLink>
+ 
+      { admin && 
+      
+          <NavLink style={{textDecoration: "none", color: "black"}}  to={`/admin`}><MenuItem onClick={handleMenuClose} sx={{ justifyContent:'center'}}>Administrador</MenuItem></NavLink>
+    
+      }
+      
+      <MenuItem onClick={cerrarSesion} sx={{ justifyContent:'center', color:'red'}}  href='/'>Cerrar sesión</MenuItem>
+   
     </Menu>
   );
 

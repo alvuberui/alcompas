@@ -1,5 +1,11 @@
 const express = require('express');
 const Usuario = require('../models/Usuario');
+const Comentario = require('../models/Comentario');
+const Instrumento = require('../models/Instrumento');
+const Musico = require('../models/Musico');
+const Archivero = require('../models/Archivero');
+const Directivo = require('../models/Directivo');
+const Estudio = require('../models/Estudio');
 const bcrypt = require('bcryptjs');
 const { generarJWT } = require('../helpers/jwt');
 
@@ -76,8 +82,7 @@ const crearUsuario = async(req, res = express.response) => {
 */
 const cambiarDatos = async(req, res = express.response) => {
 
-    const { nombre, primer_apellido, segundo_apellido, fecha_nacimiento, correo, descripcion, localidad,
-            provincia, codigo_postal, direccion, nif, telefono, usuario, contraseña, administrador} = req.body;
+    const { nif, telefono, usuario } = req.body;
     const id = req.params.id;
     try{
         let nuevo_usuario = await Usuario.findOne( {correo} );
@@ -155,7 +160,7 @@ const modificarContraseña = async(req, res = express.response) => {
         usuario.contraseña = contraseñaNuevaEncriptada;
         usuarioModificado = await Usuario.findByIdAndUpdate(userId, usuario, { new: true });
          // Generar JWT
-         const token = await generarJWT( usuarioModificado.id, usuarioModificado.nombre );
+         await generarJWT( usuarioModificado.id, usuarioModificado.nombre );
         res.status(201).json({
             ok: true,
             msg: 'actualizado datos de usuario',
@@ -244,13 +249,23 @@ const getById = async(req, res = express.response) => {
     
 }
 
+/*
+* Elimina a un usuairo por su id. También elimina todos sus roles, comentarios,
+* likes, estudios y instrumentos.
+*/
 const deleteById = async(req, res = express.response) => {
     
     try {
-
         const uid = req.params.id;
-        const usuario = await Usuario.findByIdAndDelete(uid);
 
+        await Comentario.deleteMany({usuario: uid});
+        await Musico.deleteMany({usuario: uid});
+        await Directivo.deleteMany({usuario: uid});
+        await Archivero.deleteMany({usuario: uid});
+        await Estudio.deleteMany({usuario: uid});
+        await Instrumento.deleteMany({usuario: uid});
+
+        const usuario = await Usuario.findByIdAndDelete(uid);
 
         res.json({
             ok: true,
@@ -266,9 +281,19 @@ const deleteById = async(req, res = express.response) => {
     
 }
 
+/*
+* Función para que el administrador elimine a un usuario
+*/
 const deleteAdminById = async(req, res = express.response) => {
     try {
         const uid = req.params.id;
+
+        await Comentario.deleteMany({usuario: uid});
+        await Musico.deleteMany({usuario: uid});
+        await Directivo.deleteMany({usuario: uid});
+        await Archivero.deleteMany({usuario: uid});
+        await Estudio.deleteMany({usuario: uid});
+        await Instrumento.deleteMany({usuario: uid});
         
         const usuario = await Usuario.findByIdAndDelete(uid);
         res.json({

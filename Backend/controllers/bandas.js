@@ -11,8 +11,7 @@ const fs   = require('fs');
 
 const crearBanda = async(req, res = express.response) => {
 
-    const { nombre, tipo_banda, localidad, provincia, codigo_postal,
-        direccion, año_fundacion, descripcion, telefono, correo, cif} = req.body;
+    const { telefono, correo, cif} = req.body;
 
 
     try {

@@ -3,7 +3,7 @@ import React from 'react';
 import { useAuthStore } from '../hooks/useAuthStore';
 import { Musico } from './Musico';
 
-export const Plantilla = ( { musicos, usuarios, tipo } ) => {
+export const Plantilla = ( { musicos, usuarios, tipo, directivo } ) => {
 
   const { getUserByiD } = useAuthStore();
 
@@ -18,7 +18,7 @@ export const Plantilla = ( { musicos, usuarios, tipo } ) => {
           const listaUsuarios = usuarios[key]
           for(let j = 0; j < listaUsuarios.length; j++){
             const value = listaUsuarios[j];
-            html.push(<Musico key={ (j+1) * (i+1) } usuario={value} tipo={"musico"} />);
+            html.push(<Musico key={ (j+1) * (i+1) } usuario={value} tipo={"musico"} directivo={directivo}/>);
           }
         }
       }
@@ -31,7 +31,7 @@ export const Plantilla = ( { musicos, usuarios, tipo } ) => {
           const listaUsuarios = usuarios[key]
           for(let j = 0; j < listaUsuarios.length; j++){
             const value = listaUsuarios[j];
-            html.push(<Musico key={ (j+1) * (i+1) }  usuario={value} tipo={"directivo"}/>); 
+            html.push(<Musico key={ (j+1) * (i+1) }  usuario={value} tipo={"directivo"} directivo={directivo}/>); 
           }
         }
       }
@@ -42,7 +42,7 @@ export const Plantilla = ( { musicos, usuarios, tipo } ) => {
   return (
     <Grid
     container
-    sx={{ backgroundColor:'#262254', borderRadius: '5px'}}
+    sx={{ backgroundColor:'#262254', mt:'10px', borderRadius: '5px'}}
     justifyContent="center"
       alignItems="center" >
       <Grid

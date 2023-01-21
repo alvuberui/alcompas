@@ -41,15 +41,16 @@ export const Perfil = () => {
   const [openAñadir, setOpenAñadir] = React.useState(false);
   const [ openEstudio, setOpenEstudio ] = React.useState(false);
   const [ openEditarFoto, setOpenEditarFoto ] = React.useState(false);
-  const [user, setUser] = React.useState([]);
+  const [userU, setUser] = React.useState([]);
   const [instrumentos, setInstrumentos] = useState([]);
   const [ estudios, setEstudios ] = useState([]);
   const [ fotoPerfil, setFotoPerfil ] = useState([]);
   const [ experiencias, setExperiencias ] = useState([]);
+  const [ iguales, setIguales ] = useState(false);
   let navigate = useNavigate();
 
   // Funciones y parámetros
-  const  { startUpdatePassword, errorMessage, startDelete } = useAuthStore();
+  const  { startUpdatePassword, user, startDelete } = useAuthStore();
   const  { getInstrumentosByUserId } = useInstrumentosStore();
   const  { getEstudiosByUserId } = useEstudiosStore();
   const { getFotoPerfilUsuario} = useUploadsStore();
@@ -186,7 +187,11 @@ export const Perfil = () => {
         }
         setExperiencias(res);
     }
+    const getIguales = async () => {
+      if( userU._id === user.uid ) setIguales(true);
+    }
     getUser();
+    getIguales();
     getInstrumentos();
     getEstudios();
     getFotoPerfil();
@@ -276,11 +281,20 @@ export const Perfil = () => {
           xs= { 12 }
           sx={{ backgroundColor: 'white', justifyContent: "center", display: "flex"  }}
           > 
+            { iguales === true &&
             <a onClick={ handleOpenEditarFoto }>
               { fotoPerfil !== undefined && 
                 <Avatar   style={{ height: '150px', width: '150px' }} alt="Remy Sharp" src={`data:image/png;base64,${fotoPerfil}`}  />
               }
             </a>
+            }
+            { iguales === false &&
+              <>
+              { fotoPerfil !== undefined && 
+                <Avatar   style={{ height: '150px', width: '150px' }} alt="Remy Sharp" src={`data:image/png;base64,${fotoPerfil}`}  />
+              }
+              </>
+            }
           </Grid>
           <Grid 
           item
@@ -289,7 +303,7 @@ export const Perfil = () => {
           xs= { 12 }
           sx={{ backgroundColor: 'white', justifyContent: "center", display: "flex"  }}
           >
-            <Typography sx={{ fontWeight: 'bold', mt:'10px', textAlign:'center' }} variant='h5'>{ user.nombre } {user.primer_apellido} {user.segundo_apellido}</Typography>
+            <Typography sx={{ fontWeight: 'bold', mt:'10px', textAlign:'center' }} variant='h5'>{ userU.nombre } {userU.primer_apellido} {userU.segundo_apellido}</Typography>
           </Grid>
           <Grid 
           item
@@ -298,7 +312,7 @@ export const Perfil = () => {
           xs= { 12 }
           sx={{ backgroundColor: 'white', justifyContent: "center", display: "flex"  }}
           >
-            <Typography sx={{ fontWeight: 'bold', textAlign:'center' }} variant='h5'>@{user.usuario}</Typography>
+            <Typography sx={{ fontWeight: 'bold', textAlign:'center' }} variant='h5'>@{userU.usuario}</Typography>
           </Grid>
           <Grid 
           item
@@ -307,7 +321,7 @@ export const Perfil = () => {
           xs= { 12 }
           sx={{ backgroundColor: 'white', justifyContent: "center", display: "flex"  }}
           >
-            <Typography variant='h6' sx={{textAlign:'center'}}>{user.localidad} ({user.provincia})</Typography>
+            <Typography variant='h6' sx={{textAlign:'center'}}>{userU.localidad} ({userU.provincia})</Typography>
           </Grid>
           <Grid 
           item
@@ -316,7 +330,7 @@ export const Perfil = () => {
           xs= { 12 }
           sx={{ backgroundColor: 'white', justifyContent: "center", display: "flex"  }}
           >
-            <Typography variant='h6' sx={{textAlign:'center'}}>{user.fecha_nacimiento}</Typography>
+            <Typography variant='h6' sx={{textAlign:'center'}}>{userU.fecha_nacimiento}</Typography>
           </Grid>
           <Grid 
           item
@@ -335,7 +349,7 @@ export const Perfil = () => {
           xs= { 12 }
           sx={{ backgroundColor: 'white', justifyContent: "center", display: "flex"  }}
           >
-            <Typography sx={{textAlign:'center'}} variant='h6'>{user.correo}</Typography> 
+            <Typography sx={{textAlign:'center'}} variant='h6'>{userU.correo}</Typography> 
           </Grid>
           <Grid 
           item
@@ -344,7 +358,7 @@ export const Perfil = () => {
           xs= { 12 }
           sx={{ backgroundColor: 'white', justifyContent: "center", display: "flex"  }}
           >
-            <Typography sx={{textAlign:'center'}} variant='h6'>{user.telefono}</Typography> 
+            <Typography sx={{textAlign:'center'}} variant='h6'>{userU.telefono}</Typography> 
           </Grid>
 
           <Grid 
@@ -364,18 +378,23 @@ export const Perfil = () => {
           xs= { 12 }
           sx={{ backgroundColor: 'white', justifyContent: "center", display: "flex"  }}
           >
-            <Typography  sx={{textAlign: 'center'}} variant='h6'>{user.descripcion}</Typography> 
+            <Typography  sx={{textAlign: 'center'}} variant='h6'>{userU.descripcion}</Typography> 
           </Grid>
-
-          <Box textAlign='center' sx={{mt:2}}>
-            <Button  variant='contained' align="center" ><NavLink style={{textDecoration: "none", color: "white"}}  to={`/modificar/${id}`}>Modificar datos</NavLink></Button>
-          </Box>
-          <Box textAlign='center' sx={{mt:2}}>
-            <Button  variant='contained' align="center"  onClick={handleOpen}>Modificar contraseña</Button>
-          </Box>
-          <Box textAlign='center' sx={{mt:2}}>
-            <Button  variant='contained' align="center" color='error' onClick={handleDelete}>Eliminar cuenta</Button>
-          </Box>
+          
+          { iguales === true &&
+            <>
+            <Box textAlign='center' sx={{mt:2}}>
+              <Button  variant='contained' align="center" ><NavLink style={{textDecoration: "none", color: "white"}}  to={`/modificar/${id}`}>Modificar datos</NavLink></Button>
+            </Box>
+            <Box textAlign='center' sx={{mt:2}}>
+              <Button  variant='contained' align="center"  onClick={handleOpen}>Modificar contraseña</Button>
+            </Box>
+            <Box textAlign='center' sx={{mt:2}}>
+              <Button  variant='contained' align="center" color='error' onClick={handleDelete}>Eliminar cuenta</Button>
+            </Box>
+            </>
+          }
+          
           
           
         </Grid>
@@ -402,12 +421,12 @@ export const Perfil = () => {
                           <Tab label="Instrumentos" />
                           <Tab label="Estudios" />
                         </Tabs>
-                        { value === 1 &&
+                        { value === 1 && iguales === true &&
                           <Button color='secondary' onClick={handleOpenAñadir} sx={{ mx:'auto', mb:'5px', width:'20vh', maxWidth:'4opx', backgroundColor:'white', color:'black'}} variant='contained'>
                               <Typography sx={{ fontWeight: 'bold' }} >AÑADIR</Typography>
                           </Button>
                         }
-                        { value === 2 &&
+                        { value === 2 && iguales === true &&
                           <Button color='secondary' onClick={handleOpenEstudio} sx={{ mx:'auto', mb:'5px', width:'20vh', maxWidth:'4opx', backgroundColor:'white', color:'black'}} variant='contained'>
                               <Typography sx={{ fontWeight: 'bold' }} >AÑADIR</Typography>
                           </Button>
@@ -428,6 +447,7 @@ export const Perfil = () => {
                 key={index}
                 eliminar={eliminarEstudio}
                 setEstudios={setEstudios}
+                iguales={iguales}
                 />
               )}
 
@@ -438,6 +458,7 @@ export const Perfil = () => {
                 key={index}
                 eliminar={eliminarInstrumento}
                 setInstrumentos={setInstrumentos}
+                iguales={iguales}
                 />
               )}
 

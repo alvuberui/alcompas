@@ -1,7 +1,7 @@
 import Box from '@mui/material/Box';
 import CircularProgress from '@mui/material/CircularProgress';
 import React, { useEffect, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { Navigate, useNavigate, useParams } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import { convertDateToForm } from '../../helpers';
 import { validarRegistro } from '../../helpers/validarRegistro';
@@ -90,31 +90,46 @@ export const  UpdateForm = () => {
         switch(step) {
             case 1:
                 return (
-                    <PersonalRegister
+                    <>
+                        { id !== user.uid && <Navigate to="/" /> }
+                        <PersonalRegister
+                            siguiente = {siguiente}
+                            handleChange = { handleChange }
+                            values = { values }
+                            titulo = 'Modificar Datos'
+                        />
+                    </>
+                );
+            case 2:
+                return (
+                    <>
+                        { id !== user.uid && <Navigate to="/" /> }
+                        <LocationRegister
                         siguiente = {siguiente}
+                        retroceder = { previo }
                         handleChange = { handleChange }
                         values = { values }
                         titulo = 'Modificar Datos'
-                    />
+                        />
+                    </>
                 );
-            case 2:
-                return (<LocationRegister
-                siguiente = {siguiente}
-                retroceder = { previo }
-                handleChange = { handleChange }
-                values = { values }
-                titulo = 'Modificar Datos'
-                />);
+
             case 3:
-                return  <UserRegister
-                siguiente = {siguiente}
-                retroceder = { previo }
-                handleChange = { handleChange }
-                values = { values }
-                titulo = 'Modificar Datos'
-                />
+                return  
+                <></>
+                    { id !== user.uid && <Navigate to="/" /> }
+                    <UserRegister
+                    siguiente = {siguiente}
+                    retroceder = { previo }
+                    handleChange = { handleChange }
+                    values = { values }
+                    titulo = 'Modificar Datos'
+                    />
             case 4:
-                return  <ConfirmationRegister
+                return  
+                <></>
+                { id !== user.uid && <Navigate to="/" /> }
+                <ConfirmationRegister
                 confirmar = {confirmar}
                 retroceder = { previo }
                 values = { values }

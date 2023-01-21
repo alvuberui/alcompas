@@ -27,20 +27,22 @@ export const AppRouter = () => {
             <>
               <NavBar></NavBar>
                 <Routes>
-                
                   <Route path="/" element={ <Dashboard/>} />
-                  <Route path="/*" element={ <Navigate to="/"/>} />
                   <Route path="/perfil/:id/*" element={ <Perfil/>} />
-                  <Route path="/peticiones/:id/*" element={ <Peticiones/>} />
-                  <Route path="/peticiones/banda/:id/*" element={ <PeticionesBanda/>} />
-                  <Route path="/modificar/:id/*" element={ <UpdateForm/>} />
                   <Route path="/bandas/crear/*" element={ <BandaForm/>} />
-                  <Route path="/bandas/actualizar/:bandaId" element={ <UpdateBandaForm/>} />
-                  <Route path="/bandas/:userId/*" element={ <MisBandas titulo='Mis Bandas'/>} />
                   <Route path="/buscar/:nombre/*" element={ <MisBandas titulo='Buscar'/>} />
                   <Route path="/banda/:bandaId" element={ <PerfilBanda/>} />
+
+                  <Route path="/peticiones/:id/*" element={ <Peticiones/>} />
+                  <Route path="/modificar/:id/*" element={ <UpdateForm/>} />
+                  <Route path="/bandas/:userId/*" element={ <MisBandas titulo='Mis Bandas'/>} />
+
+                  <Route path="/peticiones/banda/:id/*" element={ <PeticionesBanda/>} />
+                  <Route path="/bandas/actualizar/:bandaId" element={ <UpdateBandaForm/>} />
                   <Route path="/banda/panel/:bandaId" element={ <PanelDirectivo/>} />
                   <Route path="/banda/panel/redes/:bandaId" element={ <RedesSociales/>} />
+
+                
                   <Route path="/admin" element={ <Menu/>} />
                   <Route path="/admin/usuarios" element={ <AdministrarUsuarios/>} />
                   <Route path="/admin/bandas" element={ <AdministrarBandas/>} />

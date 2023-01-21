@@ -27,6 +27,8 @@ export const PerfilBanda = () => {
   const [ fotoPerfil, setFotoPerfil ] = useState('');
   const [ directivos, setDirectivos ] = useState({});
   const [ redesSociales, setRedesSociales ] = useState([]);
+  const [ perteneceMusico, setPerteneceMusico ] = useState(false);
+  const [ perteneceDirectivo, setPerteneceDirectivo ] = useState(false);
   
 
   // Funciones
@@ -129,6 +131,9 @@ export const PerfilBanda = () => {
         for(let j = 0; j < element.length; j++) {
           const mus = element[j];
           const usuario = await getUserByiD(mus.usuario)
+          if(usuario._id === user.uid) {
+            setPerteneceMusico(true);
+          }
           lista.push(usuario);
         }
         res[key] = lista;
@@ -158,6 +163,9 @@ export const PerfilBanda = () => {
         for(let j = 0; j < element.length; j++) {
           const mus = element[j];
           const usuario = await getUserByiD(mus.usuario)
+          if(usuario._id === user.uid) {
+            setPerteneceDirectivo(true);
+          }
           lista.push(usuario);
         }
         res[key] = lista;
@@ -206,9 +214,13 @@ export const PerfilBanda = () => {
             xs= { 12 }
             sx={{  justifyContent: "center", display: "flex", backgroundColor: '#262254'  }}
             >
-              <a onClick={handleOpenEditarFoto}>
+              { perteneceDirectivo ? 
+                <a onClick={handleOpenEditarFoto}>
+                  <Avatar style={{ height: '150px', width: '150px' }} alt="Remy Sharp" src={`data:image/png;base64,${fotoPerfil}`} />
+                </a>
+                :
                 <Avatar style={{ height: '150px', width: '150px' }} alt="Remy Sharp" src={`data:image/png;base64,${fotoPerfil}`} />
-              </a>
+              }
             </Grid>
             <Grid 
             item
@@ -324,12 +336,21 @@ export const PerfilBanda = () => {
                   ))
                 }
             </Grid>
-            <Box textAlign='center' sx={{mt:2}}>
-              <Button  color="error" variant='contained' align="center" onClick={handleAbadonarBanda} >Abandonar Banda</Button>
-            </Box>
-            <Box textAlign='center' sx={{mt:2}}>
-              <Button  color="secondary" variant='contained' align="center" ><NavLink style={{textDecoration: "none", color: "black"}}  to={`/banda/panel/${ banda._id }`}>Panel Directivo</NavLink></Button>
-            </Box>
+            { perteneceMusico &&
+              <Box textAlign='center' sx={{mt:2}}>
+                <Button  color="error" variant='contained' align="center" onClick={handleAbadonarBanda} >Abandonar Banda COMO MÚSICO</Button>
+              </Box>
+            }
+            { perteneceDirectivo &&
+              <>
+              <Box textAlign='center' sx={{mt:2}}>
+                <Button  color="error" variant='contained' align="center" onClick={handleAbadonarBanda} >Editar datos de la banda</Button>
+              </Box>
+              <Box textAlign='center' sx={{mt:2}}>
+                <Button  color="secondary" variant='contained' align="center" ><NavLink style={{textDecoration: "none", color: "black"}}  to={`/banda/panel/${ banda._id }`}>Panel Directivo</NavLink></Button>
+              </Box>
+              </>
+            }
             
             
           </Grid>
@@ -387,8 +408,8 @@ export const PerfilBanda = () => {
 
                 { value === 5 &&
                   <>
-                    <Plantilla musicos={musicos}  usuarios={usuariosMusicos} tipo='Músicos' />
-                    <Plantilla  musicos={directivos}  usuarios={usuariosDirectivos} tipo='Directivos' />
+                    <Plantilla musicos={musicos}  usuarios={usuariosMusicos} tipo='Músicos' directivo={perteneceDirectivo}/>
+                    <Plantilla  musicos={directivos}  usuarios={usuariosDirectivos} tipo='Directivos'directivo={perteneceDirectivo} />
                   </>
                 }
             </Grid>

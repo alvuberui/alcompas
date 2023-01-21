@@ -1,8 +1,8 @@
 import { Grid, Typography } from '@mui/material';
 import React, { useEffect, useState } from 'react';
-import { NavLink, useParams } from 'react-router-dom';
+import { Navigate, NavLink, useParams } from 'react-router-dom';
 import { Banda } from '../../../Components';
-import { useBandasStore } from '../../../hooks';
+import { useAuthStore, useBandasStore } from '../../../hooks';
 
 export const MisBandas = ( { titulo }) => {
   
@@ -10,6 +10,7 @@ export const MisBandas = ( { titulo }) => {
   const { getBandasByUserId, getBandasByNombre } = useBandasStore();
   const { nombre } = useParams();
   const { userId } = useParams();
+  const { user } = useAuthStore()
   
 
   useEffect(() => {
@@ -34,7 +35,7 @@ export const MisBandas = ( { titulo }) => {
   
   return (
     <>
-
+    { userId !== user.uid && titulo === 'Mis Bandas' && <Navigate to='/' />}
     <Grid 
         container 
         display="flex"

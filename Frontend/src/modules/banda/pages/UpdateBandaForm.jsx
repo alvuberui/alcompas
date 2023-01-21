@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import CircularProgress from '@mui/material/CircularProgress';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams, Navigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import { CrearBandaDos, CrearBandaTres, CrearBandaUno } from '..';
 import { validarBanda } from '../../../helpers/validarBanda';
-import { useBandasStore } from '../../../hooks/useBandasStore';
+import { useBandasStore, useAuthStore, useDirectivosStore } from '../../../hooks';
 import Box from '@mui/material/Box';
 import { AuthLayout } from '../../../auth/layout/AuthLayout';
 
@@ -12,8 +12,11 @@ export const  UpdateBandaForm = () => {
     const [step, setStep] = useState(1);
 
     const { editarBandas, mensajeError, getBandaById } = useBandasStore();
+    const { getDirectivoByUserId } = useDirectivosStore();
+    const { user } = useAuthStore();
     const { bandaId } = useParams();
-    const [values, setValues] = useState([])
+    const [values, setValues] = useState([]);
+    const [ permiso, setPermiso ] = useState('');
 
     let navigate = useNavigate();
 
@@ -33,6 +36,17 @@ export const  UpdateBandaForm = () => {
             const banda = await getBandaById(bandaId);
             setValues(banda);
         }
+        const getPermiso = async () => {
+            const directivoreq = await getDirectivoByUserId(user.uid);
+            let condicion = false
+            for( const directivo of directivoreq ) {
+              if( directivo.fecha_final === undefined && directivo.banda === bandaId && directivo.usuario === user.uid ) {
+                condicion = true;
+              } 
+            }
+            setPermiso(condicion)
+          }
+        getPermiso();
         getBanda();
       }, [])
 
@@ -72,7 +86,7 @@ export const  UpdateBandaForm = () => {
     }
 
      //const cambiar = (step) => {   
-    if(values.length == 0) {
+    if(values.length == 0 || permiso === '') {
         return (
         <>
             <AuthLayout  title={"Cargando"} >
@@ -87,28 +101,39 @@ export const  UpdateBandaForm = () => {
         switch(step) {
             case 1:
                 return (
+                    <>
+                    { permiso === false && <Navigate to='/' /> }
                     <CrearBandaUno
                         siguiente = {siguiente}
                         handleChange = { handleChange }
                         values = { values }
                         titulo = 'Editar Banda'
                     />
+                    </>
                 );
             case 2:
-                return (<CrearBandaDos
+                return (
+                <>
+                { permiso === false && <Navigate to='/' /> }
+                <CrearBandaDos
                 siguiente = {siguiente}
                 retroceder = { previo }
                 handleChange = { handleChange }
                 values = { values }
                 titulo = 'Editar Banda'
-                />);
+                />
+                </>);
             case 3:
-                return  <CrearBandaTres
+                return  (
+                <>
+                { permiso === false && <Navigate to='/' /> }
+                <CrearBandaTres
                 confirmar = {confirmar}
                 retroceder = { previo }
                 values = { values }
                 titulo = 'Editar Banda'
                 />
+                </>);
         }
     }
     

@@ -9,3 +9,4 @@ export * from './useInstrumentosStore';
 export * from './useMusicosStore';
 export * from './useUploadsStore';
 export * from './useArchiverosStore';
+export * from './useRedesSocialesStore';

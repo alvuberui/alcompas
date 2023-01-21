@@ -7,7 +7,7 @@ import { useEstudiosStore } from '../hooks/useEstudiosStore';
 import { AñadirEstudioModal } from '../modules/user/';
 
 
-export const Estudio = ({ _id, tipoEstudio, centroEstudios, poblacion, provincia, fechaInicio, fechaFin, setEstudios, usuario, eliminar }) => {
+export const Estudio = ({ _id, tipoEstudio, centroEstudios, poblacion, provincia, fechaInicio, fechaFin, setEstudios, usuario, eliminar, iguales }) => {
     // Estados
     const [ usuarioPet, setUsuario ] = useState([]);
     const [ open, setOpen ] = useState(false);
@@ -114,23 +114,25 @@ export const Estudio = ({ _id, tipoEstudio, centroEstudios, poblacion, provincia
                         </Typography>
                     </div>
                 </Grid> 
-                <Grid 
-                item
-                xs= { 12 }
-             
-                display="flex"
-                justifyContent="center"
-                alignItems="baseline"
-                >   
-                    <div>
-                        <Button color='primary' onClick={handleOpenEditar}  sx={{mr:'5px'}} variant='contained'>
-                            <Typography sx={{ fontWeight: 'bold', fontSize:'12px' }} >Editar</Typography>
-                        </Button>
-                        <Button color='primary' onClick={handleElminar} sx={{ml:'5px'}} variant='contained'>
-                            <Typography sx={{ fontWeight: 'bold', fontSize:'12px' }} >Eliminar</Typography>
-                        </Button>
-                    </div>
-                </Grid> 
+                { iguales && 
+                    <Grid 
+                    item
+                    xs= { 12 }
+                
+                    display="flex"
+                    justifyContent="center"
+                    alignItems="baseline"
+                    >   
+                        <div>
+                            <Button color='primary' onClick={handleOpenEditar}  sx={{mr:'5px'}} variant='contained'>
+                                <Typography sx={{ fontWeight: 'bold', fontSize:'12px' }} >Editar</Typography>
+                            </Button>
+                            <Button color='primary' onClick={handleElminar} sx={{ml:'5px'}} variant='contained'>
+                                <Typography sx={{ fontWeight: 'bold', fontSize:'12px' }} >Eliminar</Typography>
+                            </Button>
+                        </div>
+                    </Grid> 
+                }
             </Grid>
         </Grid>
         

@@ -1,15 +1,15 @@
 import { Grid, Typography } from '@mui/material';
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { Navigate, useParams } from 'react-router-dom';
 import { Peticion } from '../../../Components';
-import { usePeticionesStore } from '../../../hooks';
+import { useAuthStore, usePeticionesStore } from '../../../hooks';
 
 export const Peticiones = ( ) => {
 
   // Constantes, estados y hooks
   const [peticiones, setPeticiones] = useState([]);
   const { getPeticionesByUserId } = usePeticionesStore();
-
+  const { user } = useAuthStore();
   const { id } = useParams();
   // Funciones
 
@@ -24,7 +24,9 @@ export const Peticiones = ( ) => {
   
   return (
     <>
-
+    {
+      user.uid !== id && <Navigate to="/"/>
+    }
     <Grid 
         container 
         display="flex"

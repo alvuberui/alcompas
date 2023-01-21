@@ -13,7 +13,7 @@ export const Comentario = ({ _id, titulo, texto, usuario, banda, fecha, eliminar
     fecha = new Date(fecha).toLocaleDateString();
     
     // Funciones
-    const { getUserByiD } = useAuthStore();
+    const { getUserByiD, user } = useAuthStore();
     const { eliminarComentario } = useComentariosStore();
 
     const handleElminar = e => {
@@ -90,9 +90,11 @@ export const Comentario = ({ _id, titulo, texto, usuario, banda, fecha, eliminar
                         <Typography style={{display: 'inline-block', fontSize:'13px'}}>
                             { fecha} a las { horas } horas
                         </Typography>
-                        <Button color='primary' onClick={handleElminar} sx={{ml:'40px'}} variant='contained'>
-                            <Typography sx={{ fontWeight: 'bold', fontSize:'12px' }} >Eliminar</Typography>
-                        </Button>
+                        { user.uid === usuario && 
+                            <Button color='primary' onClick={handleElminar} sx={{ml:'40px'}} variant='contained'>
+                                <Typography sx={{ fontWeight: 'bold', fontSize:'12px' }} >Eliminar</Typography>
+                            </Button>
+                        }
                     </div>
                 </Grid> 
             </Grid>

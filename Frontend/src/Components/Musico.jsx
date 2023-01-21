@@ -10,7 +10,7 @@ import {
 import { useDirectivosStore } from '../hooks/useDirectivosStore';
 import { useMusicosStore } from '../hooks/useMusicosStore';
 
-export const Musico = ({usuario, tipo}) => {
+export const Musico = ({usuario, tipo, directivo}) => {
 
   const { bandaId } = useParams();
   const { finalizarMusico } = useMusicosStore();
@@ -52,17 +52,19 @@ export const Musico = ({usuario, tipo}) => {
               <Grid item xs={12} lg={11} alignContent={'center'} justifyContent={'center'}>
                 <Typography sx={{ml:'10px', mt:'10px', textAlign:'center'}}>{usuario.nombre } { usuario.primer_apellido} { usuario.segundo_apellido }</Typography>
               </Grid>
-              <Grid item xs={12} lg={1} alignContent={'center'} justifyContent={'center'} display='flex'>
-                { tipo === 'musico' ?
-                  <IconButton onClick={ handleEliminarMusico } sx = {{alignSelf:'flex-end'}} color="error" aria-label="upload picture" component="label">
-                    <DeleteIcon  ></DeleteIcon>
-                  </IconButton>
-                  :
-                  <IconButton onClick={ handleEliminarDirectivo  } sx = {{alignSelf:'flex-end'}} color="error" aria-label="upload picture" component="label">
-                    <DeleteIcon  ></DeleteIcon>
-                  </IconButton>
-                }
-              </Grid>
+              { directivo && 
+                <Grid item xs={12} lg={1} alignContent={'center'} justifyContent={'center'} display='flex'>
+                  { tipo === 'musico' ?
+                    <IconButton onClick={ handleEliminarMusico } sx = {{alignSelf:'flex-end'}} color="error" aria-label="upload picture" component="label">
+                      <DeleteIcon  ></DeleteIcon>
+                    </IconButton>
+                    :
+                    <IconButton onClick={ handleEliminarDirectivo  } sx = {{alignSelf:'flex-end'}} color="error" aria-label="upload picture" component="label">
+                      <DeleteIcon  ></DeleteIcon>
+                    </IconButton>
+                  }
+                </Grid>
+        }
             </Grid>
           </Paper>
         </NavLink>
