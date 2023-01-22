@@ -9,6 +9,19 @@ const fs   = require('fs');
 const añadirFoto = async(req, res = express.response) => {
     try {
         const { usuarioId} = req.params;
+
+        const token = req.header('x-token');
+        const payload = jwt.verify(token,process.env.SECRET_JWT_SEED);
+        const payloadId = payload.uid;
+
+        if( usuarioId !== payloadId ){
+            return res.status(401).json({
+                ok: false,
+                msg: 'No tiene privilegios para añadir una foto'
+            });
+        }
+
+
         const usuario = await Usuario.findById( usuarioId );
         const nombre = await subirArchivo( req.files, undefined, 'imgs/usuarios' );
 
@@ -72,8 +85,24 @@ const mostrarImagenUsuario = async(req, res = response ) => {
 const añadirFotoBanda = async(req, res = express.response) => {
     try {
         const { bandaId } = req.params;
+
+        const token = req.header('x-token');
+        const payload = jwt.verify(token,process.env.SECRET_JWT_SEED);
+        const payloadId = payload.uid;
+
+        const directivos = await Directivo.find({"usuario": payloadId, "banda": bandaId, "fecha_final": undefined});
+        if(directivos.length === 0){
+            return res.status(401).json({
+                ok: false,
+                msg: 'No tiene privilegios para crear redes sociales'
+            });
+        }
         const banda = await Banda.findById( bandaId );
+
+
         const nombre = await subirArchivo( req.files, undefined, 'imgs/bandas' );
+
+        
         
         if( banda.img ) {
             const pathImagen = path.join( __dirname, '../uploads/imgs/bandas', banda.img );

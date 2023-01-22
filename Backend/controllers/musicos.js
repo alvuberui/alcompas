@@ -1,6 +1,6 @@
 const express = require('express');
 const Musico = require('../models/Musico');
-
+const Directivo = require('../models/Directivo');
 const crearMusico = async(req, res = express.response) => {
     try {
         const usuarioId = req.uid;
@@ -16,6 +16,7 @@ const crearMusico = async(req, res = express.response) => {
                 });
             }
         }
+
 
         let musicoNuevo = new Musico(req.body);
         musicoNuevo.usuario = req.uid;
@@ -47,7 +48,32 @@ const finalizarMusico = async(req, res = express.response) => {
                 msg: 'No existe un músico con ese id'
             });
         }
-  
+        
+        const token = req.header('x-token');
+        const payload = jwt.verify(token,process.env.SECRET_JWT_SEED);
+        const payloadId = payload.uid;
+        let condicion = false;
+        let condicion2 = false;
+
+        if(payloadId === userId) {
+            condicion2 = true;
+        }
+
+        const ds = await Directivo.find({'usuario': payloadId, 'banda': bandaId, 'fecha_final': undefined});
+        for (i=0; i<ds.length; i++) {
+            let d = ds[i];
+            if(d.usuario === payloadId) {
+                condicion = true;
+            }
+        }
+        if( condicion === false && condicion2 === false) {
+            return res.status(401).json({
+                ok: false,
+                msg: 'No tiene privilegios para realizar esta acción'
+            });
+        }
+
+
         musico[0].fecha_final = new Date();
         const newMusico = new Musico(musico[0]);
         const musicoDB = await newMusico.save();
@@ -66,8 +92,23 @@ const finalizarMusico = async(req, res = express.response) => {
 }
 
 const eliminarMusicos = async(req, res = express.response) => { 
-    const usuarioId = req.params.id;
+    
     try {
+        const usuarioId = req.params.id;
+       
+
+        const token = req.header('x-token');
+        const payload = jwt.verify(token,process.env.SECRET_JWT_SEED);
+        const payloadId = payload.uid;
+        const u = await Usuario.findById(payloadId);
+
+        if(u.administrador === false || payloadId !== usuarioId) {
+            return res.status(401).json({
+                ok: false,
+                msg: 'No tiene privilegios para realizar esta acción'
+            });
+        }
+
         const musico = await Musico.deleteMany({'usuario': usuarioId});
         
         

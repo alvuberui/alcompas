@@ -3,9 +3,21 @@ const RedSocial = require('../models/RedSocial');
 
 const crearRedSocial = async(req, res = express.response) => {
     try {
-    
+        
         const  redSocial = new RedSocial(req.body);
         const nuevaRedSocial = await redSocial.save();
+
+        const token = req.header('x-token');
+        const payload = jwt.verify(token,process.env.SECRET_JWT_SEED);
+        const payloadId = payload.uid;
+
+        const directivos = await Directivo.find({"usuario": payloadId, "banda": redSocial.banda, "fecha_final": undefined});
+        if(directivos.length === 0){
+            return res.status(401).json({
+                ok: false,
+                msg: 'No tiene privilegios para crear redes sociales'
+            });
+        }
 
         res.json({
             ok: true,
@@ -26,6 +38,18 @@ const getRedesByBandaId = async(req, res = express.response) => {
         const id = req.params.id;
         const redes = await RedSocial.find({banda: id});
 
+        const token = req.header('x-token');
+        const payload = jwt.verify(token,process.env.SECRET_JWT_SEED);
+        const payloadId = payload.uid;
+
+        const directivos = await Directivo.find({"usuario": payloadId, "banda": redSocial.banda, "fecha_final": undefined});
+        if(directivos.length === 0){
+            return res.status(401).json({
+                ok: false,
+                msg: 'No tiene privilegios para crear redes sociales'
+            });
+        }
+
         res.json({  
             ok: true,
             redes
@@ -42,6 +66,19 @@ const getRedesByBandaId = async(req, res = express.response) => {
 const eliminarRedSocial = async(req, res = express.response) => {
     try {
         const id = req.params.id;
+
+        const token = req.header('x-token');
+        const payload = jwt.verify(token,process.env.SECRET_JWT_SEED);
+        const payloadId = payload.uid;
+
+        const directivos = await Directivo.find({"usuario": payloadId, "banda": redSocial.banda, "fecha_final": undefined});
+        if(directivos.length === 0){
+            return res.status(401).json({
+                ok: false,
+                msg: 'No tiene privilegios para crear redes sociales'
+            });
+        }
+
         const redSocial = await RedSocial.findById(id);
         if(!redSocial){
             return res.status(404).json({

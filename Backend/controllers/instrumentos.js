@@ -37,7 +37,20 @@ const getinstrumentosById = async(req, res = express.response) => {
 
 const crearInstrumentoUsuario = async(req, res = express.response) => {
     try {
-        const instrumento = req.body
+        const instrumento = req.body;
+
+        const token = req.header('x-token');
+        const payload = jwt.verify(token,process.env.SECRET_JWT_SEED);
+        const payloadId = payload.uid;
+
+
+        if(instrumento.usuario != payloadId) {
+            return res.status(400).json({
+                ok: false,
+                msg: 'No tiene permisos'
+            });
+        }
+
 
         const nuevoInstrumento = new Instrumento(instrumento);
         const instrumentoGuardado = await nuevoInstrumento.save();
@@ -64,6 +77,19 @@ const eliminarInstrumento = async(req, res = express.response) => {
                 msg: 'Instrumento no encontrado'
             });
         }
+
+        const token = req.header('x-token');
+        const payload = jwt.verify(token,process.env.SECRET_JWT_SEED);
+        const payloadId = payload.uid;
+
+
+        if(instrumento.usuario != payloadId) {
+            return res.status(400).json({
+                ok: false,
+                msg: 'No tiene permisos'
+            });
+        }
+
         await Instrumento.findByIdAndDelete(instrumentoId);
         res.json({
             ok: true,
@@ -89,6 +115,19 @@ const actualizarInstrumentoUsuario = async(req, res = express.response) => {
                 msg: 'Instrumento no encontrado'
             });
         }
+
+        const token = req.header('x-token');
+        const payload = jwt.verify(token,process.env.SECRET_JWT_SEED);
+        const payloadId = payload.uid;
+
+
+        if(instrumento.usuario != payloadId) {
+            return res.status(400).json({
+                ok: false,
+                msg: 'No tiene permisos para crear este instrumento'
+            });
+        }
+
         const nuevoInstrumento = {
             ...req.body
         }

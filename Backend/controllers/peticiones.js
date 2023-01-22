@@ -8,7 +8,21 @@ const getPeticionesByUserId = async(req, res = express.response) => {
     
     try {
         const userId = req.params.userId;
+
+        const token = req.header('x-token');
+        const payload = jwt.verify(token,process.env.SECRET_JWT_SEED);
+        const payloadId = payload.uid;
+
+        if(userId != payloadId) {
+            return res.status(400).json({
+                ok: false,
+                msg: 'No tiene permisos'
+            });
+        }
+
         const peticiones = await Peticion.find({"usuario": userId});
+
+
 
         res.json({
             ok: true,
@@ -41,6 +55,19 @@ const crearPeticion = async(req, res = express.response) => {
         const directivoId = peticion.directivo;
         const bandaId = peticion.banda;
         const directivo = await Directivo.findById(directivoId);
+
+        const token = req.header('x-token');
+        const payload = jwt.verify(token,process.env.SECRET_JWT_SEED);
+        const payloadId = payload.uid;
+
+        const directivos = await Directivo.find({"usuario": payloadId, "banda": bandaId, fecha_final: undefined});
+        if(directivos.length == 0) {
+            return res.status(400).json({
+                ok: false,
+                msg: 'No tiene permisos para crear una petición'
+            });
+        }
+        
 
         if(directivo.banda != bandaId || directivo.fecha_final) {
             return res.status(400).json({
@@ -127,6 +154,17 @@ const aceptarPeticion = async(req, res = express.response) => {
         const peticionId = req.params.id;
         const userId = req.params.userId;
         const peticion = await Peticion.findById(peticionId);
+
+        const token = req.header('x-token');
+        const payload = jwt.verify(token,process.env.SECRET_JWT_SEED);
+        const payloadId = payload.uid;
+
+        if( payloadId != peticion.usuario ) {
+            return res.status(400).json({
+                ok: false,
+                msg: 'No tiene permiso para aceptar esta petición'
+            });
+        }
        
         if(peticion.estado != 'Pendiente') {
             return res.status(400).json({
@@ -186,6 +224,17 @@ const rechazarPeticion = async(req, res = express.response) => {
         const peticionId = req.params.id;
         const userId = req.params.userId;
         const peticion = await Peticion.findById(peticionId);
+
+        const token = req.header('x-token');
+        const payload = jwt.verify(token,process.env.SECRET_JWT_SEED);
+        const payloadId = payload.uid;
+
+        if( payloadId != peticion.usuario ) {
+            return res.status(400).json({
+                ok: false,
+                msg: 'No tiene permiso para aceptar esta petición'
+            });
+        }
        
         if(peticion.estado != 'Pendiente') {
             return res.status(400).json({
@@ -226,6 +275,19 @@ const getPeticionesByBandaId = async(req, res = express.response) => {
         try {
             const bandaId = req.params.bandaId;
             const peticiones = await Peticion.find({"banda": bandaId});
+
+            const token = req.header('x-token');
+            const payload = jwt.verify(token,process.env.SECRET_JWT_SEED);
+            const payloadId = payload.uid;
+
+            const directivos = await Directivo.find({"usuario": payloadId, "banda": bandaId, "fecha_final": undefined});
+
+            if(directivos.length == 0) {
+                return res.status(400).json({
+                    ok: false,
+                    msg: 'No tiene permiso para ver las peticiones de esta banda'
+                });
+            }
             
             res.json({
                 ok: true,

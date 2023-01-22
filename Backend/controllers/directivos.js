@@ -120,6 +120,28 @@ const finalizarDirectivo = async(req, res = express.response) => {
     try {
         const userId = req.params.userId;
         const bandaId = req.params.bandaId;
+
+        // Validar que el usuario es directivo de la banda
+        const token = req.header('x-token');
+        const payload = jwt.verify(token,process.env.SECRET_JWT_SEED);
+        const payloadId = payload.uid;
+        let condicion = false;
+
+        const ds = await Directivo.find({'usuario': payloadId, 'banda': bandaId, 'fecha_final': undefined});
+        for (i=0; i<ds.length; i++) {
+            let d = ds[i];
+            if(d.usuario === payloadId) {
+                condicion = true;
+            }
+        }
+        if(!condicion) {
+            return res.status(401).json({
+                ok: false,
+                msg: 'No tiene privilegios para realizar esta acción'
+            });
+        }
+
+
         const directivo = await Directivo.find({'usuario': userId, 'banda': bandaId, 'fecha_final': undefined});
         
         if(!directivo) {   
@@ -158,7 +180,25 @@ const eliminarDirectivos = async(req, res = express.response) => {
     const usuarioId = req.params.id;
     try {
         const directivo = await Directivo.deleteMany({'usuario': usuarioId});
-        
+        // Validar que el usuario es directivo de la banda
+        const token = req.header('x-token');
+        const payload = jwt.verify(token,process.env.SECRET_JWT_SEED);
+        const payloadId = payload.uid;
+        let condicion = false;
+
+        const ds = await Directivo.find({'usuario': payloadId, 'banda': bandaId, 'fecha_final': undefined});
+        for (i=0; i<ds.length; i++) {
+            let d = ds[i];
+            if(d.usuario === payloadId) {
+                condicion = true;
+            }
+        }
+        if(!condicion) {
+            return res.status(401).json({
+                ok: false,
+                msg: 'No tiene privilegios para realizar esta acción'
+            });
+        }
         
         return res.status(201).json({
             ok: true,

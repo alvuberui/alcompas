@@ -64,9 +64,31 @@ const crearBanda = async(req, res = express.response) => {
 }
 
 const actualizar_banda = async(req, res = express.response) => {
-    const bandaId = req.params.id;
-    const { telefono, correo, cif} = req.body;
+    
     try {
+        const bandaId = req.params.id;
+        const { telefono, correo, cif} = req.body;
+
+        // Validar que el usuario es directivo de la banda
+        const token = req.header('x-token');
+        const payload = jwt.verify(token,process.env.SECRET_JWT_SEED);
+        const payloadId = payload.uid;
+        let esDirectivo = false; 
+
+        const directivos = await Directivo.find({'usuario': payloadId, 'banda': bandaId});
+        for(const directivo of directivos) {
+            if(!directivo.fecha_final) {
+                esDirectivo = true;
+            }
+        }
+
+        if(!esDirectivo) {
+            return res.status(400).json({
+                ok: false,
+                msg: 'No tiene permisos'
+            });
+        }
+
         let banda = await Banda.findById( bandaId );
         if( !banda ) {
             return res.status(400).json({
@@ -119,10 +141,18 @@ const actualizar_banda = async(req, res = express.response) => {
 }
 
 const eliminar_banda = async(req, res = express.response) => {
-    const bandaId = req.params.id;
-    const usuarioId = req.uid;
+    
+    
     try {
+        const bandaId = req.params.id;
         const banda = await Banda.findById(bandaId);
+        // Validar que el usuario es directivo de la banda
+        const token = req.header('x-token');
+        const payload = jwt.verify(token,process.env.SECRET_JWT_SEED);
+        const payloadId = payload.uid;
+
+        
+        
         
         // Finalizar roles de archiveros, musicos, directivos
         const archiveros = await Archivero.find({'banda': bandaId});
@@ -131,7 +161,7 @@ const eliminar_banda = async(req, res = express.response) => {
         const presidentes = await Directivo.find({'cargo': 'Presidente', 'banda': bandaId});
         let presidente_actual;
 
-        const d = await Directivo.find({'usuario': usuarioId, 'banda': bandaId});
+        const d = await Directivo.find({'usuario': payloadId, 'banda': bandaId});
 
         if(d.length == 0) {
             return res.status(400).json({
@@ -143,14 +173,14 @@ const eliminar_banda = async(req, res = express.response) => {
         // Comprobar que es el presidente quien quiere eliminar la banda
         for(i=0; i < presidentes.length; i++) {
             let presidente = presidentes[i];
-            if(!presidente.fecha_final && presidente.usuario == usuarioId) {
+            if(!presidente.fecha_final && presidente.usuario == payloadId) {
                 presidente_actual = presidente;
             }
         }
 
 
 
-        if(presidente_actual.usuario != usuarioId) {
+        if(presidente_actual.usuario != payloadId) {
             return res.status(400).json({
                 ok: false,
                 msg: 'Solo el presidente puede eliminar la banda'

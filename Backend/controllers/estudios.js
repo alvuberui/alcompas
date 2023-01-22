@@ -24,6 +24,19 @@ const crearEstudio = async(req, res = express.response) => {
     try {
         const estudio = new Estudio(req.body);
 
+        // Validar que el usuario es directivo de la banda
+        const token = req.header('x-token');
+        const payload = jwt.verify(token,process.env.SECRET_JWT_SEED);
+        const payloadId = payload.uid;
+
+
+        if(estudio.usuario != payloadId) {
+            return res.status(400).json({
+                ok: false,
+                msg: 'No tiene permisos para crear este estudio'
+            });
+        }
+
         if(estudio.fechaFin <= estudio.fechaInicio) {
             return res.status(400).json({
                 ok: false,
@@ -48,9 +61,23 @@ const crearEstudio = async(req, res = express.response) => {
 }
 
 const eliminarEstudioById   = async(req, res = express.response) => {
-    const estudioId = req.params.estudioId;
+   
     try {
+        const estudioId = req.params.estudioId;
         const estudio = await Estudio.findByIdAndDelete(estudioId);
+
+        const token = req.header('x-token');
+        const payload = jwt.verify(token,process.env.SECRET_JWT_SEED);
+        const payloadId = payload.uid;
+
+
+        if(estudio.usuario != payloadId) {
+            return res.status(400).json({
+                ok: false,
+                msg: 'No tiene permisos para crear este estudio'
+            });
+        }
+
         res.json({
             ok: true,
             estudio
@@ -75,6 +102,19 @@ const editarEstudio = async(req, res = express.response) => {
                 msg: 'Estudio no encontrado'
             });
         }
+
+        const token = req.header('x-token');
+        const payload = jwt.verify(token,process.env.SECRET_JWT_SEED);
+        const payloadId = payload.uid;
+
+
+        if(estudio.usuario != payloadId) {
+            return res.status(400).json({
+                ok: false,
+                msg: 'No tiene permisos para editar este estudio'
+            });
+        }
+
         const nuevoEstudio = {
             ...req.body
         }

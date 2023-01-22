@@ -87,6 +87,7 @@ router.put(
         check('usuario', 'El usuario debe de contener mínimo un caracter y máximo 12').not().isEmpty().isLength({ min: 1, max: 20 }),
         validarCampos
     ],
+    validarJWT,
     cambiarDatos);
 
 /*
@@ -98,6 +99,7 @@ router.put(
         check('contraseñaNueva', 'La contraseña debe de contener mínimo 7 caracteres y máximo 200').not().isEmpty().isLength({ min: 8, max: 200 }),
         validarCampos
     ],
+    validarJWT,
     modificarContraseña);
 
 /*
