@@ -1,5 +1,6 @@
 const express = require('express');
 const Instrumento = require('../models/Instrumento');
+const jwt = require('jsonwebtoken');
 
 const getInstrumentosByUserId = async(req, res = express.response) => {
     try {

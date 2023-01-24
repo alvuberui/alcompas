@@ -56,3 +56,7 @@ app.use('/api/redes', require('./routes/redesSociales'));
 app.listen( process.env.PORT, () => {
     console.log(`Servidor corriendo en el puerto ${ process.env.PORT }`)
 })
+
+module.exports = {
+    app
+}

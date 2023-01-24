@@ -113,7 +113,7 @@ router.get('/renew', validarJWT , revalidarToken);
 router.get('/:id', validarJWT , getById);
 
 /*
-* Este middelware es para obtener un usuario a través de su id
+* Este middelware es para obtener todos los usuarios
 */
 router.get('/', validarJWT , getAll);
 

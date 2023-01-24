@@ -77,7 +77,6 @@ const getArchiveroByUserId = async(req, res = express.response) => {
 }
 
 module.exports = {
-    crearArchivero,
     finalizarArchivero,
     eliminarArchiveros,
     getArchiveroByUserId

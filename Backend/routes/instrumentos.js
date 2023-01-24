@@ -7,6 +7,7 @@ const { validarInstrumentos } = require('../middlewares/validar-instrumento');
 const { crearInstrumentoUsuario, getInstrumentosByUserId, eliminarInstrumento,
         actualizarInstrumentoUsuario,getinstrumentosById } = require('../controllers/instrumentos');
 
+
     // Validar JWT
 router.use( validarJWT, validarCampos);
 
@@ -57,6 +58,7 @@ router.post('/usuario',
     validarCampos,
     actualizarInstrumentoUsuario);
 
+    // Eliminar instrumento usuario
 router.delete('/:instrumentoId', eliminarInstrumento); 
 
 module.exports = router;  

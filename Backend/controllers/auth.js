@@ -77,15 +77,12 @@ const crearUsuario = async(req, res = express.response) => {
     }
 }
 
-/*
-* En primer lugar se comprueba si existe ya un usuario con ese correo, nif o telefon, en caso de que no se
-* encripta la contraseña y se envía a base de datos, generando su json web token (JWT).
-*/
+
 const cambiarDatos = async(req, res = express.response) => {
 
     try{
 
-        const { nif, telefono, usuario } = req.body;
+        const { nif, telefono, usuario, correo } = req.body;
         const id = req.params.id;
 
         // Comprobar que el usuario de la petición es el mismo 
@@ -99,7 +96,6 @@ const cambiarDatos = async(req, res = express.response) => {
                 msg: 'No tiene privilegios para editar este usuario'
             });
         }
-
 
         let nuevo_usuario = await Usuario.findOne( {correo} );
         if(nuevo_usuario && nuevo_usuario.id != id) {
