@@ -5,6 +5,7 @@ const { validarJWT } = require('../middlewares/validar-jwt');
 const { validarCampos } = require('../middlewares/validar-campos');
 const { getComentarioByBandaId, crearComentario, eliminarComentario } = require('../controllers/comentarios');
 
+
     // Validar JWT
 router.use( validarJWT, validarCampos);
 

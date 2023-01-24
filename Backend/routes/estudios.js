@@ -13,7 +13,7 @@ router.use( validarJWT, validarCampos);
 router.get('/estudiosByUserId/:userId', getEstudiosByUserId);
 
 // Obtener estudio por la Id
-    router.get('/estudioById/:estudioId', getEstudioById);
+router.get('/estudioById/:estudioId', getEstudioById);
 
     // Eliminar estudio
 router.delete('/eliminarById/:estudioId', eliminarEstudioById);

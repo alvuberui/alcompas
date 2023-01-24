@@ -1,6 +1,6 @@
 const express = require('express');
 const Estudio = require('../models/Estudio');
-
+const jwt = require('jsonwebtoken');
 
 const getEstudiosByUserId = async(req, res = express.response) => {
     const userId = req.params.userId;

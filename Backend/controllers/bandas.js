@@ -8,6 +8,7 @@ const RedSocial = require('../models/RedSocial');
 const Comentario = require('../models/Comentario');
 const path = require('path');
 const fs   = require('fs');
+const jwt = require('jsonwebtoken');
 
 const crearBanda = async(req, res = express.response) => {
 
@@ -250,6 +251,18 @@ const getBandasByUserId = async( req, res = express.response ) => {
         let bandas = [];
 
         const userId = req.params.userId;
+
+        // Validar que el usuario es directivo de la banda
+        const token = req.header('x-token');
+        const payload = jwt.verify(token,process.env.SECRET_JWT_SEED);
+        const payloadId = payload.uid;
+
+        if(userId != payloadId) {
+            return res.status(400).json({
+                ok: false,
+                msg: 'Error en servidor'
+            });
+        }
 
         const directivos = await Directivo.find({'usuario': userId, 'fecha_final': null});
         const musicos = await Musico.find({'usuario': userId, 'fecha_final': null});
