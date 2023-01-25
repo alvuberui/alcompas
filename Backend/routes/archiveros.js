@@ -10,13 +10,8 @@ const { validarJWT } = require('../middlewares/validar-jwt');
 */
 router.use( validarJWT );
 
-
-
    // Finalizar rol de archivero
-router.put('/', finalizarArchivero);
-
-   // Eliminar archivero
-router.delete('/:id', eliminarArchiveros);
+router.put('/:userId/:bandaId', finalizarArchivero);
 
    // Obtener archiveros a través del usuario id
 router.get('/usuario/id/:userId', getArchiveroByUserId);

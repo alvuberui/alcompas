@@ -9,6 +9,7 @@ const Comentario = require('../models/Comentario');
 const path = require('path');
 const fs   = require('fs');
 const jwt = require('jsonwebtoken');
+const Peticion = require('../models/Peticion');
 
 const crearBanda = async(req, res = express.response) => {
 
@@ -181,7 +182,7 @@ const eliminar_banda = async(req, res = express.response) => {
 
 
 
-        if(presidente_actual.usuario != payloadId) {
+        if(presidente_actual == null || presidente_actual.usuario != payloadId) {
             return res.status(400).json({
                 ok: false,
                 msg: 'Solo el presidente puede eliminar la banda'
@@ -229,6 +230,16 @@ const eliminar_banda = async(req, res = express.response) => {
             const pathImagen = path.join( __dirname, '../uploads/imgs/bandas', banda.img );
             if ( fs.existsSync( pathImagen ) ) {
                 fs.unlinkSync( pathImagen );
+            }
+        }
+
+        // Eliminamos aquellas peticiones de la banda cuyos usuarios no existan
+        const peticiones = await Peticion.find({'banda': bandaId});
+        for(i=0; i < peticiones.length; i++) {
+            let peticion = peticiones[i];
+            const usuario = await Usuario.findById(peticion.usuario);
+            if(!usuario) {
+                await peticion.remove();
             }
         }
 

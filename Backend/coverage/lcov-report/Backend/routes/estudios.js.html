@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">86.2% </span>
+                <span class="strong">44.82% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>25/29</span>
+                <span class='fraction'>13/29</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">50% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>4/8</span>
+                <span class='fraction'>0/8</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>4/4</span>
+                <span class='fraction'>0/4</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">86.2% </span>
+                <span class="strong">44.82% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>25/29</span>
+                <span class='fraction'>13/29</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line high'></div>
+    <div class='status-line low'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -160,21 +160,21 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -185,21 +185,21 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -231,22 +231,22 @@ router.delete('/eliminarById/:estudioId', eliminarEstudioById);
 // Crear estudio
 router.post('/',
     [
-        check('tipoEstudio', 'El tipo de estudio no es válido').notEmpty().custom( value =&gt; {
-            const lista = ['Grado elemental', 'Grado medio', 'Grado superior', 'Curso', 'Autodidacta', 'Otro'];
-            <span class="missing-if-branch" title="if path not taken" >I</span>if(!lista.includes(value)) {
+        check('tipoEstudio', 'El tipo de estudio no es válido').notEmpty().custom( <span class="fstat-no" title="function not covered" >va</span>lue =&gt; {
+            const lista = <span class="cstat-no" title="statement not covered" >['Grado elemental', 'Grado medio', 'Grado superior', 'Curso', 'Autodidacta', 'Otro'];</span>
+<span class="cstat-no" title="statement not covered" >            if(!lista.includes(value)) {</span>
 <span class="cstat-no" title="statement not covered" >                throw new Error("El estudio no es válido");</span>
             }
-            return true;
+<span class="cstat-no" title="statement not covered" >            return true;</span>
         }),
         check('centroEstudios', 'El centro de estudios no es válido').isLength({max: 50}),
         check('poblacion', 'La población es no puede tener más de 50 caracteres').isLength({max: 50}),
         check('provincia', 'La provincia no puede tener más de 50 caracteres').isLength({max: 50}),
-        check('fechaInicio', 'La fecha de inicio no es válida').notEmpty().custom( value =&gt; {
-            const fecha = new Date(value);
-            <span class="missing-if-branch" title="if path not taken" >I</span>if(fecha &gt; new Date()) {
+        check('fechaInicio', 'La fecha de inicio no es válida').notEmpty().custom( <span class="fstat-no" title="function not covered" >va</span>lue =&gt; {
+            const fecha = <span class="cstat-no" title="statement not covered" >new Date(value);</span>
+<span class="cstat-no" title="statement not covered" >            if(fecha &gt; new Date()) {</span>
 <span class="cstat-no" title="statement not covered" >                throw new Error("La fecha de inicio no puede ser mayor que la fecha actual");</span>
             }
-            return true;
+<span class="cstat-no" title="statement not covered" >            return true;</span>
         }),
         check('usuario', 'El usuario es obligatorio').isMongoId(),
     ],
@@ -256,22 +256,22 @@ router.post('/',
 // Editar estudio
 router.put('/:estudioId',
     [
-        check('tipoEstudio', 'El tipo de estudio no es válido').notEmpty().custom( value =&gt; {
-            const lista = ['Grado elemental', 'Grado medio', 'Grado superior', 'Curso', 'Autodidacta', 'Otro'];
-            <span class="missing-if-branch" title="if path not taken" >I</span>if(!lista.includes(value)) {
+        check('tipoEstudio', 'El tipo de estudio no es válido').notEmpty().custom( <span class="fstat-no" title="function not covered" >va</span>lue =&gt; {
+            const lista = <span class="cstat-no" title="statement not covered" >['Grado elemental', 'Grado medio', 'Grado superior', 'Curso', 'Autodidacta', 'Otro'];</span>
+<span class="cstat-no" title="statement not covered" >            if(!lista.includes(value)) {</span>
 <span class="cstat-no" title="statement not covered" >                throw new Error("El estudio no es válido");</span>
             }
-            return true;
+<span class="cstat-no" title="statement not covered" >            return true;</span>
         }),
         check('centroEstudios', 'El centro de estudios no es válido').isLength({max: 50}),
         check('poblacion', 'La población es no puede tener más de 50 caracteres').isLength({max: 50}),
         check('provincia', 'La provincia no puede tener más de 50 caracteres').isLength({max: 50}),
-        check('fechaInicio', 'La fecha de inicio no es válida').notEmpty().custom( value =&gt; {
-            const fecha = new Date(value);
-            <span class="missing-if-branch" title="if path not taken" >I</span>if(fecha &gt; new Date()) {
+        check('fechaInicio', 'La fecha de inicio no es válida').notEmpty().custom( <span class="fstat-no" title="function not covered" >va</span>lue =&gt; {
+            const fecha = <span class="cstat-no" title="statement not covered" >new Date(value);</span>
+<span class="cstat-no" title="statement not covered" >            if(fecha &gt; new Date()) {</span>
 <span class="cstat-no" title="statement not covered" >                throw new Error("La fecha de inicio no puede ser mayor que la fecha actual");</span>
             }
-            return true;
+<span class="cstat-no" title="statement not covered" >            return true;</span>
         }),
         check('usuario', 'El usuario es obligatorio').isMongoId(),
     ],
@@ -286,7 +286,7 @@ module.exports = router;  </pre></td></tr></table></pre>
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2023-01-24T15:21:22.861Z
+                at 2023-01-25T17:11:45.901Z
             </div>
         <script src="../../prettify.js"></script>
         <script>

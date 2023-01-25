@@ -1,40 +1,7 @@
 const express = require('express');
 const Musico = require('../models/Musico');
 const Directivo = require('../models/Directivo');
-const crearMusico = async(req, res = express.response) => {
-    try {
-        const usuarioId = req.uid;
-
-        const roles_musicos = await Musico.find({'usuario': usuarioId});
-        
-        for (i=0; i<roles_musicos.length; i++) {
-            let rol = roles_musicos[i];
-            if(rol.fecha_final == undefined) {
-                return res.status(400).json({
-                    ok: false,
-                    msg: 'Ya tiene el rol de músico actualmente'
-                });
-            }
-        }
-
-
-        let musicoNuevo = new Musico(req.body);
-        musicoNuevo.usuario = req.uid;
-        const musicoDB = await musicoNuevo.save();
-
-        res.status(201).json({
-            ok: true,
-            musicoDB,
-        });
-    } catch (error) {
-        console.log(error)
-        res.status(500).json({
-            ok: false,
-            msg: 'Por favor hable con el administrador.'
-        });
-    }
-}
-
+const jwt = require('jsonwebtoken');
 
 
 const finalizarMusico = async(req, res = express.response) => { 
@@ -91,39 +58,7 @@ const finalizarMusico = async(req, res = express.response) => {
     }
 }
 
-const eliminarMusicos = async(req, res = express.response) => { 
-    
-    try {
-        const usuarioId = req.params.id;
-       
 
-        const token = req.header('x-token');
-        const payload = jwt.verify(token,process.env.SECRET_JWT_SEED);
-        const payloadId = payload.uid;
-        const u = await Usuario.findById(payloadId);
-
-        if(u.administrador === false || payloadId !== usuarioId) {
-            return res.status(401).json({
-                ok: false,
-                msg: 'No tiene privilegios para realizar esta acción'
-            });
-        }
-
-        const musico = await Musico.deleteMany({'usuario': usuarioId});
-        
-        
-        return res.status(201).json({
-            ok: true,
-            musico
-        });
-    } catch (error) {
-        console.log(error)
-        res.status(500).json({
-            ok: false,
-            msg: 'Por favor hable con el administrador.'
-        });
-    }
-}
 
 const getMusicosByBandaId = async(req, res = express.response) => {
 
@@ -188,9 +123,7 @@ const getMusicosByUserId = async(req, res = express.response) => {
 
 
 module.exports = {
-    crearMusico,
     finalizarMusico,
-    eliminarMusicos,
     getMusicosByBandaId,
     getMusicoById,
     getMusicosByUserId

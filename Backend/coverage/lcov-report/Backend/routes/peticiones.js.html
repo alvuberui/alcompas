@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">43.24% </span>
+                <span class="strong">72.97% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>16/37</span>
+                <span class='fraction'>27/37</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">35.29% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/17</span>
+                <span class='fraction'>6/17</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/4</span>
+                <span class='fraction'>4/4</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">43.24% </span>
+                <span class="strong">72.97% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>16/37</span>
+                <span class='fraction'>27/37</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line low'></div>
+    <div class='status-line medium'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -169,43 +169,43 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -244,44 +244,44 @@ router.put('/rechazar/:id/:userId', rechazarPeticion);
     // Crear peticion
 router.post('/',
     [
-        check('rol', 'El rol no es válido').notEmpty().custom( <span class="fstat-no" title="function not covered" >va</span>lue =&gt; {
-            const condicion1 = <span class="cstat-no" title="statement not covered" >value == 'Directivo';</span>
-            const condicion2 = <span class="cstat-no" title="statement not covered" >value == 'Archivero';</span>
-            const condicion3 = <span class="cstat-no" title="statement not covered" >value == 'Músico'</span>
+        check('rol', 'El rol no es válido').notEmpty().custom( value =&gt; {
+            const condicion1 = value == 'Directivo';
+            const condicion2 = value == 'Archivero';
+            const condicion3 = value == 'Músico'
 &nbsp;
-<span class="cstat-no" title="statement not covered" >            if(!condicion1 &amp;&amp; !condicion2 &amp;&amp; !condicion3) {</span>
+            <span class="missing-if-branch" title="if path not taken" >I</span>if(!condicion1 &amp;&amp; !condicion2 &amp;&amp; <span class="branch-2 cbranch-no" title="branch not covered" >!condicion3)</span> {
 <span class="cstat-no" title="statement not covered" >                throw new Error("El rol no es válido");</span>
             }
-<span class="cstat-no" title="statement not covered" >            return true;</span>
+            return true;
         }),
-        check('cargo', 'El cargo no es válido').custom( <span class="fstat-no" title="function not covered" >va</span>lue =&gt; {
-<span class="cstat-no" title="statement not covered" >            if(value) {</span>
+        check('cargo', 'El cargo no es válido').custom( value =&gt; {
+            <span class="missing-if-branch" title="if path not taken" >I</span>if(value) {
                 const condicion = <span class="cstat-no" title="statement not covered" >validarCargo(value);</span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >                if(!condicion) {</span>
 <span class="cstat-no" title="statement not covered" >                    throw new Error("El cargo no es válido");</span>
                 }
             }
-<span class="cstat-no" title="statement not covered" >            return true;</span>
+            return true;
         }),
         check('mensaje', 'El mensaje es obligatorio').notEmpty().isLength({min: 1, max: 1000 }),
-        check('instrumento', 'El instrumento no es válido').custom(<span class="fstat-no" title="function not covered" >va</span>lue =&gt; {
-<span class="cstat-no" title="statement not covered" >            if (value) {</span>
+        check('instrumento', 'El instrumento no es válido').custom(value =&gt; {
+            <span class="missing-if-branch" title="if path not taken" >I</span>if (value) {
                 const condicion = <span class="cstat-no" title="statement not covered" >validarInstrumentos(value);</span>
 <span class="cstat-no" title="statement not covered" >                if(!condicion) {</span>
 <span class="cstat-no" title="statement not covered" >                    throw new Error("El instrumento no es válido");</span>
                 }
             }
-<span class="cstat-no" title="statement not covered" >            return true;</span>
+            return true;
         }),
-        check('voz', 'La voz no es válida').custom(<span class="fstat-no" title="function not covered" >va</span>lue =&gt; {
-<span class="cstat-no" title="statement not covered" >            if(value) {</span>
+        check('voz', 'La voz no es válida').custom(value =&gt; {
+            <span class="missing-if-branch" title="if path not taken" >I</span>if(value) {
                 const condicion = <span class="cstat-no" title="statement not covered" >validarVoz(value);</span>
 <span class="cstat-no" title="statement not covered" >                if(!condicion) {</span>
 <span class="cstat-no" title="statement not covered" >                    throw new Error("La voz no es válida");</span>
                 }
             }
-<span class="cstat-no" title="statement not covered" >            return true;</span>
+            return true;
         }),
         check('usuario', 'El usuario es obligatorio').isMongoId(),
         check('banda', 'La banda es obligatoria').isMongoId(),
@@ -298,7 +298,7 @@ module.exports = router;  </pre></td></tr></table></pre>
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2023-01-24T15:21:22.861Z
+                at 2023-01-25T17:11:45.901Z
             </div>
         <script src="../../prettify.js"></script>
         <script>

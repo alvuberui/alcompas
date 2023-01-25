@@ -3,6 +3,7 @@ const Peticion = require('../models/Peticion');
 const Directivo = require('../models/Directivo');
 const Musico = require('../models/Musico');
 const Archivero = require('../models/Archivero');
+const jwt = require('jsonwebtoken');
 
 const getPeticionesByUserId = async(req, res = express.response) => {
     
@@ -68,14 +69,6 @@ const crearPeticion = async(req, res = express.response) => {
             });
         }
         
-
-        if(directivo.banda != bandaId || directivo.fecha_final) {
-            return res.status(400).json({
-                ok: false, 
-                msg: 'El directivo no pertenece a la banda'
-            });
-        }
-        
         // Comprobar que el receptor de la petición no tiene ya un mismo rol en la banda o pendiente de aceptar.
         const usuarioId = peticion.usuario;
         const peticiones = await Peticion.find({"usuario": usuarioId, "banda": bandaId});
@@ -123,6 +116,30 @@ const crearPeticion = async(req, res = express.response) => {
                 }
             }
         }
+
+        if(peticion.rol === 'Músico' && (peticion.instrumento === undefined || peticion.instrumento === '' 
+        || peticion.voz === '' || peticion.voz === undefined || peticion.cargo !== undefined))  {
+            return res.status(400).json({
+                ok: false,
+                msg: 'Petición inválida'
+            });
+        }
+
+        if(peticion.rol === 'Archivero' && (peticion.instrumento !== undefined 
+         || peticion.voz !== undefined || peticion.cargo !== undefined))  {
+            return res.status(400).json({
+                ok: false,
+                msg: 'Petición inválida'
+            });
+        }
+        if(peticion.rol === 'Directivo' && (peticion.instrumento !== undefined 
+         || peticion.voz !== undefined || peticion.cargo === undefined || cargo === ''))  {
+            return res.status(400).json({
+                ok: false,
+                msg: 'Petición inválida'
+            });
+        }
+
        
         
         const peticionDB = new Peticion(peticion);

@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">8.19% </span>
+                <span class="strong">21.13% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>10/122</span>
+                <span class='fraction'>26/123</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">1.36% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/73</span>
+                <span class='fraction'>1/73</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">33.33% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/6</span>
+                <span class='fraction'>2/6</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">8.19% </span>
+                <span class="strong">21.13% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>10/122</span>
+                <span class='fraction'>26/123</span>
             </div>
         
             
@@ -357,7 +357,7 @@
 <a name='L292'></a><a href='#L292'>292</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -533,24 +533,24 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -589,11 +589,11 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -648,7 +648,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">const express = require('express');
 const Directivo = require('../models/Directivo');
 const Banda = require('../models/Banda');
-&nbsp;
+const jwt = require('jsonwebtoken');
 const crearDirectivo = <span class="fstat-no" title="function not covered" >as</span>ync(req, res = <span class="branch-0 cbranch-no" title="branch not covered" >express.response)</span> =&gt; { 
 <span class="cstat-no" title="statement not covered" >    try {</span>
         const usuarioId = <span class="cstat-no" title="statement not covered" >req.uid;</span>
@@ -823,25 +823,25 @@ const finalizarDirectivo = <span class="fstat-no" title="function not covered" >
     }
 }
 &nbsp;
-const eliminarDirectivos = <span class="fstat-no" title="function not covered" >as</span>ync(req, res = <span class="branch-0 cbranch-no" title="branch not covered" >express.response)</span> =&gt; { 
-    const usuarioId = <span class="cstat-no" title="statement not covered" >req.params.id;</span>
-<span class="cstat-no" title="statement not covered" >    try {</span>
-        const directivo = <span class="cstat-no" title="statement not covered" >await Directivo.deleteMany({'usuario': usuarioId});</span>
+const eliminarDirectivos = async(req, res = <span class="branch-0 cbranch-no" title="branch not covered" >express.response)</span> =&gt; { 
+    const usuarioId = req.params.id;
+    try {
+        const directivo = await Directivo.deleteMany({'usuario': usuarioId});
         // Validar que el usuario es directivo de la banda
-        const token = <span class="cstat-no" title="statement not covered" >req.header('x-token');</span>
-        const payload = <span class="cstat-no" title="statement not covered" >jwt.verify(token,process.env.SECRET_JWT_SEED);</span>
-        const payloadId = <span class="cstat-no" title="statement not covered" >payload.uid;</span>
-        let condicion = <span class="cstat-no" title="statement not covered" >false;</span>
+        const token = req.header('x-token');
+        const payload = jwt.verify(token,process.env.SECRET_JWT_SEED);
+        const payloadId = payload.uid;
+        let condicion = false;
 &nbsp;
-        const ds = <span class="cstat-no" title="statement not covered" >await Directivo.find({'usuario': payloadId, 'banda': bandaId, 'fecha_final': undefined});</span>
-<span class="cstat-no" title="statement not covered" >        for (i=0; i&lt;ds.length; i++) {</span>
+        const ds = await Directivo.find({'usuario': payloadId, 'fecha_final': undefined});
+        for (i=0; i&lt;ds.length; i++) {
             let d = <span class="cstat-no" title="statement not covered" >ds[i];</span>
 <span class="cstat-no" title="statement not covered" >            if(d.usuario === payloadId) {</span>
 <span class="cstat-no" title="statement not covered" >                condicion = true;</span>
             }
         }
-<span class="cstat-no" title="statement not covered" >        if(!condicion) {</span>
-<span class="cstat-no" title="statement not covered" >            return res.status(401).json({</span>
+        <span class="missing-if-branch" title="else path not taken" >E</span>if(!condicion) {
+            return res.status(401).json({
                 ok: false,
                 msg: 'No tiene privilegios para realizar esta acción'
             });
@@ -879,12 +879,12 @@ const getDirectivoById = <span class="fstat-no" title="function not covered" >as
     }
 }
 &nbsp;
-const getDirectivoByUserId = <span class="fstat-no" title="function not covered" >as</span>ync(req, res = <span class="branch-0 cbranch-no" title="branch not covered" >express.response)</span> =&gt; {
-<span class="cstat-no" title="statement not covered" >    try {</span>
-        const usuarioId = <span class="cstat-no" title="statement not covered" >req.params.id;</span>
-        const directivo = <span class="cstat-no" title="statement not covered" >await Directivo.find({'usuario': usuarioId});</span>
+const getDirectivoByUserId = async(req, res = <span class="branch-0 cbranch-no" title="branch not covered" >express.response)</span> =&gt; {
+    try {
+        const usuarioId = req.params.id;
+        const directivo = await Directivo.find({'usuario': usuarioId});
 &nbsp;
-<span class="cstat-no" title="statement not covered" >        res.status(201).json({</span>
+        res.status(201).json({
             ok: true,
             directivo
         });
@@ -943,7 +943,7 @@ module.exports = {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2023-01-24T15:21:22.861Z
+                at 2023-01-25T17:11:45.901Z
             </div>
         <script src="../../prettify.js"></script>
         <script>

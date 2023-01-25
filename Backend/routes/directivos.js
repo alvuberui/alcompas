@@ -12,33 +12,9 @@ const { validarJWT } = require('../middlewares/validar-jwt');
 */
 router.use( validarJWT );
 
- // Crear directivo
-router.post(
-    '/',
-    [
-        check('fecha_inicio', 'La fecha de inicio no es válida').isISO8601().toDate().custom( value => {
-            let fecha_entrada = new Date(value)
-            let fecha_actual = new Date()
-            
-            if( fecha_actual.getDate() != fecha_entrada.getDate() 
-                || fecha_actual.getMonth() != fecha_entrada.getMonth() 
-                || fecha_actual.getFullYear() != fecha_entrada.getFullYear() ) {
-                throw new Error("La fecha de inicio no es la actual");
-            }
-            return true;
-        }),
-        check('cargo', 'El cargo es obligatorio').not().isEmpty(),
-        check('fecha_final', 'La fecha final no es válida').isEmpty(),
-        check('banda', 'La banda es obligatoria').not().isEmpty(),
-        validarCampos
-    ],
-    crearDirectivo);
 
     // Finalizar rol de directivo
 router.put('/finalizar/:userId/:bandaId', finalizarDirectivo);
-
-    // Eliminar todos los roles de directivo de un usuario
-router.delete('/:id', eliminarDirectivos);
 
     // Obtener un directivo a través de su id
 router.get('/:id', getDirectivoById);
