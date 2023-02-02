@@ -61,6 +61,8 @@ export const useBandasStore = () => {
             setTimeout(()=> {
                 setMensajeError('');
             }, 10);
+        
+            return banda;
         } catch(error) {
             let fallo = ''
             const objetos = Object(error.response.data.errors); 

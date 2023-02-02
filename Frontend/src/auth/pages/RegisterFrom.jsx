@@ -43,7 +43,7 @@ export const  RegisterFrom = () => {
             descripcion, localidad, provincia, codigo_postal, direccion,
              nif, telefono, usuario, contraseña, confirmacion_contraseña, fecha_nacimiento }
 
-    // Siguiente paso
+    // Siguiente  
     const siguiente = () => {
   
         setStep(step +1)

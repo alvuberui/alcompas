@@ -12,18 +12,7 @@ export const useRedesSocialesStore = () => {
             const red = data.nuevaRedSocial;
             return red;
         } catch(error) {
-            let fallo = '';
-            const objetos = Object(error.response.data.errors); 
-            for(const objeto in objetos) {
-                let arreglo = objetos[objeto];
-                fallo = arreglo['msg'];
-                break;
-            }
-            if(error.response.data) {
-                setErrores(error.response.data?.msg);
-            } else {
-                setErrores(fallo);
-            }
+            setErrores("Error creando la red social");
             setTimeout(()=> {
                 setErrores('');
             }, 10); 

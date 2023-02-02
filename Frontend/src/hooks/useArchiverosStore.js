@@ -12,7 +12,7 @@ export const useArchiverosStore = () => {
         
             return archiveros;
         } catch(error) {
-            console.log('Error cargando comentarios');
+            console.log('Error cargando archivero');
         }
     }
 

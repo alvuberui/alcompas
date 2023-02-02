@@ -68,6 +68,7 @@ export const  UpdateForm = () => {
         const fecha = convertDateToForm(userreq.fecha_nacimiento);
         
         userreq.fecha_nacimiento = fecha;
+       
         setValues( userreq);  
     }
     getUser();
@@ -81,8 +82,8 @@ export const  UpdateForm = () => {
         return (
              <>
              <AuthLayout  title={"Cargando"} >
-                <Box sx={{ display: 'flex', justifyContent:"center", alignItems:"center"}}>
-                    <CircularProgress   size={200} />
+                <Box  sx={{ display: 'flex', justifyContent:"center", alignItems:"center"}}>
+                    <CircularProgress aria-label='loading'  size={200} />
                 </Box>
              </AuthLayout>
              </>) 
@@ -115,8 +116,8 @@ export const  UpdateForm = () => {
                 );
 
             case 3:
-                return  
-                <></>
+                return  (
+                <>
                     { id !== user.uid && <Navigate to="/" /> }
                     <UserRegister
                     siguiente = {siguiente}
@@ -125,16 +126,18 @@ export const  UpdateForm = () => {
                     values = { values }
                     titulo = 'Modificar Datos'
                     />
+                </> );
             case 4:
-                return  
-                <></>
-                { id !== user.uid && <Navigate to="/" /> }
-                <ConfirmationRegister
-                confirmar = {confirmar}
-                retroceder = { previo }
-                values = { values }
-                titulo = 'Modificar Datos'
-                />
+                return  (
+                <>
+                    { id !== user.uid && <Navigate to="/" /> }
+                    <ConfirmationRegister
+                    confirmar = {confirmar}
+                    retroceder = { previo }
+                    values = { values }
+                    titulo = 'Modificar Datos'
+                    />
+                </> );
         }
     
     

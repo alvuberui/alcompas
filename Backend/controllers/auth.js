@@ -242,6 +242,7 @@ const revalidarToken = async(req, res = express.response) => {
 
     const uid = req.uid;
     const nombre = req.nombre;
+    const usuario = await Usuario.findById(uid);
 
     // Comprobar que el usuario de la petición es el mismo 
     const t = req.header('x-token');
@@ -261,8 +262,9 @@ const revalidarToken = async(req, res = express.response) => {
 
     res.json({
         ok: true,
-        uid, nombre,
-        token
+        uid: uid, 
+        nombre: usuario.nombre,
+        token: token
     });
 }
 

@@ -10,7 +10,6 @@ export const useMusicosStore = () => {
             
             return musico;
         } catch(error) {
-            console.log(error);
             console.log('Error finalizando músico');
         }
     }
@@ -51,11 +50,13 @@ export const useMusicosStore = () => {
 
     const getMusicoById = async(musicoId) => {
         try {
-            const { data } = await alcompasAPI.pet('musicos/' + musicoId);
+            const { data } = await alcompasAPI.get('musicos/' + musicoId);
             const musico = data.musico;
+            
             return musico;
         }
         catch(error) {
+           
             console.log('Error obteniendo músico');
         }
     }

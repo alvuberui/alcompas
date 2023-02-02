@@ -34,7 +34,7 @@ export class ConfirmationRegister extends Component {
         <form>
           <Grid container>
   
-            <Grid item xs={ 6 } sx={{ mt: 2}}>
+            <Grid  item xs={ 6 } sx={{ mt: 2}}>
                 
                 <List dense={true}>
                 
@@ -69,6 +69,7 @@ export class ConfirmationRegister extends Component {
                     <ListItem>
                     <ListItemText
                         primary="Nif:"
+                        aria-label='nif'
                         secondary={<Typography sx = {{ color: 'white'}}>{nif}</Typography>}
                         sx={{ color:'white'}}
                     />
@@ -87,7 +88,7 @@ export class ConfirmationRegister extends Component {
 
             <Grid item xs={ 6 } sx={{ mt: 2}}>
                 
-                <List dense={true}>
+                <List  dense={true}>
                     <ListItem>
                     <ListItemText
                         primary="Fecha Nacimiento:"

@@ -31,13 +31,8 @@ export const useInstrumentosStore = () => {
             const instrumento = data.instrumentoGuardado;
             return instrumento;
         } catch(error) {
-            const erroresObj = error.response.data.errors;
-            let res = [];
             
-            for(const error in erroresObj) {
-                res.push(erroresObj[error].msg);7
-            }
-            setErrores(res);
+            setErrores(["Error en el servidor"]);
         }
     }
 
@@ -48,14 +43,7 @@ export const useInstrumentosStore = () => {
             const instrumento = data.instrumentoActualizado;
             return instrumento;
         } catch(error) {
-            console.log(error)
-            const erroresObj = error.response.data.errors;
-            let res = [];
-            
-            for(const error in erroresObj) {
-                res.push(erroresObj[error].msg);7
-            }
-            setErrores(res);
+            setErrores(["Error en el servidor"]);
         }
     }
 

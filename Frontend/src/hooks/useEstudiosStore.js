@@ -31,13 +31,7 @@ export const useEstudiosStore = () => {
             const estudio = data.estudio;
             return estudio;
         } catch(error) {
-            const erroresObj = error.response.data.errors;
-            let res = [];
-            
-            for(const error in erroresObj) {
-                res.push(erroresObj[error].msg);7
-            }
-            setErrores(res);
+            setErrores(["Error en el servidor"]);
         }
     }
 
@@ -48,14 +42,9 @@ export const useEstudiosStore = () => {
             const estudio = data.estudio;
             return estudio;
         } catch(error) {
-            console.log(error)
-            const erroresObj = error.response.data.errors;
-            let res = [];
             
-            for(const error in erroresObj) {
-                res.push(erroresObj[error].msg);7
-            }
-            setErrores(res);
+            
+            setErrores(["Error en el servidor"]);
         }
     }
 

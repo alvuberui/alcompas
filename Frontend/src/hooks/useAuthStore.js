@@ -76,6 +76,7 @@ export const useAuthStore = () => {
         try{
             
             const { data } = await alcompasAPI.put('/auth/update/contrasena/' + user.uid, {contraseñaNueva});
+       
             return data.usuarioModificado;
         }catch (error) {
             console.log(error)
@@ -104,7 +105,8 @@ export const useAuthStore = () => {
             const { data } = await alcompasAPI.get('auth/renew');
             localStorage.setItem( 'token', data.token );
             localStorage.setItem('token-init-date', new Date().getTime() );
-            dispatch( onLogin( { name: data.name, uid: data.uid }));
+      
+            dispatch( onLogin( { nombre: data.nombre, uid: data.uid }));
         } catch {
             localStorage.clear();
             dispatch( onLogout() );
@@ -125,6 +127,7 @@ export const useAuthStore = () => {
    
             localStorage.clear();
             dispatch(onLogout());
+       
             
         }catch (error) {
             
@@ -148,8 +151,10 @@ export const useAuthStore = () => {
     const deleteAdminById = async(id) => {
         try{
             const { data } = await alcompasAPI.delete('/auth/admin/' + id);
+          
             return data.usuario;
         }catch (error) {
+            console.log(error)
             console.log("Error eliminando usuario")
         }
     }
@@ -160,15 +165,12 @@ export const useAuthStore = () => {
             if(id != undefined) {
                 const { data } = await alcompasAPI.get('auth/' + id);
                 const usuario = data.usuario;
-                
-                
-              
+               
                 return usuario;
             }
             
         } catch(error) {
             console.log('Error cargando usuario');
-            console.log(error)
         }
     }
 

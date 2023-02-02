@@ -64,6 +64,7 @@ export class LocationRegister extends Component {
               <TextField 
                 label="Direccion"
                 type="text"
+                aria-label='direccion'
                 placeholder="Direccion"
                 fullWidth
                 color='secondary'
@@ -80,7 +81,7 @@ export class LocationRegister extends Component {
                   </Button>
                 </Grid>
                 <Grid  item xs={ 6 } >
-                  <Button  variant='contained' color='secondary' fullWidth onClick={this.continuar}>
+                  <Button aria-label='link' variant='contained' color='secondary' fullWidth onClick={this.continuar}>
                     Siguiente
                   </Button>
                 </Grid>

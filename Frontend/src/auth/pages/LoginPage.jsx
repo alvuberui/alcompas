@@ -15,6 +15,7 @@ export const LoginPage = () => {
   const  { startLogin, errorMessage } = useAuthStore();
 
   const { loginEmail, loginContraseña, onInputChange:onLoginInputChange } = useForm(loginFormCampos);
+
   const loginSubmit = (event) => {
     event.preventDefault();
     startLogin({correo: loginEmail, contraseña: loginContraseña});
@@ -36,6 +37,7 @@ export const LoginPage = () => {
             <TextField 
               label="Correo electrónico"
               type="email"
+              aria-label='correo'
               placeholder="correo@gmail.com"
               fullWidth
               name="loginEmail"
@@ -48,6 +50,7 @@ export const LoginPage = () => {
           </Grid>
           <Grid item xs={ 12 } sx={{ mt: 2}}>
             <TextField 
+              aria-label="contraseña"
               label="Contraseña"
               type="password"
               fullWidth
@@ -62,14 +65,14 @@ export const LoginPage = () => {
           </Grid>
             <Grid container justifyContent='center' spacing={ 2 } sx={{ mb: 2, mt: 1 }}>
               <Grid  item xs={ 6 } >
-                <Button variant='contained' color='secondary' fullWidth type='submit'>
+                <Button aria-label='submit' variant='contained' color='secondary' fullWidth type='submit'>
                   Iniciar Sesión
                 </Button>
               </Grid>
             </Grid>
           <Grid container direction='row' >
             <Grid item  justifyContent='start'>
-              <Link component={ RouterLink } style={{textDecoration:"none", color:"white"}} color='inherit' to="/">
+              <Link aria-label='link' component={ RouterLink } style={{textDecoration:"none", color:"white"}} color='inherit' to="/">
                 Volver al inicio
               </Link>
             </Grid>

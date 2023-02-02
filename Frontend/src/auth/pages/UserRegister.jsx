@@ -24,6 +24,7 @@ export class UserRegister extends Component {
               <TextField 
                 label="Usuario"
                 type="text"
+                aria-label='usuario'
                 placeholder="Usuario"
                 fullWidth
                 color='secondary'
@@ -87,7 +88,7 @@ export class UserRegister extends Component {
                   </Button>
                 </Grid>
                 <Grid  item xs={ 6 } >
-                  <Button  variant='contained' color='secondary' fullWidth onClick={this.continuar}>
+                  <Button  aria-label='siguiente' variant='contained' color='secondary' fullWidth onClick={this.continuar}>
                     Siguiente
                   </Button>
                 </Grid>

@@ -34,6 +34,7 @@ export const usePeticionesStore = () => {
     const aceptarPeticion = async(peticionId) => {
         try {
             const { data } = await alcompasAPI.put('peticiones/aceptar/' +peticionId+ "/" + user.uid);
+            
             return data.peticionAceptada;
         } catch(error) {
             console.log('Error aceptando petición');
