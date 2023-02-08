@@ -68,6 +68,7 @@ export class CrearBandaTres extends Component {
                     <ListItem>
                     <ListItemText
                         primary="Teléfono:"
+                        aria-label='telefono'
                         secondary={<Typography sx = {{ color: 'white'}}>{telefono}</Typography>}
                         sx={{ color:'white'}}
                     />

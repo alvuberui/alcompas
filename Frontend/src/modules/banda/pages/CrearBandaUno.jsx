@@ -101,7 +101,7 @@ export class CrearBandaUno extends Component {
             
               <Grid container justifyContent='center' spacing={ 2 } sx={{ mb: 2, mt: 1 }}>
                 <Grid  item xs={ 6 } >
-                  <Button  variant='contained' color='secondary' fullWidth onClick={this.continuar}>
+                  <Button aria-label='link' variant='contained' color='secondary' fullWidth onClick={this.continuar}>
                     Siguiente
                   </Button>
                 </Grid>

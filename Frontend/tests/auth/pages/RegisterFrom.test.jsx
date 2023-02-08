@@ -1,12 +1,9 @@
-import { fireEvent, render, screen, act, waitFor} from '@testing-library/react';
-import { RegisterFrom } from '../../../src/auth/pages/RegisterFrom';
-import { useAuthStore } from '../../../src/hooks/useAuthStore';
-import { useForm } from '../../../src/hooks';
-import React from 'react';
-import { AuthLayout } from '../../../src/auth/layout/AuthLayout';
-import { MemoryRouter } from 'react-router-dom';
-import { Provider } from 'react-redux';
 import { configureStore } from '@reduxjs/toolkit';
+import { act, render, screen, waitFor } from '@testing-library/react';
+import React from 'react';
+import { Provider } from 'react-redux';
+import { MemoryRouter } from 'react-router-dom';
+import { RegisterFrom } from '../../../src/auth/pages/RegisterFrom';
 import { authSlice } from '../../../src/store/auth/authSlice';
 import { notAuthenticatedState } from '../../fixtures/authFixtures';
 

@@ -54,16 +54,17 @@ export const MisBandas = ( { titulo }) => {
             xs= { 10 }
             sx={{ padding:2, backgroundColor:'primary.main', borderRadius:'5px', boxShadow:' 1px 1px 1px 1px' }}
             >
-                <Typography variant='h4' sx={{textAlign:'center', color:'white'}}>{titulo}</Typography>
+                <Typography  variant='h4' sx={{textAlign:'center', color:'white'}}>{titulo}</Typography>
             </Grid>
             { titulo === 'Mis Bandas' &&
-              <NavLink style={{textDecoration: "none", color: "black"}}  to='/bandas/crear'>
+              <NavLink  style={{textDecoration: "none", color: "black"}}  to='/bandas/crear'>
                 <Grid 
+                
                 item
                 xs= { 0.5 }
                 sx={{":hover":{} , ml:'15px', minWidth:'40px', backgroundColor:'primary.main', borderRadius:'5px', boxShadow:'1px 1px 1px 1px' }}
                 >
-                    <Typography variant='h4' sx={{textAlign:'center', color:'white'}}>+</Typography>
+                    <Typography  variant='h4' sx={{textAlign:'center', color:'white'}}>+</Typography>
                 </Grid>
               </NavLink>
             }

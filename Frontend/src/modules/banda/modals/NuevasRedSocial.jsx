@@ -1,6 +1,5 @@
 import { Box, Button, Grid, MenuItem, Select, TextField, Typography } from '@mui/material';
 import Modal from '@mui/material/Modal';
-import * as React from 'react';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import Swal from 'sweetalert2';
@@ -29,7 +28,7 @@ export const NuevasRedSocial = ({ open, handleClose, setRedes, setOpen }) => {
     const [ nombre, setNombre ] = useState('');
 
 
-   
+  
     const handleForm = async e => {
         e.preventDefault();
         let error = "";

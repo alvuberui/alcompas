@@ -71,7 +71,7 @@ export const NavBar = () => {
     }
     const getAdmin = async () => {
       const u = await getUserByiD(user.uid);
-      if(u.admin){
+      if(u.administrador){
         setAdmin(true);
       } else {
         setAdmin(false);

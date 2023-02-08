@@ -22,7 +22,7 @@ export const AdministrarUsuarios = () => {
     const [ usuario, setUsuario ] = useState(undefined);
     const [ fotoPerfil, setFotoPerfil ] = useState([]);
     const { getFotoPerfilUsuario } = useUploadsStore();
-    const [ admin, setAdmin ] = React.useState('');
+    const [ admin, setAdmin ] = React.useState(true);
 
     // Efectos  
     useEffect(() => {
@@ -34,11 +34,9 @@ export const AdministrarUsuarios = () => {
         }
         const getAdmin = async () => {
             const u = await getUserByiD(user.uid)
-        
+            
             if(u.administrador === false){
                 setAdmin(false);
-            } else {
-                setAdmin(true);
             }
         }
         getAdmin();
@@ -98,15 +96,7 @@ export const AdministrarUsuarios = () => {
         }
     }, [open]);
 
-    if( admin === '' ) { return (
-        <>
-      
-          <Box sx={{ display: 'flex', justifyContent:"center", alignItems:"center"}}>
-              <CircularProgress   size={200} />
-          </Box>
-      
-        </>
-      ) } else {
+
 
         return (
             <>
@@ -116,7 +106,7 @@ export const AdministrarUsuarios = () => {
                 xs = { 9 }
                 sx={{ backgroundColor: '#262254', color:'white', mt:'20px', justifyContent: "center", display: "flex", borderRadius: '10px', boxShadow:'5px 5px 10px rgba(0, 0, 0, 0.5)'  }}
                 item>
-                <h1 >Administración de Usuarios</h1>
+                <h1 aria-label='h3'>Administración de Usuarios</h1>
                 </Grid>
 
                 <Grid 
@@ -221,5 +211,5 @@ export const AdministrarUsuarios = () => {
 
             </Grid>
             </>
-      )}
+      );
 }

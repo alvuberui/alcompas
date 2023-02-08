@@ -81,7 +81,7 @@ export const RedesSociales = () => {
     <>
   
       <Box sx={{ display: 'flex', justifyContent:"center", alignItems:"center"}}>
-          <CircularProgress   size={200} />
+          <CircularProgress aria-label='cargando'  size={200} />
       </Box>
   
     </>

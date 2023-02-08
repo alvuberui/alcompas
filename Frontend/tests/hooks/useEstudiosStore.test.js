@@ -136,7 +136,7 @@ describe('Pruebas en useEstudiosStore', () => {
                 
             });
             const { errores } = result.current;
-            expect(errores).toEqual("Error en el servidor");
+            expect(errores).toEqual(["Error en el servidor"]);
 
             
     });
@@ -164,7 +164,7 @@ describe('Pruebas en useEstudiosStore', () => {
             spy.mockRestore();
     });
 
-    test("Prueba negativa elminando estudio", async() => {
+    test("Prueba negativa  creando estudio", async() => {
         const mockStore = getMockStore({ ...authenticatedState2 });
         const { result } = renderHook( () => useEstudiosStore(), {
             wrapper: ({ children }) => <Provider store={ mockStore } >{ children }</Provider>
@@ -176,7 +176,7 @@ describe('Pruebas en useEstudiosStore', () => {
                 
             });
             const { errores } = result.current;
-            expect(errores).toEqual("Error en el servidor");
+            expect(errores).toEqual(["Error en el servidor"]);
 
             
     });

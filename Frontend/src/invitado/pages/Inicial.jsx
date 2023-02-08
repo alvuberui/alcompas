@@ -36,7 +36,7 @@ export const Inicial = () => {
           <Typography align="center" sx={{mt:5}}>Gestiona los músicos, eventos, faltas de asistencia, partituras y mucho más.</Typography>
           <Box textAlign='center' sx={{mt:13}}>
             <NavLink style={{textDecoration: "none", color: "white"}}  to={'/auth/login'}>
-              <Button variant='contained'  type='submit'>
+              <Button aria-label='iniciar' variant='contained'  type='submit'>
                 Iniciar sesión
               </Button>
             </NavLink>

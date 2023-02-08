@@ -21,7 +21,7 @@ export const Peticiones = ( ) => {
     }
     getPeticiones();
   }, [peticiones]);
-  
+  //console.log(user.uid + " " + id)
   return (
     <>
     {

@@ -14,6 +14,7 @@ export const testUserCredentials = {
     usuario: 'test',
     contraseña: '12345678',
     uid: '62a10a4954e8230e568a49ab',
+    administrador: false,
 }
 
 export const testUserCredentials2 = {

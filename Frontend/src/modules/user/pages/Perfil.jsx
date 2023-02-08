@@ -417,9 +417,9 @@ export const Perfil = () => {
                             flexWrap: 'wrap',
                           }
                         }}>
-                          <Tab label="Experiencias" />
-                          <Tab label="Instrumentos" />
-                          <Tab label="Estudios" />
+                          <Tab  label="Experiencias" />
+                          <Tab aria-label='click1' label="Instrumentos" />
+                          <Tab aria-label='click2' label="Estudios" />
                         </Tabs>
                         { value === 1 && iguales === true &&
                           <Button color='secondary' onClick={handleOpenAñadir} sx={{ mx:'auto', mb:'5px', width:'20vh', maxWidth:'4opx', backgroundColor:'white', color:'black'}} variant='contained'>

@@ -184,11 +184,12 @@ export const PerfilBanda = () => {
     getBanda();
     getComentarios();
     getMusicos();
+    getDirectivos();
     getUsuariosMusicos();
     getUsuariosDirectivos();
     getFotoPerfil();
     getRedes();
-    getDirectivos();
+    
   },[ comentarios, musicos, directivos ]);
   
   return (
@@ -216,7 +217,7 @@ export const PerfilBanda = () => {
             >
               { perteneceDirectivo ? 
                 <a onClick={handleOpenEditarFoto}>
-                  <Avatar style={{ height: '150px', width: '150px' }} alt="Remy Sharp" src={`data:image/png;base64,${fotoPerfil}`} />
+                  <Avatar  style={{ height: '150px', width: '150px' }} alt="Remy Sharp" src={`data:image/png;base64,${fotoPerfil}`} />
                 </a>
                 :
                 <Avatar style={{ height: '150px', width: '150px' }} alt="Remy Sharp" src={`data:image/png;base64,${fotoPerfil}`} />

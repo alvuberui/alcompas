@@ -54,6 +54,7 @@ export class CrearBandaDos extends Component {
                 type="text"
                 placeholder="Código Postal"
                 fullWidth
+                aria-label='codigo'
                 onChange={handleChange('codigo_postal')}
                 defaultValue={values.codigo_postal}
                 color='secondary'
@@ -96,7 +97,7 @@ export class CrearBandaDos extends Component {
                   </Button>
                 </Grid>
                 <Grid  item xs={ 6 } >
-                  <Button  variant='contained' color='secondary' fullWidth onClick={this.continuar}>
+                  <Button aria-label='link' variant='contained' color='secondary' fullWidth onClick={this.continuar}>
                     Siguiente
                   </Button>
                 </Grid>

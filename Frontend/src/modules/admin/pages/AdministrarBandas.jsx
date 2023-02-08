@@ -1,27 +1,19 @@
 import Avatar from '@material-ui/core/Avatar';
 import { Box, Button, Grid, Typography } from '@mui/material';
 import React, { useEffect, useState } from 'react';
+import { Navigate } from "react-router-dom";
 import Swal from 'sweetalert2';
 import { Buscador } from '../../../Components/Buscador';
-import { useBandasStore, useUploadsStore, useAuthStore } from '../../../hooks';
-import { Navigate } from "react-router-dom";
-import CircularProgress from '@mui/material/CircularProgress';
+import { useAuthStore, useBandasStore, useUploadsStore } from '../../../hooks';
 
-function sleep(delay = 0) {
-    return new Promise((resolve) => {
-      setTimeout(resolve, delay);
-    });
-}
 
 export const AdministrarBandas = () => {
-    const [open, setOpen] = React.useState(false);
-    const loading = open && options.length === 0;
     const [ banda, setBanda ] = useState(undefined);
     const [ fotoPerfil, setFotoPerfil ] = useState([]);
     const { getFotoPerfilBanda } = useUploadsStore();
     const { eliminarBanda } = useBandasStore();
     const { getUserByiD, user } = useAuthStore();
-    const [ admin, setAdmin ] = React.useState('');
+    const [ admin, setAdmin ] = React.useState(true);
 
     // Efectos  
   useEffect(() => {
@@ -34,11 +26,9 @@ export const AdministrarBandas = () => {
     const getAdmin = async () => {
         const u = await getUserByiD(user.uid)
     
-        if(u.administrador === false){
+        if(u.administrador === false) {
             setAdmin(false);
-        } else {
-            setAdmin(true);
-        }
+        }       
     }
     getAdmin();
     getFotoPerfil();
@@ -62,15 +52,6 @@ export const AdministrarBandas = () => {
     }
 
  
-    if( admin === '' ) { return (
-        <>
-      
-          <Box sx={{ display: 'flex', justifyContent:"center", alignItems:"center"}}>
-              <CircularProgress   size={200} />
-          </Box>
-      
-        </>
-      ) } else {
 
     return (
         <>
@@ -91,7 +72,7 @@ export const AdministrarBandas = () => {
                 xs = { 12 }
                 sx={{ backgroundColor: '#262254', color:'white', mt:'20px', justifyContent: "center", display: "flex"  }}
                 item>
-                    <h3 >Buscar banda:</h3>
+                    <h3 aria-label='h3'>Buscar banda:</h3>
                 </Grid>
                 
                 <Grid 
@@ -147,5 +128,5 @@ export const AdministrarBandas = () => {
 
         </Grid>
         </>
-  )}
+  );
 }

@@ -8,7 +8,7 @@ import { useAuthStore } from '../../../hooks';
 
 export const Menu = () => {
     const { user, getUserByiD } = useAuthStore('');
-    const [ admin, setAdmin ] = React.useState('');
+    const [ admin, setAdmin ] = React.useState(true);
 
     useEffect  (() => {
         const getAdmin = async () => {
@@ -16,22 +16,12 @@ export const Menu = () => {
         
             if(u.administrador === false){
                 setAdmin(false);
-            } else {
-                setAdmin(true);
-            }
+            } 
         }
         getAdmin();
     }, [])
     
-    if( admin === '' ) { return (
-        <>
-      
-          <Box sx={{ display: 'flex', justifyContent:"center", alignItems:"center"}}>
-              <CircularProgress   size={200} />
-          </Box>
-      
-        </>
-      ) } else {
+    
 
         return (
             <>
@@ -49,7 +39,7 @@ export const Menu = () => {
                         display="flex"
                         sx={{ backgroundColor: '#262254', textAlign:'center', color:'white', mt:'20px', borderRadius: '10px', boxShadow:'5px 5px 10px rgba(0, 0, 0, 0.5)'  }}
                         item>
-                        <h1 >Panel de Adminitración de la Aplicación</h1>
+                        <h1 aria-label='h3'>Panel de Adminitración de la Aplicación</h1>
                     </Grid>
 
                     <Grid 
@@ -78,5 +68,4 @@ export const Menu = () => {
             </>
       
          )
-    }
 }
