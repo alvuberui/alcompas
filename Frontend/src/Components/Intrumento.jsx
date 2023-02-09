@@ -106,7 +106,7 @@ export const Instrumento = ({ _id, instrumento, marca, modelo, numeroSerie, usua
                             <Button color='primary' onClick={handleOpenEditar}  sx={{mr:'5px'}} variant='contained'>
                                 <Typography sx={{ fontWeight: 'bold', fontSize:'12px' }} >Editar</Typography>
                             </Button>
-                            <Button color='primary' onClick={handleElminar} sx={{ml:'5px'}} variant='contained'>
+                            <Button  color='primary' onClick={handleElminar} sx={{ml:'5px'}} variant='contained'>
                                 <Typography sx={{ fontWeight: 'bold', fontSize:'12px' }} >Eliminar</Typography>
                             </Button>
                         </div>

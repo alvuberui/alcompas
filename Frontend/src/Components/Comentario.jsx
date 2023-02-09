@@ -91,7 +91,7 @@ export const Comentario = ({ _id, titulo, texto, usuario, banda, fecha, eliminar
                             { fecha} a las { horas } horas
                         </Typography>
                         { user.uid === usuario && 
-                            <Button color='primary' onClick={handleElminar} sx={{ml:'40px'}} variant='contained'>
+                            <Button aria-label='eliminar' color='primary' onClick={handleElminar} sx={{ml:'40px'}} variant='contained'>
                                 <Typography sx={{ fontWeight: 'bold', fontSize:'12px' }} >Eliminar</Typography>
                             </Button>
                         }

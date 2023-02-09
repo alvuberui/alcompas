@@ -55,11 +55,12 @@ export const Musico = ({usuario, tipo, directivo}) => {
               { directivo && 
                 <Grid item xs={12} lg={1} alignContent={'center'} justifyContent={'center'} display='flex'>
                   { tipo === 'musico' ?
-                    <IconButton onClick={ handleEliminarMusico } sx = {{alignSelf:'flex-end'}} color="error" aria-label="upload picture" component="label">
+                    
+                    <IconButton role={"eliminar"} onClick={ handleEliminarMusico } sx = {{alignSelf:'flex-end'}} color="error" aria-label="upload picture" component="label">
                       <DeleteIcon  ></DeleteIcon>
                     </IconButton>
                     :
-                    <IconButton onClick={ handleEliminarDirectivo  } sx = {{alignSelf:'flex-end'}} color="error" aria-label="upload picture" component="label">
+                    <IconButton  onClick={ handleEliminarDirectivo  } sx = {{alignSelf:'flex-end'}} color="error" aria-label="upload picture" component="label">
                       <DeleteIcon  ></DeleteIcon>
                     </IconButton>
                   }

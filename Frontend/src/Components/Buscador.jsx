@@ -76,7 +76,7 @@ export  function Buscador( { tipo, setBanda}) {
       options={options}
       loading={loading}
       renderInput={(params) => (
-        <TextField
+        <TextField aria-label='buscador'
           variant="filled"
           {...params}
           label="Buscar banda..."

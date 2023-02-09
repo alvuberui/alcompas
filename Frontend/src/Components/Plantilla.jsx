@@ -1,11 +1,11 @@
 import { Grid, Typography } from '@mui/material';
 import React from 'react';
-import { useAuthStore } from '../hooks/useAuthStore';
+
 import { Musico } from './Musico';
 
 export const Plantilla = ( { musicos, usuarios, tipo, directivo } ) => {
 
-  const { getUserByiD } = useAuthStore();
+
 
   const renderizar = () => {
     let html = [];
@@ -23,7 +23,7 @@ export const Plantilla = ( { musicos, usuarios, tipo, directivo } ) => {
         }
       }
       else if(tipo === "Directivos") {
-        const keys = Object.keys(musicos);
+        const keys = Object.keys(directivo);
 
         for(let i = 0; i < keys.length; i++){
           const key = keys[i];

@@ -12,7 +12,7 @@ export  function MenuFlotante() {
   return (
     <Box sx={{ width: '95%', color:'white', backgroundColor:'#262254', borderRadius:'5px' }}>
       <Tabs value={value} onChange={handleChange} textColor='inherit' centered>
-        <Tab label="Experiencias" />
+        <Tab  label="Experiencias" />
         <Tab label="Instrumentos" />
         <Tab label="Estudios" />
       </Tabs>

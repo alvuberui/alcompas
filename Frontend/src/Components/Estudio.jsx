@@ -124,10 +124,10 @@ export const Estudio = ({ _id, tipoEstudio, centroEstudios, poblacion, provincia
                     alignItems="baseline"
                     >   
                         <div>
-                            <Button color='primary' onClick={handleOpenEditar}  sx={{mr:'5px'}} variant='contained'>
+                            <Button aria-label='editar' color='primary' onClick={handleOpenEditar}  sx={{mr:'5px'}} variant='contained'>
                                 <Typography sx={{ fontWeight: 'bold', fontSize:'12px' }} >Editar</Typography>
                             </Button>
-                            <Button color='primary' onClick={handleElminar} sx={{ml:'5px'}} variant='contained'>
+                            <Button aria-label='eliminar' color='primary' onClick={handleElminar} sx={{ml:'5px'}} variant='contained'>
                                 <Typography sx={{ fontWeight: 'bold', fontSize:'12px' }} >Eliminar</Typography>
                             </Button>
                         </div>

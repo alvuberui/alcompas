@@ -135,8 +135,8 @@ export const Peticion = ({ _id, estado, instrumento, mensaje, rol, voz, cargo, b
                 justifyContent="center"
                 alignItems="baseline"
                 sx={{mt:'5px'}}>
-                    <Button onClick={handleButtonAceptar} sx={{mr:'20px'}} variant='contained' align="center" >Aceptar</Button>
-                    <Button onClick={handleButtonRechazar} variant='contained' align="center" >Denegar</Button>
+                    <Button aria-label='aceptar' onClick={handleButtonAceptar} sx={{mr:'20px'}} variant='contained' align="center" >Aceptar</Button>
+                    <Button aria-label='denegar' onClick={handleButtonRechazar} variant='contained' align="center" >Denegar</Button>
                 </Grid>
             }
         </Grid>
