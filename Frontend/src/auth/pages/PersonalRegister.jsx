@@ -18,6 +18,7 @@ export class PersonalRegister extends Component {
   
             <Grid item xs={ 12 } sx={{ mt: 2}}>
               <TextField 
+                aria-label='nombrelabel'
                 label="Nombre"
                 type="text"
                 color='secondary'
@@ -31,6 +32,7 @@ export class PersonalRegister extends Component {
             </Grid>
             <Grid item xs={ 12 } sx={{ mt: 2}}>
               <TextField 
+                aria-label='primerApellidolabel'
                 label="Primer apellido"
                 type="text"
                 color='secondary'
@@ -44,6 +46,7 @@ export class PersonalRegister extends Component {
             </Grid>
             <Grid item xs={ 12 } sx={{ mt: 2}}>
               <TextField 
+                aria-label='segundoApellidolabel'
                 label="Segundo Apellido"
                 type="text"
                 color='secondary'
@@ -57,6 +60,7 @@ export class PersonalRegister extends Component {
             </Grid>
             <Grid item xs={ 12 } sx={{ mt: 2}}>
               <TextField 
+                aria-label='dnilabel'
                 label="DNI"
                 type="text"
                 color='secondary'
@@ -70,6 +74,7 @@ export class PersonalRegister extends Component {
             </Grid>
             <Grid item xs={ 12 } sx={{ mt: 2}}>
               <TextField
+                aria-label='fechaNacimientolabel'
                 label="Fecha nacimiento"
                 type="date"
                 fullWidth
@@ -86,6 +91,7 @@ export class PersonalRegister extends Component {
             </Grid>
             <Grid item xs={ 12 } sx={{ mt: 2}}>
               <TextField
+                aria-label='correolabel'
                 label="Correo electrónico"
                 type="email"
                 color='secondary'
@@ -99,6 +105,7 @@ export class PersonalRegister extends Component {
             </Grid>
             <Grid item xs={ 12 } sx={{ mt: 2}}>
               <TextField
+                aria-label='telefonolabel'
                 label="Teléfono"
                 type="tel"
                 color='secondary'

@@ -140,7 +140,7 @@ export const NuevasRedSocial = ({ open, handleClose, setRedes, setOpen }) => {
                     </Grid>
                 </Grid>
                 <Box  sx={{mt:2, display:'flex', alignContent:'center', justifyContent:'center'}} >
-                      <Button color='secondary' sx={{ backgroundColor:'white', color:'black'}} variant='contained' onClick={handleForm}>
+                      <Button aria-label='enviar' color='secondary' sx={{ backgroundColor:'white', color:'black'}} variant='contained' onClick={handleForm}>
                         Añadir red social
                       </Button>
                 </Box>

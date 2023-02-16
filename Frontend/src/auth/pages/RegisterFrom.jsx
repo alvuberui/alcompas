@@ -45,9 +45,7 @@ export const  RegisterFrom = () => {
 
     // Siguiente  
     const siguiente = () => {
-  
         setStep(step +1)
-        
     }
 
     // Anterior paso
@@ -59,7 +57,7 @@ export const  RegisterFrom = () => {
     const confirmar = () => {
         
         let error = validarRegistro(values);
-       
+        
         if(error == '') {
             startRegister({nombre: values.nombre, primer_apellido: values.primer_apellido, segundo_apellido: values.segundo_apellido,
                 correo: values.correo, descripcion: values.descripcion, localidad: values.localidad, provincia: values.provincia,

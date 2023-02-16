@@ -62,22 +62,22 @@ describe("Tests sobre la api de directivos", () => {
             directivoId = directivoResponse.body.directivo[0]._id;
         });
 
-        it("Obtener directivo por su id", async () => {
+        test("Obtener directivo por su id", async () => {
             const response = await request(app).get('/api/directivos/' + directivoId).set('x-token', token);
             expect(response.statusCode).toBe(201);
         });
 
-        it("Obtener directivo por su user id", async () => {
+        test("Obtener directivo por su user id", async () => {
             const response = await request(app).get('/api/directivos/byUserId/' + uid).set('x-token', token);
             expect(response.statusCode).toBe(201);
         });
 
-        it("Obtener directivos de una banda", async () => {
+        test("Obtener directivos de una banda", async () => {
             const response = await request(app).get('/api/directivos/banda/id/' + bandaId).set('x-token', token);
             expect(response.statusCode).toBe(201);
         });
 
-        it("Finalizar directivo", async () => {
+        test("Finalizar directivo", async () => {
             const response = await request(app).put('/api/directivos/finalizar/' + uid + '/' + bandaId).set('x-token', token);
             expect(response.statusCode).toBe(201);
         });
@@ -122,7 +122,7 @@ describe("Tests sobre la api de directivos", () => {
             uidInvalido = loginReponse2.body.uid;
         });
 
-        it("Finalizar directivo sin ser directivo de la banda", async () => {
+        test("Finalizar directivo sin ser directivo de la banda", async () => {
             const response = await request(app).put('/api/directivos/finalizar/' + uid + '/' + bandaId).set('x-token', tokenInvalido);
             expect(response.statusCode).toBe(401);
         });

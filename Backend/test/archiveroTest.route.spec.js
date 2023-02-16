@@ -74,12 +74,12 @@ describe("Tests sobre la api de archiveros", () => {
             await request(app).put('/api/peticiones/aceptar/' + peticionId + '/' + uid).set('x-token', token);
         });
 
-        it('Obtener los roles de archivero de un usuario', async () => {
+        test('Obtener los roles de archivero de un usuario', async () => {
             const response = await request(app).get('/api/archiveros/usuario/id/' + uid).set('x-token', token);
             expect(response.statusCode).toBe(201);
         });
 
-        it('Finalizar rol de archivero', async () => {
+        test('Finalizar rol de archivero', async () => {
             const response = await request(app).put('/api/archiveros/'+ uid + '/' + bandaId).set('x-token', token);
             expect(response.statusCode).toBe(201);
         });
@@ -138,12 +138,12 @@ describe("Tests sobre la api de archiveros", () => {
             uidInvalido = loginReponseB.body.uid;
         });
 
-        it('Finalizar archivero sin ser el mismo o directivo de la banda', async () => {
+        test('Finalizar archivero sin ser el mismo o directivo de la banda', async () => {
             const response = await request(app).put('/api/archiveros/'+ uid + '/' + bandaId).set('x-token', tokenInvalido);
             expect(response.statusCode).toBe(401);
         });
 
-        it('Finalizar el rol de archivero sin existir ese rol', async () => {
+        test('Finalizar el rol de archivero sin existir ese rol', async () => {
             // Primero finalizamos la anterior creada
             await request(app).put('/api/archiveros/'+ uid + '/' + bandaId).set('x-token', token);
             // Ahora intentamos finalizarla de nuevo
@@ -158,6 +158,7 @@ describe("Tests sobre la api de archiveros", () => {
             await request(app).delete('/api/directivos/' + directivoId).set('x-token', token);
             // Eliminamos el usuario
             await request(app).delete('/api/auth/' + uid).set('x-token', token);
+           
         });
 
 

@@ -66,7 +66,20 @@ export const useAuthStore = () => {
         }catch (error) {
             let fallo = ' '
             const objetos = error.response.data.msg; 
-            fallo = fallo + objetos;
+            const objetos2 = error.response.data.errors;
+            if(objetos2 != undefined) {
+                for(const objeto in objetos2) {
+                    fallo = objetos2[objeto].msg;
+                    break;
+                }
+            } else {
+                fallo = objetos;
+            }
+            dispatch( onErrorUpdate(fallo));
+
+            setTimeout(()=> {
+                dispatch( ClearErrorMessage() );
+            }, 10);
             return fallo;
             
         }
@@ -79,7 +92,6 @@ export const useAuthStore = () => {
        
             return data.usuarioModificado;
         }catch (error) {
-            console.log(error)
             let fallo = ''
             const objetos = Object(error.response.data.errors); 
             for(const objeto in objetos) {
@@ -130,17 +142,11 @@ export const useAuthStore = () => {
        
             
         }catch (error) {
+            console.log("Error eliminando usuario")
+            let fallo = 'Error eliminando usuario'
             
-            let fallo = ''
-            const objetos = Object(error.response.data.errors); 
-            for(const objeto in objetos) {
-                let arreglo = objetos[objeto];
-                fallo = arreglo['msg'];
-                break;
-            }
-            
-            dispatch( onErrorUpdate(error.response.data?.msg || fallo));
-
+            dispatch( onErrorUpdate( fallo ));
+            console.log(errorMessage)
             setTimeout(()=> {
                 dispatch( ClearErrorMessage() );
             }, 10);
@@ -154,7 +160,6 @@ export const useAuthStore = () => {
           
             return data.usuario;
         }catch (error) {
-            console.log(error)
             console.log("Error eliminando usuario")
         }
     }

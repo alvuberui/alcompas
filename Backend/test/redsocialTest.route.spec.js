@@ -65,12 +65,12 @@ describe("Tests sobre la api de redes sociales", () => {
             expect(response.statusCode).toBe(200);
         });
 
-        it("Obtener todas las redes sociales de una banda", async() => {
+        test("Obtener todas las redes sociales de una banda", async() => {
             const response = await request(app).get('/api/redes/banda/id/' + bandaId).set('x-token', token);
             expect(response.statusCode).toBe(200);
         });
 
-        it("Eliminar red social creada", async() => {
+        test("Eliminar red social creada", async() => {
             const response = await request(app).delete('/api/redes/' + redSocialId).set('x-token', token);
             expect(response.statusCode).toBe(200);
         });
@@ -111,18 +111,18 @@ describe("Tests sobre la api de redes sociales", () => {
             redSocialId = responseRed.body.nuevaRedSocial._id;
         });
 
-        it("Crear red social sin ser directivo de la banda", async() => {
+        test("Crear red social sin ser directivo de la banda", async() => {
             newRedSocial.banda = bandaId;
             const response = await request(app).post('/api/redes').send(newRedSocial).set('x-token', tokenInvalido);
             expect(response.statusCode).toBe(401);
         });
 
-        it("Eliminar red social sin ser directivo" , async() => {
+        test("Eliminar red social sin ser directivo" , async() => {
             const response = await request(app).delete('/api/redes/' + redSocialId).set('x-token', tokenInvalido);
             expect(response.statusCode).toBe(401);
         });
 
-        it("Eliminar red social no existente" , async() => {
+        test("Eliminar red social no existente" , async() => {
             const response = await request(app).delete('/api/redes/' + "63cbf392239d012faf2c1ff3").set('x-token', token);
             expect(response.statusCode).toBe(404);
         });

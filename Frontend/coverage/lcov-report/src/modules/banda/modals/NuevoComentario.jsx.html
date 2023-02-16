@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">48.14% </span>
+                <span class="strong">77.77% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>13/27</span>
+                <span class='fraction'>21/27</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">28.57% </span>
+                <span class="strong">78.57% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>4/14</span>
+                <span class='fraction'>11/14</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">50% </span>
+                <span class="strong">66.66% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>3/6</span>
+                <span class='fraction'>4/6</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">52.17% </span>
+                <span class="strong">78.26% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>12/23</span>
+                <span class='fraction'>18/23</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line low'></div>
+    <div class='status-line medium'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -225,13 +225,13 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">7x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -349,16 +349,16 @@ export const NuevoComentario  = ( { open, handleClose, setComentarios, setOpen }
 &nbsp;
 &nbsp;
    
-    const handleForm = <span class="fstat-no" title="function not covered" >as</span>ync e =&gt; {
-<span class="cstat-no" title="statement not covered" >        e.preventDefault();</span>
-        let error = <span class="cstat-no" title="statement not covered" >"";</span>
-<span class="cstat-no" title="statement not covered" >        if(values.titulo.length &gt; 25 || values.titulo.length &lt; 1 ) <span class="cstat-no" title="statement not covered" >error = error + " El título debe de contener entre 1 y 25 caracteres ";</span></span>
-<span class="cstat-no" title="statement not covered" >        if(values.texto.length &gt; 500 || values.titulo.length &lt; 1 ) <span class="cstat-no" title="statement not covered" >error = error + " &lt;br&gt;  El texto debe de contener entre 1 y 50 caracteres";</span></span>
+    const handleForm = async e =&gt; {
+        e.preventDefault();
+        let error = "";
+        <span class="missing-if-branch" title="else path not taken" >E</span>if(values.titulo.length &gt; 25 || values.titulo.length &lt; 1 ) error = error + " El título debe de contener entre 1 y 25 caracteres ";
+        <span class="missing-if-branch" title="else path not taken" >E</span>if(values.texto.length &gt; 500 || values.titulo.length &lt; 1 ) error = error + " &lt;br&gt;  El texto debe de contener entre 1 y 50 caracteres";
 &nbsp;
-<span class="cstat-no" title="statement not covered" >        if(error != "") {</span>
-<span class="cstat-no" title="statement not covered" >          Swal.fire('Error al publicar comentario', error, 'error');</span>
+        if(error != "") {
+          Swal.fire('Error al publicar comentario', error, 'error');
         }
-        else {
+        else <span class="missing-if-branch" title="else path not taken" >E</span>{
   
           const c = <span class="cstat-no" title="statement not covered" >await crearComentario( bandaId, values, user.uid, setComentarios );</span>
 <span class="cstat-no" title="statement not covered" >          setComentarios( <span class="fstat-no" title="function not covered" >co</span> =&gt; <span class="cstat-no" title="statement not covered" >[...co, c])</span>;</span>
@@ -428,7 +428,7 @@ export const NuevoComentario  = ( { open, handleClose, setComentarios, setOpen }
                     &lt;/Grid&gt;
                 &lt;/Grid&gt;
                 &lt;Box  sx={{mt:2, display:'flex', alignContent:'center', justifyContent:'center'}} &gt;
-                      &lt;Button color='secondary' sx={{ backgroundColor:'white', color:'black'}} variant='contained' onClick={handleForm}&gt;
+                      &lt;Button aria-label='enviar' color='secondary' sx={{ backgroundColor:'white', color:'black'}} variant='contained' onClick={handleForm}&gt;
                         Publicar comentario
                       &lt;/Button&gt;
                 &lt;/Box&gt;
@@ -445,7 +445,7 @@ export const NuevoComentario  = ( { open, handleClose, setComentarios, setOpen }
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2023-02-09T20:56:21.105Z
+                at 2023-02-16T18:10:13.909Z
             </div>
         <script src="../../../../prettify.js"></script>
         <script>

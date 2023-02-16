@@ -1,5 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit';
-import { act, render, screen, waitFor } from '@testing-library/react';
+import { act, render, screen, waitFor, fireEvent } from '@testing-library/react';
 import { Provider } from 'react-redux';
 import { MemoryRouter } from 'react-router-dom';
 import { useRedesSocialesStore, useComentariosStore, useAuthStore } from '../../../../src/hooks';
@@ -76,6 +76,8 @@ describe('Pruebas en <NuevoComentario />', () => {
 
         const texto = screen.getByText('Añadir comentario');
         expect( texto ).not.toBe( undefined);
+        const boton = screen.getByLabelText('enviar');
+        fireEvent.click( boton );
     });
 
     test('Si modal esta cerrado NO debe de mostrar el componente correctamente', async() => {

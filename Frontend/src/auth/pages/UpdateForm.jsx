@@ -76,8 +76,8 @@ export const  UpdateForm = () => {
 
     
 
-  
-    //const cambiar = (step) => {   
+    
+    console.log(values)
     if(values.length == 0) {
         return (
              <>

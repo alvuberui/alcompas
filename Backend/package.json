@@ -4,9 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "jest",
-    "coverage": "jest --coverage",
-    "dev": "nodemon inde.js",
+    "test": "jest --runInBand  ",
+    "coverage": "jest --runInBand --coverage",
+    "dev": "nodemon index.js",
     "start": "node index.js"
   },
   "keywords": [],

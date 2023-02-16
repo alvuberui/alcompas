@@ -141,12 +141,12 @@ export class ConfirmationRegister extends Component {
             
             <Grid container justifyContent='center' spacing={ 2 } sx={{ mb: 2, mt: 1 }}>
                 <Grid  item xs={ 6 } >
-                  <Button  variant='contained' color='secondary' fullWidth onClick={this.retroceder}>
+                  <Button aria-label='retroceder' variant='contained' color='secondary' fullWidth onClick={this.retroceder}>
                     Retroceder
                   </Button>
                 </Grid>
                 <Grid  item xs={ 6 } >
-                  <Button  variant='contained' color='secondary' fullWidth onClick={this.confirmar}>
+                  <Button aria-label='confirmar' variant='contained' color='secondary' fullWidth onClick={this.confirmar}>
                     Finalizar
                   </Button>
                 </Grid>

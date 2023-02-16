@@ -53,9 +53,11 @@ app.use('/api/fotos', require('./routes/uploads'));
 app.use('/api/redes', require('./routes/redesSociales'));
 
 // Escuchar peticiones
-app.listen( process.env.PORT, () => {
-    console.log(`Servidor corriendo en el puerto ${ process.env.PORT }`)
-})
+if (process.env.NODE_ENV !== 'test') {
+    app.listen( process.env.PORT, () => {
+        console.log(`Servidor corriendo en el puerto ${ process.env.PORT }`)
+    })
+}
 
 module.exports = {
     app

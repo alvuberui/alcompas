@@ -312,7 +312,7 @@ export const Perfil = () => {
           xs= { 12 }
           sx={{ backgroundColor: 'white', justifyContent: "center", display: "flex"  }}
           >
-            <Typography sx={{ fontWeight: 'bold', textAlign:'center' }} variant='h5'>@{userU.usuario}</Typography>
+            <Typography className='usuario' sx={{ fontWeight: 'bold', textAlign:'center' }} variant='h5'>@{userU.usuario}</Typography>
           </Grid>
           <Grid 
           item

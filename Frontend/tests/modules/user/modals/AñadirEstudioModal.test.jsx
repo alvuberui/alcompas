@@ -1,5 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit';
-import { act, render, screen, waitFor } from '@testing-library/react';
+import { act, fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { Provider } from 'react-redux';
 import { MemoryRouter } from 'react-router-dom';
 import {  useEstudiosStore, useAuthStore } from '../../../../src/hooks';
@@ -52,8 +52,12 @@ describe('Pruebas en <AñadirEstudioModal />', () => {
                 </Provider>
             );
         });
-        const texto = screen.getByText('Añadir Estudio');
-        expect( texto ).not.toBe( undefined);   
+        await act(async() => {
+            const texto = screen.getByText('Añadir Estudio');
+            expect( texto ).not.toBe( undefined);   
+            const boton = screen.getByLabelText('crear');
+            fireEvent.click( boton );
+        });
     });
 
     test('debe de mostrar el componente correctamente editando', async() => {
@@ -79,7 +83,9 @@ describe('Pruebas en <AñadirEstudioModal />', () => {
                 </Provider>
             );
         });
-        const texto = screen.getByText('Añadir Estudio');
-        expect( texto ).not.toBe( undefined);   
+        await act(async() => {
+            const texto = screen.getByText('Añadir Estudio');
+            expect( texto ).not.toBe( undefined);   
+        });
     });
 });

@@ -60,6 +60,7 @@ export  function Buscador( { tipo, setBanda}) {
 
   return (
     <Autocomplete
+      aria-label='autocomplete'
       onChange={handleChange}
       freeSolo={true}
       id="asynchronous-demo"

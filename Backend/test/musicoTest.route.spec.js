@@ -76,23 +76,23 @@ describe("Tests sobre la api de archiveros", () => {
             await request(app).put('/api/peticiones/aceptar/' + peticionId + '/' + uid).set('x-token', token);
         });
 
-        it("Obtener los músicos de una banda", async () => {
+        test("Obtener los músicos de una banda", async () => {
             const response = await request(app).get('/api/musicos/byAllByBandaId/' + bandaId).set('x-token', token);
             expect(response.statusCode).toBe(201);
         });
 
-        it("Obtener músico por su user id", async () => {
+        test("Obtener músico por su user id", async () => {
             const response = await request(app).get('/api/musicos/user/id/' + uid).set('x-token', token);
             expect(response.statusCode).toBe(201);
             musicoId = response.body.musicos[0]._id;
         });
 
-        it("Obtener músico por su id", async () => {
+        test("Obtener músico por su id", async () => {
             const response = await request(app).get('/api/musicos/' + musicoId).set('x-token', token);
             expect(response.statusCode).toBe(201);
         });
 
-        it("Finalizar musico", async () => {
+        test("Finalizar musico", async () => {
             const response = await request(app).put('/api/musicos/finalizar/' + uid + '/' + bandaId).set('x-token', token);
             expect(response.statusCode).toBe(201); 
         });
@@ -151,7 +151,7 @@ describe("Tests sobre la api de archiveros", () => {
             uidInvalido = loginReponseB.body.uid;
         });
 
-        it("Finalizar el rol de musico sin ser directivo de la banda ni el propio musico", async () => {
+        test("Finalizar el rol de musico sin ser directivo de la banda ni el propio musico", async () => {
             const response = await request(app).put('/api/musicos/finalizar/' + uid + '/' + bandaId).set('x-token', tokenInvalido);
             expect(response.statusCode).toBe(401);
         });

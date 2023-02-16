@@ -63,7 +63,7 @@ describe("Tests sobre la api de peticiones", () => {
             directivoId = directivoResponse.body.directivo[0]._id;
         });
 
-        it("Crear petición", async () => {
+        test("Crear petición", async () => {
             newPeticion.directivo = directivoId;
             newPeticion.banda = bandaId;
             newPeticion.usuario = uid;
@@ -76,24 +76,24 @@ describe("Tests sobre la api de peticiones", () => {
             expect(response.statusCode).toBe(200);
         });
 
-        it("Obtener peticiones de un usuario", async () => {
+        test("Obtener peticiones de un usuario", async () => {
             const response = await request(app).get('/api/peticiones/' + uid).set('x-token', token);
 
             expect(response.statusCode).toBe(200);
         });
 
-        it("Obtener peticiones de una banda", async () => {
+        test("Obtener peticiones de una banda", async () => {
             const response = await request(app).get('/api/peticiones/peticionesByBandaId/' + bandaId).set('x-token', token);
 
             expect(response.statusCode).toBe(200);
         });
 
-        it("Aceptar petición", async () => {
+        test("Aceptar petición", async () => {
             const response = await request(app).put('/api/peticiones/aceptar/' + peticionId + '/' + uid).set('x-token', token);
             expect(response.statusCode).toBe(201);
         });
 
-        it("Rechazar petición", async () => {
+        test("Rechazar petición", async () => {
             const pet = { "mensaje": "Mensaje de prueba", "fecha": "1999-01-01", "rol": "Archivero", "banda": bandaId, "directivo": directivoId, "usuario": uid};
             const response = await request(app).post('/api/peticiones').send(pet).set('x-token', token);
             const response2 = await request(app).put('/api/peticiones/rechazar/' + response.body.peticion._id + '/' + uid).set('x-token', token);
@@ -152,17 +152,17 @@ describe("Tests sobre la api de peticiones", () => {
             uidInvalido = loginReponse2.body.uid;
         });
 
-        it("Crear petición sin ser directivo", async () => {
+        test("Crear petición sin ser directivo", async () => {
             const response = await request(app).post('/api/peticiones').send(newPeticion).set('x-token', tokenInvalido);
             expect(response.statusCode).toBe(400);
         });
 
-        it("Crear petición teniendo una en estado pendiente", async () => {
+        test("Crear petición teniendo una en estado pendiente", async () => {
             const response = await request(app).post('/api/peticiones').send(newPeticion).set('x-token', token);
             expect(response.statusCode).toBe(400);
         });
 
-        it("Crear una peticion teniendo ya ese rol el usuario", async () => {
+        test("Crear una peticion teniendo ya ese rol el usuario", async () => {
             // Primero aceptamos la petición pendiente
             const response = await request(app).put('/api/peticiones/aceptar/' + peticionId + '/' + uid).set('x-token', token);
             expect(response.statusCode).toBe(201);
@@ -171,10 +171,10 @@ describe("Tests sobre la api de peticiones", () => {
             expect(response2.statusCode).toBe(400);
         });
 
-        it("Crear petición inválida", async () => {
+        test("Crear petición inválida", async () => {
             const pet = { "mensaje": "Mensaje de prueba", "fecha": "1999-01-01", "rol": "Archivero", "banda": bandaId, "directivo": directivoId, "usuario": uid, instrumento: "Tuba"};
             const response = await request(app).post('/api/peticiones').send(pet).set('x-token', token);
-            console.log(response.body);
+     
             expect(response.statusCode).toBe(400);
         });
 

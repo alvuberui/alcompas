@@ -68,4 +68,36 @@ describe('Pruebas en <LoginPage />', () => {
         
         expect( mockStartLogin ).toHaveBeenCalled();
     });
+
+    test('debe de mostrar el componente correctamente mostrando el error', () => {
+
+        useAuthStore.mockReturnValue({
+            startLogin: mockStartLogin,
+            errorMessage: "Error"
+        });
+
+        const email = "test@test.com";
+        const contraseña = "123456";
+
+        render(
+            <Provider store={ store }>
+                <MemoryRouter>
+                    <LoginPage />
+                </MemoryRouter>
+            </Provider>
+        );
+        expect( screen.getByLabelText('link')).not.toBe( undefined);
+
+        const emailField = screen.getByLabelText("correo");
+        fireEvent.change( emailField, { target: { name: 'email', defaultValue: email } });
+        
+        const passwordField = screen.getByLabelText('contraseña');
+        fireEvent.change( passwordField, { target: { name: 'loginContraseña', defaultValue: contraseña } });
+        
+        const loginForm = screen.getByLabelText('submit');
+        fireEvent.submit( loginForm );
+
+        
+        expect( mockStartLogin ).toHaveBeenCalled();
+    });
 });

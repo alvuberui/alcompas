@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">36.5% </span>
+                <span class="strong">61.9% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>23/63</span>
+                <span class='fraction'>39/63</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">29.16% </span>
+                <span class="strong">58.33% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>7/24</span>
+                <span class='fraction'>14/24</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">50% </span>
+                <span class="strong">66.66% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>6/12</span>
+                <span class='fraction'>8/12</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">41.5% </span>
+                <span class="strong">66.03% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>22/53</span>
+                <span class='fraction'>35/53</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line low'></div>
+    <div class='status-line medium'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -335,15 +335,15 @@
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
@@ -362,11 +362,11 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -570,16 +570,16 @@ export const AñadirEstudioModal  = ( { open, handleClose, setEstudios, setOpen,
     const { crearEstudio, errores, setErrores, getEstudioById, editarEstudio } = useEstudiosStore();
     const { user } = useAuthStore();
 &nbsp;
-    const validarEstudio =  <span class="fstat-no" title="function not covered" >()</span> =&gt; {
-      let error = <span class="cstat-no" title="statement not covered" >"";</span>
-      const fechaActual = <span class="cstat-no" title="statement not covered" >new Date().toISOString();</span>
-<span class="cstat-no" title="statement not covered" >      if(!tipos.includes(estudio.tipoEstudio)) <span class="cstat-no" title="statement not covered" >error = "El tipo de estudio no es válido";</span></span>
-<span class="cstat-no" title="statement not covered" >      if(estudio.fechaInicio &gt; estudio.fechaFin) <span class="cstat-no" title="statement not covered" >error = error + "&lt;br&gt; La fecha de inicio no puede ser mayor que la fecha de fin";</span></span>
-<span class="cstat-no" title="statement not covered" >      if(estudio.fechaInicio === '') <span class="cstat-no" title="statement not covered" >error = error + "&lt;br&gt; La fecha de inicio no puede estar vacía";</span></span>
-<span class="cstat-no" title="statement not covered" >      if(estudio.fechaFin === '') <span class="cstat-no" title="statement not covered" >error = error + "&lt;br&gt; La fecha de fin no puede estar vacía";</span></span>
-<span class="cstat-no" title="statement not covered" >      if(estudio.fechaInicio &gt; fechaActual) <span class="cstat-no" title="statement not covered" >error = error + "&lt;br&gt; La fecha de inicio no puede ser mayor que la fecha actual";</span></span>
-<span class="cstat-no" title="statement not covered" >      if(estudio.fechaFin &lt;= estudio.fechaInicio) <span class="cstat-no" title="statement not covered" >error = error + "&lt;br&gt; La fecha final no puede ser igual o anterior a la fecha de inicio";</span></span>
-<span class="cstat-no" title="statement not covered" >      return error;</span>
+    const validarEstudio =  () =&gt; {
+      let error = "";
+      const fechaActual = new Date().toISOString();
+      <span class="missing-if-branch" title="if path not taken" >I</span>if(!tipos.includes(estudio.tipoEstudio)) <span class="cstat-no" title="statement not covered" >error = "El tipo de estudio no es válido";</span>
+      <span class="missing-if-branch" title="if path not taken" >I</span>if(estudio.fechaInicio &gt; estudio.fechaFin) <span class="cstat-no" title="statement not covered" >error = error + "&lt;br&gt; La fecha de inicio no puede ser mayor que la fecha de fin";</span>
+      <span class="missing-if-branch" title="else path not taken" >E</span>if(estudio.fechaInicio === '') error = error + "&lt;br&gt; La fecha de inicio no puede estar vacía";
+      <span class="missing-if-branch" title="else path not taken" >E</span>if(estudio.fechaFin === '') error = error + "&lt;br&gt; La fecha de fin no puede estar vacía";
+      <span class="missing-if-branch" title="if path not taken" >I</span>if(estudio.fechaInicio &gt; fechaActual) <span class="cstat-no" title="statement not covered" >error = error + "&lt;br&gt; La fecha de inicio no puede ser mayor que la fecha actual";</span>
+      <span class="missing-if-branch" title="else path not taken" >E</span>if(estudio.fechaFin &lt;= estudio.fechaInicio) error = error + "&lt;br&gt; La fecha final no puede ser igual o anterior a la fecha de inicio";
+      return error;
     }
 &nbsp;
     const handleFormEditar = <span class="fstat-no" title="function not covered" >as</span>ync e =&gt; {
@@ -597,14 +597,14 @@ export const AñadirEstudioModal  = ( { open, handleClose, setEstudios, setOpen,
       }
     }
    
-    const handleForm = <span class="fstat-no" title="function not covered" >as</span>ync e =&gt; {
-<span class="cstat-no" title="statement not covered" >        e.preventDefault();</span>
-        let error = <span class="cstat-no" title="statement not covered" >validarEstudio();</span>
+    const handleForm = async e =&gt; {
+        e.preventDefault();
+        let error = validarEstudio();
 &nbsp;
-<span class="cstat-no" title="statement not covered" >        if(error != "") {</span>
-<span class="cstat-no" title="statement not covered" >          Swal.fire('Error al publicar instrumento', error, 'error');</span>
+        if(error != "") {
+          Swal.fire('Error al publicar instrumento', error, 'error');
         }
-        else {
+        else <span class="missing-if-branch" title="else path not taken" >E</span>{
           const c = <span class="cstat-no" title="statement not covered" >await crearEstudio( estudio, user.uid );</span>
 <span class="cstat-no" title="statement not covered" >          setEstudios( <span class="fstat-no" title="function not covered" >co</span> =&gt; <span class="cstat-no" title="statement not covered" >[...co, c])</span>;</span>
 <span class="cstat-no" title="statement not covered" >          setEstudio({tipoEstudio:'Grado elemental', centroEstudios: '', poblacion: '', provincia: '', fechaInicio: '', fechaFin: ''});</span>
@@ -755,7 +755,7 @@ export const AñadirEstudioModal  = ( { open, handleClose, setEstudios, setOpen,
                 &lt;/Grid&gt;
                 &lt;Box  sx={{mt:2, display:'flex', alignContent:'center', justifyContent:'center'}} &gt;
                     { editar === undefined &amp;&amp;
-                      &lt;Button color='secondary' sx={{ backgroundColor:'white', color:'black'}} variant='contained' onClick={handleForm}&gt;
+                      &lt;Button aria-label='crear' color='secondary' sx={{ backgroundColor:'white', color:'black'}} variant='contained' onClick={handleForm}&gt;
                         Añadir estudio
                       &lt;/Button&gt;
                     }
@@ -778,7 +778,7 @@ export const AñadirEstudioModal  = ( { open, handleClose, setEstudios, setOpen,
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2023-02-09T20:56:21.105Z
+                at 2023-02-16T18:10:13.909Z
             </div>
         <script src="../../../../prettify.js"></script>
         <script>

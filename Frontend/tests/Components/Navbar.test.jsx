@@ -24,7 +24,7 @@ const storeAutenticado = configureStore({
 jest.mock('../../src/hooks/useUploadsStore');
 jest.mock('../../src/hooks/useAuthStore');
 
-describe('Pruebas en el  <Estudio />', () => {
+describe('Pruebas en el  <NavBar />', () => {
 
     beforeEach(() => jest.clearAllMocks() );
 
@@ -55,7 +55,7 @@ describe('Pruebas en el  <Estudio />', () => {
         expect(boton).not.toBe(undefined);
     });
 
-    test('Debe mostrar el componente correctamente', async() => {
+    test('Debe mostrar el componente correctamente click en logout', async() => {
         useAuthStore.mockReturnValue({
             user: testUserCredentials,
             getUserByiD: jest.fn().mockReturnValue(testUserCredentials),
@@ -78,8 +78,37 @@ describe('Pruebas en el  <Estudio />', () => {
             );
         });
         
-        const boton = screen.getByLabelText("buscador");
+        const boton = screen.getByLabelText("logout");
         expect(boton).not.toBe(undefined);
+        fireEvent.click(boton);
+    });
+
+    test('Debe mostrar el componente correctamente con clik en perfil', async() => {
+        useAuthStore.mockReturnValue({
+            user: testUserCredentials,
+            getUserByiD: jest.fn().mockReturnValue(testUserCredentials),
+            startLogout: jest.fn(),
+        });
+
+        useUploadsStore.mockReturnValue({
+            getFotoPerfilUsuario: jest.fn().mockReturnValue(""),
+        });
+
+        
+        await act(async() => {
+            
+            render(
+                <Provider store={ storeAutenticado }>
+                    <MemoryRouter>
+                        <NavBar />
+                    </MemoryRouter>
+                </Provider>
+            );
+        });
+        
+        const boton = screen.getByLabelText("perfil");
+        expect(boton).not.toBe(undefined);
+        fireEvent.click(boton);
     });
 
     

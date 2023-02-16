@@ -48,7 +48,7 @@ describe("Pruebas de la api de bandas", () => {
             uid = loginReponse.body.uid;
         });
 
-        it("Crear banda", async() => {
+        test("Crear banda", async() => {
             const response = await request(app).post('/api/bandas').send(newBanda).set('x-token', token);
 
             expect(response.statusCode).toBe(201);
@@ -57,38 +57,38 @@ describe("Pruebas de la api de bandas", () => {
             bandaId = response.body.nueva_banda._id;
         });
 
-        it("Editar banda", async() => {
+        test("Editar banda", async() => {
             newBanda.nombre = "TestBanda2";
             const response = await request(app).put('/api/bandas/' + bandaId).send(newBanda).set('x-token', token);
 
             expect(response.statusCode).toBe(201);
         });
 
-        it("Obtener banda", async() => {
+        test("Obtener banda", async() => {
             const response = await request(app).get('/api/bandas/' + bandaId).set('x-token', token);
 
             expect(response.statusCode).toBe(201);
         });
 
-        it("Obtener todas las bandas", async() => {
+        test("Obtener todas las bandas", async() => {
             const response = await request(app).get('/api/bandas').set('x-token', token);
 
             expect(response.statusCode).toBe(201);
         });
 
-        it("Obtener todas las bandas de un usuario", async() => {
+        test("Obtener todas las bandas de un usuario", async() => {
             const response = await request(app).get('/api/bandas/misBandas/' + uid).set('x-token', token);
 
             expect(response.statusCode).toBe(201);
         });
 
-        it("Obtener banda por nombre", async() => {
+        test("Obtener banda por nombre", async() => {
             const response = await request(app).get('/api/bandas/buscar/' + newBanda.nombre).set('x-token', token);
 
             expect(response.statusCode).toBe(201);
         });
 
-        it("Eliminar banda" , async() => {
+        test("Eliminar banda" , async() => {
             const response = await request(app).delete('/api/bandas/' + bandaId).set('x-token', token);
 
             expect(response.statusCode).toBe(201);
@@ -123,45 +123,45 @@ describe("Pruebas de la api de bandas", () => {
             bandaId = response.body.nueva_banda._id;
         });
 
-        it("Crear banda con campo repetido" , async() => {
+        test("Crear banda con campo repetido" , async() => {
             const response = await request(app).post('/api/bandas').send(newBanda).set('x-token', token);
 
             expect(response.statusCode).toBe(400);
         });
 
-        it("Crear banda con tipo invalido" , async() => {
+        test("Crear banda con tipo invalido" , async() => {
             newBanda.tipo = "hola";
             const response = await request(app).post('/api/bandas').send(newBanda).set('x-token', token);
             expect(response.statusCode).toBe(400);
         });
 
-        it("Crear banda con fecha invalida" , async() => {
+        test("Crear banda con fecha invalida" , async() => {
             newBanda.año_fundacion = 3000;
             const response = await request(app).post('/api/bandas').send(newBanda).set('x-token', token);
-            console.log(response)
+     
             expect(response.statusCode).toBe(400);
         });
 
-        it("Crear banda sin token" , async() => {
+        test("Crear banda sin token" , async() => {
             const response = await request(app).post('/api/bandas').send(newBanda);
 
             expect(response.statusCode).toBe(401);
         });
 
-        it("Editar banda sin ser directivo" , async() => {
+        test("Editar banda sin ser directivo" , async() => {
             newBanda.nombre = "TestBanda2";
             const response = await request(app).put('/api/bandas/' + bandaId).send(newBanda).set('x-token', tokenInvalido);
 
             expect(response.statusCode).toBe(400);
         });
 
-        it("Obtener las bandas de otro usuario" , async() => {
+        test("Obtener las bandas de otro usuario" , async() => {
             const response = await request(app).get('/api/bandas/misBandas/' + uidInvalido).set('x-token', token);
 
             expect(response.statusCode).toBe(400);
         });
 
-        it("Eliminar banda sin ser el presidente" , async() => {
+        test("Eliminar banda sin ser el presidente" , async() => {
             const response = await request(app).delete('/api/bandas/' + bandaId).set('x-token', tokenInvalido);
 
             expect(response.statusCode).toBe(400);

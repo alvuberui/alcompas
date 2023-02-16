@@ -1,5 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit';
-import { act, render, screen, waitFor } from '@testing-library/react';
+import { act, fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { Provider } from 'react-redux';
 import { MemoryRouter } from 'react-router-dom';
 import {  useUploadsStore, useAuthStore } from '../../../../src/hooks';
@@ -52,6 +52,8 @@ describe('Pruebas en <EditarFoto />', () => {
             );
         });
         const texto = screen.getByText('AÑADIR FOTO');
-        expect( texto ).not.toBe( undefined);   
+        expect( texto ).not.toBe( undefined);  
+        const boton = screen.getByLabelText('añadir'); 
+        fireEvent.click( boton );
     });
 });

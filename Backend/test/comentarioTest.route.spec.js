@@ -57,7 +57,7 @@ describe("Tests sobre la api de comentarios", () => {
             bandaId = response.body.nueva_banda._id;
         });
 
-        it("Crear comentario", async() => {
+        test("Crear comentario", async() => {
             newComentario.banda = bandaId;
             newComentario.usuario = uid;
             const response = await request(app).post('/api/comentarios').send(newComentario).set('x-token', token);
@@ -65,12 +65,12 @@ describe("Tests sobre la api de comentarios", () => {
             expect(response.status).toBe(200);
         });
 
-        it("Obtener comentarios de una banda", async() => {
+        test("Obtener comentarios de una banda", async() => {
             const response = await request(app).get('/api/comentarios/' + bandaId).set('x-token', token);
             expect(response.status).toBe(200);
         });
 
-        it("Eliminar comentario", async() => {
+        test("Eliminar comentario", async() => {
             const response = await request(app).delete('/api/comentarios/' + comentarioId).set('x-token', token);
       
             expect(response.status).toBe(200);
@@ -112,12 +112,12 @@ describe("Tests sobre la api de comentarios", () => {
             comentarioId = responseComentario.body.nuevoComentario._id;
         });
 
-        it("Crear comentario sin token", async() => {
+        test("Crear comentario sin token", async() => {
             const response = await request(app).post('/api/comentarios').send(newComentario);
             expect(response.status).toBe(401);
         });
 
-        it("Eliminar un comentario de otro usuario", async() => {
+        test("Eliminar un comentario de otro usuario", async() => {
             const response = await request(app).delete('/api/comentarios/' + comentarioId).set('x-token', tokenInvalido);
             expect(response.status).toBe(400);
         });

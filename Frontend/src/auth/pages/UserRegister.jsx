@@ -22,9 +22,10 @@ export class UserRegister extends Component {
   
             <Grid item xs={ 12 } sx={{ mt: 2}}>
               <TextField 
+                
                 label="Usuario"
                 type="text"
-                aria-label='usuario'
+                aria-label='usuariolabel'
                 placeholder="Usuario"
                 fullWidth
                 color='secondary'
@@ -39,6 +40,7 @@ export class UserRegister extends Component {
             { titulo == 'Crear Cuenta' && 
             <Grid item xs={ 12 } sx={{ mt: 2}}>
               <TextField 
+                aria-label='contraseñalabel'
                 label="Contraseña"
                 type="password"
                 placeholder="Contraseña"
@@ -54,6 +56,7 @@ export class UserRegister extends Component {
             { titulo == 'Crear Cuenta' &&
             <Grid item xs={ 12 } sx={{ mt: 2}}>
               <TextField 
+                aria-label='confirmacionlabel'
                 label="Confirmar contraseña"
                 type="password"
                 placeholder="Confirmar contraseña"
@@ -68,6 +71,7 @@ export class UserRegister extends Component {
             }
             <Grid item xs={ 12 } sx={{ mt: 2} }>
               <TextField 
+                aria-label='descripcionlabel'
                 label="Descripción"
                 type="text"
                 placeholder="Descripción"
@@ -83,7 +87,7 @@ export class UserRegister extends Component {
             </Grid>
               <Grid container justifyContent='center' spacing={ 2 } sx={{ mb: 2, mt: 1 }}>
                 <Grid  item xs={ 6 } >
-                  <Button  variant='contained' color='secondary'  fullWidth onClick={this.retroceder}>
+                  <Button aria-label='retroceder' variant='contained' color='secondary'  fullWidth onClick={this.retroceder}>
                     Retroceder
                   </Button>
                 </Grid>

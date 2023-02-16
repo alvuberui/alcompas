@@ -47,9 +47,10 @@ describe('Pruebas en el  <Estudio />', () => {
                 </Provider>
             );
         });
-        
-        const boton = screen.getByLabelText("eliminar");
-        fireEvent.click(boton);
+        await act(async() => {
+            const boton = screen.getByLabelText("eliminar");
+            fireEvent.click(boton);
+        });
     });
 
     test('Debe mostrar el componente correctamente con editar', async() => {
@@ -72,8 +73,11 @@ describe('Pruebas en el  <Estudio />', () => {
                 </Provider>
             );
         });
-        
-        const boton = screen.getByLabelText("editar");
-        fireEvent.click(boton);
+        await act(async() => {
+            const boton = screen.getByLabelText("editar");
+            fireEvent.click(boton);
+            const boton2 = screen.getByLabelText("eliminar");
+            fireEvent.click(boton2);
+        });
     });
 });

@@ -168,7 +168,7 @@ export const NavBar = () => {
       
       
         
-      <NavLink style={{textDecoration: "none", color: "black"}}  to={`/perfil/${user.uid}`}><MenuItem onClick={perfil} sx={{ justifyContent:'center'}} >Perfil</MenuItem></NavLink>
+      <NavLink style={{textDecoration: "none", color: "black"}}  to={`/perfil/${user.uid}`}><MenuItem aria-label='perfil' onClick={perfil} sx={{ justifyContent:'center'}} >Perfil</MenuItem></NavLink>
   
       
         
@@ -180,7 +180,7 @@ export const NavBar = () => {
     
       }
       
-      <MenuItem onClick={cerrarSesion} sx={{ justifyContent:'center', color:'red'}}  href='/'>Cerrar sesión</MenuItem>
+      <MenuItem aria-label='logout' onClick={cerrarSesion} sx={{ justifyContent:'center', color:'red'}}  href='/'>Cerrar sesión</MenuItem>
    
     </Menu>
   );

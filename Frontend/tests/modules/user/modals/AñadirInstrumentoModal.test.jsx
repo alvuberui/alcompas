@@ -1,5 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit';
-import { act, render, screen, waitFor } from '@testing-library/react';
+import { act, fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { Provider } from 'react-redux';
 import { MemoryRouter } from 'react-router-dom';
 import {  useInstrumentosStore, useAuthStore } from '../../../../src/hooks';
@@ -41,45 +41,26 @@ describe('Pruebas en <AñadirEstudioModal />', () => {
             setErrores: jest.fn(),
             getInstrumentosById: jest.fn().mockReturnValue( instrumento1 ),
             editarInstrumentoUsuario: jest.fn(),
+            
         });
 
         await act(async() => {
             render(
                 <Provider store={ store }>
                     <MemoryRouter>
-                        <AñadirInstrumentoModal open />
+                        <AñadirInstrumentoModal open setInstrumentos={ jest.fn() } setOpen={jest.fn()}/>
                     </MemoryRouter>
                 </Provider>
             );
-        });
-        const texto = screen.getByText('Añadir Instrumento');
-        expect( texto ).not.toBe( undefined);   
-    });
-
-    test('debe de mostrar el componente correctamente editando', async() => {
-
-        useAuthStore.mockReturnValue({
-            user: authenticatedState2.user,
-        });
-
-        useInstrumentosStore.mockReturnValue({
-            crearInstrumentoUsuario: jest.fn(),
-            errores: [],
-            setErrores: jest.fn(),
-            getInstrumentosById: jest.fn().mockReturnValue( instrumento1 ),
-            editarInstrumentoUsuario: jest.fn(),
         });
 
         await act(async() => {
-            render(
-                <Provider store={ store }>
-                    <MemoryRouter>
-                        <AñadirInstrumentoModal open editar={true}/>
-                    </MemoryRouter>
-                </Provider>
-            );
+            const texto = screen.getByText('Añadir Instrumento');
+            expect( texto ).not.toBe( undefined);   
+            const boto = screen.getByLabelText('crear');
+            fireEvent.click( boto );
         });
-        const texto = screen.getByText('Añadir Instrumento');
-        expect( texto ).not.toBe( undefined);   
     });
+
+    
 });

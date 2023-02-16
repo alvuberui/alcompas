@@ -218,7 +218,7 @@ export const AñadirEstudioModal  = ( { open, handleClose, setEstudios, setOpen,
                 </Grid>
                 <Box  sx={{mt:2, display:'flex', alignContent:'center', justifyContent:'center'}} >
                     { editar === undefined &&
-                      <Button color='secondary' sx={{ backgroundColor:'white', color:'black'}} variant='contained' onClick={handleForm}>
+                      <Button aria-label='crear' color='secondary' sx={{ backgroundColor:'white', color:'black'}} variant='contained' onClick={handleForm}>
                         Añadir estudio
                       </Button>
                     }

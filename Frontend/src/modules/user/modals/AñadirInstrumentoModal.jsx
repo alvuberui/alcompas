@@ -193,12 +193,12 @@ export const AñadirInstrumentoModal  = ( { open, handleClose, setInstrumentos, 
                 </Grid>
                 <Box  sx={{mt:2, display:'flex', alignContent:'center', justifyContent:'center'}} >
                     { editar === undefined &&
-                      <Button color='secondary' sx={{ backgroundColor:'white', color:'black'}} variant='contained' onClick={handleForm}>
+                      <Button  aria-label='crear' color='secondary' sx={{ backgroundColor:'white', color:'black'}} variant='contained' onClick={handleForm}>
                         Crear instrumento
                       </Button>
                     }
                     { editar === true &&
-                      <Button color='secondary' sx={{ backgroundColor:'white', color:'black'}} variant='contained' onClick={handleFormEditar}>
+                      <Button aria-label='crear' color='secondary' sx={{ backgroundColor:'white', color:'black'}} variant='contained' onClick={handleFormEditar}>
                         Editar instrumento
                       </Button>
                     } 

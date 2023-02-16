@@ -113,7 +113,7 @@ export const NuevoComentario  = ( { open, handleClose, setComentarios, setOpen }
                     </Grid>
                 </Grid>
                 <Box  sx={{mt:2, display:'flex', alignContent:'center', justifyContent:'center'}} >
-                      <Button color='secondary' sx={{ backgroundColor:'white', color:'black'}} variant='contained' onClick={handleForm}>
+                      <Button aria-label='enviar' color='secondary' sx={{ backgroundColor:'white', color:'black'}} variant='contained' onClick={handleForm}>
                         Publicar comentario
                       </Button>
                 </Box>

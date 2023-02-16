@@ -45,7 +45,7 @@ describe('Pruebas sobre la API de instrumeto', () => {
         });
             
 
-        it("Crear instrumento", async () => {
+        test("Crear instrumento", async () => {
             newInstrumento.usuario = uid;
             const response = await request(app).post('/api/instrumentos/usuario').send(newInstrumento).set('x-token', token);
             
@@ -54,7 +54,7 @@ describe('Pruebas sobre la API de instrumeto', () => {
             instrumentoId = response.body.instrumentoGuardado._id;
         });
 
-        it("Editar instrumento", async () => {
+        test("Editar instrumento", async () => {
             newInstrumento.usuario = uid;
             newInstrumento.instrumento = "Tuba";
             const response = await request(app).put('/api/instrumentos/usuario/' + instrumentoId).send(newInstrumento).set('x-token', token);
@@ -63,7 +63,7 @@ describe('Pruebas sobre la API de instrumeto', () => {
             expect(response.body.instrumentoActualizado.instrumento).toBe("Tuba");
         });
 
-        it("Editar instrumento", async () => {
+        test("Editar instrumento", async () => {
             newInstrumento.usuario = uid;
             newInstrumento.instrumento = "Tuba";
             const response = await request(app).put('/api/instrumentos/usuario/' + instrumentoId).send(newInstrumento).set('x-token', token);
@@ -72,13 +72,13 @@ describe('Pruebas sobre la API de instrumeto', () => {
             expect(response.body.instrumentoActualizado.instrumento).toBe("Tuba");
         });
 
-        it("Obtener instrumento por su id", async () => {
+        test("Obtener instrumento por su id", async () => {
             const response = await request(app).get('/api/instrumentos/instrumentosById/' + instrumentoId).set('x-token', token);
             
             expect(response.statusCode).toBe(200);
         });
 
-        it("Obtener instrumentos de un usuario", async () => {
+        test("Obtener instrumentos de un usuario", async () => {
             const response = await request(app).get('/api/instrumentos/instrumentosByUserId/' + uid).set('x-token', token);
             const lista = response.body.instrumentos;
             expect(response.statusCode).toBe(200);
@@ -86,7 +86,7 @@ describe('Pruebas sobre la API de instrumeto', () => {
         });
 
 
-        it("Eliminar instrumento", async () => {
+        test("Eliminar instrumento", async () => {
             const response = await request(app).delete('/api/instrumentos/' + instrumentoId).set('x-token', token);
             
             expect(response.statusCode).toBe(200);
@@ -123,35 +123,35 @@ describe('Pruebas sobre la API de instrumeto', () => {
             uidInvalido = loginReponseInvalido.body.uid;
         });
 
-        it("Crear instrumento a otro usuario", async () => {
+        test("Crear instrumento a otro usuario", async () => {
             newInstrumento.usuario = uid;
             const response = await request(app).post('/api/instrumentos/usuario').send(newInstrumento).set('x-token', tokenInvalido);
             
             expect(response.statusCode).toBe(400);
         });
 
-        it("Editar un instrumento no existente", async () => {
+        test("Editar un instrumento no existente", async () => {
             newInstrumento.usuario = uid;
             const response = await request(app).put('/api/instrumentos/usuario/' + "63cbf392239d012faf2c1ff3").send(newInstrumento).set('x-token', tokenInvalido);
             
             expect(response.statusCode).toBe(404);
         });
 
-        it("Editar un instrumento de otro usuario", async () => {
+        test("Editar un instrumento de otro usuario", async () => {
             newInstrumento.usuario = uid;
             const response = await request(app).put('/api/instrumentos/usuario/' + instrumentoId).send(newInstrumento).set('x-token', tokenInvalido);
             
             expect(response.statusCode).toBe(400);
         });
 
-        it("Eliminar un instrumento de otro usuario", async () => {
+        test("Eliminar un instrumento de otro usuario", async () => {
             newInstrumento.usuario = uid;
             const response = await request(app).delete('/api/instrumentos/' + instrumentoId).send(newInstrumento).set('x-token', tokenInvalido);
             
             expect(response.statusCode).toBe(400);
         });
 
-        it("Eliminar un instrumento no existente", async () => {
+        test("Eliminar un instrumento no existente", async () => {
             newInstrumento.usuario = uid;
             const response = await request(app).delete('/api/instrumentos/' + "63cbf392239d012faf2c1ff3").send(newInstrumento).set('x-token', tokenInvalido);
             

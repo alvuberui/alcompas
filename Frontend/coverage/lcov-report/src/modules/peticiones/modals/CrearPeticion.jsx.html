@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">38.46% </span>
+                <span class="strong">55.76% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>40/104</span>
+                <span class='fraction'>58/104</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">23.4% </span>
+                <span class="strong">40.42% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>11/47</span>
+                <span class='fraction'>19/47</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">56.52% </span>
+                <span class="strong">69.56% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>13/23</span>
+                <span class='fraction'>16/23</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">42.39% </span>
+                <span class="strong">58.69% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>39/92</span>
+                <span class='fraction'>54/92</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line low'></div>
+    <div class='status-line medium'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -456,26 +456,26 @@
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -789,29 +789,29 @@ export const CrearPeticion  = ( { open, handleClose, setPeticiones, setOpen} ) =
     const { crearPeticion, errores, setErrores } = usePeticionesStore();
     const { user, getUserByUsername } = useAuthStore();
    
-    const validarPeticion =  <span class="fstat-no" title="function not covered" >as</span>ync() =&gt; {
-      let error = <span class="cstat-no" title="statement not covered" >"";</span>
-      const todosUsuarios = <span class="cstat-no" title="statement not covered" >await getAllUsers();</span>
-      const nombresUsuarios = <span class="cstat-no" title="statement not covered" >todosUsuarios.map(<span class="fstat-no" title="function not covered" >us</span>uario =&gt; <span class="cstat-no" title="statement not covered" >usuario.usuario)</span>;</span>
-<span class="cstat-no" title="statement not covered" >      if(validarInstrumentos(peticion.instrumento) === false) <span class="cstat-no" title="statement not covered" >error = error + " El instrumento no es válido ";</span></span>
-<span class="cstat-no" title="statement not covered" >      if(! roles.includes(peticion['rol'] )) <span class="cstat-no" title="statement not covered" >error = error + " &lt;br&gt;  El rol no es válido";</span></span>
-<span class="cstat-no" title="statement not covered" >      if(! cargos.includes(peticion['cargo'])) <span class="cstat-no" title="statement not covered" >error = error + " &lt;br&gt;  El cargo no es válido";</span></span>
-<span class="cstat-no" title="statement not covered" >      if(! voces.includes(peticion['voz'])) <span class="cstat-no" title="statement not covered" >error = error + " &lt;br&gt;  El rol no es válido";</span></span>
-<span class="cstat-no" title="statement not covered" >      if(peticion['mensaje'].length &gt; 1000 ) <span class="cstat-no" title="statement not covered" >error = error + " &lt;br&gt;  El mensaje debe máximo 250 caracteres";</span></span>
-<span class="cstat-no" title="statement not covered" >      if(peticion['mensaje'].length &lt; 1 ) <span class="cstat-no" title="statement not covered" >error = error + " &lt;br&gt;  El mensaje debe tener mínimo 1 caracter";</span></span>
-<span class="cstat-no" title="statement not covered" >      if(! nombresUsuarios.includes(peticion.usuario)) <span class="cstat-no" title="statement not covered" >error = error + " &lt;br&gt;  El usuario no existe";</span></span>
-<span class="cstat-no" title="statement not covered" >      return error;</span>
+    const validarPeticion =  async() =&gt; {
+      let error = "";
+      const todosUsuarios = await getAllUsers();
+      const nombresUsuarios = todosUsuarios.map(usuario =&gt; usuario.usuario);
+      <span class="missing-if-branch" title="if path not taken" >I</span>if(validarInstrumentos(peticion.instrumento) === false) <span class="cstat-no" title="statement not covered" >error = error + " El instrumento no es válido ";</span>
+      <span class="missing-if-branch" title="if path not taken" >I</span>if(! roles.includes(peticion['rol'] )) <span class="cstat-no" title="statement not covered" >error = error + " &lt;br&gt;  El rol no es válido";</span>
+      <span class="missing-if-branch" title="if path not taken" >I</span>if(! cargos.includes(peticion['cargo'])) <span class="cstat-no" title="statement not covered" >error = error + " &lt;br&gt;  El cargo no es válido";</span>
+      <span class="missing-if-branch" title="if path not taken" >I</span>if(! voces.includes(peticion['voz'])) <span class="cstat-no" title="statement not covered" >error = error + " &lt;br&gt;  El rol no es válido";</span>
+      <span class="missing-if-branch" title="if path not taken" >I</span>if(peticion['mensaje'].length &gt; 1000 ) <span class="cstat-no" title="statement not covered" >error = error + " &lt;br&gt;  El mensaje debe máximo 250 caracteres";</span>
+      <span class="missing-if-branch" title="else path not taken" >E</span>if(peticion['mensaje'].length &lt; 1 ) error = error + " &lt;br&gt;  El mensaje debe tener mínimo 1 caracter";
+      <span class="missing-if-branch" title="else path not taken" >E</span>if(! nombresUsuarios.includes(peticion.usuario)) error = error + " &lt;br&gt;  El usuario no existe";
+      return error;
     }
 &nbsp;
    
-    const handleForm = <span class="fstat-no" title="function not covered" >as</span>ync e =&gt; {
-<span class="cstat-no" title="statement not covered" >        e.preventDefault();</span>
-        let error = <span class="cstat-no" title="statement not covered" >await validarPeticion();</span>
+    const handleForm = async e =&gt; {
+        e.preventDefault();
+        let error = await validarPeticion();
 &nbsp;
-<span class="cstat-no" title="statement not covered" >        if(error != "") {</span>
-<span class="cstat-no" title="statement not covered" >          Swal.fire('Error al enviar petición', error, 'error');</span>
+        if(error != "") {
+          Swal.fire('Error al enviar petición', error, 'error');
         }
-        else {
+        else <span class="missing-if-branch" title="else path not taken" >E</span>{
           // Obtener el id del directivo a partir del userId
           const directivos = <span class="cstat-no" title="statement not covered" >await getDirectivoByUserId(user.uid);</span>
           
@@ -1055,7 +1055,7 @@ export const CrearPeticion  = ( { open, handleClose, setPeticiones, setOpen} ) =
                     &lt;/Grid&gt;
                 &lt;/Grid&gt;
                 &lt;Box  sx={{mt:2, display:'flex', alignContent:'center', justifyContent:'center'}} &gt;
-                    &lt;Button color='secondary' sx={{ backgroundColor:'white', color:'black'}} variant='contained' onClick={handleForm}&gt;
+                    &lt;Button aria-label='enviar' color='secondary' sx={{ backgroundColor:'white', color:'black'}} variant='contained' onClick={handleForm}&gt;
                         Enviar Petición
                     &lt;/Button&gt;
                 &lt;/Box&gt;
@@ -1072,7 +1072,7 @@ export const CrearPeticion  = ( { open, handleClose, setPeticiones, setOpen} ) =
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2023-02-09T20:56:21.105Z
+                at 2023-02-16T18:10:13.909Z
             </div>
         <script src="../../../../prettify.js"></script>
         <script>

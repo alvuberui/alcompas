@@ -115,7 +115,7 @@ export const EditarFoto = ( { open, handleClose, setOpen, tipo } ) => {
                         Añadir foto
                       </Button>
                       :
-                      <Button color='secondary' sx={{ backgroundColor:'white', color:'black'}} variant='contained' onClick={handleForm}>
+                      <Button aria-label='añadir' color='secondary' sx={{ backgroundColor:'white', color:'black'}} variant='contained' onClick={handleForm}>
                         Añadir foto
                       </Button>
                     }

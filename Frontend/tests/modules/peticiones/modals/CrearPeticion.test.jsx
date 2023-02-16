@@ -1,5 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit';
-import { act, render, screen, waitFor } from '@testing-library/react';
+import { act, fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { Provider } from 'react-redux';
 import { MemoryRouter } from 'react-router-dom';
 import {  useAuthStore, useBandasStore, useDirectivosStore, usePeticionesStore } from '../../../../src/hooks';
@@ -58,6 +58,9 @@ describe('Pruebas en <CrearPeticion />', () => {
             );
         });
         const texto = screen.getByText('Crear Petición');
-        expect( texto ).not.toBe( undefined);   
+        expect( texto ).not.toBe( undefined);  
+        
+        const boton = screen.getByLabelText('enviar');
+        fireEvent.click( boton );
     });
 });

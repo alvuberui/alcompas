@@ -23,6 +23,7 @@ export class LocationRegister extends Component {
   
             <Grid item xs={ 12 } sx={{ mt: 2}}>
               <TextField 
+                aria-label='localidadlabel'
                 label="Localidad"
                 type="text"
                 placeholder="Localidad"
@@ -36,6 +37,7 @@ export class LocationRegister extends Component {
             </Grid>
             <Grid item xs={ 12 } sx={{ mt: 2}}>
               <TextField 
+                aria-label='provincialabel'
                 label="Provincia"
                 type="text"
                 placeholder="Provincia"
@@ -49,6 +51,7 @@ export class LocationRegister extends Component {
             </Grid>
             <Grid item xs={ 12 } sx={{ mt: 2}}>
               <TextField 
+                aria-label='codigoPostallabel'
                 label="Código postal"
                 type="text"
                 placeholder="Código postal"
@@ -62,7 +65,7 @@ export class LocationRegister extends Component {
             </Grid>
             <Grid item xs={ 12 } sx={{ mt: 2}}>
               <TextField 
-                label="Direccion"
+                label="Direccionlabel"
                 type="text"
                 aria-label='direccion'
                 placeholder="Direccion"
@@ -76,7 +79,7 @@ export class LocationRegister extends Component {
             </Grid>
               <Grid container justifyContent='center' spacing={ 2 } sx={{ mb: 2, mt: 1 }}>
                 <Grid  item xs={ 6 } >
-                  <Button  variant='contained' color='secondary' fullWidth onClick={this.retroceder}>
+                  <Button aria-label='retroceder' variant='contained' color='secondary' fullWidth onClick={this.retroceder}>
                     Retroceder
                   </Button>
                 </Grid>

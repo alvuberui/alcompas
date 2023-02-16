@@ -212,6 +212,28 @@ describe('Pruebas en useAuthStore', () => {
         spy.mockRestore();
     });
 
+    test('Prueba negativa en startUpdate', async() => {
+        const mockStore = getMockStore({ ...authenticatedState });
+        const { result } = renderHook( () => useAuthStore(), {
+            wrapper: ({ children }) => <Provider store={ mockStore } >{ children }</Provider>
+        });
+
+        
+        const u = testUserCredentials2;
+        u.nif = '1'
+        await act(async() => {
+            await result.current.startUpdate(u)
+        });
+
+        const { errorMessage, status, user } = result.current;
+
+        expect({ errorMessage, status, user }).toEqual({
+            errorMessage: "El nif nos es válido",
+            status: 'autenticado',
+            user: { nombre: 'Fernando', uid: '62a10a4954e8230e568a49ab' }
+        });
+    });
+
 
     test('Prueba positiva en actualizar contraseña', async() => {
         const mockStore = getMockStore({ ...authenticatedState });
@@ -247,6 +269,28 @@ describe('Pruebas en useAuthStore', () => {
         spy.mockRestore();
     });
 
+    test('Prueba negativa en actualizar contraseña', async() => {
+        const mockStore = getMockStore({ ...authenticatedState });
+        const { result } = renderHook( () => useAuthStore(), {
+            wrapper: ({ children }) => <Provider store={ mockStore } >{ children }</Provider>
+        });
+
+           ;
+        let res = {}
+        await act(async() => {
+            res = await result.current.startUpdatePassword("n");
+        });
+
+        const { errorMessage, status, user } = result.current;
+
+        expect({ errorMessage, status, user }).toEqual({
+            errorMessage: 'La contraseña debe de contener mínimo 7 caracteres y máximo 200',
+            status: 'autenticado',
+            user: { nombre: 'Fernando', uid: '62a10a4954e8230e568a49ab' }
+        });
+
+    });
+
     test("Prueba positiva eliminando usuario", async() => {
         const mockStore = getMockStore({ ...authenticatedState });
         const { result } = renderHook( () => useAuthStore(), {
@@ -277,6 +321,30 @@ describe('Pruebas en useAuthStore', () => {
             spy.mockRestore();
     });
 
+    test("Prueba negativa eliminando mi usuario", async() => {
+        const mockStore = getMockStore({ ...authenticatedState });
+        const { result } = renderHook( () => useAuthStore(), {
+            wrapper: ({ children }) => <Provider store={ mockStore } >{ children }</Provider>
+        });
+        
+        
+    
+            await act(async() => {
+                await result.current.startDelete('INVENTADO')
+                const { errorMessage, status, user } = result.current;
+                expect({ errorMessage, status, user }).toEqual({
+                    errorMessage: undefined,
+                    status: 'autenticado',
+                    user: {
+                        nombre: 'Fernando',
+                        uid: "62a10a4954e8230e568a49ab"
+                    }
+                });
+        
+            });
+    
+    });
+
     test("Prueba positiva eliminando usuario siendo un administrador", async() => {
         const mockStore = getMockStore({ ...authenticatedState2 });
         const { result } = renderHook( () => useAuthStore(), {
@@ -305,6 +373,24 @@ describe('Pruebas en useAuthStore', () => {
             });
     
             spy.mockRestore();
+    });
+
+    test("Prueba negativa eliminando un usuario como administrador", async() => {
+        const mockStore = getMockStore({ ...authenticatedState });
+        const { result } = renderHook( () => useAuthStore(), {
+            wrapper: ({ children }) => <Provider store={ mockStore } >{ children }</Provider>
+        });
+        
+    
+            await act(async() => {
+                await result.current.deleteAdminById('INVENTADO')
+                const logSpy = jest.spyOn(console, 'log');
+
+                console.log('Error eliminando usuario');
+
+                expect(logSpy).toHaveBeenCalledWith('Error eliminando usuario');
+            });
+    
     });
 
     test("Prueba positiva cerrando sesión", async() => {
@@ -451,7 +537,7 @@ describe('Pruebas en useAuthStore', () => {
         });
     
             await act(async() => {
-                const res = await result.current.getUserByiD('alvaro_ubeda8')
+                const res = await result.current.getUserByUsername('alvaro_ubeda8')
 
                 expect(res).toEqual(testUserCredentials2)
             });
@@ -467,7 +553,7 @@ describe('Pruebas en useAuthStore', () => {
         
     
             await act(async() => {
-                await result.current.getUserByiD('INVENTADO')
+                await result.current.getUserByUsername('INVENTADO')
                 const logSpy = jest.spyOn(console, 'log');
 
                 console.log('Error cargando usuario');
@@ -476,6 +562,8 @@ describe('Pruebas en useAuthStore', () => {
             });
     
     });
+
+    
 
 
 

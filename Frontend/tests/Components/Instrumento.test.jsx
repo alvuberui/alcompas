@@ -46,10 +46,11 @@ describe('Pruebas en el  <Estudio />', () => {
                 </Provider>
             );
         });
-        
-        const boton = screen.getByText("Editar");
-        expect(boton).not.toBe(undefined);
-        fireEvent.click(boton);
+        await act(async() => {
+            const boton = screen.getByText("Editar");
+            expect(boton).not.toBe(undefined);
+            fireEvent.click(boton);
+        });
     });
 
     test('Debe mostrar el componente correctamente eliminando', async() => {
@@ -72,10 +73,11 @@ describe('Pruebas en el  <Estudio />', () => {
                 </Provider>
             );
         });
-        
-        const boton = screen.getByText("Eliminar");
-        expect(boton).not.toBe(undefined);
-        fireEvent.click(boton);
+        await act(async() => {
+            const boton = screen.getByText("Eliminar");
+            expect(boton).not.toBe(undefined);
+            fireEvent.click(boton);
+        });
     });
 
     
