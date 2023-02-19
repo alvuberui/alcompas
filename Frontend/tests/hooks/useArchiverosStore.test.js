@@ -19,6 +19,13 @@ const getMockStore = ( initialState ) => {
     });
 }
 
+const mockedUsedNavigate = jest.fn();
+
+jest.mock('react-router-dom', () => ({
+   ...jest.requireActual('react-router-dom'),
+  useNavigate: () => mockedUsedNavigate,
+}));
+
 describe('Pruebas en useArchiverosStore', () => {
 
     test("Prueba obteniendo archivero por su nombre de usuario", async() => {

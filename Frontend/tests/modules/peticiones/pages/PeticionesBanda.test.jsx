@@ -64,8 +64,10 @@ describe('Pruebas en <PeticionesBanda />', () => {
             );
         });
         
-        const texto = screen.getByText('MIS PETICIONES');
-        expect(texto).not.toBeNull(); 
+        await act(async () => {
+            const texto = screen.getByText('MIS PETICIONES');
+            expect(texto).not.toBeNull(); 
+        });
 
     });
 

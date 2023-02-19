@@ -55,13 +55,13 @@ describe('Pruebas en el  <Estudio />', () => {
             render(
                 <Provider store={ storeAutenticado }>
                     <MemoryRouter>
-                        <Plantilla tipo={"Directivos"} directivo={ {'Presidente': [directivo1]}} usuarios={ {'Presidente': [testUserCredentials2]} } />
+                        <Plantilla tipo={"Directivos"} musicos={ {'Presidente': [directivo1]}} usuarios={ {'Presidente': [testUserCredentials2]} } />
                     </MemoryRouter>
                 </Provider>
             );
         });
         
-        const boton = screen.getByLabelText("upload picture");
+        const boton = screen.getByText("Directivos");
         expect(boton).not.toBe(undefined);
 
     });

@@ -55,7 +55,7 @@ describe('Pruebas en el  <Estudio />', () => {
             render(
                 <Provider store={ storeAutenticado }>
                     <MemoryRouter>
-                        <Peticion estado={"Pendiente"} usuario={"63c58bbdaf3c802189102e0e"} />
+                        <Peticion estado={"Pendiente"} usuario={"63efa3b862b6fc7b8a318e68"} />
                     </MemoryRouter>
                 </Provider>
             );
@@ -91,7 +91,7 @@ describe('Pruebas en el  <Estudio />', () => {
             render(
                 <Provider store={ storeAutenticado }>
                     <MemoryRouter>
-                        <Peticion estado={"Pendiente"} usuario={"63c58bbdaf3c802189102e0e"} />
+                        <Peticion estado={"Pendiente"} usuario={"63efa3b862b6fc7b8a318e68"} />
                     </MemoryRouter>
                 </Provider>
             );

@@ -47,7 +47,7 @@ const userUpdate = {
     "codigo_postal": 41400,
     "direccion": "Test",
     "nif": "50746953Y",
-    "telefono": 666666666,
+    "telefono": 666666669,
     "usuario": "Test",
     "contraseña": "asdf1234"
 }
@@ -92,7 +92,7 @@ describe('Pruebas sobre la API de auth', () => {
         test('Actualizar usuario', async() => {
             const response = await request( app ).put('/api/auth/update/' + uid).send(userUpdate)
                 .set('x-token', token);
-           
+       
             expect(response.status).toBe(201);
             expect(response.body.nombre).toBe("TestUpdate");
         });
@@ -145,7 +145,7 @@ describe('Pruebas sobre la API de auth', () => {
          /*
         * Obtener usuario por nombre de usuario
         */
-         test('Obtener usuario por nombre de usuario', async() => {
+         test('Eliminar usuario como admin', async() => {
             const registerResponse = await request( app ).post('/api/auth/register').send(secondUser);
             const loginReponse = await request( app ).post('/api/auth').send({"correo":"alvaro.uber8@gmail.com", "contraseña":"asdf1234"});
 
@@ -153,7 +153,7 @@ describe('Pruebas sobre la API de auth', () => {
             const token = loginReponse.body.token;
 
             const response = await request( app ).delete('/api/auth/admin/' + userIdDelete).set('x-token', token);
-        
+      
             expect(response.status).toBe(200);
         });
 
