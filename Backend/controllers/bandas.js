@@ -4,12 +4,16 @@ const Musico = require('../models/Musico');
 const Archivero = require('../models/Archivero');
 const Directivo = require('../models/Directivo');
 const Usuario = require('../models/Usuario');
-
+const RedSocial = require('../models/RedSocial');
+const Comentario = require('../models/Comentario');
+const path = require('path');
+const fs   = require('fs');
+const jwt = require('jsonwebtoken');
+const Peticion = require('../models/Peticion');
 
 const crearBanda = async(req, res = express.response) => {
 
-    const { nombre, tipo_banda, localidad, provincia, codigo_postal,
-        direccion, año_fundacion, descripcion, telefono, correo, cif} = req.body;
+    const { telefono, correo, cif} = req.body;
 
 
     try {
@@ -62,10 +66,31 @@ const crearBanda = async(req, res = express.response) => {
 }
 
 const actualizar_banda = async(req, res = express.response) => {
-    const bandaId = req.params.id;
-    const { nombre, tipo_banda, localidad, provincia, codigo_postal,
-        direccion, año_fundacion, descripcion, telefono, correo, cif} = req.body;
+    
     try {
+        const bandaId = req.params.id;
+        const { telefono, correo, cif} = req.body;
+
+        // Validar que el usuario es directivo de la banda
+        const token = req.header('x-token');
+        const payload = jwt.verify(token,process.env.SECRET_JWT_SEED);
+        const payloadId = payload.uid;
+        let esDirectivo = false; 
+
+        const directivos = await Directivo.find({'usuario': payloadId, 'banda': bandaId});
+        for(const directivo of directivos) {
+            if(!directivo.fecha_final) {
+                esDirectivo = true;
+            }
+        }
+
+        if(!esDirectivo) {
+            return res.status(400).json({
+                ok: false,
+                msg: 'No tiene permisos'
+            });
+        }
+
         let banda = await Banda.findById( bandaId );
         if( !banda ) {
             return res.status(400).json({
@@ -74,7 +99,7 @@ const actualizar_banda = async(req, res = express.response) => {
             });
         }
         banda = await Banda.findOne( {correo} );
-        if(banda) {
+        if(banda && banda._id != bandaId) {
             return res.status(400).json({
                 ok: false,
                 msg: 'Una banda existe con ese correo'
@@ -82,7 +107,7 @@ const actualizar_banda = async(req, res = express.response) => {
         }
 
         banda = await Banda.findOne( {telefono} );
-        if(banda) {
+        if(banda && banda._id != bandaId) {
             return res.status(400).json({
                 ok: false,
                 msg: 'Una banda existe con ese teléfono'
@@ -90,7 +115,7 @@ const actualizar_banda = async(req, res = express.response) => {
         }
 
         banda = await Banda.findOne( {cif} );
-        if(banda) {
+        if(banda && banda._id != bandaId) {
             return res.status(400).json({
                 ok: false,
                 msg: 'Una banda existe con ese cif'
@@ -118,26 +143,46 @@ const actualizar_banda = async(req, res = express.response) => {
 }
 
 const eliminar_banda = async(req, res = express.response) => {
-    const bandaId = req.params.id;
-    const usuarioId = req.uid;
+    
+    
     try {
+        const bandaId = req.params.id;
         const banda = await Banda.findById(bandaId);
+        // Validar que el usuario es directivo de la banda
+        const token = req.header('x-token');
+        const payload = jwt.verify(token,process.env.SECRET_JWT_SEED);
+        const payloadId = payload.uid;
+
+        
+        
         
         // Finalizar roles de archiveros, musicos, directivos
         const archiveros = await Archivero.find({'banda': bandaId});
         const musicos = await Musico.find({'banda': bandaId});
         const directivos = await  Directivo.find({'banda': bandaId});
-        const presidentes = await Directivo.find({'cargo': 'Presidente'});
+        const presidentes = await Directivo.find({'cargo': 'Presidente', 'banda': bandaId});
         let presidente_actual;
+
+        const d = await Directivo.find({'usuario': payloadId, 'banda': bandaId});
+
+        if(d.length == 0) {
+            return res.status(400).json({
+                ok: false,
+                msg: 'No eres directivo de esta banda'
+            });
+        }
 
         // Comprobar que es el presidente quien quiere eliminar la banda
         for(i=0; i < presidentes.length; i++) {
             let presidente = presidentes[i];
-            if(!presidente.fecha_final) {
+            if(!presidente.fecha_final && presidente.usuario == payloadId) {
                 presidente_actual = presidente;
             }
         }
-        if(presidente_actual.usuario != usuarioId) {
+
+
+
+        if(presidente_actual == null || presidente_actual.usuario != payloadId) {
             return res.status(400).json({
                 ok: false,
                 msg: 'Solo el presidente puede eliminar la banda'
@@ -167,6 +212,37 @@ const eliminar_banda = async(req, res = express.response) => {
             }
         }
 
+        // Eliminamos todas las composiciones de la banda
+        const redes = RedSocial.find({'banda': bandaId});
+        const comentarios = Comentario.find({'banda': bandaId});
+
+        for(i=0; i < redes.length; i++) {
+            let red = redes[i];
+            await red.remove();
+        }
+        for(i=0; i < comentarios.length; i++) {
+            let comentario = comentarios[i];
+            await comentario.remove();
+        }
+
+        // Eliminamos la foto de perfil de la banda
+        if( banda.img ) {
+            const pathImagen = path.join( __dirname, '../uploads/imgs/bandas', banda.img );
+            if ( fs.existsSync( pathImagen ) ) {
+                fs.unlinkSync( pathImagen );
+            }
+        }
+
+        // Eliminamos aquellas peticiones de la banda cuyos usuarios no existan
+        const peticiones = await Peticion.find({'banda': bandaId});
+        for(i=0; i < peticiones.length; i++) {
+            let peticion = peticiones[i];
+            const usuario = await Usuario.findById(peticion.usuario);
+            if(!usuario) {
+                await peticion.remove();
+            }
+        }
+
         const banda_eliminada = await Banda.deleteOne(banda);
         res.status(201).json({
             ok: true,
@@ -187,24 +263,37 @@ const getBandasByUserId = async( req, res = express.response ) => {
 
         const userId = req.params.userId;
 
-        const directivos = await Directivo.find({'usuario': userId});
-        const musicos = await Musico.find({'usuario': userId});
-        const archiveros = await Archivero.find({'usuario': userId});
+        // Validar que el usuario es directivo de la banda
+        const token = req.header('x-token');
+        const payload = jwt.verify(token,process.env.SECRET_JWT_SEED);
+        const payloadId = payload.uid;
+
+        if(userId != payloadId) {
+            return res.status(400).json({
+                ok: false,
+                msg: 'Error en servidor'
+            });
+        }
+
+        const directivos = await Directivo.find({'usuario': userId, 'fecha_final': null});
+        const musicos = await Musico.find({'usuario': userId, 'fecha_final': null});
+        const archiveros = await Archivero.find({'usuario': userId, 'fecha_final': null});
 
         for(i=0; i < directivos.length; i++) {
             let directivo = directivos[i];
             if(!directivo.fecha_final) {
-                banda = await Banda.findById(directivo.banda);
-                if( bandas.indexOf(banda) === -1 ) {
+                const banda = await Banda.findById(directivo.banda);
+                if(!  bandas.some(e => e.cif === banda.cif) ) {
                     bandas.push(banda);
                 }
             }
         }
+        
         for(i=0; i < musicos.length; i++) {
             let musico = musicos[i];
             if(!musico.fecha_final) {
-                banda = await Banda.findById(musico.banda);
-                if( bandas.indexOf(banda) === -1 ) {
+                const banda = await Banda.findById(musico.banda);
+                if( ! bandas.some(e => e.cif === banda.cif)) {
                     bandas.push(banda);
                 }
             }
@@ -212,8 +301,8 @@ const getBandasByUserId = async( req, res = express.response ) => {
         for(i=0; i < archiveros.length; i++) {
             let archivero = archiveros[i];
             if(!archivero.fecha_final) {
-                banda = await Banda.findById(archivero.banda);
-                if( bandas.indexOf(banda) === -1 ) {
+                const banda = await Banda.findById(archivero.banda);
+                if( ! bandas.some(e => e.cif === banda.cif) ) {
                     bandas.push(banda);
                 }
             }
