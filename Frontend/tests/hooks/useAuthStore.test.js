@@ -18,6 +18,13 @@ const getMockStore = ( initialState ) => {
     });
 }
 
+const mockedUsedNavigate = jest.fn();
+
+jest.mock('react-router-dom', () => ({
+   ...jest.requireActual('react-router-dom'),
+  useNavigate: () => mockedUsedNavigate,
+}));
+
 describe('Pruebas en useAuthStore', () => {
 
     beforeEach(() => localStorage.clear() );
@@ -82,7 +89,7 @@ describe('Pruebas en useAuthStore', () => {
         expect({ errorMessage, status, user }).toEqual({
             errorMessage: undefined,
             status: 'autenticado',
-            user: { nombre: 'Álvaro', uid: '63c58bbdaf3c802189102e0e' }
+            user: { nombre: 'Álvaro', uid: '63efa3b862b6fc7b8a318e68' }
         });
 
         expect( localStorage.getItem('token') ).toEqual( expect.any(String) );
@@ -178,7 +185,7 @@ describe('Pruebas en useAuthStore', () => {
         expect({ errorMessage, status, user }).toEqual({
             errorMessage: undefined,
             status: 'autenticado',
-            user: { nombre: 'Álvaro', uid: '63c58bbdaf3c802189102e0e' }
+            user: { nombre: 'Álvaro', uid: '63efa3b862b6fc7b8a318e68' }
         });
     });
 
@@ -369,7 +376,7 @@ describe('Pruebas en useAuthStore', () => {
             expect({ errorMessage, status, user }).toEqual({
                 errorMessage: undefined,
                 status: 'autenticado',
-                user: { nombre:'Álvaro', uid: '63c58bbdaf3c802189102e0e' }
+                user: { nombre:'Álvaro', uid: '63efa3b862b6fc7b8a318e68' }
             });
     
             spy.mockRestore();

@@ -42,7 +42,7 @@ describe('Pruebas en el  <Buscador />', () => {
             render(
                 <Provider store={ storeAutenticado }>
                     <MemoryRouter>
-                        <Comentario titulo={"PRUEBA"} usuario={"63c58bbdaf3c802189102e0e"}/>
+                        <Comentario titulo={"PRUEBA"} usuario={"63efa3b862b6fc7b8a318e68"}/>
                     </MemoryRouter>
                 </Provider>
             );

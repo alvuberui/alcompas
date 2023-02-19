@@ -22,7 +22,7 @@ export const authenticatedState = {
 export const authenticatedState2 = {
     status: 'autenticado',
     user: {
-        uid: '63c58bbdaf3c802189102e0e',
+        uid: '63efa3b862b6fc7b8a318e68',
         nombre: 'Álvaro'
     },
     errorMessage: undefined,

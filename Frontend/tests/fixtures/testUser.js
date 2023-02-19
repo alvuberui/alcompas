@@ -18,7 +18,7 @@ export const testUserCredentials = {
 }
 
 export const testUserCredentials2 = {
-    uid: "63c58bbdaf3c802189102e0e",
+    uid: "63efa3b862b6fc7b8a318e68",
     nombre: "Álvaro",
     primer_apellido: "Úbeda",
     segundo_apellido: "Ruiz",

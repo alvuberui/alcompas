@@ -38,8 +38,9 @@ export const PeticionesBanda = ( ) => {
       const directivoreq = await getDirectivoByUserId(user.uid);
       let condicion = false
       for( const directivo of directivoreq ) {
-        
+       
         if( directivo.fecha_final === undefined && directivo.banda === id && directivo.usuario === user.uid ) {
+         
           condicion = true;
         } 
       }
