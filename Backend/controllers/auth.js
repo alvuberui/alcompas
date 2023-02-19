@@ -134,7 +134,6 @@ const cambiarDatos = async(req, res = express.response) => {
 
 
         nuevo_usuario = new Usuario(req.body);
-        nuevo_usuario.administrador = false;
         nuevo_usuario.contraseña = antiguo_usuario.contraseña;
         nuevo_usuario._id = antiguo_usuario._id;
 

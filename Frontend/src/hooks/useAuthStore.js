@@ -1,4 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { alcompasAPI } from '../api';
 import { ClearErrorMessage, onChecking, onErrorUpdate, onLogin, onLogout, onUpdate } from '../store/auth/authSlice';
 
@@ -6,7 +7,7 @@ export const useAuthStore = () => {
 
     const { status, user, errorMessage } = useSelector( state => state.auth );
     const dispatch = useDispatch();
-    
+    let navigate = useNavigate();
 
     const startLogin = async({ correo, contraseña }) => {
         dispatch( onChecking() );
@@ -17,6 +18,7 @@ export const useAuthStore = () => {
             localStorage.setItem('token-init-date', new Date().getTime());
             dispatch( onLogin({ nombre: data.nombre, uid: data.uid }) );
             dispatch( ClearErrorMessage() );
+            navigate('/');
         }catch (error) {
         
             dispatch( onLogout('Credenciales incorrectas'));
@@ -37,7 +39,7 @@ export const useAuthStore = () => {
             localStorage.setItem('token', data.token );
             localStorage.setItem('token-init-date', new Date().getTime());
             dispatch( onLogin({ nombre: data.nombre, uid: data.uid }) );
-            
+            navigate('/');
         }catch (error) {
             let fallo = ''
             const objetos = Object(error.response.data.errors); 

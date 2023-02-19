@@ -345,7 +345,7 @@ export const PerfilBanda = () => {
             { perteneceDirectivo &&
               <>
               <Box textAlign='center' sx={{mt:2}}>
-                <Button  color="error" variant='contained' align="center" onClick={handleAbadonarBanda} >Editar datos de la banda</Button>
+              <NavLink style={{textDecoration: "none", color: "black"}}  to={`/bandas/actualizar/${ banda._id }`}><Button  color="error" variant='contained' align="center"   >Editar datos de la banda</Button></NavLink>
               </Box>
               <Box textAlign='center' sx={{mt:2}}>
                 <Button  color="secondary" variant='contained' align="center" ><NavLink style={{textDecoration: "none", color: "black"}}  to={`/banda/panel/${ banda._id }`}>Panel Directivo</NavLink></Button>

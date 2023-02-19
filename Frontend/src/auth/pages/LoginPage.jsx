@@ -1,5 +1,5 @@
 import { Grid, TextField, Button, Link } from '@mui/material';
-import { Link as RouterLink} from 'react-router-dom';
+import { Link as RouterLink, useNavigate} from 'react-router-dom';
 import { AuthLayout } from '../layout/AuthLayout';
 import { useForm, useAuthStore } from '../../hooks';
 import { useEffect } from 'react';
@@ -15,6 +15,7 @@ export const LoginPage = () => {
   const  { startLogin, errorMessage } = useAuthStore();
 
   const { loginEmail, loginContraseña, onInputChange:onLoginInputChange } = useForm(loginFormCampos);
+  
 
   const loginSubmit = (event) => {
     event.preventDefault();

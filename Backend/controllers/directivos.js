@@ -16,12 +16,16 @@ const finalizarDirectivo = async(req, res = express.response) => {
         let condicion = false;
 
         const ds = await Directivo.find({'usuario': payloadId, 'banda': bandaId, 'fecha_final': undefined});
+    
         for (i=0; i<ds.length; i++) {
             let d = ds[i];
-            if(d.usuario === payloadId) {
+           
+            if(d.usuario.valueOf()  === payloadId) {
+                
                 condicion = true;
             }
         }
+        
         if(!condicion && payloadId !== userId) {
             return res.status(401).json({
                 ok: false,

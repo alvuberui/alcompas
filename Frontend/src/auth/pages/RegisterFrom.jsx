@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import { validarRegistro } from '../../helpers/validarRegistro';
 import { useAuthStore } from '../../hooks';
@@ -28,8 +29,8 @@ const state = {
 export const  RegisterFrom = () => {
     const [step, setStep] = useState(1);
 
-    const  { startRegister, errorMessage } = useAuthStore();
-
+    const  { startRegister, errorMessage, status } = useAuthStore();
+    let navigate = useNavigate();
     useEffect(() => {
         if(  errorMessage !== undefined ) {
           Swal.fire('Error en la autenticación', errorMessage, 'error');
@@ -39,7 +40,7 @@ export const  RegisterFrom = () => {
     const { nombre, primer_apellido, segundo_apellido, correo,
              descripcion, localidad, provincia, codigo_postal, direccion,
               nif, telefono, usuario, contraseña, confirmacion_contraseña, fecha_nacimiento } =  state;
-    const values = { nombre, primer_apellido, segundo_apellido, correo,
+    let values = { nombre, primer_apellido, segundo_apellido, correo,
             descripcion, localidad, provincia, codigo_postal, direccion,
              nif, telefono, usuario, contraseña, confirmacion_contraseña, fecha_nacimiento }
 
@@ -64,6 +65,9 @@ export const  RegisterFrom = () => {
                 codigo_postal: values.codigo_postal, direccion: values.direccion, nif: values.nif, telefono: values.telefono,
                 usuario: values.usuario, contraseña: values.contraseña, confirmacion_contraseña: values.confirmacion_contraseña,
                  fecha_nacimiento: values.fecha_nacimiento});
+           
+                values = state;
+                navigate("/");
         }
         else {
             Swal.fire('Error en la autenticación', error, 'error') 

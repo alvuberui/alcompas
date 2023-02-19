@@ -1,10 +1,12 @@
 const express = require('express');
 const Usuario = require('../models/Usuario');
 const Banda = require('../models/Banda');
+const Directivo = require('../models/Directivo');
 const { response } = require('express');
 const { subirArchivo } = require('../helpers/subir-archivo');
 const path = require('path');
 const fs   = require('fs');
+const jwt = require('jsonwebtoken');
 
 const añadirFoto = async(req, res = express.response) => {
     try {

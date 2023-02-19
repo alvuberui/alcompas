@@ -16,6 +16,7 @@ export const PeticionesBanda = ( ) => {
   const { id } = useParams();
   const { user } = useAuthStore();
 
+
   // Funciones
   const handleOpenCrear = (event, newValue) => {
     event.preventDefault();
@@ -61,7 +62,7 @@ export const PeticionesBanda = ( ) => {
     return (
       <>
       { permiso === false && <Navigate to='/' /> }
-      <CrearPeticion open={openAñadir} handleClose={handleCloseAñadir} setOpen={setOpenAñadir} setPeticiones={setPeticiones}></CrearPeticion>
+      <CrearPeticion open={openAñadir} handleClose={handleCloseAñadir} setOpen={setOpenAñadir} setPeticiones={setPeticiones} peticiones={peticiones}></CrearPeticion>
       <Grid 
           container 
           display="flex"

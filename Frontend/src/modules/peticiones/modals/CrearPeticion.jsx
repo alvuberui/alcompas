@@ -41,7 +41,7 @@ function sleep(delay = 0) {
   });
 }
 
-export const CrearPeticion  = ( { open, handleClose, setPeticiones, setOpen} ) => {
+export const CrearPeticion  = ( { open, handleClose, setPeticiones, setOpen, peticiones} ) => {
 
     // Estados
     const [peticion, setPeticion] = useState({rol: 'Músico', cargo: 'Presidente', mensaje: '', instrumento:'Corneta', voz:'Primero', usuario:''});
@@ -85,6 +85,7 @@ export const CrearPeticion  = ( { open, handleClose, setPeticiones, setOpen} ) =
           // Obtener el userId a partir del username
           const usuario = await getUserByUsername(peticion.usuario);
           peticion.usuario = usuario[0]._id;
+          
 
           // Dependiendo del rol, se eliminan las demás propiedades
           if(peticion.rol === 'Músico') {
@@ -109,7 +110,9 @@ export const CrearPeticion  = ( { open, handleClose, setPeticiones, setOpen} ) =
           }
           // Crear la petición
           await crearPeticion( peticion, id, d._id);
+          setPeticiones([peticion, ... peticiones]);
           setPeticion({rol: 'Músico', cargo: 'Presidente', mensaje: '', instrumento:'Corneta', voz:'Primero', usuario:''});
+          
           setOpen(false);
         }
       }

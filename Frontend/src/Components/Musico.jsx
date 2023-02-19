@@ -11,7 +11,7 @@ import { useDirectivosStore } from '../hooks/useDirectivosStore';
 import { useMusicosStore } from '../hooks/useMusicosStore';
 
 export const Musico = ({usuario, tipo, directivo}) => {
-
+  
   const { bandaId } = useParams();
   const { finalizarMusico } = useMusicosStore();
   const { finalizarDirectivo, getDirectivosByBandaId } = useDirectivosStore();

@@ -30,7 +30,6 @@ const getPeticionesByUserId = async(req, res = express.response) => {
             peticiones
         });
     } catch (error) {
-        console.log("Error obteniendo las peticiones");
         res.status(500).json({
             ok: false, 
             msg: 'Por favor hable con el administrador'
@@ -81,7 +80,7 @@ const crearPeticion = async(req, res = express.response) => {
                 });
             }
         }
-        
+    
         if(peticion.rol == 'Directivo') {
             const roles = await Directivo.find({"usuario": usuarioId, "banda": bandaId});
             for(const rol of roles) {
@@ -133,7 +132,7 @@ const crearPeticion = async(req, res = express.response) => {
             });
         }
         if(peticion.rol === 'Directivo' && (peticion.instrumento !== undefined 
-         || peticion.voz !== undefined || peticion.cargo === undefined || cargo === ''))  {
+         || peticion.voz !== undefined || peticion.cargo === undefined || peticion.cargo === ''))  {
             return res.status(400).json({
                 ok: false,
                 msg: 'Petición inválida'
@@ -152,7 +151,6 @@ const crearPeticion = async(req, res = express.response) => {
         });
 
     } catch (error) {
-        console.log("Error obteniendo las peticiones");
         res.status(500).json({
             ok: false, 
             msg: 'Por favor hable con el administrador'

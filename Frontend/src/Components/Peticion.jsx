@@ -10,8 +10,8 @@ export const Peticion = ({ _id, estado, instrumento, mensaje, rol, voz, cargo, b
     const [ directivo_nombre, setDirectivo_nombre ] = useState([]);
     const { id } = useParams();
     const [ fechaLocal, setFechaLocal ] = useState();
-    const [ userp, setUserp ] = useState([]);
-    
+    const [ usuarioObjeto, setUsuarioObjeto ] = useState();
+
     
     // Funciones
     const { getBandaById } = useBandasStore();
@@ -47,16 +47,17 @@ export const Peticion = ({ _id, estado, instrumento, mensaje, rol, voz, cargo, b
             setFechaLocal( fechaConvertida.toLocaleDateString());
         }
         const getUsuario = async () => {
+           
             const u = await getUserByiD(usuario);
-            setUserp(u);
+       
+            setUsuarioObjeto(u);
         }
-        
-
+        getUsuario();
         getBanda();
         getDirectivo();
         convertirFecha();
-        getUsuario();
-    }, []);
+        
+    }, [usuario, _id]);
 
   return (
         <Grid 
@@ -113,9 +114,11 @@ export const Peticion = ({ _id, estado, instrumento, mensaje, rol, voz, cargo, b
                     <div>
                         <Typography style={{display: 'inline-block'}}><b>Directivo:</b> { directivo_nombre.nombre} { directivo_nombre.primer_apellido} { directivo_nombre.segundo_apellido}</Typography>
                     </div>
-                    <div>
-                        <Typography style={{display: 'inline-block'}}><b>Destinatario:</b> { userp.nombre} { userp.primer_apellido} { userp.segundo_apellido}</Typography>
-                    </div>
+                    { usuarioObjeto &&
+                        <div>
+                            <Typography style={{display: 'inline-block'}}><b>Destinatario:</b> { usuarioObjeto.nombre } { usuarioObjeto.primer_apellido } { usuarioObjeto.segundo_apellido }</Typography>
+                        </div>
+                    }
                 </Grid>
                 <Grid 
                     item

@@ -44,7 +44,7 @@ export const  UpdateForm = () => {
                 correo: values.correo, descripcion: values.descripcion, localidad: values.localidad, provincia: values.provincia,
                 codigo_postal: values.codigo_postal, direccion: values.direccion, nif: values.nif, telefono: values.telefono,
                 usuario: values.usuario, fecha_nacimiento: values.fecha_nacimiento});
-            if(respuesta[0 ] === ' ') {
+            if(respuesta !== ' ' && respuesta !== user.uid) {
                 Swal.fire('Error en la autenticación', respuesta , 'error');
             } else {
                 navigate("/perfil/" + respuesta);
