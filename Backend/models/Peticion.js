@@ -7,7 +7,7 @@ const PeticionSchema = Schema({
     },
     rol: {
         type: String,
-        enum: ['Presidente', 'Músico', 'Archivero'],
+        enum: ['Directivo', 'Músico', 'Archivero'],
         required: true
     },
     cargo: {

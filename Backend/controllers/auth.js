@@ -1,7 +1,16 @@
 const express = require('express');
 const Usuario = require('../models/Usuario');
+const Comentario = require('../models/Comentario');
+const Instrumento = require('../models/Instrumento');
+const Musico = require('../models/Musico');
+const Archivero = require('../models/Archivero');
+const Directivo = require('../models/Directivo');
+const Estudio = require('../models/Estudio');
+const Peticion = require('../models/Peticion');
+const Banda = require('../models/Banda');
 const bcrypt = require('bcryptjs');
 const { generarJWT } = require('../helpers/jwt');
+const jwt = require('jsonwebtoken');
 
 /*
 * En primer lugar se comprueba si existe ya un usuario con ese correo, nif o telefon, en caso de que no se
@@ -9,8 +18,7 @@ const { generarJWT } = require('../helpers/jwt');
 */
 const crearUsuario = async(req, res = express.response) => {
 
-    const { nombre, primer_apellido, segundo_apellido, fecha_nacimiento, correo, descripcion, localidad,
-            provincia, codigo_postal, direccion, nif, telefono, usuario, contraseña, administrador} = req.body;
+    const {  correo, nif, telefono, usuario, contraseña} = req.body;
 
     try{
         let nuevo_usuario = await Usuario.findOne( {correo} );
@@ -69,19 +77,28 @@ const crearUsuario = async(req, res = express.response) => {
             msg: 'Por favor hable con el administrador.'
         });
     }
-    
 }
 
-/*
-* En primer lugar se comprueba si existe ya un usuario con ese correo, nif o telefon, en caso de que no se
-* encripta la contraseña y se envía a base de datos, generando su json web token (JWT).
-*/
+
 const cambiarDatos = async(req, res = express.response) => {
 
-    const { nombre, primer_apellido, segundo_apellido, fecha_nacimiento, correo, descripcion, localidad,
-            provincia, codigo_postal, direccion, nif, telefono, usuario, contraseña, administrador} = req.body;
-    const id = req.params.id;
     try{
+
+        const { nif, telefono, usuario, correo } = req.body;
+        const id = req.params.id;
+
+        // Comprobar que el usuario de la petición es el mismo 
+        const t = req.header('x-token');
+        const payload = jwt.verify(t,process.env.SECRET_JWT_SEED);
+        const payloadId = payload.uid;
+
+        if(payloadId !== id) {
+            return res.status(401).json({
+                ok: false,
+                msg: 'No tiene privilegios para editar este usuario'
+            });
+        }
+
         let nuevo_usuario = await Usuario.findOne( {correo} );
         if(nuevo_usuario && nuevo_usuario.id != id) {
             return res.status(400).json({
@@ -117,7 +134,6 @@ const cambiarDatos = async(req, res = express.response) => {
 
 
         nuevo_usuario = new Usuario(req.body);
-        nuevo_usuario.administrador = false;
         nuevo_usuario.contraseña = antiguo_usuario.contraseña;
         nuevo_usuario._id = antiguo_usuario._id;
 
@@ -149,6 +165,18 @@ const modificarContraseña = async(req, res = express.response) => {
         const values = req.body;
         const userId = req.params.id;
 
+        // Comprobar que el usuario de la petición es el mismo 
+        const t = req.header('x-token');
+        const payload = jwt.verify(t,process.env.SECRET_JWT_SEED);
+        const payloadId = payload.uid;
+
+        if(payloadId !== userId) {
+            return res.status(401).json({
+                ok: false,
+                msg: 'No tiene privilegios para editar este usuario'
+            });
+        }
+
         const salt = bcrypt.genSaltSync();
         let usuario = await Usuario.findById(userId);
         // Encriptar contraseña 
@@ -157,7 +185,7 @@ const modificarContraseña = async(req, res = express.response) => {
         usuario.contraseña = contraseñaNuevaEncriptada;
         usuarioModificado = await Usuario.findByIdAndUpdate(userId, usuario, { new: true });
          // Generar JWT
-         const token = await generarJWT( usuarioModificado.id, usuarioModificado.nombre );
+         await generarJWT( usuarioModificado.id, usuarioModificado.nombre );
         res.status(201).json({
             ok: true,
             msg: 'actualizado datos de usuario',
@@ -213,14 +241,29 @@ const revalidarToken = async(req, res = express.response) => {
 
     const uid = req.uid;
     const nombre = req.nombre;
+    const usuario = await Usuario.findById(uid);
+
+    // Comprobar que el usuario de la petición es el mismo 
+    const t = req.header('x-token');
+    const payload = jwt.verify(t,process.env.SECRET_JWT_SEED);
+    const payloadId = payload.uid;
+
+    if(payloadId !== uid) {
+        return res.status(401).json({
+            ok: false,
+            msg: 'No tiene privilegios para revalidar el token'
+        });
+    }
+    
 
     // Generar JWT
     const token = await generarJWT( uid, nombre );
 
     res.json({
         ok: true,
-        uid, nombre,
-        token
+        uid: uid, 
+        nombre: usuario.nombre,
+        token: token
     });
 }
 
@@ -230,6 +273,7 @@ const getById = async(req, res = express.response) => {
 
         const uid = req.params.id;
         const usuario = await Usuario.findById(uid);
+
 
 
         res.json({
@@ -246,16 +290,50 @@ const getById = async(req, res = express.response) => {
     
 }
 
+/*
+* Elimina a un usuairo por su id. También elimina todos sus roles, comentarios,
+* likes, estudios y instrumentos.
+*/
 const deleteById = async(req, res = express.response) => {
     
     try {
-
         const uid = req.params.id;
-        const usuario = await Usuario.findByIdAndDelete(uid);
 
+         // Comprobar que el usuario de la petición es el mismo 
+        const t = req.header('x-token');
+        const payload = jwt.verify(t,process.env.SECRET_JWT_SEED);
+        const payloadId = payload.uid;
+
+        if(payloadId !== uid) {
+            return res.status(401).json({
+                ok: false,
+                msg: 'No tiene privilegios para eliminar el usuario'
+            });
+        }
+
+        await Comentario.deleteMany({usuario: uid});
+        await Musico.deleteMany({usuario: uid});
+        await Directivo.deleteMany({usuario: uid});
+        await Archivero.deleteMany({usuario: uid});
+        await Estudio.deleteMany({usuario: uid});
+        await Instrumento.deleteMany({usuario: uid});
+
+        const peticiones = await Peticion.find({'usuario': uid});
+        
+        // Elimina solo aquellas peticiones en la que la banda haya sido eliminada
+        for(let i = 0; i < peticiones.length; i++) {
+            const p = peticiones[i];
+            const b = p.banda;
+            const banda = await Banda.findById(b);
+          
+            if(!banda) await Peticion.findByIdAndDelete(p._id);
+        }
+
+        const usuario = await Usuario.findByIdAndDelete(uid);
 
         res.json({
             ok: true,
+            usuario
         });
     } catch (error) {
         console.log(error);
@@ -267,6 +345,91 @@ const deleteById = async(req, res = express.response) => {
     
 }
 
+/*
+* Función para que el administrador elimine a un usuario
+*/
+const deleteAdminById = async(req, res = express.response) => {
+    try {
+        const uid = req.params.id;
+
+         // Comprobar que el usuario de la petición es el mismo 
+        const t = req.header('x-token');
+        const payload = jwt.verify(t,process.env.SECRET_JWT_SEED);
+        const payloadId = payload.uid;
+
+        const u = await Usuario.findById(payloadId);
+        if(u.administrador !== true) {
+            return res.status(401).json({
+                ok: false,
+                msg: 'No tiene privilegios para eliminar el usuario'
+            });
+        }
+
+        await Comentario.deleteMany({usuario: uid});
+        await Musico.deleteMany({usuario: uid});
+        await Directivo.deleteMany({usuario: uid});
+        await Archivero.deleteMany({usuario: uid});
+        await Estudio.deleteMany({usuario: uid});
+        await Instrumento.deleteMany({usuario: uid});
+
+        const peticiones = await Peticion.find({'usuario': uid});
+    
+        // Elimina solo aquellas peticiones en la que la banda haya sido eliminada
+        for(let i = 0; i < peticiones.length; i++) {
+            const p = peticiones[i];
+            const b = p.banda;
+            const banda = await Banda.findById(b);
+            if(!banda) await Peticion.findByIdAndDelete(p._id);
+        }
+
+        
+        const usuario = await Usuario.findByIdAndDelete(uid);
+        res.json({
+            ok: true,
+            usuario
+        });
+    }
+    catch (error) {
+        console.log(error);
+        res.status(500).json({
+            ok: false,
+            msg: 'Por favor hable con el administrador'
+        });
+    }
+}
+
+const getAll = async(req, res = express.response) => {
+    try {
+        const usuarios = await Usuario.find();
+        res.json({
+            ok: true,
+            usuarios
+        });
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({
+            ok: false,
+            msg: 'Por favor hable con el administrador'
+        });
+    }
+}
+
+const getByUsername = async(req, res = express.response) => {
+    try {
+        const username = req.params.username;
+        const usuario = await Usuario.find({usuario: username});
+        res.json({
+            ok: true,
+            usuario
+        });
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({
+            ok: false,
+            msg: 'Por favor hable con el administrador'
+        });
+    }
+}
 module.exports = {
     crearUsuario,
     loginUsuario,
@@ -274,5 +437,8 @@ module.exports = {
     getById,
     cambiarDatos,
     modificarContraseña,
-    deleteById
+    deleteById,
+    getAll,
+    getByUsername,
+    deleteAdminById
 }

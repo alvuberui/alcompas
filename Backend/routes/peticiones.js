@@ -6,13 +6,17 @@ const { validarCampos } = require('../middlewares/validar-campos');
 const { validarCargo } = require('../middlewares/validar-cargo');
 const { validarInstrumentos } = require('../middlewares/validar-instrumento');
 const { validarVoz } = require('../middlewares/validar-voz');
-const { crearPeticion, getPeticionesByUserId, aceptarPeticion, rechazarPeticion } = require('../controllers/peticiones');
+const { crearPeticion, getPeticionesByUserId, aceptarPeticion, rechazarPeticion,
+        getPeticionesByBandaId } = require('../controllers/peticiones');
 
     // Validar JWT
 router.use( validarJWT, validarCampos);
 
     // Obtener peticiones de un usuario
 router.get('/:userId', getPeticionesByUserId);
+
+    // Obtener peticiones de una banda
+router.get('/peticionesByBandaId/:bandaId', getPeticionesByBandaId);
 
     // Aceptar petición
 router.put('/aceptar/:id/:userId', aceptarPeticion);
@@ -24,13 +28,14 @@ router.put('/rechazar/:id/:userId', rechazarPeticion);
 router.post('/',
     [
         check('rol', 'El rol no es válido').notEmpty().custom( value => {
-            const condicion1 = value == 'Presidente';
+            const condicion1 = value == 'Directivo';
             const condicion2 = value == 'Archivero';
             const condicion3 = value == 'Músico'
 
             if(!condicion1 && !condicion2 && !condicion3) {
                 throw new Error("El rol no es válido");
             }
+            return true;
         }),
         check('cargo', 'El cargo no es válido').custom( value => {
             if(value) {
@@ -42,7 +47,7 @@ router.post('/',
             }
             return true;
         }),
-        check('mensaje', 'El mensaje es obligatorio').notEmpty(),
+        check('mensaje', 'El mensaje es obligatorio').notEmpty().isLength({min: 1, max: 1000 }),
         check('instrumento', 'El instrumento no es válido').custom(value => {
             if (value) {
                 const condicion = validarInstrumentos(value);

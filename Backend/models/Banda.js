@@ -48,6 +48,9 @@ const BandaSchema = Schema({
         type: String,
         required: true,
         unique: true,
+    },
+    img: {
+        type: String,
     }
 });
 

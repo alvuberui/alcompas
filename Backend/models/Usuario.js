@@ -64,6 +64,9 @@ const UsuarioSchema = Schema({
     administrador: {
         type: Boolean,
         required: true
+    },
+    img: {
+        type: String,
     }
 });
 
