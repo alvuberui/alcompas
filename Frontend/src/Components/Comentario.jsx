@@ -10,7 +10,7 @@ export const Comentario = ({ comentario, eliminar}) => {
     // Estados
     const [ comentarioF, setComentarioF ] = useState(comentario);
     const [ usuario, setUsuario ] = useState('');
-    const horas  = new Date(comentario.fecha).getHours() + ":" + new Date(comentario).getMinutes();
+    const horas  = new Date(comentario.fecha).getHours() + ":" + new Date(comentario.fecha).getMinutes();
     const fecha = new Date(comentario.fecha).toLocaleDateString();
     
     // Funciones
