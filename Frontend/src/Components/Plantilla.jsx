@@ -9,6 +9,7 @@ export const Plantilla = ( { musicos, usuarios, tipo, directivo } ) => {
 
   const renderizar = () => {
     let html = [];
+    
       if(tipo === "Músicos" ) {
         const keys = Object.keys(musicos);
 
@@ -16,9 +17,11 @@ export const Plantilla = ( { musicos, usuarios, tipo, directivo } ) => {
           const key = keys[i];
           html.push(<Grid justifyContent="center" alignItems="center" key={key}  container><Typography   variant='h6' align='center' color='white'> {key} </Typography></Grid>);
           const listaUsuarios = usuarios[key]
-          for(let j = 0; j < listaUsuarios.length; j++){
-            const value = listaUsuarios[j];
-            html.push(<Musico key={ (j+1) * (i+1) } usuario={value} tipo={"musico"} directivo={directivo}/>);
+          if( listaUsuarios ) {
+            for(let j = 0; j < listaUsuarios.length; j++){
+              const value = listaUsuarios[j];
+              html.push(<Musico key={ (j+1) * (i+1) } usuario={value} tipo={"musico"} directivo={directivo}/>);
+            }
           }
         }
       }

@@ -39,7 +39,8 @@ export const useEstudiosStore = () => {
         try {
             estudioNuevo.usuario = userId;
             const { data } = await alcompasAPI.put('estudios/' + estudioId, estudioNuevo);
-            const estudio = data.estudio;
+            const estudio = data.estudioActualizado;
+       
             return estudio;
         } catch(error) {
             

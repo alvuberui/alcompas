@@ -63,6 +63,7 @@ export const NavBar = () => {
   const [ fotoPerfil, setFotoPerfil ] = useState();
   const { getFotoPerfilUsuario } = useUploadsStore();
   const [ admin, setAdmin ] = useState('');
+  const [ usuario, setUsuario ] = useState('');
 
   useEffect(() => {
     const getFoto = async () => {
@@ -71,6 +72,7 @@ export const NavBar = () => {
     }
     const getAdmin = async () => {
       const u = await getUserByiD(user.uid);
+      setUsuario(u);
       if(u.administrador){
         setAdmin(true);
       } else {
@@ -79,7 +81,7 @@ export const NavBar = () => {
     }
     getAdmin();
     getFoto();
-  }, []);
+  }, [usuario]);
 
   const cerrarSesion = () => {
 
@@ -191,7 +193,7 @@ export const NavBar = () => {
         <Toolbar>
             <NavLink style={{textDecoration: "none", color: "white"}}  to={"/"}>
               <img
-                  src='/../../Resources/Imagenes/logo.png'
+                  src='/Imagenes/logo.png'
                   alt='logo'
                   loading="lazy"
                   width={60}
@@ -209,7 +211,7 @@ export const NavBar = () => {
             AlCompás
           </Typography>
           </NavLink>
-          <Search>
+          <Search style={{width:'300px'}}>
             <Buscador></Buscador>
           </Search>
           <Box  sx={{ flexGrow: 1 }} />
@@ -243,7 +245,7 @@ export const NavBar = () => {
               sx={{fontSize:'40px'}}
             >
               { fotoPerfil !== undefined &&
-                <Avatar sx={{width:'50px', height:'50px', }} src={`data:image/png;base64, ${fotoPerfil}`} />
+                <Avatar loading={"lazy"} sx={{width:'50px', height:'50px', }} src={`data:image/png;base64, ${fotoPerfil}`} />
               }
               
             </IconButton>

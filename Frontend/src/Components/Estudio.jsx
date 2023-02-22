@@ -73,7 +73,7 @@ export const Estudio = ({ _id, tipoEstudio, centroEstudios, poblacion, provincia
         container
         sx={{ mt:'15px', maxWidth:'125vh', padding:2, backgroundColor:'white', borderRadius:'5px', border:1, borderColor:'white', boxShadow:' 1px 1px 1px 1px' }}
         >   
-            <AñadirEstudioModal  estudioId={_id} editar={open} open={open} handleClose={handleCloseEditar} setOpen={setOpen} setEstudios={setEstudios}></AñadirEstudioModal>
+            <AñadirEstudioModal  estudioId={_id} editar={true} open={open} handleClose={handleCloseEditar} setOpen={setOpen} setEstudios={setEstudios}></AñadirEstudioModal>
             <Grid
             container
             display="flex"

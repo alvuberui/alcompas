@@ -21,13 +21,13 @@ const style = {
   justifyContent:'center'
 };
 
-export const EditarFoto = ( { open, handleClose, setOpen, tipo } ) => {
+export const EditarFoto = ( {  setFoto, open, handleClose, setOpen, tipo } ) => {
 
     const { user } = useAuthStore();
     const { bandaId } = useParams();
     const  [ img, setImg ] = React.useState('');
     const [ nombre, setNombre ] = useState('');
-    const { errores, setErrores, editarFotoUsuario, editarFotoBanda } = useUploadsStore();
+    const { errores, setErrores, editarFotoUsuario, editarFotoBanda, getFotoPerfilUsuario, getFotoPerfilBanda } = useUploadsStore();
 
     const handleChangeInput = input => e => {    
       setImg(e.target.files[0]);
@@ -41,8 +41,10 @@ export const EditarFoto = ( { open, handleClose, setOpen, tipo } ) => {
         Swal.fire('Debe de seleccionar una foto', 'Debe de seleccionar una foto', 'error');
       }
       else {
-        const u = await editarFotoUsuario( img, user.uid );
+        await editarFotoUsuario( img, user.uid );
+        const foto =   await getFotoPerfilUsuario( user.uid );
         setOpen(false);
+        setFoto(foto);
         setNombre('');
       }
     }
@@ -55,6 +57,8 @@ export const EditarFoto = ( { open, handleClose, setOpen, tipo } ) => {
       }
       else {
         await editarFotoBanda( img, bandaId );
+        const foto =   await getFotoPerfilBanda( bandaId );
+        setFoto(foto);
         setOpen(false);
         setNombre('');
       }

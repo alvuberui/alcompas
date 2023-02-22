@@ -242,11 +242,11 @@ describe('Pruebas en el  <UpdateForm />', () => {
             const postalField = screen.getByLabelText("codigoPostallabel");
             fireEvent.change( postalField, { target: { defaultValue: "000000000" } });
 
-            const direccionField = screen.getByLabelText("Direccionlabel");
+            const direccionField = screen.getByLabelText("Dirección");
             fireEvent.change( direccionField, { target: { defaultValue: "000000000" } });
 
             // LocationRegister
-            const direccionfield = screen.getByLabelText('Direccionlabel');
+            const direccionfield = screen.getByLabelText('Dirección');
             fireEvent.change(direccionfield, { target: { defaultValue: 'Cambio' } });
             const direccion = screen.getByLabelText('direccion');
             expect( direccion ).not.toBe( undefined);
@@ -317,7 +317,7 @@ describe('Pruebas en el  <UpdateForm />', () => {
         });
         await waitFor(() => {
             // LocationRegister
-            const direccionfield = screen.getByLabelText('Direccionlabel');
+            const direccionfield = screen.getByLabelText('Dirección');
             fireEvent.change(direccionfield, { target: { defaultValue: 'Cambio' } });
             const direccion = screen.getByLabelText('direccion');
             expect( direccion ).not.toBe( undefined);

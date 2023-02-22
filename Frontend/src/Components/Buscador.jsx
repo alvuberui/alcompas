@@ -24,7 +24,11 @@ export  function Buscador( { tipo, setBanda}) {
       if(tipo === 'admin') {
         setBanda(values);
       } else {
-        navigate('/buscar/' + values.nombre);
+        if( typeof values === 'object') {
+          navigate('/buscar/' + values.nombre);
+        } else {
+          navigate('/buscar/' + values);
+        }
       }
     }
     
@@ -63,8 +67,10 @@ export  function Buscador( { tipo, setBanda}) {
       aria-label='autocomplete'
       onChange={handleChange}
       freeSolo={true}
+      autoComplete={false}
+      autoHighlight={true}
       id="asynchronous-demo"
-      sx={{ minWidth:'320px', backgroundColor: 'white', borderRadius: '5px', height: '50px' }}
+      sx={{  backgroundColor: 'white', borderRadius: '5px', height: '50px' }}
       open={open}
       onOpen={() => {
         setOpen(true);

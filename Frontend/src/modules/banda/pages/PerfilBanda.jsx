@@ -60,8 +60,8 @@ export const PerfilBanda = () => {
 
   const eliminarComentario = (comentarioId) => {
     // "current" contains the latest state array
-    setComentarios((current) =>
-      current.filter((c) => c.id !== comentarioId)
+    setComentarios(
+      [...comentarios.filter((c) => c._id !== comentarioId)]
     );
   };
 
@@ -99,19 +99,53 @@ export const PerfilBanda = () => {
   const { getDirectivosByBandaId } = useDirectivosStore();
   const { getAllByBandaId } = useRedesSocialesStore();
   
-
-  
-
-  // Efectos  
   useEffect(() => {
     const getBanda = async () => {
       const userreq = await getBandaById(bandaId);
       setBanda(userreq);  
     }
+    const getFotoPerfil = async () => {
+      const foto = await getFotoPerfilBanda(bandaId);
+      setFotoPerfil(foto);
+    }
+    const getRedes = async () => {
+      const redes = await getAllByBandaId(bandaId);
+      setRedesSociales(redes);
+    }
+    getBanda();
+    getFotoPerfil();
+    getRedes();
+  }, []);
+
+  useEffect(() => {
+    const esDirectivo = async () => {
+      const directivos = await getDirectivosByBandaId(bandaId);
+      const keys = Object.keys(directivos);
+      for( let i = 0; i < keys.length; i++) {
+        const key = keys[i];
+        const element = directivos[key];
+        for(let j = 0; j < element.length; j++) {
+          const mus = element[j];
+          if(mus.usuario === user.uid) {
+            setPerteneceDirectivo(true);
+          }
+        }
+      }
+    }
+    esDirectivo();
+  }, []);
+
+  useEffect(() => {
     const getComentarios = async () => {
       const userreq = await getComentariosByBandaId(bandaId);
       setComentarios(userreq.reverse());
     }
+    getComentarios();
+  }, []);
+  
+
+  // Efectos  
+  useEffect(() => {
     const getMusicos = async () => {
       const musreq = await getMusicosBanda(bandaId);
       setMusicos(musreq);
@@ -120,6 +154,11 @@ export const PerfilBanda = () => {
       const dirreq = await getDirectivosByBandaId(bandaId);
       setDirectivos(dirreq);
     }
+    getMusicos();
+    getDirectivos();
+  }, []);
+
+  useEffect(() => {
     const getUsuariosMusicos = async () => {
       let keys = Object.keys(musicos);
       let res = {}
@@ -131,12 +170,10 @@ export const PerfilBanda = () => {
         for(let j = 0; j < element.length; j++) {
           const mus = element[j];
           const usuario = await getUserByiD(mus.usuario)
-          if(usuario._id === user.uid) {
-            setPerteneceMusico(true);
-          }
           lista.push(usuario);
         }
         res[key] = lista;
+       
       }
 
       keys = Object.keys(directivos);
@@ -163,40 +200,22 @@ export const PerfilBanda = () => {
         for(let j = 0; j < element.length; j++) {
           const mus = element[j];
           const usuario = await getUserByiD(mus.usuario)
-          if(usuario._id === user.uid) {
-            setPerteneceDirectivo(true);
-          }
+          
           lista.push(usuario);
         }
         res[key] = lista;
       }
       setUsuariosDirectivos(res);
     }
-
-    const getFotoPerfil = async () => {
-      const foto = await getFotoPerfilBanda(bandaId);
-      setFotoPerfil(foto);
-    }
-    const getRedes = async () => {
-      const redes = await getAllByBandaId(bandaId);
-      setRedesSociales(redes);
-    }
-    getBanda();
-    getComentarios();
-    getMusicos();
-    getDirectivos();
     getUsuariosMusicos();
     getUsuariosDirectivos();
-    getFotoPerfil();
-    getRedes();
-    
-  },[ comentarios, musicos, directivos ]);
-  
+  }, [musicos, directivos]);
+ 
   return (
     <>
 
       <NuevoComentario open={open} handleClose={handleClose} setOpen={setOpen} setComentarios={setComentarios}></NuevoComentario>
-      <EditarFoto open={openEditarFoto} handleClose={handleCloseEditarFoto} setOpen={setOpenEditarFoto} tipo={"banda"}></EditarFoto>
+      <EditarFoto setFoto={setFotoPerfil} open={openEditarFoto} handleClose={handleCloseEditarFoto} setOpen={setOpenEditarFoto} tipo={"banda"}></EditarFoto>
       <Grid 
         container 
      
@@ -322,16 +341,16 @@ export const PerfilBanda = () => {
                 { redesSociales.map( (redSocial) => (
                   <Grid key={redSocial._id} item xs={4} display='inline-block'>
                     <Button sx={{backgroundColor:'white', color:'primary.main', mt:1, ml:2}} color='secondary' href={redSocial.url} size="small"variant='contained' align="center" >
-                      { redSocial.nombre === 'Facebook' && <img src='/../../Resources/Imagenes/facebook.png'alt='logo'loading="lazy"/> }
-                      { redSocial.nombre === 'Instagram' && <img src='../../../../Resources/Imagenes/instagram.png'alt='logo'loading="lazy"/> }
-                      { redSocial.nombre === 'Twitter' && <img src='/../../Resources/Imagenes/twitter.png'alt='logo'loading="lazy"/> }
-                      { redSocial.nombre === 'Youtube' && <img src='/../../Resources/Imagenes/youtube.png'alt='logo'loading="lazy"/> }
-                      { redSocial.nombre === 'Spotify' && <img src='/../../Resources/Imagenes/spotify.png'alt='logo'loading="lazy"/> }
-                      { redSocial.nombre === 'Soundcloud' && <img src='/../../Resources/Imagenes/soundcloud.png'alt='logo'loading="lazy"/> }
-                      { redSocial.nombre === 'Apple Music' && <img src='/../../Resources/Imagenes/music.png'alt='logo'loading="lazy"/> }
-                      { redSocial.nombre === 'TikTok' && <img src='/../../Resources/Imagenes/tik-tok.png'alt='logo'loading="lazy"/> }
-                      { redSocial.nombre === 'Email' && <img src='/../../Resources/Imagenes/email.png'alt='logo'loading="lazy"/> }
-                      { ! r.includes(redSocial.nombre) && <img src='/../../Resources/Imagenes/enlace.png'alt='logo'loading="lazy"/>}
+                      { redSocial.nombre === 'Facebook' && <img src='/Imagenes/facebook.png'alt='logo'loading="lazy"/> }
+                      { redSocial.nombre === 'Instagram' && <img src='/Imagenes/instagram.png'alt='logo'loading="lazy"/> }
+                      { redSocial.nombre === 'Twitter' && <img src='/Imagenes/twitter.png'alt='logo'loading="lazy"/> }
+                      { redSocial.nombre === 'Youtube' && <img src='/Imagenes/youtube.png'alt='logo'loading="lazy"/> }
+                      { redSocial.nombre === 'Spotify' && <img src='/Imagenes/spotify.png'alt='logo'loading="lazy"/> }
+                      { redSocial.nombre === 'Soundcloud' && <img src='/Imagenes/soundcloud.png'alt='logo'loading="lazy"/> }
+                      { redSocial.nombre === 'Apple Music' && <img src='/Imagenes/music.png'alt='logo'loading="lazy"/> }
+                      { redSocial.nombre === 'TikTok' && <img src='/Imagenes/tik-tok.png'alt='logo'loading="lazy"/> }
+                      { redSocial.nombre === 'Email' && <img src='/Imagenes/email.png'alt='logo'loading="lazy"/> }
+                      { ! r.includes(redSocial.nombre) && <img src='/Imagenes/enlace.png'alt='logo'loading="lazy"/>}
                     </Button>
                   </Grid>
                   ))
@@ -402,7 +421,7 @@ export const PerfilBanda = () => {
                 { value === 2 &&
                 comentarios.map((comentario, index) =>
                   <Comentario eliminar={eliminarComentario}
-                    { ...comentario }
+                    comentario={comentario}
                     key={index}
                   />
                 )}

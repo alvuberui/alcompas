@@ -158,7 +158,7 @@ describe('Pruebas en el  <RegisterFrom />', () => {
             const postalField = screen.getByLabelText("codigoPostallabel");
             fireEvent.change( postalField, { target: { defaultValue: "000000000" } });
 
-            const direccionField = screen.getByLabelText("Direccionlabel");
+            const direccionField = screen.getByLabelText("Dirección");
             fireEvent.change( direccionField, { target: { defaultValue: "000000000" } });
 
             const boton = screen.getByLabelText('link');

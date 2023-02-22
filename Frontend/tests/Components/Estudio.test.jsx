@@ -42,7 +42,7 @@ describe('Pruebas en el  <Estudio />', () => {
             render(
                 <Provider store={ storeAutenticado }>
                     <MemoryRouter>
-                        <Estudio  usuario={"63c58bbdaf3c802189102e0e"} iguales={true}/>
+                        <Estudio  usuario={"63f23b7c574f95917e3595ff"} iguales={true}/>
                     </MemoryRouter>
                 </Provider>
             );
@@ -68,7 +68,7 @@ describe('Pruebas en el  <Estudio />', () => {
             render(
                 <Provider store={ storeAutenticado }>
                     <MemoryRouter>
-                        <Estudio  usuario={"63c58bbdaf3c802189102e0e"} iguales={true}/>
+                        <Estudio  usuario={"63f23b7c574f95917e3595ff"} iguales={true}/>
                     </MemoryRouter>
                 </Provider>
             );

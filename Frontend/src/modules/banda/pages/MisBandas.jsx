@@ -54,7 +54,7 @@ export const MisBandas = ( { titulo }) => {
             xs= { 10 }
             sx={{ padding:2, backgroundColor:'primary.main', borderRadius:'5px', boxShadow:' 1px 1px 1px 1px' }}
             >
-                <Typography  variant='h4' sx={{textAlign:'center', color:'white'}}>{titulo}</Typography>
+                <Typography  variant='h4' sx={{textAlign:'center', color:'white'}}>{titulo}: {nombre}</Typography>
             </Grid>
             { titulo === 'Mis Bandas' &&
               <NavLink  style={{textDecoration: "none", color: "black"}}  to='/bandas/crear'>

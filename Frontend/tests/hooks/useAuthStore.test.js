@@ -89,7 +89,7 @@ describe('Pruebas en useAuthStore', () => {
         expect({ errorMessage, status, user }).toEqual({
             errorMessage: undefined,
             status: 'autenticado',
-            user: { nombre: 'Álvaro', uid: '63efa3b862b6fc7b8a318e68' }
+            user: { nombre: 'Álvaro', uid: '63f23b7c574f95917e3595ff' }
         });
 
         expect( localStorage.getItem('token') ).toEqual( expect.any(String) );
@@ -185,7 +185,7 @@ describe('Pruebas en useAuthStore', () => {
         expect({ errorMessage, status, user }).toEqual({
             errorMessage: undefined,
             status: 'autenticado',
-            user: { nombre: 'Álvaro', uid: '63efa3b862b6fc7b8a318e68' }
+            user: { nombre: 'Álvaro', uid: '63f23b7c574f95917e3595ff' }
         });
     });
 
@@ -198,7 +198,7 @@ describe('Pruebas en useAuthStore', () => {
         const spy = jest.spyOn( alcompasAPI, 'put' ).mockReturnValue({
             data: {
                 ok: true,
-                uid: '62a10a4954e8230e568a49ab',
+                uid: '63f23b7c574f95917e3595ff',
                 nombre: 'Fernando',
                 token: 'ALGUN-TOKEN'
             }
@@ -213,7 +213,7 @@ describe('Pruebas en useAuthStore', () => {
         expect({ errorMessage, status, user }).toEqual({
             errorMessage: "",
             status: 'autenticado',
-            user: { nombre: 'Fernando', uid: '62a10a4954e8230e568a49ab' }
+            user: { nombre: 'Fernando', uid: '63f23b7c574f95917e3595ff' }
         });
 
         spy.mockRestore();
@@ -361,7 +361,7 @@ describe('Pruebas en useAuthStore', () => {
         const spy = jest.spyOn( alcompasAPI, 'delete' ).mockReturnValue({
             data: {
                 ok: true,
-                uid: '62a10a4954e8230e568a49ab',
+                uid: '63f23b7c574f95917e3595ff',
                 nombre: 'Fernando',
                 token: 'ALGUN-TOKEN'
             }
@@ -376,7 +376,7 @@ describe('Pruebas en useAuthStore', () => {
             expect({ errorMessage, status, user }).toEqual({
                 errorMessage: undefined,
                 status: 'autenticado',
-                user: { nombre:'Álvaro', uid: '63efa3b862b6fc7b8a318e68' }
+                user: { nombre:'Álvaro', uid: '63f23b7c574f95917e3595ff' }
             });
     
             spy.mockRestore();

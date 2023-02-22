@@ -6,11 +6,12 @@ import {
 } from "react-router-dom";
 import Swal from 'sweetalert2';
 import { useAuthStore, useComentariosStore } from '../hooks';
-export const Comentario = ({ _id, titulo, texto, usuario, banda, fecha, eliminar }) => {
+export const Comentario = ({ comentario, eliminar}) => {
     // Estados
-    const [ usuarioPet, setUsuario ] = useState([]);
-    const horas  = new Date(fecha).getHours() + ":" + new Date(fecha).getMinutes();
-    fecha = new Date(fecha).toLocaleDateString();
+    const [ comentarioF, setComentarioF ] = useState(comentario);
+    const [ usuario, setUsuario ] = useState('');
+    const horas  = new Date(comentario.fecha).getHours() + ":" + new Date(comentario).getMinutes();
+    const fecha = new Date(comentario.fecha).toLocaleDateString();
     
     // Funciones
     const { getUserByiD, user } = useAuthStore();
@@ -30,9 +31,8 @@ export const Comentario = ({ _id, titulo, texto, usuario, banda, fecha, eliminar
         .then(async resultado => {
             if (resultado.value) {
                 // Hicieron click en "Sí"
-                const c = await eliminarComentario(_id);
-                
-                eliminar(_id);
+                const c = await eliminarComentario(comentario._id);
+                eliminar(comentario._id);
             }
         });
     }
@@ -40,11 +40,14 @@ export const Comentario = ({ _id, titulo, texto, usuario, banda, fecha, eliminar
     // Efectos
     useEffect(() => {
         const getUsuario = async () => {
-            const usuarioreq = await getUserByiD(usuario);
-            setUsuario(usuarioreq);  
+            const c = comentario
+            const usuarioreq = await getUserByiD(comentario.usuario);
+            const usuario = usuarioreq.usuario;
+            setUsuario(usuario);
+            setComentarioF(c);
         }
         getUsuario();
-    }, [ ]);
+    }, [  comentario ]);
 
   
   return (
@@ -58,7 +61,7 @@ export const Comentario = ({ _id, titulo, texto, usuario, banda, fecha, eliminar
             justifyContent="center"
             alignItems="baseline">
                 <>
-                    <Typography variant='h6' sx={{fontWeight: 'bold', textAlign:'center', color:'black'}}>{titulo} </Typography>
+                    <Typography variant='h6' sx={{fontWeight: 'bold', textAlign:'center', color:'black'}}>{comentario.titulo} </Typography>
                 </>
             </Grid>
             <Grid
@@ -71,10 +74,10 @@ export const Comentario = ({ _id, titulo, texto, usuario, banda, fecha, eliminar
                 >   
                     <div>
                         <Typography style={{display: 'inline-block'}}>
-                            <NavLink style={{textDecoration: "none", fontWeight:'bold', color: "black"}}  to={`/perfil/${usuarioPet._id}`}>
-                                @{usuarioPet.usuario}: &nbsp;
+                            <NavLink style={{textDecoration: "none", fontWeight:'bold', color: "black"}}  to={`/perfil/${comentarioF.usuarioId}`}>
+                                @{usuario}: &nbsp;
                             </NavLink>
-                            "{ texto }"
+                            "{ comentarioF.texto }"
                         </Typography>
                     </div>
                 </Grid> 
@@ -90,7 +93,7 @@ export const Comentario = ({ _id, titulo, texto, usuario, banda, fecha, eliminar
                         <Typography style={{display: 'inline-block', fontSize:'13px'}}>
                             { fecha} a las { horas } horas
                         </Typography>
-                        { user.uid === usuario && 
+                        { user.uid === comentario.usuario && 
                             <Button aria-label='eliminar' color='primary' onClick={handleElminar} sx={{ml:'40px'}} variant='contained'>
                                 <Typography sx={{ fontWeight: 'bold', fontSize:'12px' }} >Eliminar</Typography>
                             </Button>

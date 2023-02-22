@@ -36,7 +36,7 @@ describe('Pruebas en useEstudiosStore', () => {
         });
     
             await act(async() => {
-                const res = await result.current.getEstudiosByUserId('63c58bbdaf3c802189102e0e')
+                const res = await result.current.getEstudiosByUserId('63f23b7c574f95917e3595ff')
 
                 expect(res).toEqual([estudio1])
             });
@@ -150,13 +150,13 @@ describe('Pruebas en useEstudiosStore', () => {
 
         const spy = jest.spyOn( alcompasAPI, 'put' ).mockReturnValue({
             data: {
-                estudio : estudio1
+                estudioActualizado : estudio1
             }
             
         });
     
             await act(async() => {
-                const res = await result.current.editarEstudio(estudio1, estudio1._id)
+                const res = await result.current.editarEstudio(estudio1, "63f23b7c574f95917e3595ff", estudio1._id)
 
                 expect(res).toEqual(estudio1)
             });

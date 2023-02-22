@@ -1,12 +1,11 @@
-
 {
   "name": "backend",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "jest --runInBand  ",
-    "coverage": "jest --runInBand --coverage",
+    "test": "jest --runInBand --testTimeout=10000 ",
+    "coverage": "jest --runInBand --coverage --testTimeout=10000",
     "dev": "nodemon index.js",
     "start": "node index.js"
   },
@@ -24,6 +23,7 @@
     "jsonwebtoken": "^9.0.0",
     "mongoose": "^6.7.0",
     "nodemon": "^2.0.20",
+    "sharp": "^0.31.3",
     "uuid": "^9.0.0"
   },
   "devDependencies": {

@@ -30,7 +30,7 @@ const nombres = ['Corneta', 'Tambor', 'Bordonera', 'Caja', 'Bombo', 'Platos',
                             'Timbales', 'Campanilla', 'Clarinete Bajo', 'Requinto'];
 
 export const AñadirInstrumentoModal  = ( { open, handleClose, setInstrumentos, setOpen, editar, instrumentoId }) => {
-
+    
     // Estados
     const [instrumento, setInstrumento] = useState({instrumento:'Corneta', marca: '', modelo: '', numeroSerie: ''});
 
@@ -58,6 +58,7 @@ export const AñadirInstrumentoModal  = ( { open, handleClose, setInstrumentos, 
       else {
 
         const c = await editarInstrumentoUsuario( instrumento, user.uid, instrumentoId );
+        setInstrumentos( co => [...co, c].filter( i => i._id !== instrumentoId) );
         setInstrumentos( co => [...co, c]);
         setInstrumento({instrumento:'Corneta', marca: '', modelo: '', numeroSerie: ''});
         setOpen(false);
@@ -134,7 +135,7 @@ export const AñadirInstrumentoModal  = ( { open, handleClose, setInstrumentos, 
                       inputProps={{ style: { color: 'white' } }} 
                       labelId="demo-simple-select-label"
                       id="demo-simple-select"
-                      value={ instrumento.instrumento }
+                      defaultValue={ instrumento.instrumento }
                       label="Age"
                       fullWidth
                       onChange={handleChangeInput('instrumento')}
@@ -155,7 +156,7 @@ export const AñadirInstrumentoModal  = ( { open, handleClose, setInstrumentos, 
                         placeholder="Marca"
                         fullWidth
                         focused
-                        value={ instrumento.marca }
+                        defaultValue={ instrumento.marca }
                         style={{ border: '1px solid #e2e2e1', borderRadius:'5px'}}
                         onChange={handleChangeInput('marca')}
                         
@@ -168,7 +169,7 @@ export const AñadirInstrumentoModal  = ( { open, handleClose, setInstrumentos, 
                         inputProps={{ style: { color: 'white' } }}
                         type="text"
                         placeholder="Modelo"
-                        value={ instrumento.modelo }
+                        defaultValue={ instrumento.modelo }
                         fullWidth
                         focused
                         style={{ border: '1px solid #e2e2e1', borderRadius:'5px'}}
@@ -183,7 +184,7 @@ export const AñadirInstrumentoModal  = ( { open, handleClose, setInstrumentos, 
                         inputProps={{ style: { color: 'white' } }}
                         type="text"
                         placeholder="Número de serie"
-                        value={ instrumento.numeroSerie }
+                        defaultValue={ instrumento.numeroSerie }
                         fullWidth
                         focused
                         style={{ border: '1px solid #e2e2e1', borderRadius:'5px'}}

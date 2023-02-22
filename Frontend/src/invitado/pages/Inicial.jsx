@@ -95,28 +95,28 @@ export const Inicial = () => {
           <Box textAlign='center' sx={{mt:1}}>
             <Button sx={{backgroundColor:'white', color:'primary.main'}} color='secondary' size="small"variant='contained' align="center" href="https://www.facebook.com/profile.php?id=100010164360323">
             <img
-                src='/../../Resources/Imagenes/facebook.png'
+                src='/Imagenes/facebook.png'
                 alt='logo'
                 loading="lazy"
             />
             </Button>
             <Button sx={{backgroundColor:'white', color:'primary.main', ml:1}} color='secondary' size="small"variant='contained' align="center" href="https://mobile.twitter.com/alvaro_ubeda8">
               <img
-                  src='/../../Resources/Imagenes/twitter.png'
+                  src='/Imagenes/twitter.png'
                   alt='logo'
                   loading="lazy"
               />
             </Button>
             <Button sx={{backgroundColor:'white', color:'primary.main', ml:1}} color='secondary' size="small"variant='contained' align="center" href="https://www.instagram.com/alvaro_ubeda8/">
               <img
-                  src='/../../Resources/Imagenes/instagram.png'
+                  src='/Imagenes/instagram.png'
                   alt='logo'
                   loading="lazy"
               />
             </Button>
             <Button sx={{backgroundColor:'white', color:'primary.main', ml:1}} color='secondary' href="mailto:alvaroubeda8@gmail.com" size="small"variant='contained' align="center" >
               <img
-                  src='/../../Resources/Imagenes/email.png'
+                  src='/Imagenes/email.png'
                   alt='logo'
                   loading="lazy"
               />

@@ -25,12 +25,16 @@ const añadirFoto = async(req, res = express.response) => {
 
 
         const usuario = await Usuario.findById( usuarioId );
-        const nombre = await subirArchivo( req.files, undefined, 'imgs/usuarios' );
+        const nombre = await subirArchivo( req.files, undefined, 'imgs/usuarios', 'opt/usuarios' );
 
         if( usuario.img ) {
             const pathImagen = path.join( __dirname, '../uploads/imgs/usuarios', usuario.img );
+            const pathImagen2 = path.join( __dirname, '../uploads/opt/usuarios', usuario.img );
             if ( fs.existsSync( pathImagen ) ) {
                 fs.unlinkSync( pathImagen );
+            }
+            if ( fs.existsSync( pathImagen2 ) ) {
+                fs.unlinkSync( pathImagen2 );
             }
         }
 
@@ -40,7 +44,7 @@ const añadirFoto = async(req, res = express.response) => {
         const usuarioDb = await Usuario.findByIdAndUpdate( usuarioId, nuevoUsuario, { new: true } );
         res.json({
             ok: true,
-            usuarioDb
+            usuarioDb,
         });
     } catch (error) {
         console.log(error)
@@ -66,7 +70,7 @@ const mostrarImagenUsuario = async(req, res = response ) => {
 
         // Si tiene imagen devuelve la ruta de su imagen
         if ( modelo.img ) {
-            const pathImagen = path.join( __dirname, '../uploads/imgs/usuarios', modelo.img );
+            const pathImagen = path.join( __dirname, '../uploads/opt/usuarios', modelo.img );
             if ( fs.existsSync( pathImagen ) ) {
                 return res.sendFile( pathImagen )
             }
@@ -102,14 +106,18 @@ const añadirFotoBanda = async(req, res = express.response) => {
         const banda = await Banda.findById( bandaId );
 
 
-        const nombre = await subirArchivo( req.files, undefined, 'imgs/bandas' );
+        const nombre = await subirArchivo( req.files, undefined, 'imgs/bandas', 'opt/bandas' );
 
         
         
         if( banda.img ) {
             const pathImagen = path.join( __dirname, '../uploads/imgs/bandas', banda.img );
+            const pathImagen2 = path.join( __dirname, '../uploads/opt/bandas', banda.img );
             if ( fs.existsSync( pathImagen ) ) {
                 fs.unlinkSync( pathImagen );
+            }
+            if ( fs.existsSync( pathImagen2 ) ) {
+                fs.unlinkSync( pathImagen2 );
             }
         }
         
@@ -121,7 +129,6 @@ const añadirFotoBanda = async(req, res = express.response) => {
             bandaDb
         });
     } catch (error) {
-        console.log(error)
         res.status(500).json({
             ok: false,
             msg: 'Por favor hable con el administrador.'
@@ -144,7 +151,7 @@ const mostrarImagenBanda = async(req, res = response ) => {
 
         // Si tiene imagen devuelve la ruta de su imagen
         if ( modelo.img ) {
-            const pathImagen = path.join( __dirname, '../uploads/imgs/bandas', modelo.img );
+            const pathImagen = path.join( __dirname, '../uploads/opt/bandas', modelo.img );
             if ( fs.existsSync( pathImagen ) ) {
                 return res.sendFile( pathImagen )
             }

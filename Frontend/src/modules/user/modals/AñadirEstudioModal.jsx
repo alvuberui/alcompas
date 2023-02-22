@@ -24,7 +24,7 @@ const style = {
 };
 const tipos = [ "Grado elemental", "Grado medio", "Grado superior", "Curso", "Autodidacta", "Otro"];
 
-export const AñadirEstudioModal  = ( { open, handleClose, setEstudios, setOpen, editar, estudioId }) => {
+export const AñadirEstudioModal  = ( { open, handleClose, setEstudios, setOpen, editar, estudioId, estudios }) => {
 
     // Estados
     const [estudio, setEstudio] = useState({tipoEstudio:'Grado elemental', centroEstudios: '', poblacion: '', provincia: '', fechaInicio: '', fechaFin: ''});
@@ -54,6 +54,7 @@ export const AñadirEstudioModal  = ( { open, handleClose, setEstudios, setOpen,
       else {
 
         const c = await editarEstudio( estudio, user.uid, estudioId );
+        setEstudios( co => [...co, c].filter( i => i._id !== estudioId) );
         setEstudios( co => [...co, c]);
         setEstudio({tipoEstudio:'Grado elemental', centroEstudios: '', poblacion: '', provincia: '', fechaInicio: '', fechaFin: ''});
         setOpen(false);
@@ -131,7 +132,7 @@ export const AñadirEstudioModal  = ( { open, handleClose, setEstudios, setOpen,
                       inputProps={{ style: { color: 'white' } }} 
                       labelId="demo-simple-select-label"
                       id="demo-simple-select"
-                      value={ estudio.tipoEstudio }
+                      defaultValue={ estudio.tipoEstudio }
                       label="Age"
                       fullWidth
                       onChange={handleChangeInput('tipoEstudio')}
@@ -152,7 +153,7 @@ export const AñadirEstudioModal  = ( { open, handleClose, setEstudios, setOpen,
                         placeholder="Centro de estudios"
                         fullWidth
                         focused
-                        value={ estudio.centroEstudios }
+                        defaultValue={ estudio.centroEstudios }
                         style={{ border: '1px solid #e2e2e1', borderRadius:'5px'}}
                         onChange={handleChangeInput('centroEstudios')}
                         
@@ -165,7 +166,7 @@ export const AñadirEstudioModal  = ( { open, handleClose, setEstudios, setOpen,
                         inputProps={{ style: { color: 'white' } }}
                         type="text"
                         placeholder="Poblacion"
-                        value={ estudio.poblacion }
+                        defaultValue={ estudio.poblacion }
                         fullWidth
                         focused
                         style={{ border: '1px solid #e2e2e1', borderRadius:'5px'}}
@@ -180,7 +181,7 @@ export const AñadirEstudioModal  = ( { open, handleClose, setEstudios, setOpen,
                         inputProps={{ style: { color: 'white' } }}
                         type="text"
                         placeholder="Provincia"
-                        value={ estudio.provincia }
+                        defaultValue={ estudio.provincia }
                         fullWidth
                         focused
                         style={{ border: '1px solid #e2e2e1', borderRadius:'5px'}}
@@ -194,7 +195,7 @@ export const AñadirEstudioModal  = ( { open, handleClose, setEstudios, setOpen,
                         inputProps={{ style: { color: 'white' } }}
                         type="date"
                         placeholder="Fecha de Inicio"
-                        value={ estudio.fechaInicio }
+                        defaultValue={ estudio.fechaInicio }
                         fullWidth
                         focused
                         style={{ border: '1px solid #e2e2e1', borderRadius:'5px'}}
@@ -208,7 +209,7 @@ export const AñadirEstudioModal  = ( { open, handleClose, setEstudios, setOpen,
                         inputProps={{ style: { color: 'white' } }}
                         type="date"
                         placeholder="Fecha de finalización"
-                        value={ estudio.fechaFin }
+                        defaultValue={ estudio.fechaFin }
                         fullWidth
                         focused
                         style={{ border: '1px solid #e2e2e1', borderRadius:'5px'}}

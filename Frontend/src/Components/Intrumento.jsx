@@ -61,7 +61,7 @@ export const Instrumento = ({ _id, instrumento, marca, modelo, numeroSerie, usua
         container
         sx={{ mt:'15px', maxWidth:'125vh', padding:2, backgroundColor:'white', borderRadius:'5px', border:1, borderColor:'white', boxShadow:' 1px 1px 1px 1px' }}
         >   
-            <AñadirInstrumentoModal  instrumentoId={_id} editar={open} open={open} handleClose={handleCloseEditar} setOpen={setOpen} setInstrumentos={setInstrumentos}></AñadirInstrumentoModal>
+            <AñadirInstrumentoModal  instrumentoId={_id} editar={true} open={open} handleClose={handleCloseEditar} setOpen={setOpen} setInstrumentos={setInstrumentos}></AñadirInstrumentoModal>
             <Grid
             container
             display="flex"

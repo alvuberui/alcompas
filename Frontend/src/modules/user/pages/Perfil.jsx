@@ -137,39 +137,67 @@ export const Perfil = () => {
   const eliminarInstrumento = (instrumentoId) => {
     // "current" contains the latest state array
     setInstrumentos((current) =>
-      current.filter((c) => c.id !== instrumentoId)
+      current.filter((c) => c._id !== instrumentoId)
     );
   };
 
   const eliminarEstudio = (estudioId) => {
     // "current" contains the latest state array
-    setEstudios((current) =>
-      current.filter((c) => c.id !== estudioId)
-    );
+    const lista = [];
+    for ( const estudio in estudios ) {
+      if(estudio._id !== estudioId) {
+        lista.push(estudio);
+      }
+    }
+    setEstudios(lista);
   };
 
   const { getUserByiD } = useAuthStore();
   const { id } = useParams();
 
-  // Efectos  
+
   useEffect(() => {
     const getUser = async () => {
       const userreq = await getUserByiD(id);
       userreq.fecha_nacimiento = new Date(userreq.fecha_nacimiento).toLocaleDateString();
       setUser(userreq);  
     }
-    const getInstrumentos = async () => {
-      const instrumentos = await getInstrumentosByUserId(id);
-      setInstrumentos(instrumentos);
+    getUser();
+  }, []);
+
+  useEffect(() => {
+    const getFotoPerfil = async () => {
+      const resultado = await getFotoPerfilUsuario(id);
+     
+      setFotoPerfil(resultado);
     }
+    getFotoPerfil();
+  }, []);
+    
+  useEffect(() => {
+    const getIguales = async () => {
+      if( userU._id === user.uid ) setIguales(true);
+    }
+    getIguales();
+  }, [ user, userU]);
+
+  useEffect(() => {
     const getEstudios = async () => {
       const estudios = await getEstudiosByUserId(id);
       setEstudios(estudios);
     }
-    const getFotoPerfil = async () => {
-      const resultado = await getFotoPerfilUsuario(id);
-      setFotoPerfil(resultado);
+    getEstudios();
+  }, []);
+
+  useEffect(() => {
+    const getInstrumentos = async () => {
+      const instrumentos = await getInstrumentosByUserId(id);
+      setInstrumentos(instrumentos);
     }
+    getInstrumentos();
+  }, []);
+  // Efectos  
+  useEffect(() => {
     const getExperiencias = async () => {
         const archiveros = await getArchiverosByUserId(id);
         const musicos = await getMusicosByUserId(id);
@@ -187,24 +215,16 @@ export const Perfil = () => {
         }
         setExperiencias(res);
     }
-    const getIguales = async () => {
-      if( userU._id === user.uid ) setIguales(true);
-    }
-    getUser();
-    getIguales();
-    getInstrumentos();
-    getEstudios();
-    getFotoPerfil();
     getExperiencias();
-  }, [instrumentos, estudios]);
+  }, []);
 
 
   return (
     <>
 
-    <AñadirInstrumentoModal  open={openAñadir} handleClose={handleCloseAñadir} setOpen={setOpenAñadir} setInstrumentos={setInstrumentos}></AñadirInstrumentoModal>
+    <AñadirInstrumentoModal   open={openAñadir} handleClose={handleCloseAñadir} setOpen={setOpenAñadir} setInstrumentos={setInstrumentos}></AñadirInstrumentoModal>
     <AñadirEstudioModal  open={openEstudio} handleClose={handleCloseEstudio} setOpen={setOpenEstudio} setEstudios={setEstudios}></AñadirEstudioModal>
-    <EditarFoto   open={openEditarFoto} handleClose={handleCloseEditarFoto} setOpen={setOpenEditarFoto} tipo={'usuario'}></EditarFoto>
+    <EditarFoto  setFoto={setFotoPerfil} open={openEditarFoto} handleClose={handleCloseEditarFoto} setOpen={setOpenEditarFoto} tipo={'usuario'}></EditarFoto>
     <div>
        
         <Modal

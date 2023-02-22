@@ -64,8 +64,10 @@ describe('Pruebas en <RedesSociales />', () => {
                 </Provider>
             );
         });
-        const texto = screen.getByText('Administración de Redes Sociales');
-        expect( texto ).not.toBe( undefined);   
+
+            const texto = screen.getByText('Administración de Redes Sociales');
+            expect( texto ).not.toBe( undefined);   
+
     });
 
     

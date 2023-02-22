@@ -13,7 +13,7 @@ export const NavbarInvitado = () => {
       <AppBar position="static">
         <Toolbar>
             <img
-                src='/../../Resources/Imagenes/logo.png'
+                src='/Imagenes/logo.png'
                 alt='logo'
                 loading="lazy"
                 width={60}

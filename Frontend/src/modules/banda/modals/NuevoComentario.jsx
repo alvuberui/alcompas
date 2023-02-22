@@ -38,15 +38,15 @@ export const NuevoComentario  = ( { open, handleClose, setComentarios, setOpen }
         e.preventDefault();
         let error = "";
         if(values.titulo.length > 25 || values.titulo.length < 1 ) error = error + " El título debe de contener entre 1 y 25 caracteres ";
-        if(values.texto.length > 500 || values.titulo.length < 1 ) error = error + " <br>  El texto debe de contener entre 1 y 50 caracteres";
-
+        if(values.texto.length > 500 || values.texto.length < 1 ) error = error + " <br>  El texto debe de contener entre 1 y 50 caracteres";
+      
         if(error != "") {
           Swal.fire('Error al publicar comentario', error, 'error');
         }
         else {
   
           const c = await crearComentario( bandaId, values, user.uid, setComentarios );
-          setComentarios( co => [...co, c]);
+          setComentarios( co => [c, ...co]);
           setValues({titulo:'', texto: ''});
           setOpen(false);
         }

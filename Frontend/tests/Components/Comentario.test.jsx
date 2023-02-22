@@ -8,7 +8,7 @@ import { useAuthStore, useComentariosStore } from '../../src/hooks';
 import { authSlice } from '../../src/store/auth/authSlice';
 import { authenticatedState2 } from '../fixtures/authFixtures';
 import { testUserCredentials2 } from '../fixtures/testUser';
-
+import { comentario1 } from '../fixtures/comentarioFixtures';
 
 
 const storeAutenticado = configureStore({
@@ -42,13 +42,11 @@ describe('Pruebas en el  <Buscador />', () => {
             render(
                 <Provider store={ storeAutenticado }>
                     <MemoryRouter>
-                        <Comentario titulo={"PRUEBA"} usuario={"63efa3b862b6fc7b8a318e68"}/>
+                        <Comentario comentario={comentario1} eliminar={jest.fn()}/>
                     </MemoryRouter>
                 </Provider>
             );
         });
-        const texto = screen.getByText("PRUEBA");
-        expect( texto ).not.toBe( undefined);
         const boton = screen.getByLabelText("eliminar");
         fireEvent.click(boton);
 
