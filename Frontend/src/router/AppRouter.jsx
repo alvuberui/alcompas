@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import { LoginPage, RegisterFrom, UpdateForm } from '../auth';
 import { NavBar, NavbarInvitado } from '../Components';
@@ -16,12 +16,17 @@ export const AppRouter = () => {
   
 
     const { status, checkAuthToken } = useAuthStore();
+    const [ isLogged, setIsLogged ] = useState(status);
 
     useEffect(() => {
       checkAuthToken()
     }, [])
 
-    switch(status) {
+    useEffect(() => {
+      setIsLogged(status);
+    }, [status])
+
+    switch(isLogged) {
       case 'autenticado':
           return (
             <>

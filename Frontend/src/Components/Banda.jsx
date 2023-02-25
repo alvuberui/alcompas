@@ -1,5 +1,5 @@
 
-import { Grid, Typography } from '@mui/material';
+import { Grid, Typography,CardHeader } from '@mui/material';
 import Avatar from '@mui/material/Avatar';
 import { useEffect, useState } from 'react';
 import {
@@ -8,7 +8,7 @@ import {
 import { useUploadsStore } from '../hooks';
 
 
-export const Banda = ({ _id, nombre, tipo, img }) => {
+export const Banda = ({ _id, nombre, tipo }) => {
     const [ fotoPerfil, setFotoPerfil ] = useState('');
     const { getFotoPerfilBanda } = useUploadsStore();
 
@@ -23,33 +23,24 @@ export const Banda = ({ _id, nombre, tipo, img }) => {
   return (
         <Grid 
         item
-        xs= { 10 }
+        xs= { 12 }
+        lg= { 4 }
         sx={{ mt:'15px', maxWidth:'125vh', padding:2, backgroundColor:'white', borderRadius:'5px', border:1, borderColor: 'white', boxShadow:' 1px 1px 1px 1px' }}
         >   
             <NavLink style={{textDecoration: "none", color: "black"}}  to={`/banda/${_id}`}>
-            <Grid
-            container
-            display="flex"
-            justifyContent="center"
-            alignItems="center">
-                <Grid
-                item
-                xs= { 1.5 }
-                >   
-                    { fotoPerfil !== undefined && 
+            
+
+                <CardHeader
+                    aria-label='card'
+                    avatar={
                         <Avatar sx={{width:'80px', height:'80px'}} src={`data:image/png;base64,${fotoPerfil}`} />
                     }
-                </Grid>
-                <Grid
-                item
-           
-                xs= { 10 }
-                >
-                    <Typography variant='h6' sx={{fontWeight: 'bold', textAlign:'left', color:'black', paddingLeft:'40px'}}>{tipo} {nombre}</Typography>
-                </Grid>
+                    title={tipo + ' ' + nombre}
+                    titleTypographyProps={{variant:'h6' }}
+                    />
                 
                 
-            </Grid>
+         
             </NavLink>
         </Grid>
     );

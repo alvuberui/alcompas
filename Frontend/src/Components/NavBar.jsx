@@ -212,7 +212,7 @@ export const NavBar = () => {
           </Typography>
           </NavLink>
           <Search style={{width:'300px'}}>
-            <Buscador></Buscador>
+            <Buscador freeSolo={true}></Buscador>
           </Search>
           <Box  sx={{ flexGrow: 1 }} />
           <Box sx={{ display: { xs: 'none', md: 'flex' } }}>

@@ -11,7 +11,7 @@ function sleep(delay = 0) {
   });
 }
 
-export  function Buscador( { tipo, setBanda}) {
+export  function Buscador( { tipo, setBanda, fullwidth, freeSolo}) {
   const [open, setOpen] = React.useState(false);
   const [options, setOptions] = React.useState([]);
   const loading = open && options.length === 0;
@@ -66,9 +66,10 @@ export  function Buscador( { tipo, setBanda}) {
     <Autocomplete
       aria-label='autocomplete'
       onChange={handleChange}
-      freeSolo={true}
+      freeSolo={freeSolo}
       autoComplete={false}
       autoHighlight={true}
+      fullWidth={fullwidth}
       id="asynchronous-demo"
       sx={{  backgroundColor: 'white', borderRadius: '5px', height: '50px' }}
       open={open}

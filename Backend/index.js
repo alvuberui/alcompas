@@ -3,10 +3,11 @@ const cors = require('cors');
 const { dbConnection } = require('./database/config');
 const fileUpload = require('express-fileupload');
 require('dotenv').config()
+const mongoose = require("mongoose");
 
 // Crear servidor de express
 const app = express();
-
+mongoose.set("strictQuery", false);
 // Base de datos 
 dbConnection();
 

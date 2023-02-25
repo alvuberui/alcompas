@@ -25,18 +25,20 @@ export const NavbarInvitado = () => {
                     AlCompás
                 </Typography>
             </Box>
-            <Box align='right' sx={{ flexGrow: 1, mr: 2, mt:0.5}}>
+            
               <NavLink style={{textDecoration: "none", color: "white"}}  to={'/auth/login'}>
-                <Typography  component="div"  >
+                <Typography  component="div"  style={{textAlign:"center"}} >
                     Iniciar Sesión
                 </Typography>
               </NavLink>
-            </Box>
+          
+         
               <NavLink style={{textDecoration: "none", color: "white"}}  to={'/auth/register'}>
-                <Typography  component="div" sx={{ mt:0.5}}>
+                <Typography  component="div" sx={{ml:'20px'}} style={{textAlign:"center"}} >
                     Crear Cuenta
                 </Typography>
               </NavLink>
+            
         </Toolbar>
       </AppBar>
     </Box>

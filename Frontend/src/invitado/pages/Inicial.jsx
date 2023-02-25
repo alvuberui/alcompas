@@ -50,7 +50,7 @@ export const Inicial = () => {
         sx={{minHeight: '50vh', backgroundColor: 'white', padding: 4 }}
         >
           <Typography variant="h3" align="center">Encuentra tu banda</Typography>
-          <Typography align="center" sx={{mt:5}}>A tra´ves de Alcompás podrás encontrar a tus bandas favoritas</Typography>
+          <Typography align="center" sx={{mt:5}}>A través de Alcompás podrás encontrar a tus bandas favoritas</Typography>
           <Typography align="center" sx={{mt:5}}>Consulta las actuaciones, estadísticas, repertorios de tus bandas favoritas.</Typography>
           <Box textAlign='center' sx={{mt:13}}>
             <NavLink style={{textDecoration: "none", color: "white"}}  to={'/auth/register'}>

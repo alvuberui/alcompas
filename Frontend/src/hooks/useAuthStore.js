@@ -14,11 +14,12 @@ export const useAuthStore = () => {
         
         try{
             const { data } = await alcompasAPI.post('/auth', {correo, contraseña});
+            navigate('/');
             localStorage.setItem('token', data.token );
             localStorage.setItem('token-init-date', new Date().getTime());
             dispatch( onLogin({ nombre: data.nombre, uid: data.uid }) );
             dispatch( ClearErrorMessage() );
-            navigate('/');
+            
         }catch (error) {
         
             dispatch( onLogout('Credenciales incorrectas'));
@@ -35,11 +36,12 @@ export const useAuthStore = () => {
         try{
             
             const { data } = await alcompasAPI.post('/auth/register', {nombre, primer_apellido, segundo_apellido, correo, descripcion, localidad, provincia, codigo_postal, direccion, nif, telefono, usuario, contraseña,fecha_nacimiento});
-
+            navigate('/');
             localStorage.setItem('token', data.token );
             localStorage.setItem('token-init-date', new Date().getTime());
+            
             dispatch( onLogin({ nombre: data.nombre, uid: data.uid }) );
-            navigate('/');
+            
         }catch (error) {
             let fallo = ''
             const objetos = Object(error.response.data.errors); 

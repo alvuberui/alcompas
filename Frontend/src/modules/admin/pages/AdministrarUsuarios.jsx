@@ -103,15 +103,18 @@ export const AdministrarUsuarios = () => {
             { admin === false && <Navigate to="/"/>}
             <Grid container justifyContent="center" alignItems="center" >
                 <Grid 
-                xs = { 9 }
+                lg = {9}
+                xs = { 11 }
                 sx={{ backgroundColor: '#262254', color:'white', mt:'20px', justifyContent: "center", display: "flex", borderRadius: '10px', boxShadow:'5px 5px 10px rgba(0, 0, 0, 0.5)'  }}
                 item>
-                <h1 aria-label='h3'>Administración de Usuarios</h1>
+                <h1 style={{textAlign:'center'}} aria-label='h3'>Administración de Usuarios</h1>
                 </Grid>
 
                 <Grid 
-                xs = { 9 }
+                lg = {9}
+                xs = { 11 }
                 sx={{ backgroundColor: '#262254', color:'white', mt:'20px', borderRadius: '10px', boxShadow:'5px 5px 10px rgba(0, 0, 0, 0.5)'  }}
+              
                 item>
                     <Grid 
                     xs = { 12 }
@@ -123,12 +126,14 @@ export const AdministrarUsuarios = () => {
                     <Grid 
                     xs = { 12 }
                     sx={{ backgroundColor: '#262254', color:'white', mt:'20px', justifyContent: "center", display: "flex"  }}
+        
                     item>
                         <Autocomplete
                         onChange={handleChange}
-                        freeSolo={true}
+                    
+                        fullWidth={true}
                         id="asynchronous-demo"
-                        sx={{ minWidth:'320px', backgroundColor: 'white', borderRadius: '5px', height: '50px', mb:'10px' }}
+                        sx={{  minWidth:'300px' ,backgroundColor: 'white', borderRadius: '5px', height: '50px', mb:'10px', ml:'50vh', mr:'50vh' }}
                         open={open}
                         onOpen={() => {
                             setOpen(true);
@@ -198,7 +203,7 @@ export const AdministrarUsuarios = () => {
                                 <Typography variant='h6' sx={{display:'inline-block', textAlign:'center'}}> <b>Administrador:</b> { usuario.administrador == true ? 'Sí' : 'No' } </Typography>
                             </Box>
                             <Box sx={{ display: 'flex', alignItems: 'center', flexDirection: 'column', mt:'10px', mb:'20px' }}>
-                                <Button  variant='contained'  onClick={handleDelete} color="error"  sx={{ width:'50vh', height:'50px'}}>Eliminar Usuario</Button>
+                                <Button  variant='contained'  onClick={handleDelete} color="error"  sx={{ width:'50vh', height:'50px', maxWidth:'300px'}}>Eliminar Usuario</Button>
                             </Box>
                             
                             

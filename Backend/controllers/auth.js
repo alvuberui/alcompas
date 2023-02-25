@@ -22,6 +22,7 @@ const crearUsuario = async(req, res = express.response) => {
 
     try{
         let nuevo_usuario = await Usuario.findOne( {correo} );
+
         if(nuevo_usuario) {
             return res.status(400).json({
                 ok: false,
@@ -30,6 +31,7 @@ const crearUsuario = async(req, res = express.response) => {
         }
 
         nuevo_usuario = await Usuario.findOne( {nif} );
+  
         if(nuevo_usuario) {
             return res.status(400).json({
                 ok: false,

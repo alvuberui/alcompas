@@ -39,7 +39,7 @@ describe('Pruebas en el  <Banda />', () => {
                 </Provider>
             );
         });
-        const texto = screen.getByText('Prueba');
+        const texto = screen.getByLabelText('card');
         expect( texto ).not.toBe( undefined);
         
     });

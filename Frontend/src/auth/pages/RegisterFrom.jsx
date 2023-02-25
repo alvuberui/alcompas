@@ -65,9 +65,7 @@ export const  RegisterFrom = () => {
                 codigo_postal: values.codigo_postal, direccion: values.direccion, nif: values.nif, telefono: values.telefono,
                 usuario: values.usuario, contraseña: values.contraseña, confirmacion_contraseña: values.confirmacion_contraseña,
                  fecha_nacimiento: values.fecha_nacimiento});
-           
-                values = state;
-                navigate("/");
+                
         }
         else {
             Swal.fire('Error en la autenticación', error, 'error') 

@@ -65,8 +65,8 @@ export const LoginPage = () => {
             />
           </Grid>
             <Grid container justifyContent='center' spacing={ 2 } sx={{ mb: 2, mt: 1 }}>
-              <Grid  item xs={ 6 } >
-                <Button aria-label='submit' variant='contained' color='secondary' fullWidth type='submit'>
+              <Grid  item xs={ 12 } >
+                <Button  aria-label='submit' variant='contained' color='secondary' fullWidth type='submit'>
                   Iniciar Sesión
                 </Button>
               </Grid>

@@ -36,7 +36,8 @@ export const MisBandas = ( { titulo }) => {
   return (
     <>
     { userId !== user.uid && titulo === 'Mis Bandas' && <Navigate to='/' />}
-    <Grid 
+    <Grid
+         
         container 
         display="flex"
         justifyContent="center"
@@ -51,7 +52,8 @@ export const MisBandas = ( { titulo }) => {
         >
             <Grid 
             item
-            xs= { 10 }
+            lg={10}
+            xs= { 12 }
             sx={{ padding:2, backgroundColor:'primary.main', borderRadius:'5px', boxShadow:' 1px 1px 1px 1px' }}
             >
                 <Typography  variant='h4' sx={{textAlign:'center', color:'white'}}>{titulo}: {nombre}</Typography>

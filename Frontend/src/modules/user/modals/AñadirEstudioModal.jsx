@@ -66,7 +66,7 @@ export const AñadirEstudioModal  = ( { open, handleClose, setEstudios, setOpen,
         let error = validarEstudio();
 
         if(error != "") {
-          Swal.fire('Error al publicar instrumento', error, 'error');
+          Swal.fire('Error al publicar estudio', error, 'error');
         }
         else {
           const c = await crearEstudio( estudio, user.uid );
@@ -86,7 +86,7 @@ export const AñadirEstudioModal  = ( { open, handleClose, setEstudios, setOpen,
           for(let i = 0; i < errores.length; i++) {
             error = error + '<br>' + errores[i];
           }
-          Swal.fire('Error al crear comentario', error, 'error');
+          Swal.fire('Error al crear estudio', error, 'error');
           setErrores([]);
         }
         

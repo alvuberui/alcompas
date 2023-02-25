@@ -91,7 +91,7 @@ export const AñadirInstrumentoModal  = ( { open, handleClose, setInstrumentos, 
           for(let i = 0; i < errores.length; i++) {
             error = error + '<br>' + errores[i];
           }
-          Swal.fire('Error al crear comentario', error, 'error');
+          Swal.fire('Error al crear instrumento', error, 'error');
           setErrores([]);
         }
         

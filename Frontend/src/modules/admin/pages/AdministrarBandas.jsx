@@ -58,14 +58,16 @@ export const AdministrarBandas = () => {
         { admin === false && <Navigate to="/"/>}
         <Grid container justifyContent="center" alignItems="center" >
             <Grid 
-            xs = { 9 }
+            lg={9}
+            xs = { 11 }
             sx={{ backgroundColor: '#262254', color:'white', mt:'20px', justifyContent: "center", display: "flex", borderRadius: '10px', boxShadow:'5px 5px 10px rgba(0, 0, 0, 0.5)'  }}
             item>
             <h1 >Administración de Bandas</h1>
             </Grid>
 
             <Grid 
-            xs = { 9 }
+            lg={9}
+            xs = { 11 }
             sx={{ backgroundColor: '#262254', color:'white', mt:'20px', borderRadius: '10px', boxShadow:'5px 5px 10px rgba(0, 0, 0, 0.5)'  }}
             item>
                 <Grid 
@@ -79,7 +81,7 @@ export const AdministrarBandas = () => {
                 xs = { 12 }
                 sx={{ backgroundColor: '#262254', color:'white', mt:'20px', justifyContent: "center", display: "flex", mb:'10px' }}
                 item>
-                    <Buscador tipo='admin' setBanda={setBanda}></Buscador>
+                    <Buscador fullwidth={true} tipo='admin' setBanda={setBanda} freeSolo={false}></Buscador>
                 </Grid>
                 {   banda  &&
                     <Grid 
