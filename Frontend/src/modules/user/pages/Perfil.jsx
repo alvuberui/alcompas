@@ -143,13 +143,9 @@ export const Perfil = () => {
 
   const eliminarEstudio = (estudioId) => {
     // "current" contains the latest state array
-    const lista = [];
-    for ( const estudio in estudios ) {
-      if(estudio._id !== estudioId) {
-        lista.push(estudio);
-      }
-    }
-    setEstudios(lista);
+    setEstudios(
+      [...estudios.filter((c) => c._id !== estudioId)]
+    );
   };
 
   const { getUserByiD } = useAuthStore();

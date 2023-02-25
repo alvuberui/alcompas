@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">48.57% </span>
+                <span class="strong">43.58% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>17/35</span>
+                <span class='fraction'>17/39</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">48.48% </span>
+                <span class="strong">43.24% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>16/33</span>
+                <span class='fraction'>16/37</span>
             </div>
         
             
@@ -192,7 +192,11 @@
 <a name='L127'></a><a href='#L127'>127</a>
 <a name='L128'></a><a href='#L128'>128</a>
 <a name='L129'></a><a href='#L129'>129</a>
-<a name='L130'></a><a href='#L130'>130</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L130'></a><a href='#L130'>130</a>
+<a name='L131'></a><a href='#L131'>131</a>
+<a name='L132'></a><a href='#L132'>132</a>
+<a name='L133'></a><a href='#L133'>133</a>
+<a name='L134'></a><a href='#L134'>134</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -238,6 +242,8 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -248,6 +254,8 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -344,13 +352,13 @@ const style = {
   justifyContent:'center'
 };
 &nbsp;
-export const EditarFoto = ( { open, handleClose, setOpen, tipo } ) =&gt; {
+export const EditarFoto = ( {  setFoto, open, handleClose, setOpen, tipo } ) =&gt; {
 &nbsp;
     const { user } = useAuthStore();
     const { bandaId } = useParams();
     const  [ img, setImg ] = React.useState('');
     const [ nombre, setNombre ] = useState('');
-    const { errores, setErrores, editarFotoUsuario, editarFotoBanda } = useUploadsStore();
+    const { errores, setErrores, editarFotoUsuario, editarFotoBanda, getFotoPerfilUsuario, getFotoPerfilBanda } = useUploadsStore();
 &nbsp;
     const handleChangeInput = input =&gt; <span class="fstat-no" title="function not covered" >e </span>=&gt; {    
 <span class="cstat-no" title="statement not covered" >      setImg(e.target.files[0]);</span>
@@ -364,8 +372,10 @@ export const EditarFoto = ( { open, handleClose, setOpen, tipo } ) =&gt; {
         Swal.fire('Debe de seleccionar una foto', 'Debe de seleccionar una foto', 'error');
       }
       else <span class="missing-if-branch" title="else path not taken" >E</span>{
-        const u = <span class="cstat-no" title="statement not covered" >await editarFotoUsuario( img, user.uid );</span>
+<span class="cstat-no" title="statement not covered" >        await editarFotoUsuario( img, user.uid );</span>
+        const foto =   <span class="cstat-no" title="statement not covered" >await getFotoPerfilUsuario( user.uid );</span>
 <span class="cstat-no" title="statement not covered" >        setOpen(false);</span>
+<span class="cstat-no" title="statement not covered" >        setFoto(foto);</span>
 <span class="cstat-no" title="statement not covered" >        setNombre('');</span>
       }
     }
@@ -378,6 +388,8 @@ export const EditarFoto = ( { open, handleClose, setOpen, tipo } ) =&gt; {
       }
       else {
 <span class="cstat-no" title="statement not covered" >        await editarFotoBanda( img, bandaId );</span>
+        const foto =   <span class="cstat-no" title="statement not covered" >await getFotoPerfilBanda( bandaId );</span>
+<span class="cstat-no" title="statement not covered" >        setFoto(foto);</span>
 <span class="cstat-no" title="statement not covered" >        setOpen(false);</span>
 <span class="cstat-no" title="statement not covered" >        setNombre('');</span>
       }
@@ -457,7 +469,7 @@ export const EditarFoto = ( { open, handleClose, setOpen, tipo } ) =&gt; {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2023-02-16T18:10:13.909Z
+                at 2023-02-25T10:12:26.620Z
             </div>
         <script src="../../../../prettify.js"></script>
         <script>

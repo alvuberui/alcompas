@@ -25,14 +25,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>28/28</span>
+                <span class='fraction'>30/30</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">75% </span>
+                <span class="strong">62.5% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>3/4</span>
+                <span class='fraction'>5/8</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>24/24</span>
+                <span class='fraction'>26/26</span>
             </div>
         
             
@@ -138,7 +138,13 @@
 <a name='L73'></a><a href='#L73'>73</a>
 <a name='L74'></a><a href='#L74'>74</a>
 <a name='L75'></a><a href='#L75'>75</a>
-<a name='L76'></a><a href='#L76'>76</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L76'></a><a href='#L76'>76</a>
+<a name='L77'></a><a href='#L77'>77</a>
+<a name='L78'></a><a href='#L78'>78</a>
+<a name='L79'></a><a href='#L79'>79</a>
+<a name='L80'></a><a href='#L80'>80</a>
+<a name='L81'></a><a href='#L81'>81</a>
+<a name='L82'></a><a href='#L82'>82</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -149,6 +155,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -159,10 +166,13 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
@@ -172,6 +182,8 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -220,33 +232,39 @@ import { Musico } from './Musico';
 &nbsp;
 export const Plantilla = ( { musicos, usuarios, tipo, directivo } ) =&gt; {
 &nbsp;
-&nbsp;
+ 
 &nbsp;
   const renderizar = () =&gt; {
     let html = [];
-      if(tipo === "Músicos") {
+    
+      if(tipo === "Músicos" ) {
         const keys = Object.keys(musicos);
 &nbsp;
         for(let i = 0; i &lt; keys.length; i++){
           const key = keys[i];
           html.push(&lt;Grid justifyContent="center" alignItems="center" key={key}  container&gt;&lt;Typography   variant='h6' align='center' color='white'&gt; {key} &lt;/Typography&gt;&lt;/Grid&gt;);
           const listaUsuarios = usuarios[key]
-          for(let j = 0; j &lt; listaUsuarios.length; j++){
-            const value = listaUsuarios[j];
-            html.push(&lt;Musico key={ (j+1) * (i+1) } usuario={value} tipo={"musico"} directivo={directivo}/&gt;);
+          <span class="missing-if-branch" title="else path not taken" >E</span>if( listaUsuarios ) {
+            for(let j = 0; j &lt; listaUsuarios.length; j++){
+              const value = listaUsuarios[j];
+              html.push(&lt;Musico key={ (j+1) * (i+1) } usuario={value} tipo={"musico"} directivo={directivo}/&gt;);
+            }
           }
         }
       }
       else <span class="missing-if-branch" title="else path not taken" >E</span>if(tipo === "Directivos") {
-        const keys = Object.keys(directivo);
-&nbsp;
+        
+        const keys = Object.keys(musicos);
+       
         for(let i = 0; i &lt; keys.length; i++){
           const key = keys[i];
           html.push(&lt;Grid justifyContent="center" alignItems="center" key={key}  container&gt;&lt;Typography   variant='h6' align='center' color='white'&gt; {key} &lt;/Typography&gt;&lt;/Grid&gt;);
           const listaUsuarios = usuarios[key]
-          for(let j = 0; j &lt; listaUsuarios.length; j++){
-            const value = listaUsuarios[j];
-            html.push(&lt;Musico key={ (j+1) * (i+1) }  usuario={value} tipo={"directivo"} directivo={directivo}/&gt;); 
+          <span class="missing-if-branch" title="else path not taken" >E</span>if( listaUsuarios ) {
+            for(let j = 0; j &lt; listaUsuarios.length; j++){
+              const value = listaUsuarios[j];
+              html.push(&lt;Musico key={ (j+1) * (i+1) }  usuario={value} tipo={"directivo"} directivo={directivo}/&gt;); 
+            }
           }
         }
       }
@@ -273,16 +291,16 @@ export const Plantilla = ( { musicos, usuarios, tipo, directivo } ) =&gt; {
         &gt;
           &lt;Typography variant='h3' align='center' color='white'&gt; {tipo} &lt;/Typography&gt;
         &lt;/Grid&gt;
-        &lt;Grid
-          container
-          spacing={1}
-          
-        &gt;
-          { renderizar().map( (item, key) =&gt; {
-              return item;
-            })
-          }
-        &lt;/Grid&gt;
+          &lt;Grid
+            container
+            spacing={1}
+            
+          &gt;
+            { renderizar().map( (item, key) =&gt; {
+                return item;
+              })
+            }
+          &lt;/Grid&gt;
       &lt;/Grid&gt;
     &lt;/Grid&gt;
     
@@ -295,7 +313,7 @@ export const Plantilla = ( { musicos, usuarios, tipo, directivo } ) =&gt; {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2023-02-16T18:10:13.909Z
+                at 2023-02-25T10:12:26.620Z
             </div>
         <script src="../../prettify.js"></script>
         <script>

@@ -65,11 +65,17 @@ export const Comentario = ({ comentario, eliminar}) => {
                 </>
             </Grid>
             <Grid
+            display="flex"
+            justifyContent="center"
+            alignItems="baseline"
             container
             >
                 <Grid 
                 item
                 xs= { 12 }
+                display="flex"
+                justifyContent="center"
+                alignItems="baseline"
                 sx={{ padding:2 }}
                 >   
                     <div>
@@ -94,7 +100,7 @@ export const Comentario = ({ comentario, eliminar}) => {
                             { fecha} a las { horas } horas
                         </Typography>
                         { user.uid === comentario.usuario && 
-                            <Button aria-label='eliminar' color='primary' onClick={handleElminar} sx={{ml:'40px'}} variant='contained'>
+                            <Button aria-label='eliminar' color='primary' onClick={handleElminar} sx={{ml:'30px'}} variant='contained'>
                                 <Typography sx={{ fontWeight: 'bold', fontSize:'12px' }} >Eliminar</Typography>
                             </Button>
                         }

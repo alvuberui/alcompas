@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">61.9% </span>
+                <span class="strong">59.09% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>39/63</span>
+                <span class='fraction'>39/66</span>
             </div>
         
             
@@ -37,16 +37,16 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">66.66% </span>
+                <span class="strong">57.14% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>8/12</span>
+                <span class='fraction'>8/14</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">66.03% </span>
+                <span class="strong">64.81% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>35/53</span>
+                <span class='fraction'>35/54</span>
             </div>
         
             
@@ -299,7 +299,8 @@
 <a name='L234'></a><a href='#L234'>234</a>
 <a name='L235'></a><a href='#L235'>235</a>
 <a name='L236'></a><a href='#L236'>236</a>
-<a name='L237'></a><a href='#L237'>237</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L237'></a><a href='#L237'>237</a>
+<a name='L238'></a><a href='#L238'>238</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -354,6 +355,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -561,7 +563,7 @@ const style = {
 };
 const tipos = [ "Grado elemental", "Grado medio", "Grado superior", "Curso", "Autodidacta", "Otro"];
 &nbsp;
-export const AñadirEstudioModal  = ( { open, handleClose, setEstudios, setOpen, editar, estudioId }) =&gt; {
+export const AñadirEstudioModal  = ( { open, handleClose, setEstudios, setOpen, editar, estudioId, estudios }) =&gt; {
 &nbsp;
     // Estados
     const [estudio, setEstudio] = useState({tipoEstudio:'Grado elemental', centroEstudios: '', poblacion: '', provincia: '', fechaInicio: '', fechaFin: ''});
@@ -591,6 +593,7 @@ export const AñadirEstudioModal  = ( { open, handleClose, setEstudios, setOpen,
       else {
 &nbsp;
         const c = <span class="cstat-no" title="statement not covered" >await editarEstudio( estudio, user.uid, estudioId );</span>
+<span class="cstat-no" title="statement not covered" >        setEstudios( <span class="fstat-no" title="function not covered" >co</span> =&gt; <span class="cstat-no" title="statement not covered" >[...co, c].filter( <span class="fstat-no" title="function not covered" >i </span>=&gt; <span class="cstat-no" title="statement not covered" >i._id !== estudioId)</span> </span>);</span>
 <span class="cstat-no" title="statement not covered" >        setEstudios( <span class="fstat-no" title="function not covered" >co</span> =&gt; <span class="cstat-no" title="statement not covered" >[...co, c])</span>;</span>
 <span class="cstat-no" title="statement not covered" >        setEstudio({tipoEstudio:'Grado elemental', centroEstudios: '', poblacion: '', provincia: '', fechaInicio: '', fechaFin: ''});</span>
 <span class="cstat-no" title="statement not covered" >        setOpen(false);</span>
@@ -602,7 +605,7 @@ export const AñadirEstudioModal  = ( { open, handleClose, setEstudios, setOpen,
         let error = validarEstudio();
 &nbsp;
         if(error != "") {
-          Swal.fire('Error al publicar instrumento', error, 'error');
+          Swal.fire('Error al publicar estudio', error, 'error');
         }
         else <span class="missing-if-branch" title="else path not taken" >E</span>{
           const c = <span class="cstat-no" title="statement not covered" >await crearEstudio( estudio, user.uid );</span>
@@ -622,7 +625,7 @@ export const AñadirEstudioModal  = ( { open, handleClose, setEstudios, setOpen,
 <span class="cstat-no" title="statement not covered" >          for(let i = <span class="cstat-no" title="statement not covered" >0;</span> i &lt; errores.length; i++) {</span>
 <span class="cstat-no" title="statement not covered" >            error = error + '&lt;br&gt;' + errores[i];</span>
           }
-<span class="cstat-no" title="statement not covered" >          Swal.fire('Error al crear comentario', error, 'error');</span>
+<span class="cstat-no" title="statement not covered" >          Swal.fire('Error al crear estudio', error, 'error');</span>
 <span class="cstat-no" title="statement not covered" >          setErrores([]);</span>
         }
         
@@ -668,7 +671,7 @@ export const AñadirEstudioModal  = ( { open, handleClose, setEstudios, setOpen,
                       inputProps={{ style: { color: 'white' } }} 
                       labelId="demo-simple-select-label"
                       id="demo-simple-select"
-                      value={ estudio.tipoEstudio }
+                      defaultValue={ estudio.tipoEstudio }
                       label="Age"
                       fullWidth
                       onChange={handleChangeInput('tipoEstudio')}
@@ -689,7 +692,7 @@ export const AñadirEstudioModal  = ( { open, handleClose, setEstudios, setOpen,
                         placeholder="Centro de estudios"
                         fullWidth
                         focused
-                        value={ estudio.centroEstudios }
+                        defaultValue={ estudio.centroEstudios }
                         style={{ border: '1px solid #e2e2e1', borderRadius:'5px'}}
                         onChange={handleChangeInput('centroEstudios')}
                         
@@ -702,7 +705,7 @@ export const AñadirEstudioModal  = ( { open, handleClose, setEstudios, setOpen,
                         inputProps={{ style: { color: 'white' } }}
                         type="text"
                         placeholder="Poblacion"
-                        value={ estudio.poblacion }
+                        defaultValue={ estudio.poblacion }
                         fullWidth
                         focused
                         style={{ border: '1px solid #e2e2e1', borderRadius:'5px'}}
@@ -717,7 +720,7 @@ export const AñadirEstudioModal  = ( { open, handleClose, setEstudios, setOpen,
                         inputProps={{ style: { color: 'white' } }}
                         type="text"
                         placeholder="Provincia"
-                        value={ estudio.provincia }
+                        defaultValue={ estudio.provincia }
                         fullWidth
                         focused
                         style={{ border: '1px solid #e2e2e1', borderRadius:'5px'}}
@@ -731,7 +734,7 @@ export const AñadirEstudioModal  = ( { open, handleClose, setEstudios, setOpen,
                         inputProps={{ style: { color: 'white' } }}
                         type="date"
                         placeholder="Fecha de Inicio"
-                        value={ estudio.fechaInicio }
+                        defaultValue={ estudio.fechaInicio }
                         fullWidth
                         focused
                         style={{ border: '1px solid #e2e2e1', borderRadius:'5px'}}
@@ -745,7 +748,7 @@ export const AñadirEstudioModal  = ( { open, handleClose, setEstudios, setOpen,
                         inputProps={{ style: { color: 'white' } }}
                         type="date"
                         placeholder="Fecha de finalización"
-                        value={ estudio.fechaFin }
+                        defaultValue={ estudio.fechaFin }
                         fullWidth
                         focused
                         style={{ border: '1px solid #e2e2e1', borderRadius:'5px'}}
@@ -778,7 +781,7 @@ export const AñadirEstudioModal  = ( { open, handleClose, setEstudios, setOpen,
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2023-02-16T18:10:13.909Z
+                at 2023-02-25T10:12:26.620Z
             </div>
         <script src="../../../../prettify.js"></script>
         <script>

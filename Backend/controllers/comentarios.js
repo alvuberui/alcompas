@@ -6,13 +6,12 @@ const getComentarioByBandaId = async(req, res = express.response) => {
     
     try {
         const bandaId = req.params.bandaId;
-        const comentarios = await Comentario.find({'Banda': bandaId});
+        const comentarios = await Comentario.find({'banda': bandaId});
         res.json({
             ok: true,
             comentarios
         });
     } catch (error) {
-        console.log(error);
         res.status(500).json({
             ok: false, 
             msg: 'Por favor hable con el administrador'
@@ -34,7 +33,6 @@ const crearComentario = async(req, res = express.response) => {
         });
 
     } catch (error) {
-        console.log(error);
         res.status(500).json({
             ok: false, 
             msg: 'Por favor hable con el administrador'
@@ -67,7 +65,6 @@ const eliminarComentario = async(req, res = express.response) => {
             comentario
         });
     } catch (error) {
-        console.log(error);
         res.status(500).json({
             ok: false, 
             msg: 'Por favor hable con el administrador'
