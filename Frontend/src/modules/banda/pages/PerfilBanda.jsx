@@ -9,6 +9,7 @@ import { Comentario } from '../../../Components/Comentario';
 import { useArchiverosStore, useAuthStore, useBandasStore, useComentariosStore, useDirectivosStore, useMusicosStore, useUploadsStore } from '../../../hooks';
 import { useRedesSocialesStore } from '../../../hooks/useRedesSocialesStore';
 import { EditarFoto } from '../../user';
+import { NuevoAnuncio } from '../modals/NuevoAnuncio';
 import { NuevoComentario } from '../modals/NuevoComentario';
 
 const r = [ 'Email', 'Facebook', 'Instagram', 'Twitter', 'Youtube', 'Apple Music', ' Soundcloud', 'Spotify', 'TikTok' ]
@@ -20,6 +21,7 @@ export const PerfilBanda = () => {
   const [value, setValue] = React.useState(0);
   const [comentarios, setComentarios] = useState([]);
   const [open, setOpen] = React.useState(false);
+  const [ openAnuncio, setOpenAnuncio ] = useState(false);
   const [ openEditarFoto, setOpenEditarFoto ] = useState(false);
   const [ musicos, setMusicos ] = useState({});
   const [ usuariosMusicos, setUsuariosMusicos ] = useState([]);
@@ -29,6 +31,7 @@ export const PerfilBanda = () => {
   const [ redesSociales, setRedesSociales ] = useState([]);
   const [ perteneceMusico, setPerteneceMusico ] = useState(false);
   const [ perteneceDirectivo, setPerteneceDirectivo ] = useState(false);
+  const [ anuncios, setAnuncios ] = useState([]);
   
 
   // Funciones
@@ -45,6 +48,17 @@ export const PerfilBanda = () => {
   const handleOpen = (event, newValue) => {
     event.preventDefault();
     setOpen(true);
+  };
+
+  const handleCloseAnuncio = (event, newValue) => {
+    event.preventDefault();
+    setOpenAnuncio(false);
+  };
+
+
+  const handleOpenAnuncio = (event, newValue) => {
+    event.preventDefault();
+    setOpenAnuncio(true);
   };
 
   const handleOpenEditarFoto = (event, newValue) => {
@@ -216,6 +230,7 @@ export const PerfilBanda = () => {
 
       <NuevoComentario open={open} handleClose={handleClose} setOpen={setOpen} setComentarios={setComentarios}></NuevoComentario>
       <EditarFoto setFoto={setFotoPerfil} open={openEditarFoto} handleClose={handleCloseEditarFoto} setOpen={setOpenEditarFoto} tipo={"banda"}></EditarFoto>
+      <NuevoAnuncio open={openAnuncio} handleClose={handleCloseAnuncio} setOpen={setOpenAnuncio} setAnuncios={setAnuncios}></NuevoAnuncio>
       <Grid 
         container 
      
@@ -403,9 +418,14 @@ export const PerfilBanda = () => {
                     <Tab label="Plantilla" />
                     
                   </Tabs>
+                  { value === 0 &&
+                    <Button color='secondary' onClick={handleOpenAnuncio} sx={{ mx:'auto', mb:'5px', width:'30vh', maxWidth:'4opx', backgroundColor:'white', color:'black'}} variant='contained'>
+                        <Typography sx={{ fontWeight: 'bold' }} >Añadir Anuncio</Typography>
+                    </Button>
+                  }
                   { value === 2 &&
-                    <Button color='secondary' onClick={handleOpen} sx={{ mx:'auto', mb:'5px', width:'20vh', maxWidth:'4opx', backgroundColor:'white', color:'black'}} variant='contained'>
-                        <Typography sx={{ fontWeight: 'bold' }} >+</Typography>
+                    <Button color='secondary' onClick={handleOpen} sx={{ mx:'auto', mb:'5px', width:'30vh', maxWidth:'4opx', backgroundColor:'white', color:'black'}} variant='contained'>
+                        <Typography sx={{ fontWeight: 'bold' }} >Añadir Comentario</Typography>
                     </Button>
                   }
                 </Box>
