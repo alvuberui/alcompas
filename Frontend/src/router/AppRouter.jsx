@@ -27,7 +27,9 @@ export const AppRouter = () => {
     }, [status])
 
     switch(isLogged) {
+      
       case 'autenticado':
+
           return (
             <>
               <NavBar></NavBar>
