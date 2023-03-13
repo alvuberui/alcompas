@@ -418,12 +418,12 @@ export const PerfilBanda = () => {
                     <Tab label="Plantilla" />
                     
                   </Tabs>
-                  { value === 0 &&
+                  { value === 0 && perteneceDirectivo &&
                     <Button color='secondary' onClick={handleOpenAnuncio} sx={{ mx:'auto', mb:'5px', width:'30vh', maxWidth:'4opx', backgroundColor:'white', color:'black'}} variant='contained'>
                         <Typography sx={{ fontWeight: 'bold' }} >Añadir Anuncio</Typography>
                     </Button>
                   }
-                  { value === 2 &&
+                  { value === 2 && 
                     <Button color='secondary' onClick={handleOpen} sx={{ mx:'auto', mb:'5px', width:'30vh', maxWidth:'4opx', backgroundColor:'white', color:'black'}} variant='contained'>
                         <Typography sx={{ fontWeight: 'bold' }} >Añadir Comentario</Typography>
                     </Button>
