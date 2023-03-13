@@ -7,7 +7,7 @@ import { Inicial } from '../invitado';
 import { AdministrarBandas, AdministrarUsuarios, Menu } from '../modules/admin';
 import { BandaForm, MisBandas, PerfilBanda, RedesSociales, UpdateBandaForm } from '../modules/banda';
 import { PanelDirectivo } from '../modules/banda/pages/PanelDirectivo';
-import { Dashboard } from '../modules/dashboard/dashboard';
+import { Dashboard } from '../modules/dashboard/Dashboard';
 import { Peticiones } from '../modules/peticiones/pages/Peticiones';
 import { PeticionesBanda } from '../modules/peticiones/pages/PeticionesBanda';
 import { Perfil } from '../modules/user';

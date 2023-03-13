@@ -3,7 +3,7 @@ const router = Router();
 const { check } = require('express-validator');
 const { validarJWT } = require('../middlewares/validar-jwt');
 const { validarCampos } = require('../middlewares/validar-campos');
-const { crearNoticia } = require('../controllers/noticias');
+const { crearNoticia, getDestacadas } = require('../controllers/noticias');
 
 // Validar JWT
 router.use( validarJWT, validarCampos);
@@ -25,6 +25,9 @@ router.post('/',
     ],
     validarCampos,
     crearNoticia);
+
+    // Obtener estudios de un usuario
+router.get('/destacadas', getDestacadas);
 
 
 
