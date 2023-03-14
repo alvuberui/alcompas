@@ -29,6 +29,7 @@
     "react-redux": "^8.0.5",
     "react-router-dom": "6",
     "react-swipeable-views": "^0.14.0",
+    "react-window": "^1.8.8",
     "sweetalert2": "^11.6.8"
   },
   "devDependencies": {

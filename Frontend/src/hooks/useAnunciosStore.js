@@ -13,12 +13,24 @@ export const useAnunciosStore = () => {
             setErrores(["Error en el servidor, contacta con el administrador"]);
         }
     }
+
+    const getAllPublicas = async() => {
+        try {
+            const { data } = await alcompasAPI.get('noticias/destacadas');
+            const anuncios = data.anuncios;
+            return anuncios;
+        } catch(error) {
+            setErrores(["Error en el servidor, contacta con el administrador"]);
+        }
+    }
+
     return {
         // Estado
         errores,
         // Métodos
         setErrores,
         crearAnuncio,
+        getAllPublicas
     }
 }
 

@@ -50,6 +50,26 @@ const crearNoticia = async(req, res = express.response) => {
     }
 }
 
+/*
+* Obtiene todas las noticias públicas de la base de datos
+*/
+const getDestacadas = async(req, res = express.response) => {  
+    try {
+        const anuncios = await Anuncio.find({privacidad: 'Pública', fecha : {$gte: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000)}});
+        res.json({
+            ok: true,
+            anuncios
+        });
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({
+            ok: false,
+            msg: 'Por favor hable con el administrador'
+        });
+    }
+}
+
 module.exports = {
-    crearNoticia
+    crearNoticia,
+    getDestacadas
 }
