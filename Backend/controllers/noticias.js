@@ -1,6 +1,8 @@
 const express = require('express');
 const Anuncio = require('../models/Noticia');
 const Directivo = require('../models/Directivo');
+const Musico = require('../models/Musico');
+const Archivero = require('../models/Archivero');
 const jwt = require('jsonwebtoken');
 
 /*
@@ -69,6 +71,49 @@ const getDestacadas = async(req, res = express.response) => {
     }
 }
 
+    // Obtener noticias de una banda según el rol del usuario
+    // Si es usuario: solo las públicas
+    // Si es músico: las públicas y las privadas
+    // si es directivo: todas
+    // Si es archivero: todas
+const getByBanda = async(req, res = express.response) => {
+    try {
+        const bandaId = req.params.bandaId;
+        const token = req.header('x-token');
+        const payload = jwt.verify(token,process.env.SECRET_JWT_SEED);
+        const payloadId = payload.uid;
+        const directivos = await Directivo.find({'usuario': payloadId, 'banda': bandaId, 'fecha_final': undefined});
+        const archiveros = await  Archivero.find({'usuario': payloadId, 'banda': bandaId, 'fecha_final': undefined});
+        const musicos = await Musico.find({'usuario': payloadId, 'banda': bandaId, 'fecha_final': undefined});
+        let anuncios = [];
+        if(directivos.length > 0 || archiveros.length > 0) {
+            anuncios = await Anuncio.find({banda: bandaId, privacidad: {$in: ['Pública', 'Privada', 'Restringida']}});
+            
+        } 
+        else if(musicos.length > 0) {
+            anuncios = await Anuncio.find({banda: bandaId, privacidad: {$in: ['Pública', 'Privada']}});
+            
+        }
+        else {
+            anuncios = await Anuncio.find({banda: bandaId, privacidad: 'Pública'}); 
+        }
+        res.json({
+            ok: true,
+            anuncios
+        });
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({
+            ok: false,
+            msg: 'Por favor hable con el administrador'
+        });
+    }
+}
+
+
+
+        
+
 /*
 * Eliminar una noticia por su id
 */
@@ -125,5 +170,6 @@ const eliminarNoticiaById = async(req, res = express.response) => {
 module.exports = {
     crearNoticia,
     getDestacadas,
-    eliminarNoticiaById
+    eliminarNoticiaById,
+    getByBanda
 }
