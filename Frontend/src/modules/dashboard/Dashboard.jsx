@@ -38,7 +38,7 @@ export const Dashboard = () => {
             xs={12}
             sx={{ mt:10, mb:5 }}
           >
-            <Typography variant="h4"  component="div" sx={{textAlign:'center', mt:5, mb:5}}>Anuncios Destacados</Typography>
+            <Typography variant="h4"  component="div" sx={{textAlign:'center', mt:5, mb:5}}>Noticias Destacados</Typography>
           </Box>
           <List
             sx={{
@@ -50,7 +50,7 @@ export const Dashboard = () => {
             }}
           >
             { noticias.map((noticia, index) => (
-              <Noticia noticia={noticia} index={index} key={index} />
+              <Noticia noticia={noticia} index={index} key={index} setNoticias={setNoticias}/>
             ))}
           </List>
         </Grid>

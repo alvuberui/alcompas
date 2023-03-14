@@ -24,13 +24,24 @@ export const useAnunciosStore = () => {
         }
     }
 
+    const deleteNoticia = async(id) => {
+        try {
+            const { data } = await alcompasAPI.delete(`noticias/id/${id}`);
+            const anuncio = data.anuncio;
+            return anuncio;
+        } catch(error) {
+            setErrores(["Error en el servidor, contacta con el administrador"]);
+        }
+    }
+
     return {
         // Estado
         errores,
         // Métodos
         setErrores,
         crearAnuncio,
-        getAllPublicas
+        getAllPublicas,
+        deleteNoticia
     }
 }
 

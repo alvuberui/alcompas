@@ -69,7 +69,61 @@ const getDestacadas = async(req, res = express.response) => {
     }
 }
 
+/*
+* Eliminar una noticia por su id
+*/
+const eliminarNoticiaById = async(req, res = express.response) => {  
+    try {
+        const id = req.params.noticiaId;
+        
+        const anuncio = await Anuncio.findById(id);
+
+        if(!anuncio) {
+            return res.status(404).json({
+                ok: false,
+                msg: 'No existe una noticia con ese id'
+            });
+        }
+
+        // Validar que es directivo de la banda
+        const token = req.header('x-token');
+        const payload = jwt.verify(token,process.env.SECRET_JWT_SEED);
+        const payloadId = payload.uid;
+
+        const rolesDirectivo = await Directivo.find({usuario: payloadId, banda: anuncio.banda});
+        let esDirectivo = false;
+
+        for(let i = 0; i < rolesDirectivo.length; i++) {
+            const rol = rolesDirectivo[i];
+            if(!rol.fechaFin) {
+                esDirectivo = true;
+                break;
+            }
+        }
+        if(!esDirectivo) {
+            return res.status(401).json({
+                ok: false,
+                msg: 'No tiene permisos para crear esta noticia'
+            });
+        }
+
+        await anuncio.delete();
+
+        res.json({
+            ok: true,
+            anuncio
+        });
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({
+            ok: false,
+            msg: 'Por favor hable con el administrador'
+        });
+    }
+}
+
 module.exports = {
     crearNoticia,
-    getDestacadas
+    getDestacadas,
+    eliminarNoticiaById
 }
