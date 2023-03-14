@@ -4,9 +4,9 @@ import * as React from 'react';
 import { useEffect, useState } from 'react';
 import { NavLink, useNavigate, useParams } from 'react-router-dom';
 import Swal from 'sweetalert2';
-import { Plantilla } from '../../../Components';
+import { Noticia, Plantilla } from '../../../Components';
 import { Comentario } from '../../../Components/Comentario';
-import { useArchiverosStore, useAuthStore, useBandasStore, useComentariosStore, useDirectivosStore, useMusicosStore, useUploadsStore } from '../../../hooks';
+import { useAnunciosStore, useArchiverosStore, useAuthStore, useBandasStore, useComentariosStore, useDirectivosStore, useMusicosStore, useUploadsStore } from '../../../hooks';
 import { useRedesSocialesStore } from '../../../hooks/useRedesSocialesStore';
 import { EditarFoto } from '../../user';
 import { NuevoAnuncio } from '../modals/NuevoAnuncio';
@@ -112,6 +112,7 @@ export const PerfilBanda = () => {
   const { getFotoPerfilBanda } = useUploadsStore();
   const { getDirectivosByBandaId } = useDirectivosStore();
   const { getAllByBandaId } = useRedesSocialesStore();
+  const { getNoticiasByBanda } = useAnunciosStore();
   
   useEffect(() => {
     const getBanda = async () => {
@@ -126,9 +127,14 @@ export const PerfilBanda = () => {
       const redes = await getAllByBandaId(bandaId);
       setRedesSociales(redes);
     }
+    const getNoticias = async () => {
+      const noticias = await getNoticiasByBanda(bandaId);
+      setAnuncios(noticias);
+    }
     getBanda();
     getFotoPerfil();
     getRedes();
+    getNoticias();
   }, []);
 
   useEffect(() => {
@@ -438,6 +444,14 @@ export const PerfilBanda = () => {
                 justifyContent="center"
                 alignItems="center"
               > 
+
+                { value === 0 &&
+                anuncios.map((anuncio, index) =>
+                  <Noticia noticia={anuncio} index={index} eliminar={eliminarComentario}
+                    key={index}
+                    setNoticias={setAnuncios}
+                  />
+                )}
                 { value === 2 &&
                 comentarios.map((comentario, index) =>
                   <Comentario eliminar={eliminarComentario}

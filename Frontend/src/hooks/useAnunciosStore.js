@@ -24,6 +24,16 @@ export const useAnunciosStore = () => {
         }
     }
 
+    const getNoticiasByBanda = async(bandaId) => {
+        try {
+            const { data } = await alcompasAPI.get(`noticias/banda/${bandaId}`);
+            const anuncios = data.anuncios;
+            return anuncios;
+        } catch(error) {
+            setErrores(["Error en el servidor, contacta con el administrador"]);
+        }
+    }
+
     const deleteNoticia = async(id) => {
         try {
             const { data } = await alcompasAPI.delete(`noticias/id/${id}`);
@@ -41,7 +51,8 @@ export const useAnunciosStore = () => {
         setErrores,
         crearAnuncio,
         getAllPublicas,
-        deleteNoticia
+        deleteNoticia,
+        getNoticiasByBanda
     }
 }
 

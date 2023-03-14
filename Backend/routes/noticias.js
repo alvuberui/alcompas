@@ -3,7 +3,7 @@ const router = Router();
 const { check } = require('express-validator');
 const { validarJWT } = require('../middlewares/validar-jwt');
 const { validarCampos } = require('../middlewares/validar-campos');
-const { crearNoticia, getDestacadas, eliminarNoticiaById } = require('../controllers/noticias');
+const { crearNoticia, getDestacadas, eliminarNoticiaById, getByBanda } = require('../controllers/noticias');
 
 // Validar JWT
 router.use( validarJWT, validarCampos);
@@ -28,6 +28,13 @@ router.post('/',
 
     // Obtener noticias de un usuario
 router.get('/destacadas', getDestacadas);
+
+    // Obtener noticias de una banda según el rol del usuario
+    // Si es usuario: solo las públicas
+    // Si es músico: las públicas y las privadas
+    // si es directivo: todas
+    // Si es archivero: todas
+router.get('/banda/:bandaId', getByBanda);
 
     // Eliminar noticia
 router.delete('/id/:noticiaId', eliminarNoticiaById);

@@ -8,3 +8,4 @@ export * from './Intrumento';
 export * from './Plantilla';
 export * from './Musico';
 export * from './Experiencia';
+export * from './Noticia';
