@@ -121,7 +121,7 @@ export const PanelDirectivo = () => {
                             <Button  variant='contained' align="center" color="secondary" fullWidth ><NavLink style={{textDecoration: "none", color: "black",  fontWeight: 'bold'}}  to={`/bandas/actualizar/${bandaId}`}>Editar Datos de la Banda</NavLink></Button>
                         </Box>
                         <Box textAlign='center' sx={{mt:"10px", minWidth:'50vh'}}>
-                            <Button  variant='contained' align="center" color="secondary" fullWidth ><NavLink style={{textDecoration: "none", color: "black",  fontWeight: 'bold'}}  to={`/banda/panel/`}>Administrar Economía</NavLink></Button>
+                            <Button  variant='contained' align="center" color="secondary" fullWidth ><NavLink style={{textDecoration: "none", color: "black",  fontWeight: 'bold'}}  to={`/banda/panel/economia/${bandaId}`}>Administrar Economía</NavLink></Button>
                         </Box>
                         <Box textAlign='center' sx={{mt:"10px", minWidth:'50vh'}}>
                             <Button  variant='contained' align="center" color="secondary" fullWidth ><NavLink style={{textDecoration: "none", color: "black",  fontWeight: 'bold'}}  to={`/banda/panel/redes/${bandaId}`}>Administrar Redes Sociales</NavLink></Button>
