@@ -3,7 +3,7 @@ const router = Router();
 const { check } = require('express-validator');
 const { validarJWT } = require('../middlewares/validar-jwt');
 const { validarCampos } = require('../middlewares/validar-campos');
-const { crearTransaccion} = require('../controllers/transacciones');
+const { crearTransaccion, getByBanda} = require('../controllers/transacciones');
 
     // Validar JWT
 router.use( validarJWT, validarCampos);
@@ -26,5 +26,7 @@ router.post('/',
     ],
     validarCampos,
     crearTransaccion);
+
+    router.get('/banda/:bandaId', getByBanda);
 
 module.exports = router;

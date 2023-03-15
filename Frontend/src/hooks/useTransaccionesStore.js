@@ -14,11 +14,22 @@ export const useTransaccionesStore = () => {
         }
     }
 
+    const getByBanda = async(bandaId) => {
+        try {
+            const { data } = await alcompasAPI.get(`transacciones/banda/${bandaId}`);
+            const transacciones = data.transacciones;
+            return transacciones;
+        } catch(error) {
+            setErrores([]);
+        }
+    }
+
     return {
         // Estado
         errores,
         // Métodos
         setErrores,
-        crearTransaccion
+        crearTransaccion,
+        getByBanda
     }
 }
