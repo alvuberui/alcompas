@@ -11,3 +11,4 @@ export * from './useUploadsStore';
 export * from './useArchiverosStore';
 export * from './useRedesSocialesStore';
 export * from './useAnunciosStore';
+export * from  './useTransaccionesStore';
