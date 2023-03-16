@@ -4,6 +4,7 @@ import {
   TableContainer, TableHead, TableRow, Box, CircularProgress, Typography
 } from '@mui/material';
 import IconButton from '@mui/material/IconButton';
+import EditIcon from '@mui/icons-material/Edit';
 import React, { useEffect, useState } from 'react';
 import { useParams, Navigate } from 'react-router-dom';
 import { useRedesSocialesStore, useAuthStore, useDirectivosStore, useTransaccionesStore } from '../../../hooks';
@@ -18,6 +19,7 @@ import FirstPageIcon from '@mui/icons-material/FirstPage';
 import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft';
 import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
 import LastPageIcon from '@mui/icons-material/LastPage';
+import Swal from 'sweetalert2';
 
 function TablePaginationActions(props) {
   const theme = useTheme();
@@ -84,7 +86,9 @@ export const Transacciones = () => {
 
     // Estados
     const [ transacciones, setTransacciones ] = React.useState([]);
+    const [ transaccion, setTransaccion ] = React.useState(undefined);
     const [ open, setOpen ] = useState(false);
+    const [ openEditar, setOpenEditar ] = useState(false);
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(25);
     const [ total,  setTotal ] = useState(0);
@@ -106,14 +110,36 @@ export const Transacciones = () => {
   };
 
     // Hooks
-    const { getByBanda } = useTransaccionesStore();
+    const { getByBanda, deleteById } = useTransaccionesStore();
     const { bandaId } = useParams();
     const { user } = useAuthStore();
     const { getDirectivoByUserId } = useDirectivosStore();
 
+    const updateFecha = (t) => {
+      const transacciones2 = [];
+      let cantidad = 0;
+        for(let i = 0; i < t.length; i++){
+          const fecha = new Date(t[i].fecha);
+          const año = fecha.getFullYear();
+          const mes = (fecha.getMonth() + 1).toString().length == 1 ? "0"+ (fecha.getMonth() + 1) : (fecha.getMonth() + 1);
+          const dia = fecha.getDate().toString().length == 1 ? "0"+ fecha.getDate() : fecha.getDate();
+          const fecha2 = año + "-" + mes + "-" + dia;
+          t[i].fecha = fecha2;
+          transacciones2.push(t[i]);
+          if(t[i].tipo === 'Beneficio'){
+            cantidad = cantidad + t[i].cantidad;
+          }else{
+            cantidad = cantidad - t[i].cantidad;
+          }
+        }
+        setTotal(cantidad);
+        return transacciones2.reverse();
+    }
 
     const handleClose = (event, newValue) => {
         event.preventDefault();
+        setOpenEditar(false);
+        setTransaccion(undefined);
         setOpen(false);
     };
     
@@ -122,6 +148,39 @@ export const Transacciones = () => {
         event.preventDefault();
         setOpen(true);
     };
+
+  
+  
+    const handleOpenEditar = (newValue) => {
+        setTransaccion(newValue);
+        setOpenEditar(true);
+        setOpen(true);
+    };
+    
+
+    const handleDelete = async (id) => {
+        Swal.fire({
+            title: '¿Estás seguro de que quiere eliminar la transacción?',
+            text: "¡No podrás revertir esto!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: '¡Sí, bórrala!'
+          }).then(async (result) => {
+            if (result.isConfirmed) {
+                await deleteById(id);
+                const transacciones = await getByBanda(bandaId);
+                const transacciones2 = updateFecha(transacciones);
+                setTransacciones(transacciones2);
+                Swal.fire(
+                    '¡Borrada!',
+                    'La transacción ha sido borrada.',
+                    'success'
+                )
+            }
+          })
+    }
 
     useEffect(() => {
         const getDirectivo = async () => {
@@ -143,21 +202,8 @@ export const Transacciones = () => {
     useEffect(() => {
         const getTransacciones = async () => {
             const transacciones = await getByBanda(bandaId);
-            const transacciones2 = [];
-            let cantidad = 0;
-            for(let i = 0; i < transacciones.length; i++){
-                const fecha = new Date(transacciones[i].fecha);
-                const fecha2 = fecha.getDate() + '/' + (fecha.getMonth() + 1) + '/' + fecha.getFullYear();
-                transacciones[i].fecha = fecha2;
-                transacciones2.push(transacciones[i]);
-                if(transacciones[i].tipo === 'Beneficio'){
-                    cantidad += transacciones[i].cantidad;
-                }else{
-                    cantidad -= transacciones[i].cantidad;
-                }
-            }
+            const transacciones2 = updateFecha(transacciones);
             setTransacciones(transacciones2);
-            setTotal(cantidad);
         }
         getTransacciones();
     }, [bandaId])
@@ -170,7 +216,8 @@ export const Transacciones = () => {
     return (
         <>
             { esDirectivo === false && <Navigate to='/' /> }
-            <NuevoTransaccion handleClose={handleClose} open={open}  setOpen={setOpen} setTransacciones={setTransacciones}/>
+            <NuevoTransaccion handleClose={handleClose} open={open}  setOpen={setOpen} setTransacciones={setTransacciones} editar={openEditar} transaccion={transaccion}
+              setTotal={setTotal} setOpenEditar={setOpenEditar}/>
             <Grid container justifyContent="center" alignItems="center" >
                 <Grid 
                 xs = { 9 }
@@ -196,7 +243,7 @@ export const Transacciones = () => {
                         <Table sx={{ minWidth: 500}} aria-label="custom pagination table">
                             <TableBody>
                             <TableRow key={'first'}>
-                                <TableCell style={{ width:'5%' }}>
+                                <TableCell style={{ width:'10%' }}>
                                     <Typography variant="body2" color="text.primary"  sx={{ fontWeight: 'bold' }} >Fecha</Typography>
                                 </TableCell>
                                 <TableCell style={{ width:'25%' }}>
@@ -211,13 +258,16 @@ export const Transacciones = () => {
                                 <TableCell style={{ width:'5%' }} >
                                     <Typography variant="body2" color="text.primary" sx={{ fontWeight: 'bold' }}>Cantidad</Typography>
                                 </TableCell>
+                                <TableCell style={{ width:'5%' }} >
+                                    <Typography variant="body2" color="text.primary" sx={{ fontWeight: 'bold' }}>Acciones</Typography>
+                                </TableCell>
                             </TableRow>
                             {(rowsPerPage > 0
                                 ? transacciones.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                                 : transacciones
                             ).map((row) => (
                                 <TableRow key={row._id}>
-                                <TableCell style={{ width:'5%' }}>
+                                <TableCell style={{ width:'10%' }}>
                                     {row.fecha}
                                 </TableCell>
                                 <TableCell style={{ width:'25%' }}>
@@ -231,6 +281,20 @@ export const Transacciones = () => {
                                 </TableCell>
                                 <TableCell style={{ width:'5%' }} >
                                     {row.cantidad}
+                                </TableCell>
+                                <TableCell style={{ width:'5%' }} >
+                                    {
+                                    
+                                       esTesorero ?
+                                        <>
+                                          <IconButton onClick={ () => handleDelete(row._id) } > <DeleteIcon /> </IconButton>
+                                          <IconButton onClick={ () => handleOpenEditar(row) }> <EditIcon/> </IconButton>
+                                        </>
+                                        :
+                                        <>Sin permisos</>
+                                      
+                                    
+                                    }
                                 </TableCell>
                                 </TableRow>
                             ))}

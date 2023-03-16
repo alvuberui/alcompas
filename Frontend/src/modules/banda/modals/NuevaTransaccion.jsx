@@ -12,8 +12,8 @@ const style = {
     top: '50%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
-    width: '70vh',
-    height: '95vh',
+    width: '45vh',
+    maxHeight: '95vh',
     bgcolor: '#262254',
     borderRadius: '5px',
     boxShadow: 24,
@@ -25,17 +25,43 @@ const style = {
 
 const nombres = [ 'Beneficio', 'Gasto'];
 
-export const NuevoTransaccion  = ( { open, handleClose, setTransacciones, setOpen }) => {
+export const NuevoTransaccion  = ( { open, handleClose, setTransacciones, setOpen, editar, transaccion, setTotal, setOpenEditar }) => {
 
     const [values, setValues] = useState({motivo:'', descripcion: '', tipo: 'Beneficio', cantidad:'1.00', fecha:'2023-03-15'});
 
-    const { crearTransaccion, errores } = useTransaccionesStore();
+    useEffect(() => {
+      if(editar) {
+        setValues({motivo: transaccion.motivo, descripcion: transaccion.descripcion, tipo: transaccion.tipo, cantidad:  transaccion.cantidad, fecha: transaccion.fecha});
+      }
+      else {
+        setValues({motivo:'', descripcion: '', tipo: 'Beneficio', cantidad:'1.00', fecha:''});
+      }
+    }, [editar, transaccion]);
 
+    // Hooks
+    const { crearTransaccion, errores, getByBanda, actualizarTransaccion } = useTransaccionesStore();
     const { bandaId } = useParams();
 
-    const { user } = useAuthStore();
-
-
+    const updateFecha = (t) => {
+      const transacciones2 = [];
+      let cantidad = 0;
+        for(let i = 0; i < t.length; i++){
+          const fecha = new Date(t[i].fecha);
+          const año = fecha.getFullYear();
+          const mes = (fecha.getMonth() + 1).toString().length == 1 ? "0"+ (fecha.getMonth() + 1) : (fecha.getMonth() + 1);
+          const dia = fecha.getDate().toString().length == 1 ? "0"+ fecha.getDate() : fecha.getDate();
+          const fecha2 = año + "-" + mes + "-" + dia;
+          t[i].fecha = fecha2;
+          transacciones2.push(t[i]);
+          if(t[i].tipo === 'Beneficio'){
+            cantidad = cantidad + t[i].cantidad;
+          }else{
+            cantidad = cantidad - t[i].cantidad;
+          }
+        }
+        setTotal(cantidad);
+        return transacciones2.reverse();
+    }
    
     const handleForm = async e => {
         e.preventDefault();
@@ -51,25 +77,43 @@ export const NuevoTransaccion  = ( { open, handleClose, setTransacciones, setOpe
         }
         else {
           values.banda = bandaId;
-          const c = await crearTransaccion( values );
-          if( c !== undefined ) {
-            setTransacciones( co => [c, ...co]);
-            setValues({motivo:'', descripcion: '', tipo: 'Beneficio', cantidad:'1.00', fecha:''});
-            setOpen(false);
+          if(editar) {
+            const c = await actualizarTransaccion( values, transaccion._id );
+            if( c !== undefined ) {
+              const t = await getByBanda(bandaId);
+              const transacciones2 = updateFecha(t);
+              setTransacciones(transacciones2);
+              setOpenEditar(false);
+              setValues({motivo:'', descripcion: '', tipo: 'Beneficio', cantidad:'1.00', fecha:''});
+              setOpen(false);
+            } else {
+              setTimeout(() => {
+                Swal.fire('Error al publicar transacción', errores, 'error');
+              }, 200);
+            }
           } else {
-            setTimeout(() => {
-              Swal.fire('Error al publicar transacción', errores, 'error');
-            }, 200);
+            const c = await crearTransaccion( values );
+            if( c !== undefined ) {
+              const t = await getByBanda(bandaId);
+              const transacciones2 = updateFecha(t);
+              setTransacciones(transacciones2);
+              setValues({motivo:'', descripcion: '', tipo: 'Beneficio', cantidad:'1.00', fecha:''});
+              setOpen(false);
+            } else {
+              setTimeout(() => {
+                Swal.fire('Error al publicar transacción', errores, 'error');
+              }, 200);
+            }
           }
         }
       }
     
       const handleChangeInput = input => e => {    
-        values[input] =  e.target.value;
+        const { value } = e.target;
+        setValues({ ...values, [input]: value });
       }
 
-      
-      
+
   return (
     <div>
        
@@ -93,12 +137,15 @@ export const NuevoTransaccion  = ( { open, handleClose, setTransacciones, setOpe
                     </Typography>
                     <TextField 
                         sx={{ input: { color: 'white' }}}
+                        inputProps={{ style: { color: 'white' } }}
                         type="text"
                         placeholder="Motivo"
                         fullWidth
                         focused
                         style={{ border: '1px solid #e2e2e1', borderRadius:'5px'}}
                         onChange={handleChangeInput('motivo')}
+                        multiline
+                        value={values.motivo}
                     />
                     </Grid>
                     <Grid item xs={ 12 } sx={{ mt: 2}}>
@@ -116,6 +163,7 @@ export const NuevoTransaccion  = ( { open, handleClose, setTransacciones, setOpe
                         onChange={handleChangeInput('descripcion')}
                         multiline
                         rows={3}
+                        value={values.descripcion}
                     />
                     </Grid>
                     <Grid item xs={ 12 } sx={{ mt: 2}}>
@@ -127,10 +175,12 @@ export const NuevoTransaccion  = ( { open, handleClose, setTransacciones, setOpe
                       inputProps={{ style: { color: 'white' } }} 
                       labelId="demo-simple-select-label"
                       id="demo-simple-select"
-                      defaultValue={ values.tipo }
+                      value={ values.tipo }
                       label="Tipo"
                       fullWidth
+                      multiline
                       onChange={handleChangeInput('tipo')}
+                      
                     >
                       { nombres.map( (nombre, index) => (
                         <MenuItem key={index} value={nombre}>{nombre}</MenuItem>
@@ -150,6 +200,7 @@ export const NuevoTransaccion  = ( { open, handleClose, setTransacciones, setOpe
                         focused
                         style={{ border: '1px solid #e2e2e1', borderRadius:'5px' }}
                         onChange={handleChangeInput('cantidad')}
+                        value={values.cantidad}
                     />
                     </Grid>
                     <Grid item xs={ 12 } sx={{ mt: 2}}>
@@ -164,14 +215,14 @@ export const NuevoTransaccion  = ( { open, handleClose, setTransacciones, setOpe
                         inputProps={{ style: { color: 'white' } }} 
                         onChange={handleChangeInput('fecha')}
                         focused
-                        defaultValue={values.fecha}
+                        value={ values.fecha }
                         
                     />
                     </Grid>
                 </Grid>
                 <Box  sx={{mt:2, display:'flex', alignContent:'center', justifyContent:'center'}} >
                       <Button onClick={handleForm} aria-label='enviar' color='secondary' sx={{ backgroundColor:'white', color:'black'}} variant='contained'>
-                        Añadir Transacción
+                        Publicar Transacción
                       </Button>
                 </Box>
             </form>
