@@ -12,3 +12,4 @@ export * from './useArchiverosStore';
 export * from './useRedesSocialesStore';
 export * from './useAnunciosStore';
 export * from  './useTransaccionesStore';
+export * from './useEventosStore';
