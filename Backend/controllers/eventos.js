@@ -6,6 +6,7 @@ const Actuacion = require('../models/Actuacion');
 const Ensayo = require('../models/Ensayo');
 const jwt = require('jsonwebtoken');
 
+// Controladores sobre procesiones
 const crearProcesion = async(req, res = express.response) => {
     try {
         const procesion = new Procesion(req.body);
@@ -70,6 +71,7 @@ const crearProcesion = async(req, res = express.response) => {
     }
 }
 
+// Controladores sobre actuaciones
 const crearActuacion = async(req, res = express.response) => {
     try {
         const actuacion = new Actuacion(req.body);
@@ -136,6 +138,7 @@ const crearActuacion = async(req, res = express.response) => {
     }
 }
 
+// Controladores sobre ensayos
 const crearEnsayo = async(req, res = express.response) => {
     try {
         const ensayo = new Ensayo(req.body);
@@ -178,8 +181,58 @@ const crearEnsayo = async(req, res = express.response) => {
     }
 }
 
+// Controladores comunes SIN TERMANAR: FALTA POR COGER LOS QUE TIENEN MÁS ME GUSTA
+const getDestacados = async(req, res = express.response) => {
+    try {
+        let eventos = [];
+        const fecha = req.body.fecha;
+        const dia = new Date(fecha).getDate();
+        const procesiones = await Procesion.find({fechaInicio: { $gte: fecha, $lt: new Date(fecha).setDate(dia + 1) }});
+        const actuaciones = await Actuacion.find({fechaInicio: { $gte: fecha, $lt: new Date(fecha).setDate(dia + 1) }});
+        const ensayos = await Ensayo.find({fechaInicio: { $gte: fecha, $lt: new Date(fecha).setDate(dia + 1) }});
+        eventos = [...procesiones, ...actuaciones, ...ensayos];
+
+        res.json({
+            ok: true,
+            eventos
+        });
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({
+            ok: false,
+            msg: 'Por favor hable con el administrador'
+        });
+    }
+}
+
+const getEventosBandaFecha = async(req, res = express.response) => {
+    try {
+        let eventos = [];
+        const fecha = req.body.fecha;
+        const banda = req.body.banda;
+        const dia = new Date(fecha).getDate();
+        const procesiones = await Procesion.find({'banda': banda,'fechaInicio': { $gte: fecha, $lt: new Date(fecha).setDate(dia + 1) }});
+        const actuaciones = await Actuacion.find({'banda': banda,'fechaInicio': { $gte: fecha, $lt: new Date(fecha).setDate(dia + 1) }});
+        const ensayos = await Ensayo.find({'banda': banda,'fechaInicio': { $gte: fecha, $lt: new Date(fecha).setDate(dia + 1) }});
+        eventos = [...procesiones, ...actuaciones, ...ensayos];
+
+        res.json({
+            ok: true,
+            eventos
+        });
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({
+            ok: false,
+            msg: 'Por favor hable con el administrador'
+        });
+    }
+}
+
 module.exports = {
     crearProcesion,
     crearActuacion,
-    crearEnsayo
+    crearEnsayo,
+    getDestacados,
+    getEventosBandaFecha
 }

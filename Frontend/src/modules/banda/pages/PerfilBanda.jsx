@@ -4,9 +4,9 @@ import * as React from 'react';
 import { useEffect, useState } from 'react';
 import { NavLink, useNavigate, useParams } from 'react-router-dom';
 import Swal from 'sweetalert2';
-import { Noticia, Plantilla } from '../../../Components';
+import { Calendario, Noticia, Plantilla } from '../../../Components';
 import { Comentario } from '../../../Components/Comentario';
-import { useAnunciosStore, useArchiverosStore, useAuthStore, useBandasStore, useComentariosStore, useDirectivosStore, useMusicosStore, useUploadsStore } from '../../../hooks';
+import { useAnunciosStore, useArchiverosStore, useAuthStore, useBandasStore, useComentariosStore, useDirectivosStore, useEventosStore, useMusicosStore, useUploadsStore } from '../../../hooks';
 import { useRedesSocialesStore } from '../../../hooks/useRedesSocialesStore';
 import { EditarFoto } from '../../user';
 import { NuevoAnuncio } from '../modals/NuevoAnuncio';
@@ -32,7 +32,6 @@ export const PerfilBanda = () => {
   const [ perteneceMusico, setPerteneceMusico ] = useState(false);
   const [ perteneceDirectivo, setPerteneceDirectivo ] = useState(false);
   const [ anuncios, setAnuncios ] = useState([]);
-  
 
   // Funciones
   const handleChange = (event, newValue) => {
@@ -230,6 +229,9 @@ export const PerfilBanda = () => {
     getUsuariosMusicos();
     getUsuariosDirectivos();
   }, [musicos, directivos]);
+
+  
+
  
   return (
     <>
@@ -452,6 +454,10 @@ export const PerfilBanda = () => {
                     setNoticias={setAnuncios}
                   />
                 )}
+                {
+                  value === 1 &&
+                  <Calendario tipo={"perfil"} />
+                }
                 { value === 2 &&
                 comentarios.map((comentario, index) =>
                   <Comentario eliminar={eliminarComentario}

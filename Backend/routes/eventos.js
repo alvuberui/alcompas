@@ -3,7 +3,7 @@ const router = Router();
 const { check } = require('express-validator');
 const { validarJWT } = require('../middlewares/validar-jwt');
 const { validarCampos } = require('../middlewares/validar-campos');
-const { crearProcesion, crearActuacion, crearEnsayo } = require('../controllers/eventos');
+const { crearProcesion, crearActuacion, crearEnsayo, getDestacados, getEventosBandaFecha } = require('../controllers/eventos');
 
 const dias = ['Viernes Dolores', 'Sábado de Pasión', 'Domingo de Resurreción', 'Lunes Santo',
 'Martes Santo', 'Miércoles Santo', 'Jueves Santo', 'Viernes Santo', 'Sábado Santo', 'Domingo de Ramos'];
@@ -151,6 +151,24 @@ router.post('/ensayo',
     crearEnsayo);
 
 // Operaciones comunes
+
+// Obtienes los eventos más destacados en un día concreto 
+// de la aplicación
+router.post('/destacados/fecha', [   
+    check('fecha', 'La fecha no es válida').isISO8601().toDate(),
+    
+    ],
+    validarCampos,
+    getDestacados);
+
+// Obtiene todos los eventos de un día concreto de una banda
+router.post('/banda/fecha', [
+    check('fecha', 'La fecha no es válida').isISO8601().toDate(),
+    check('banda', 'La banda es inválida').isMongoId(),
+    ],
+    validarCampos,
+    getEventosBandaFecha);
+
 
 
 

@@ -385,6 +385,41 @@ const getBandasByNombre = async( req, res = express.response ) => {
     }
 }
 
+const getPerteneceUsuarioBanda = async( req, res = express.response ) => {
+    try {
+        const bandaId = req.params.bandaId;
+        const userId = req.params.usuarioId;
+        let resultado = false;
+        
+        const musicos = Musico.find({'usuario': userId, 'banda': bandaId, 'fecha_final': null});
+
+        if(musicos.length > 0) {
+            resultado = true;
+        } else {
+            const directivos = Directivo.find({'usuario': userId, 'banda': bandaId, 'fecha_final': null});
+            if(directivos.length > 0) {
+                resultado = true;
+            } else {
+                const archiveros = Archivero.find({'usuario': userId, 'banda': bandaId, 'fecha_final': null});
+                if(archiveros.length > 0) {
+                    resultado = true;
+                }
+            }
+        }
+        res.status(201).json({
+            ok: true,
+            resultado
+        });
+
+    } catch (error) {
+        console.log(error)
+        res.status(500).json({
+            ok: false,
+            msg: 'Por favor hable con el administrador.'
+        });
+    }
+}
+
 module.exports = {
     crearBanda,
     actualizar_banda,
@@ -392,5 +427,6 @@ module.exports = {
     getBandaById,
     getBandasByUserId,
     getBandas,
-    getBandasByNombre
+    getBandasByNombre,
+    getPerteneceUsuarioBanda
 }

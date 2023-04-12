@@ -139,11 +139,34 @@ export const useEventosStore = () => {
         }
     }
 
+    const getDestacados = async(fecha) => {
+        try {
+            const { data } = await alcompasAPI.post('eventos/destacados/fecha', fecha);
+            const eventos = data.eventos;
+            return eventos;
+        } catch(error) {
+            console.log(error)
+            setMensajeError("Error obteniendo los eventos");
+        }
+    }
+
+    const getEventosByDateAndBanda = async(datos) => {
+        try {
+            const { data } = await alcompasAPI.post('eventos/banda/fecha', datos);
+            const eventos = data.eventos;
+            return eventos;
+        } catch(error) {
+            console.log(error)
+        }
+    }
+
     return {
         mensajeError,
         // Métodos,
         crearProcesion,
         crearActuacion,
-        crearEnsayo
+        crearEnsayo,
+        getDestacados,
+        getEventosByDateAndBanda
     }
 }
