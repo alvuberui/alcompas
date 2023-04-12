@@ -55,6 +55,11 @@ const ActuacionSchema = Schema({
         type: Schema.Types.ObjectId,
         ref: 'Banda',
         required: true
+    },
+    transaccion: {
+        type: Schema.Types.ObjectId,
+        ref: 'Transaccion',
+        required: true
     }
 });
 

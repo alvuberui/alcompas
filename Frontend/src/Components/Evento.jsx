@@ -1,4 +1,5 @@
 import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from '@mui/icons-material/Edit';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import { ListItem, Box, ListItemButton } from '@mui/material';
@@ -14,7 +15,8 @@ import { styled } from '@mui/material/styles';
 import Typography from '@mui/material/Typography';
 import { useEffect, useState } from 'react';
 import Swal from 'sweetalert2';
-import { useAnunciosStore, useAuthStore, useBandasStore, useDirectivosStore, useUploadsStore } from '../hooks';
+import { useAnunciosStore, useAuthStore, useBandasStore, useDirectivosStore, useEventosStore, useUploadsStore } from '../hooks';
+import { NavLink } from 'react-router-dom';
 
 const ExpandMore = styled((props) => {
     const { expand, ...other } = props;
@@ -27,7 +29,7 @@ const ExpandMore = styled((props) => {
     }),
   }));
 
-export const Evento = ({ evento, index, style }) => {
+export const Evento = ({ evento, index, style, setEventos }) => {
 
     // Estados
     const [expanded, setExpanded] = useState(false);
@@ -45,6 +47,7 @@ export const Evento = ({ evento, index, style }) => {
 
 
     // Hooks
+    const { deleteByTipoId } = useEventosStore();
     const { getBandaById, perteneceUsuarioBanda } = useBandasStore();
     const { getFotoPerfilBanda } = useUploadsStore();
     const { user } = useAuthStore();
@@ -104,7 +107,7 @@ export const Evento = ({ evento, index, style }) => {
     const handleDelete = async () => {
         Swal
             .fire({
-                title: "¿Está seguro de que desea eliminar su noticia?",
+                title: "¿Está seguro de que desea eliminar el evento?",
                 text: "Esta acción será irreversible",
                 icon: 'warning',
                 showCancelButton: true,
@@ -113,28 +116,40 @@ export const Evento = ({ evento, index, style }) => {
             })
             .then(async resultado => {
                 if (resultado.value) {
-                    const noticiaDelete = await deleteNoticia(noticia._id);
+                    const noticiaDelete = await deleteByTipoId(tipoEvento, evento._id);
                     // Eliminar noticia en setNoticias
-                    setNoticias( noticias => noticias.filter( not => not._id !== noticiaDelete._id ) );
+                    setEventos( eventos => eventos.filter( not => not._id !== noticiaDelete._id ) );
                 }
+            }).then(() => {
+                Swal.fire({
+                    title: "Evento eliminado",
+                    icon: "success",
+                    timer: 2000,
+                    showConfirmButton: false,
+                });
             });
     }
+
+    
 
   return (
     <ListItem style={style} key={index} component="div" disablePadding>
         <ListItemButton>
             <Card sx={{ width: '100%' }}>
                 <CardHeader
-                    avatar={
-                    <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe" src={`data:image/png;base64,${fotoPerfil}`}>
-                        
-                    </Avatar>
-                    }
+                    avatar={ <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe" src={`data:image/png;base64,${fotoPerfil}`}></Avatar>}
+
                     action={
-                        esDirectivo &&
-                    <IconButton onClick={ handleDelete } aria-label="settings">
-                        <DeleteIcon />
-                    </IconButton>
+                        <>
+                        <NavLink to={`/banda/panel/eventos/editar/${tipoEvento}/${evento._id}`}>
+                            <IconButton aria-label="settings">
+                            <EditIcon />
+                            </IconButton>
+                        </NavLink >
+                        <IconButton onClick={handleDelete} aria-label="settings">
+                            <DeleteIcon />
+                        </IconButton>
+                        </>
                     }
                     title= {banda.titulo}
                 />

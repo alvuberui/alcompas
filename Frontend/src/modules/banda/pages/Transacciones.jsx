@@ -126,11 +126,9 @@ export const Transacciones = () => {
           const fecha2 = año + "-" + mes + "-" + dia;
           t[i].fecha = fecha2;
           transacciones2.push(t[i]);
-          if(t[i].tipo === 'Beneficio'){
+          
             cantidad = cantidad + t[i].cantidad;
-          }else{
-            cantidad = cantidad - t[i].cantidad;
-          }
+          
         }
         setTotal(cantidad);
         return transacciones2.reverse();

@@ -408,7 +408,7 @@ export class SegundoPasoForm extends Component {
                 </Grid>
                 <Grid  item xs={ 6 } >
                   <Button  variant='contained' color="secondary" fullWidth onClick={this.confirmar}>
-                    Crear evento
+                    Publicar evento
                   </Button>
                 </Grid>
               </Grid>

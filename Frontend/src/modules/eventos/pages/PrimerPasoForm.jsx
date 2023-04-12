@@ -20,7 +20,7 @@ export class PrimerPasoForm extends Component {
         <AuthLayout  title={titulo} >
         <form>
           <Grid container>
-            
+          { titulo === 'Crear Evento' &&
           <Grid item xs={12} sx={{ mt: 2 }}>
             <FormControl variant="outlined" fullWidth sx={{ minWidth: 120 }}>
               <InputLabel id="demo-simple-select-standard-label" sx={{ color: 'white !important' }}>Tipo de evento*</InputLabel>
@@ -30,6 +30,7 @@ export class PrimerPasoForm extends Component {
                 label="Tipo de evento"
                 fullWidth
                 value={values.tipoEvento}
+                
                 onChange={handleChange('tipoEvento')}
                 inputProps={{ style: { color: 'white' } }}
                 sx={{
@@ -60,6 +61,7 @@ export class PrimerPasoForm extends Component {
               </Select>
             </FormControl>
           </Grid>
+          }
 
 
             <Grid item xs={ 12 } sx={{ mt: 2}}>

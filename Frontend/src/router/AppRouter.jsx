@@ -8,7 +8,7 @@ import { AdministrarBandas, AdministrarUsuarios, Menu } from '../modules/admin';
 import { BandaForm, MisBandas, PerfilBanda, RedesSociales, Transacciones, UpdateBandaForm } from '../modules/banda';
 import { PanelDirectivo } from '../modules/banda/pages/PanelDirectivo';
 import { Dashboard } from '../modules/dashboard/Dashboard';
-import { CrearEventoForm, Eventos } from '../modules/eventos';
+import { ActualizarEventoForm, CrearEventoForm, Eventos } from '../modules/eventos';
 import { Peticiones } from '../modules/peticiones/pages/Peticiones';
 import { PeticionesBanda } from '../modules/peticiones/pages/PeticionesBanda';
 import { Perfil } from '../modules/user';
@@ -52,7 +52,8 @@ export const AppRouter = () => {
                   <Route path="/banda/panel/economia/:bandaId" element={ <Transacciones/>} />
                   <Route path="/banda/panel/eventos/:bandaId" element={ <Eventos/>} />
                   <Route path="/banda/panel/eventos/crear/:bandaId" element={ <CrearEventoForm/>} />
-                
+                  <Route path="/banda/panel/eventos/editar/:tipoEvento/:eventoId" element={ <ActualizarEventoForm/>} />
+
                   <Route path="/admin" element={ <Menu/>} />
                   <Route path="/admin/usuarios" element={ <AdministrarUsuarios/>} />
                   <Route path="/admin/bandas" element={ <AdministrarBandas/>} />

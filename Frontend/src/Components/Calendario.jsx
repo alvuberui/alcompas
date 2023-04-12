@@ -8,6 +8,7 @@ import { Evento } from './Evento';
 import { useParams } from 'react-router-dom';
 
 
+
 export const Calendario = ({tipo}) => {
     const [value, onChange] = useState(new Date());
     const [eventos, setEventos] = useState([]);
@@ -56,7 +57,7 @@ export const Calendario = ({tipo}) => {
           >
             { eventos.length > 0 ?
               eventos.map((evento, index) => (
-              <Evento evento={evento}  key={index} />
+              <Evento evento={evento}  key={index} setEventos={setEventos}/>
               ))
               :
               <>

@@ -40,7 +40,6 @@ export const validarEvento = (values) => {
         if( values.descripcion.length > 200) error = error + ' <br> -La longitud máxima de la descripción es 2000 caracteres'
         if( values.lugar.length < 1)  error = error + ' <br> -El lugar es obligatorio';
         if( values.lugar.length > 50) error = error + ' <br> -La longitud máxima del lugar es 50 caracteres'
-        if( values.fechaInicio.isBefore(values.fechaSalida) ) error = error + ' <br> -La fecha de inicio no puede ser anterior a la de salida';
         if( values.fechaFin.isBefore(values.fechaInicio)) error = error + ' <br> -La fecha de fin no puede ser anterior a la fecha de inicio';
         if( values.tematica.length < 1)  error = error + ' <br> -La temática es obligatoria';
         if( values.tematica.length > 200) error = error + ' <br> -La longitud máxima de la temática es 200 caracteres'
