@@ -21,7 +21,7 @@ export const Dashboard = () => {
     }
     getAnuncios();
   }, []);
-
+  
   return (
     <>
       <Grid 

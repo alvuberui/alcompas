@@ -4,6 +4,7 @@ const Directivo = require('../models/Directivo');
 const Transaccion = require('../models/Transaccion');
 const Actuacion = require('../models/Actuacion');
 const Ensayo = require('../models/Ensayo');
+const Like = require('../models/Like');
 const jwt = require('jsonwebtoken');
 
 // Controladores sobre procesiones
@@ -343,18 +344,31 @@ const actualizarEnsayo = async(req, res = express.response) => {
     }
 }
 
-
-// Controladores comunes SIN TERMANAR: FALTA POR COGER LOS QUE TIENEN MÁS ME GUSTA
 const getDestacados = async(req, res = express.response) => {
     try {
         let eventos = [];
-        const fecha = req.body.fecha;
+        let fecha = req.body.fecha;
         const dia = new Date(fecha).getDate();
+        fecha = new Date(fecha).setHours(0,0,0,0);
         const procesiones = await Procesion.find({fechaInicio: { $gte: fecha, $lt: new Date(fecha).setDate(dia + 1) }});
         const actuaciones = await Actuacion.find({fechaInicio: { $gte: fecha, $lt: new Date(fecha).setDate(dia + 1) }});
-        const ensayos = await Ensayo.find({fechaInicio: { $gte: fecha, $lt: new Date(fecha).setDate(dia + 1) }});
-        eventos = [...procesiones, ...actuaciones, ...ensayos];
-
+        const diccionario =  new Map();
+        eventos = [ ...procesiones, ...actuaciones ];
+        
+        // Buscamos el numero de mg de cada una
+        for (let i = 0; i < eventos.length; i++) {
+            const evento = eventos[i];
+            const likes = await Like.find({ referencia: evento._id });
+            diccionario.set(evento, likes.length);
+        }
+        // Ordenamos el diccionario
+        const sorted = new Map([...diccionario.entries()].sort((a, b) => b[1] - a[1]));
+        // Obtenemos las claves
+        const keys = [...sorted.keys()];
+        // Obtenemos los 7 primeros
+        eventos = keys.slice(0,7);
+        
+        
         res.json({
             ok: true,
             eventos
@@ -371,9 +385,10 @@ const getDestacados = async(req, res = express.response) => {
 const getEventosBandaFecha = async(req, res = express.response) => {
     try {
         let eventos = [];
-        const fecha = req.body.fecha;
+        let fecha = req.body.fecha;
         const banda = req.body.banda;
         const dia = new Date(fecha).getDate();
+        fecha = new Date(fecha).setHours(0,0,0,0);
         const procesiones = await Procesion.find({'banda': banda,'fechaInicio': { $gte: fecha, $lt: new Date(fecha).setDate(dia + 1) }});
         const actuaciones = await Actuacion.find({'banda': banda,'fechaInicio': { $gte: fecha, $lt: new Date(fecha).setDate(dia + 1) }});
         const ensayos = await Ensayo.find({'banda': banda,'fechaInicio': { $gte: fecha, $lt: new Date(fecha).setDate(dia + 1) }});

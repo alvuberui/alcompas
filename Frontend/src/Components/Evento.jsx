@@ -15,7 +15,7 @@ import { styled } from '@mui/material/styles';
 import Typography from '@mui/material/Typography';
 import { useEffect, useState } from 'react';
 import Swal from 'sweetalert2';
-import { useAnunciosStore, useAuthStore, useBandasStore, useDirectivosStore, useEventosStore, useUploadsStore } from '../hooks';
+import { useAnunciosStore, useAuthStore, useBandasStore, useDirectivosStore, useEventosStore, useLikesStore, useUploadsStore } from '../hooks';
 import { NavLink } from 'react-router-dom';
 
 const ExpandMore = styled((props) => {
@@ -38,6 +38,8 @@ export const Evento = ({ evento, index, style, setEventos }) => {
     const [ esDirectivo, setEsDirectivo ] = useState(false);
     const [ tipoEvento, setTipoEvento ] = useState('');
     const [ pertenece, setPertenece ] = useState(false);
+    const [ isLiked, setIsLiked ] = useState(false);
+    const [ numeroLikes, setNumeroLikes ] = useState(0);
     const horaSalida  = new Date(evento.fechaSalida).getHours() + ":" + new Date(evento.fechaSalida).getMinutes();
     const fechaSalida = new Date(evento.fechaSalida).toLocaleDateString();
     const horaInicio = new Date(evento.fechaInicio).getHours() + ":" + new Date(evento.fechaInicio).getMinutes();
@@ -52,6 +54,8 @@ export const Evento = ({ evento, index, style, setEventos }) => {
     const { getFotoPerfilBanda } = useUploadsStore();
     const { user } = useAuthStore();
     const { getDirectivoByUserId } = useDirectivosStore();
+    const { publicarLike, publicarDislike, getLikeByTipoAndReferencia, errores,
+        getNumeroLikes } = useLikesStore();
 
 
 
@@ -60,18 +64,23 @@ export const Evento = ({ evento, index, style, setEventos }) => {
     };
 
     useEffect(() => {
+        const getFoto = async () => {
+            const fotoreq = await getFotoPerfilBanda(evento.banda);
+            setFotoPerfil(fotoreq);
+        }
+         
+        getFoto();
+    }, [evento]);
+
+    useEffect(() => {
         const getBanda = async () => {
             const bandareq = await getBandaById(evento.banda);
             bandareq.titulo = bandareq.tipo + " " + bandareq.nombre;
             setBanda(bandareq);
         }
-        const getFoto = async () => {
-            const fotoreq = await getFotoPerfilBanda(evento.banda);
-            setFotoPerfil(fotoreq);
-        }
-        getFoto();
         getBanda();
     }, [evento]);
+
 
     useEffect(() => {
         const getTipo = async () => {
@@ -84,6 +93,101 @@ export const Evento = ({ evento, index, style, setEventos }) => {
         }
         getTipo();
     }, [evento]);
+
+    useEffect(() => {
+        if( errores === 'No se pudo completar el dislike') {
+            Swal.fire('Error', 'No se pudo eliminar el dislike', 'error');
+            setIsLiked(true);
+        } else if(errores === 'No se pudo completar el like') {
+            Swal.fire('Error', 'No se pudo eliminar el like', 'error');
+            setIsLiked(false);
+        }
+        
+    }, [errores])
+    
+    const handleLike = e => {
+        e.preventDefault();
+        let t = null;
+            if(tipoEvento === 'Actuación') {
+                t = 'Actuacion';
+            } else if(tipoEvento === 'Procesión') {
+                t = 'Procesion';
+            } else {
+                t = 'Ensayo';
+            }
+        const like = { 'usuario': user.uid, 'referencia': evento._id, 'tipo': t };
+        publicarLike(like);
+        setIsLiked(true);
+        setNumeroLikes(numeroLikes + 1);
+    }
+    
+    const handleDislike = e => {
+        e.preventDefault();
+        let t = null;
+            if(tipoEvento === 'Actuación') {
+                t = 'Actuacion';
+            } else if(tipoEvento === 'Procesión') {
+                t = 'Procesion';
+            } else {
+                t = 'Ensayo';
+            }
+        const like = { 'referencia': evento._id, 'tipo': t };
+        publicarDislike(like);   
+        setIsLiked(false);    
+        setNumeroLikes(numeroLikes - 1);
+    }
+
+    // Efectos
+    useEffect(() => {
+        const getLike = async () => {
+            if(evento._id && tipoEvento) {
+                let t = null;
+                if(tipoEvento === 'Actuación') {
+                    t = 'Actuacion';
+                } else if(tipoEvento === 'Procesión') {
+                    t = 'Procesion';
+                } else {
+                    t = 'Ensayo';
+                }
+            const like = await getLikeByTipoAndReferencia({ tipo: t, referencia: evento._id });
+            
+            if(like) {
+                setIsLiked(true);
+            } else {
+                setIsLiked(false);
+            }
+            }
+        }  
+        getLike();
+    }, [  evento, tipoEvento ]);
+
+    useEffect(() => {
+        const getNumeroLikesF = async () => {
+        if(evento._id && tipoEvento) {
+            let t = null;
+      
+            if(tipoEvento === 'Actuación') {
+                t = 'Actuacion';
+            } else if(tipoEvento === 'Procesión') {
+                t = 'Procesion';
+            } else {
+                t = 'Ensayo';
+            }
+            
+                const numeroLikes = await getNumeroLikes({ tipo: t, referencia: evento._id });
+                console.log(numeroLikes)
+                setNumeroLikes(numeroLikes);
+      
+      }
+    }
+    getNumeroLikesF();
+    }, [  evento, tipoEvento ]);
+
+    
+
+
+    
+
 
     useEffect(() => {
         const esDirectivo = async () => {
@@ -102,7 +206,7 @@ export const Evento = ({ evento, index, style, setEventos }) => {
         }
         esDirectivo();
         perteneceUsuarioBandaF();
-    }, [banda, user]);
+    }, [evento, user]);
 
     const handleDelete = async () => {
         Swal
@@ -159,9 +263,16 @@ export const Evento = ({ evento, index, style, setEventos }) => {
                     </Typography>
                 </CardContent>
                 <CardActions disableSpacing>
-                    <IconButton aria-label="add to favorites">
+                    { isLiked ?
+                    <IconButton onClick={handleDislike} aria-label="add to favorites">
+                    <FavoriteIcon style={{ color: '#e53935' }}/>
+                    </IconButton>
+                    :
+                    <IconButton onClick={handleLike} aria-label="add to favorites">
                     <FavoriteIcon />
                     </IconButton>
+                    }
+                    <Typography variant="body2" color="textSecondary" component="p">{ numeroLikes } Me gusta</Typography>
                     <ExpandMore
                     expand={expanded}
                     onClick={handleExpandClick}

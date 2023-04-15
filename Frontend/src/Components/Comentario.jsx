@@ -1,21 +1,38 @@
 
-import { Button, Grid, Typography } from '@mui/material';
+import { Typography } from '@mui/material';
 import { useEffect, useState } from 'react';
 import {
     NavLink
 } from "react-router-dom";
 import Swal from 'sweetalert2';
-import { useAuthStore, useComentariosStore } from '../hooks';
+import { useAuthStore, useComentariosStore, useLikesStore, useUploadsStore } from '../hooks';
+
+import Avatar from '@material-ui/core/Avatar';
+import Card from '@material-ui/core/Card';
+import CardActions from '@material-ui/core/CardActions';
+import CardContent from '@material-ui/core/CardContent';
+import CardHeader from '@material-ui/core/CardHeader';
+import IconButton from '@material-ui/core/IconButton';
+import FavoriteIcon from '@material-ui/icons/Favorite';
+import DeleteIcon from '@mui/icons-material/Delete';
+
+
+
 export const Comentario = ({ comentario, eliminar}) => {
     // Estados
-    const [ comentarioF, setComentarioF ] = useState(comentario);
     const [ usuario, setUsuario ] = useState('');
+    const [ foto, setFoto ] = useState('');
+    const [ isLiked, setIsLiked ] = useState(false);
+    const [ numeroLikes, setNumeroLikes ] = useState(0);
     const horas  = new Date(comentario.fecha).getHours() + ":" + new Date(comentario.fecha).getMinutes();
     const fecha = new Date(comentario.fecha).toLocaleDateString();
-    
+
     // Funciones
     const { getUserByiD, user } = useAuthStore();
     const { eliminarComentario } = useComentariosStore();
+    const { getFotoPerfilUsuario } = useUploadsStore();
+    const { publicarLike, publicarDislike, getLikeByTipoAndReferencia, errores,
+            getNumeroLikes } = useLikesStore();
 
     const handleElminar = e => {
         e.preventDefault();
@@ -37,77 +54,105 @@ export const Comentario = ({ comentario, eliminar}) => {
         });
     }
 
+    const handleLike = e => {
+        e.preventDefault();
+        const like = { 'usuario': user.uid, 'referencia': comentario._id, 'tipo': 'Comentario' };
+        publicarLike(like);
+        setIsLiked(true);
+        setNumeroLikes(numeroLikes + 1);
+    }
+
+    const handleDislike = e => {
+        e.preventDefault();
+        const like = { 'referencia': comentario._id, 'tipo': 'Comentario' };
+        publicarDislike(like);   
+        setIsLiked(false);   
+        setNumeroLikes(numeroLikes - 1); 
+    }
+
+    useEffect(() => {
+        if( errores === 'No se pudo completar el dislike') {
+            Swal.fire('Error', 'No se pudo eliminar el dislike', 'error');
+            setIsLiked(true);
+        } else if(errores === 'No se pudo completar el like') {
+            Swal.fire('Error', 'No se pudo eliminar el like', 'error');
+            setIsLiked(false);
+        }
+        
+    }, [errores])
+
     // Efectos
     useEffect(() => {
         const getUsuario = async () => {
-            const c = comentario
             const usuarioreq = await getUserByiD(comentario.usuario);
             const usuario = usuarioreq.usuario;
             setUsuario(usuario);
-            setComentarioF(c);
         }
+        const getFoto = async () => {
+            const foto = await getFotoPerfilUsuario(comentario.usuario);
+            setFoto(foto);
+        }
+        const getLike = async () => {
+            const like = await getLikeByTipoAndReferencia({ tipo: 'Comentario', referencia: comentario._id });
+            
+            if(like) {
+                setIsLiked(true);
+            } else {
+                setIsLiked(false);
+            }
+        }  
         getUsuario();
+        getFoto();
+        getLike();
     }, [  comentario ]);
 
-  
+    useEffect(() => {
+        const getNumeroLikesF = async () => {
+           
+                const numeroLikes = await getNumeroLikes({ tipo: 'Comentario', referencia: comentario._id });
+                setNumeroLikes(numeroLikes);
+            
+        }
+        getNumeroLikesF();
+    }, [  comentario ]);
+
+
   return (
-        <Grid 
-        container
-        sx={{ mt:'15px', maxWidth:'125vh', padding:2, backgroundColor:'white', borderRadius:'5px', border:1, borderColor:'white', boxShadow:' 1px 1px 1px 1px' }}
-        >   
-            <Grid
-            container
-            display="flex"
-            justifyContent="center"
-            alignItems="baseline">
-                <>
-                    <Typography variant='h6' sx={{fontWeight: 'bold', textAlign:'center', color:'black'}}>{comentario.titulo} </Typography>
-                </>
-            </Grid>
-            <Grid
-            display="flex"
-            justifyContent="center"
-            alignItems="baseline"
-            container
-            >
-                <Grid 
-                item
-                xs= { 12 }
-                display="flex"
-                justifyContent="center"
-                alignItems="baseline"
-                sx={{ padding:2 }}
-                >   
-                    <div>
-                        <Typography style={{display: 'inline-block'}}>
-                            <NavLink style={{textDecoration: "none", fontWeight:'bold', color: "black"}}  to={`/perfil/${comentarioF.usuarioId}`}>
-                                @{usuario}: &nbsp;
-                            </NavLink>
-                            "{ comentarioF.texto }"
-                        </Typography>
-                    </div>
-                </Grid> 
-                <Grid 
-                item
-                xs= { 12 }
-             
-                display="flex"
-                justifyContent="center"
-                alignItems="baseline"
-                >   
-                    <div>
-                        <Typography style={{display: 'inline-block', fontSize:'13px'}}>
-                            { fecha} a las { horas } horas
-                        </Typography>
-                        { user.uid === comentario.usuario && 
-                            <Button aria-label='eliminar' color='primary' onClick={handleElminar} sx={{ml:'30px'}} variant='contained'>
-                                <Typography sx={{ fontWeight: 'bold', fontSize:'12px' }} >Eliminar</Typography>
-                            </Button>
-                        }
-                    </div>
-                </Grid> 
-            </Grid>
-        </Grid>
-        
+            <Card  style={{marginTop: '5px', width: '95%'}}>
+                <CardHeader
+                    avatar={
+                    <NavLink to={`/perfil/${comentario.usuario}`}>
+                    <Avatar aria-label="recipe" src={`data:image/png;base64,${foto}`} >
+                        
+                    </Avatar>
+                    </NavLink>
+                    }
+                    action={
+                        user.uid === comentario.usuario &&
+                    <IconButton onClick={handleElminar} aria-label="settings">
+                        <DeleteIcon />
+                    </IconButton>
+                    }
+                    title={ usuario + ": " + comentario.titulo}
+                    subheader={fecha + " " + horas}
+                />
+                <CardContent>
+                    <Typography variant="body2" color="textSecondary" component="p">
+                    {comentario.texto}
+                    </Typography>
+                </CardContent>
+                <CardActions disableSpacing>
+                    { isLiked ?
+                    <IconButton onClick={handleDislike} aria-label="add to favorites">
+                    <FavoriteIcon style={{ color: '#e53935' }}/>
+                    </IconButton>
+                    :
+                    <IconButton onClick={handleLike} aria-label="add to favorites">
+                    <FavoriteIcon />
+                    </IconButton>
+                    }
+                    <Typography variant="body2" color="textSecondary" component="p">{ numeroLikes } Me gusta</Typography>
+                </CardActions>
+                </Card>
     );
 }

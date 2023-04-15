@@ -3,6 +3,7 @@ const Anuncio = require('../models/Noticia');
 const Directivo = require('../models/Directivo');
 const Musico = require('../models/Musico');
 const Archivero = require('../models/Archivero');
+const Like = require('../models/Like');
 const jwt = require('jsonwebtoken');
 
 /*
@@ -57,7 +58,22 @@ const crearNoticia = async(req, res = express.response) => {
 */
 const getDestacadas = async(req, res = express.response) => {  
     try {
-        const anuncios = await Anuncio.find({privacidad: 'Pública', fecha : {$gte: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000)}});
+        let anuncios = await Anuncio.find({privacidad: 'Pública', fecha : {$gte: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000)}});
+        // Creamos un diccionario con los anuncios y el número de likes
+        const diccionario =  new Map();
+        for (let i = 0; i < anuncios.length; i++) {
+            const evento = anuncios[i];
+            const likes = await Like.find({ referencia: evento._id });
+            diccionario.set(evento, likes.length);
+        }
+        
+        // Ordenamos el diccionario
+        const sorted = new Map([...diccionario.entries()].sort((a, b) => b[1] - a[1]));
+        // Obtenemos las claves
+        const keys = [...sorted.keys()];
+        // Obtenemos los 7 primeros
+        anuncios = keys.slice(0,10).reverse();
+
         res.json({
             ok: true,
             anuncios

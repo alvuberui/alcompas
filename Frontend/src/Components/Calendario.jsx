@@ -10,10 +10,11 @@ import { useParams } from 'react-router-dom';
 
 
 export const Calendario = ({tipo}) => {
+  
     const [value, onChange] = useState(new Date());
     const [eventos, setEventos] = useState([]);
     const { bandaId } = useParams();
-
+  
     const { getDestacados, getEventosByDateAndBanda } = useEventosStore();
    
     useEffect(() => {
@@ -28,8 +29,8 @@ export const Calendario = ({tipo}) => {
         }
       }
       getEventos();
-    }, [value]);
-
+    }, [value, tipo]);
+    
     return (
       <>
         <Box

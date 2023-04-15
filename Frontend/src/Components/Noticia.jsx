@@ -14,7 +14,7 @@ import { styled } from '@mui/material/styles';
 import Typography from '@mui/material/Typography';
 import { useEffect, useState } from 'react';
 import Swal from 'sweetalert2';
-import { useAnunciosStore, useAuthStore, useBandasStore, useDirectivosStore, useUploadsStore } from '../hooks';
+import { useAnunciosStore, useAuthStore, useBandasStore, useDirectivosStore, useUploadsStore, useLikesStore } from '../hooks';
 
 const ExpandMore = styled((props) => {
     const { expand, ...other } = props;
@@ -36,6 +36,8 @@ export const Noticia = ({ noticia, index, style, setNoticias }) => {
     const [ esDirectivo, setEsDirectivo ] = useState(false);
     const horas  = new Date(noticia.fecha).getHours() + ":" + new Date(noticia.fecha).getMinutes();
     const fecha = new Date(noticia.fecha).toLocaleDateString();
+    const [ isLiked, setIsLiked ] = useState(false);
+    const [ numeroLikes, setNumeroLikes ] = useState(0);
 
 
     // Hooks
@@ -44,6 +46,8 @@ export const Noticia = ({ noticia, index, style, setNoticias }) => {
     const { user } = useAuthStore();
     const { getDirectivoByUserId } = useDirectivosStore();
     const { deleteNoticia } = useAnunciosStore();
+    const { publicarLike, publicarDislike, getLikeByTipoAndReferencia, errores,
+        getNumeroLikes } = useLikesStore();
 
     const handleExpandClick = () => {
         setExpanded(!expanded);
@@ -95,6 +99,57 @@ export const Noticia = ({ noticia, index, style, setNoticias }) => {
             });
     }
 
+    const handleLike = e => {
+        e.preventDefault();
+        const like = { 'usuario': user.uid, 'referencia': noticia._id, 'tipo': 'Noticia' };
+        publicarLike(like);
+        setIsLiked(true);
+        setNumeroLikes(numeroLikes + 1);
+    }
+
+    const handleDislike = e => {
+        e.preventDefault();
+        const like = { 'referencia': noticia._id, 'tipo': 'Noticia' };
+        publicarDislike(like);   
+        setIsLiked(false);   
+        setNumeroLikes(numeroLikes - 1); 
+    }
+
+    useEffect(() => {
+        if( errores === 'No se pudo completar el dislike') {
+            Swal.fire('Error', 'No se pudo eliminar el dislike', 'error');
+            setIsLiked(true);
+        } else if(errores === 'No se pudo completar el like') {
+            Swal.fire('Error', 'No se pudo eliminar el like', 'error');
+            setIsLiked(false);
+        }
+        
+    }, [errores])
+
+    // Efectos
+    useEffect(() => {
+        const getLike = async () => {
+            const like = await getLikeByTipoAndReferencia({ tipo: 'Noticia', referencia: noticia._id });
+            
+            if(like) {
+                setIsLiked(true);
+            } else {
+                setIsLiked(false);
+            }
+        }  
+        getLike();
+    }, [  noticia ]);
+
+    useEffect(() => {
+        const getNumeroLikesF = async () => {
+           
+                const numeroLikes = await getNumeroLikes({ tipo: 'Noticia', referencia: noticia._id });
+                setNumeroLikes(numeroLikes);
+            
+        }
+        getNumeroLikesF();
+    }, [  noticia ]);
+
   return (
     <ListItem style={style} key={index} component="div" disablePadding>
         <ListItemButton>
@@ -120,9 +175,16 @@ export const Noticia = ({ noticia, index, style, setNoticias }) => {
                     </Typography>
                 </CardContent>
                 <CardActions disableSpacing>
-                    <IconButton aria-label="add to favorites">
+                    { isLiked ?
+                    <IconButton onClick={handleDislike} aria-label="add to favorites">
+                    <FavoriteIcon style={{ color: '#e53935' }}/>
+                    </IconButton>
+                    :
+                    <IconButton onClick={handleLike} aria-label="add to favorites">
                     <FavoriteIcon />
                     </IconButton>
+                    }
+                    <Typography variant="body2" color="textSecondary" component="p">{ numeroLikes } Me gusta</Typography>
                     <ExpandMore
                     expand={expanded}
                     onClick={handleExpandClick}
