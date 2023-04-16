@@ -12,6 +12,7 @@ import { ActualizarEventoForm, CrearEventoForm, Eventos } from '../modules/event
 import { Peticiones } from '../modules/peticiones/pages/Peticiones';
 import { PeticionesBanda } from '../modules/peticiones/pages/PeticionesBanda';
 import { Perfil } from '../modules/user';
+import { Estadisticas } from '../modules/dashboard/Estadisticas';
 
 export const AppRouter = () => {
   
@@ -40,6 +41,7 @@ export const AppRouter = () => {
                   <Route path="/bandas/crear/*" element={ <BandaForm/>} />
                   <Route path="/buscar/:nombre/*" element={ <MisBandas titulo='Buscar'/>} />
                   <Route path="/banda/:bandaId" element={ <PerfilBanda/>} />
+                  <Route path="/estadisticas/*" element={ <Estadisticas/>} />
 
                   <Route path="/peticiones/:id/*" element={ <Peticiones/>} />
                   <Route path="/modificar/:id/*" element={ <UpdateForm/>} />

@@ -226,6 +226,7 @@ export const NavBar = () => {
                 Inicio
             </Typography>
           </NavLink>
+          <NavLink style={{textDecoration: "none", color: "white"}}  to={"/estadisticas"}>
             <Typography
                     variant="h6"
                     noWrap
@@ -234,6 +235,7 @@ export const NavBar = () => {
                 >
                 Estadísticas
             </Typography>
+          </NavLink>
             <IconButton
               size="small"
               edge="end"

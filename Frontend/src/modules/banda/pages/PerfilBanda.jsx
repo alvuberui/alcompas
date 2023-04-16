@@ -337,16 +337,16 @@ useEffect(() => {
                 { numeroLikes } Me gusta
                 </Button>
                 }
-                <Typography color='white' sx={{ fontWeight: 'bold', mt: 1 }} variant='h6'>{ banda.tipo } { banda.nombre }</Typography>
-                <Typography color='white' sx={{ fontWeight: 'bold' }} variant='h6'>Fundada en { banda.año_fundacion }</Typography>
-                <Typography color='white' sx={{ fontWeight: 'bold', mt:2 }} variant='h7'>Nuestra dirección:</Typography>
-                <Typography color='white' variant='h7'>{banda.localidad} ({banda.provincia}) {banda.codigo_postal}</Typography>
-                <Typography color='white' variant='h7'>{banda.direccion}</Typography>
-                <Typography color='white' sx={{ fontWeight: 'bold', mt:2 }} variant='h7'>Descripción:</Typography>
-                <Typography sx={{ fontStyle: 'italic'}} color='white' variant='h7'>"{banda.descripcion}"</Typography>
-                <Typography color='white' sx={{ fontWeight: 'bold', mt:2 }} variant='h7'>¿Quieres contactar con nosotros?</Typography>
-                <Typography color='white' variant='h7'>{banda.correo}</Typography> 
-                <Typography color='white' variant='h7'>{banda.telefono}</Typography> 
+                <Typography color='white' sx={{ fontWeight: 'bold', mt: 1, textAlign:'center' }} variant='h6'>{ banda.tipo } { banda.nombre }</Typography>
+                <Typography color='white' sx={{ fontWeight: 'bold', textAlign:'center' }} variant='h6'>Fundada en { banda.año_fundacion }</Typography>
+                <Typography color='white' sx={{ fontWeight: 'bold', mt:2, textAlign:'center'}} variant='h7'>Nuestra dirección:</Typography>
+                <Typography color='white' sx={{textAlign:'center'}} variant='h7'>{banda.localidad} ({banda.provincia}) {banda.codigo_postal}</Typography>
+                <Typography color='white' sx={{textAlign:'center'}} variant='h7'>{banda.direccion}</Typography>
+                <Typography color='white' sx={{ fontWeight: 'bold', mt:2, textAlign:'center' }} variant='h7'>Descripción:</Typography>
+                <Typography sx={{ fontStyle: 'italic', textAlign:'center'}} color='white' variant='h7'>"{banda.descripcion}"</Typography>
+                <Typography  color='white' sx={{ fontWeight: 'bold', mt:2, textAlign:'center' }} variant='h7'>¿Quieres contactar con nosotros?</Typography>
+                <Typography sx={{textAlign:'center'}} color='white' variant='h7'>{banda.correo}</Typography> 
+                <Typography sx={{textAlign:'center'}} color='white' variant='h7'>{banda.telefono}</Typography> 
                 { redesSociales.map( (redSocial) => (
                   <Grid key={redSocial._id} item xs={4} display='inline-block'>
                     <Button sx={{backgroundColor:'white', color:'primary.main', mt:1, ml:2}} color='secondary' href={redSocial.url} size="small"variant='contained' align="center" >

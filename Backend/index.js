@@ -60,6 +60,7 @@ app.use('/api/noticias', require('./routes/noticias'));
 app.use('/api/transacciones', require('./routes/transacciones'));
 app.use('/api/eventos', require('./routes/eventos'));
 app.use('/api/likes', require('./routes/likes'));
+app.use('/api/estadisticas', require('./routes/estadisticas'));
 
 // Escuchar peticiones
 if (process.env.NODE_ENV !== 'test') {
