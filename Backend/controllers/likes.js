@@ -239,9 +239,7 @@ const getNumeroDeLikes = async(req, res = express.response) => {
             }
         }
         const likes = await Like.find({'tipo': tipo, 'referencia': referencia});
-        console.log(referencia)
-        console.log(tipo)
-        console.log(likes)
+
         const numero = likes.length;
         res.json({
             ok: true,

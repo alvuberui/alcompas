@@ -127,7 +127,7 @@ export const useBandasStore = () => {
 
     const perteneceUsuarioBanda = async(userId, bandaId) => {
         try {
-            const { data } = await alcompasAPI.get('bandas//pertenece/usuario/' +userId + '/banda/' + bandaId );
+            const { data } = await alcompasAPI.get('bandas/pertenece/usuario/' +userId + '/banda/' + bandaId );
             const pertenece = data.resultado;
             return pertenece;
         } catch(error) {

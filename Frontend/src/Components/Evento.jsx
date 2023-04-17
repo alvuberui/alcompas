@@ -17,6 +17,8 @@ import { useEffect, useState } from 'react';
 import Swal from 'sweetalert2';
 import { useAnunciosStore, useAuthStore, useBandasStore, useDirectivosStore, useEventosStore, useLikesStore, useUploadsStore } from '../hooks';
 import { NavLink } from 'react-router-dom';
+import AddToPhotosIcon from '@mui/icons-material/AddToPhotos';
+import { PublicarAsistenciaModal } from '../modules/eventos/modals/PublicarAsistenciaModal';
 
 const ExpandMore = styled((props) => {
     const { expand, ...other } = props;
@@ -40,6 +42,7 @@ export const Evento = ({ evento, index, style, setEventos }) => {
     const [ pertenece, setPertenece ] = useState(false);
     const [ isLiked, setIsLiked ] = useState(false);
     const [ numeroLikes, setNumeroLikes ] = useState(0);
+    const [ open, setOpen ] = useState(false);
     const horaSalida  = new Date(evento.fechaSalida).getHours() + ":" + new Date(evento.fechaSalida).getMinutes();
     const fechaSalida = new Date(evento.fechaSalida).toLocaleDateString();
     const horaInicio = new Date(evento.fechaInicio).getHours() + ":" + new Date(evento.fechaInicio).getMinutes();
@@ -175,7 +178,6 @@ export const Evento = ({ evento, index, style, setEventos }) => {
             }
             
                 const numeroLikes = await getNumeroLikes({ tipo: t, referencia: evento._id });
-                console.log(numeroLikes)
                 setNumeroLikes(numeroLikes);
       
       }
@@ -200,8 +202,8 @@ export const Evento = ({ evento, index, style, setEventos }) => {
             }
         }
         const perteneceUsuarioBandaF = async () => {
-
-            const pertenece = await perteneceUsuarioBanda(user.uid, banda._id);
+            
+            const pertenece = await perteneceUsuarioBanda(user.uid, evento.banda);
             setPertenece(pertenece);
         }
         esDirectivo();
@@ -234,9 +236,17 @@ export const Evento = ({ evento, index, style, setEventos }) => {
             });
     }
 
-    
+    const handleOpen = () => {
+        setOpen(true);
+    };
+
+    const handleClose = () => {
+        setOpen(false);
+    };
 
   return (
+    <>
+    <PublicarAsistenciaModal open={open} handleClose={handleClose} evento={evento} setOpen={setOpen} tipo={tipoEvento}/>
     <ListItem style={style} key={index} component="div" disablePadding>
         <ListItemButton>
             <Card sx={{ width: '100%' }}>
@@ -253,6 +263,11 @@ export const Evento = ({ evento, index, style, setEventos }) => {
                         <IconButton onClick={handleDelete} aria-label="settings">
                             <DeleteIcon />
                         </IconButton>
+                        { pertenece &&
+                        <IconButton onClick={handleOpen} aria-label="settings">
+                            <AddToPhotosIcon />
+                        </IconButton>
+                        }
                         </>
                     }
                     title= {banda.titulo}
@@ -617,5 +632,6 @@ export const Evento = ({ evento, index, style, setEventos }) => {
             </Card>
         </ListItemButton>
     </ListItem>
+    </>
   )
 }

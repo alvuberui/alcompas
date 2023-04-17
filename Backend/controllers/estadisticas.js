@@ -20,7 +20,7 @@ const getBandasConMasContratosSemanaSanta = async(req, res = express.response) =
             bandaCopia.numero = procesiones.length;
             ordenadas.push(bandaCopia);
         }
-        console.log(ordenadas)
+  
         // Ordenar bandas por numero de procesiones de mayor a menor
         ordenadas.sort((a, b) => {
             if(a.numero > b.numero) {
@@ -107,7 +107,7 @@ const getBandasPopulares = async(req, res = express.response) => {
             bandaCopia.numero = likes.length;
             ordenadas.push(bandaCopia);
         }
-        console.log(ordenadas)
+    
         // Ordenar bandas por numero de likes de mayor a menor
         ordenadas.sort((a, b) => {
             if(a.numero > b.numero) {

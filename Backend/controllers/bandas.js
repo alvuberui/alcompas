@@ -391,16 +391,17 @@ const getPerteneceUsuarioBanda = async( req, res = express.response ) => {
         const userId = req.params.usuarioId;
         let resultado = false;
         
-        const musicos = Musico.find({'usuario': userId, 'banda': bandaId, 'fecha_final': null});
+        const musicos = await Musico.find({'usuario': userId, 'banda': bandaId, 'fecha_final': null});
 
         if(musicos.length > 0) {
             resultado = true;
         } else {
-            const directivos = Directivo.find({'usuario': userId, 'banda': bandaId, 'fecha_final': null});
+            const directivos = await Directivo.find({'usuario': userId, 'banda': bandaId, 'fecha_final': null});
             if(directivos.length > 0) {
+    
                 resultado = true;
             } else {
-                const archiveros = Archivero.find({'usuario': userId, 'banda': bandaId, 'fecha_final': null});
+                const archiveros = await Archivero.find({'usuario': userId, 'banda': bandaId, 'fecha_final': null});
                 if(archiveros.length > 0) {
                     resultado = true;
                 }
