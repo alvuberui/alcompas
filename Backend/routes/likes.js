@@ -34,4 +34,8 @@ router.get('/tipo/:tipo/referencia/:referencia', getLikeByTipoAndReferencia);
 // Obtener el numero de likes de un evento
 router.get('/numero/tipo/:tipo/referencia/:referencia', getNumeroDeLikes);
 
+// Obtener el numero de likes de un evento
+router.get('/numero/tipo/:tipo/referencia/:referencia', getNumeroDeLikes);
+
+
 module.exports = router;

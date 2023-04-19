@@ -13,17 +13,19 @@ export const useAsistenciasStore = () => {
         } catch(error) {
             // Obtener los errores de la respuesta
             const errores = error.response.data.errors;
+            const error2 = error.response.data.msg;
             // Recorremos los errores para mostrarlos en el state
             let erroresArray = [];
             for (const key in errores) {
                 erroresArray.push(errores[key].msg);
             }
             // Guardar los errores en el state
-            setErrores(erroresArray[0]);
-            setTimeout(() => {
-                setErrores('');
+            if(erroresArray.length > 0) {
+                setErrores(erroresArray[0]);
+            } else {
+                setErrores(error2);
             }
-            , 100);
+           
         }
     }
 
@@ -33,15 +35,21 @@ export const useAsistenciasStore = () => {
             const asistenciaDB = data.asistenciaDB;
             return asistenciaDB;
         } catch(error) {
-            console.log(error)
             // Obtener los errores de la respuesta
-            const errores = error.response.data.errores;
-            // Guardar los errores en el state
-            setErrores(errores);
-            setTimeout(() => {
-                setErrores('');
+            const errores = error.response.data.errors;
+            const error2 = error.response.data.msg;
+            // Recorremos los errores para mostrarlos en el state
+            let erroresArray = [];
+            for (const key in errores) {
+                erroresArray.push(errores[key].msg);
             }
-            , 100);
+            // Guardar los errores en el state
+            if(erroresArray.length > 0) {
+                setErrores(erroresArray[0]);
+            } else {
+                setErrores(error2);
+            }
+            
         }
     }
 
@@ -55,12 +63,24 @@ export const useAsistenciasStore = () => {
         }
     }
 
+    const getTodasAsistenciasByEvento = async(eventoId, tipoEvento) => {
+        try {
+            const { data } = await alcompasAPI.get(`asistencias/evento/${eventoId}/tipo/${tipoEvento}`);
+            const asistencias = data.resultado;
+            return asistencias;
+        } catch(error) {
+            console.log(error);
+        }
+    }
+
     return {
         // Estado
         errores,
+        setErrores,
         // Métodos
         crearAsistencia,
         actualizarAsistencia,
-        getAsistenciaByUsuarioEventoAndTipo
+        getAsistenciaByUsuarioEventoAndTipo,
+        getTodasAsistenciasByEvento
     }
 }

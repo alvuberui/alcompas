@@ -24,7 +24,7 @@ const style = {
 
 export const PublicarAsistenciaModal = ({ open, handleClose, evento, setOpen, tipo }) => {
 
-    const { actualizarAsistencia, crearAsistencia, errores, getAsistenciaByUsuarioEventoAndTipo } = useAsistenciasStore();
+    const { actualizarAsistencia, crearAsistencia, errores, setErrores, getAsistenciaByUsuarioEventoAndTipo } = useAsistenciasStore();
     const [ modo, setModo ] = useState('crear');
     const { user } = useAuthStore();
     const [ asistencia, setAsistencia ] = useState();
@@ -41,7 +41,7 @@ export const PublicarAsistenciaModal = ({ open, handleClose, evento, setOpen, ti
         if( !lista2.includes(values.tipo) ) error = error + " <br>  El tipo no es válido";
 
         if(error != "") {
-          Swal.fire('Error al añadir red social', error, 'error');
+          Swal.fire('Error al añadir asistencia al evento', error, 'error');
         }
         else {
           await crearAsistencia(values);
@@ -60,23 +60,24 @@ export const PublicarAsistenciaModal = ({ open, handleClose, evento, setOpen, ti
         if( !lista2.includes(values.tipo) ) error = error + " <br>  El tipo no es válido";
 
         if(error != "") {
-          Swal.fire('Error al añadir red social', error, 'error');
+          Swal.fire('Error al actualizar asistencia', error, 'error');
         }
         else {
           await actualizarAsistencia(values, asistencia._id);
           setOpen(false);
         }
       }
-    
+   
       const handleChangeInput = input => e => { 
         const { value } = e.target;
         setValues({ ...values, [input]: value });
         }
       
-
+       
       useEffect(() => {
-        if(  errores !== '' && errores !== '200' ){
-          Swal.fire('Error al añadir red social', errores, 'error');
+        if(  errores !== '' ){
+          Swal.fire('Error al publicar asistencia', errores, 'error');
+          setErrores('');
         }
       }, [errores])
 
@@ -113,9 +114,16 @@ export const PublicarAsistenciaModal = ({ open, handleClose, evento, setOpen, ti
           <Box sx={style} >
           
             <form>
-                <Typography  variant='h4' sx={{ textAlign:'center' ,color:'white'}} >
+                    { modo === 'crear' &&
+                    <Typography  variant='h4' sx={{ textAlign:'center' ,color:'white'}} >
                       Publicar asistencia al evento
                     </Typography>
+                    }
+                    { modo === 'actualizar' &&
+                    <Typography  variant='h4' sx={{ textAlign:'center' ,color:'white'}} >
+                      Actualizar asistencia al evento
+                    </Typography>
+                    }
                 <Grid container>
                 <Grid item xs={ 12 } sx={{ mt: 2}}>
                     <Typography  sx={{ color:'white'}} >

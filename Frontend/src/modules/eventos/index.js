@@ -4,3 +4,5 @@ export * from './pages/PrimerPasoForm';
 export * from './pages/SegundoPasoForm';
 export * from './pages/ActualizarEventoForm';
 export * from './modals/PublicarAsistenciaModal';
+export * from './pages/AsistenciaEvento';
+export * from './modals/VerMotivo';

@@ -13,6 +13,7 @@ import { Peticiones } from '../modules/peticiones/pages/Peticiones';
 import { PeticionesBanda } from '../modules/peticiones/pages/PeticionesBanda';
 import { Perfil } from '../modules/user';
 import { Estadisticas } from '../modules/dashboard/Estadisticas';
+import { AsistenciaEvento } from '../modules/eventos/pages/AsistenciaEvento';
 
 export const AppRouter = () => {
   
@@ -55,6 +56,7 @@ export const AppRouter = () => {
                   <Route path="/banda/panel/eventos/:bandaId" element={ <Eventos/>} />
                   <Route path="/banda/panel/eventos/crear/:bandaId" element={ <CrearEventoForm/>} />
                   <Route path="/banda/panel/eventos/editar/:tipoEvento/:eventoId" element={ <ActualizarEventoForm/>} />
+                  <Route path="/banda/panel/eventos/asistencia/:eventoId/:tipoEvento" element={ <AsistenciaEvento/>} />
 
                   <Route path="/admin" element={ <Menu/>} />
                   <Route path="/admin/usuarios" element={ <AdministrarUsuarios/>} />

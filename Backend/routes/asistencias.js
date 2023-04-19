@@ -1,7 +1,7 @@
 const { Router }= require('express');
 const router = Router();
 const { check } = require('express-validator');
-const { actualizarAsistencia, crearAsistencia, getAsistenciaByUsuarioEventoAndTipo } = require('../controllers/asistencias');
+const { actualizarAsistencia, crearAsistencia, getAsistenciaByUsuarioEventoAndTipo, getTodasAsistenciasByEvento } = require('../controllers/asistencias');
 const { validarCampos } = require('../middlewares/validar-campos');
 const { validarJWT } = require('../middlewares/validar-jwt');
 
@@ -53,6 +53,9 @@ router.put('/:id',
 
    // Obtener la asistencia de un usuario a un evento segun el id del usuario, id del evento y el tipo del evento
 router.get('/usuario/:usuarioId/evento/:eventoId/tipo/:tipoEvento', getAsistenciaByUsuarioEventoAndTipo);
+
+   // Obtener todas las asistencia de todos los musicos de una banda para un evento
+router.get('/evento/:eventoId/tipo/:tipoEvento', getTodasAsistenciasByEvento);
 
 
 module.exports = router;    

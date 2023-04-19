@@ -7,6 +7,7 @@ const Actuacion = require('../models/Actuacion');
 const Ensayo = require('../models/Ensayo');
 const Musico = require('../models/Musico');
 const Archivero = require('../models/Archivero');
+const Usuario = require('../models/Usuario');
 
 const perteneceABanda = async(payloadId, asistencia) => {
     // Obtenemos el evento
@@ -52,7 +53,9 @@ const esEventoFuturo = async(asistencia) => {
 
     // Comprobar que el evento es futuro
     const fechaActual = new Date();
-    if(evento.fecha <= fechaActual) {
+ 
+    if(evento.fechaInicio <= fechaActual) {
+      
         return false;
     } else {
         return true;
@@ -78,8 +81,8 @@ const crearAsistencia = async(req, res = express.response) => {
         }
 
         const esFuturo = await esEventoFuturo(asistencia);
-
-        if(!esFuturo) {
+     
+        if(esFuturo === false) {
             return res.status(400).json({
                 ok: false,
                 msg: 'No se puede crear una asistencia a un evento que ya ha pasado'
@@ -130,8 +133,8 @@ const actualizarAsistencia = async(req, res = express.response) => {
         }
 
         const esFuturo = await esEventoFuturo(asistencia);
-
-        if(!esFuturo) {
+        
+        if(esFuturo === false) {
             return res.status(400).json({
                 ok: false,
                 msg: 'No se puede crear una asistencia a un evento que ya ha pasado'
@@ -210,8 +213,102 @@ const getAsistenciaByUsuarioEventoAndTipo = async(req, res = express.response) =
     }
 }
 
+const getTodasAsistenciasByEvento = async(req, res = express.response) => {
+    try {
+        const eventoId = req.params.eventoId;
+        const tipo = req.params.tipoEvento;
+        
+        let evento;
+        switch(tipo) {
+            case 'Procesion':
+                evento = await Procesion.findById(eventoId);
+                break;
+            case 'Actuacion':
+                evento = await Actuacion.findById(eventoId);
+                break;
+            case 'Ensayo':
+                evento = await Ensayo.findById(eventoId);
+                break;
+        }
+    
+        // Comprobamos que es directivo de la banda o archviero
+        const token = req.header('x-token');
+        const payload = jwt.verify(token,process.env.SECRET_JWT_SEED);
+        const payloadId = payload.uid;
+        let directivos = Directivo.find({'usuario': payloadId, 'banda': evento.banda, 'fecha_final': undefined});
+        let archiveros = Archivero.find({'usuario': payloadId, 'banda': evento.banda, 'fecha_final': undefined});
+        if(directivos.length == 0 && archiveros.length == 0) {
+            return res.status(401).json({
+                ok: false,
+                msg: 'No tiene privilegios para realizar esta acción'
+            });
+        }
+  
+        const musicos = await Musico.find({'banda': evento.banda.toString(), 'fecha_final': undefined});
+        directivos = await Directivo.find({'banda': evento.banda.toString(), 'fecha_final': undefined});
+        archiveros = await Archivero.find({'banda': evento.banda.toString(), 'fecha_final': undefined});
+        // Buscamos todas las asistencias 
+        const asistencias = await Asistencia.find({'referencia': eventoId, 'tipo': tipo});
+    
+        // Creamos un map con eky y clave
+        const resultado = {};
+
+        for(let i = 0; i < musicos.length; i++) {
+            const musico = musicos[i];
+            const instrumento = musico.instrumento
+            const asistencia =  asistencias.find(a => a.usuario.toString() === musico.usuario.toString());
+            const usuario = await Usuario.findById(musico.usuario);
+            if(resultado[instrumento]) {
+                const lista = resultado[instrumento];
+                lista.push([usuario, asistencia]);
+                resultado[instrumento] = lista;
+            } else {
+                resultado[instrumento] = [ [usuario, asistencia]];
+            }
+            
+        }
+        for(let i = 0; i < directivos.length; i++) {
+            const directivo = directivos[i];
+            const instrumento = directivo.cargo
+            const asistencia =  asistencias.find(a => a.usuario.toString() === directivo.usuario.toString());
+            const usuario = await Usuario.findById(directivo.usuario);
+            if(resultado[instrumento]) {
+                const lista = resultado[instrumento];
+                lista.push([usuario, asistencia]);
+                resultado[instrumento] = lista;
+            } else {
+                resultado[instrumento] = [ [usuario, asistencia]];
+            }
+        }
+        for(let i = 0; i < archiveros.length; i++) {
+            const archivero = archiveros[i];
+            const asistencia =  asistencias.find(a => a.usuario.toString() === archivero.usuario.toString());
+            const usuario = await Usuario.findById(archivero.usuario);
+            if(resultado[instrumento]) {
+                const lista = resultado[instrumento];
+                lista.push([usuario, asistencia]);
+                resultado[instrumento] = lista;
+            } else {
+                resultado[instrumento] = [ [usuario, asistencia]];
+            }
+        }
+
+        res.status(200).json({
+            ok: true,
+            resultado
+        });
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({
+            ok: false,
+            msg: 'Error inesperado'
+        });
+    }
+}
+
 module.exports = {
     crearAsistencia,
     actualizarAsistencia,
-    getAsistenciaByUsuarioEventoAndTipo
+    getAsistenciaByUsuarioEventoAndTipo,
+    getTodasAsistenciasByEvento
 }
