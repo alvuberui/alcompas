@@ -3,7 +3,7 @@ const router = Router();
 const { check } = require('express-validator');
 
 const { crearMusico, finalizarMusico, eliminarMusicos, getMusicosByBandaId, getMusicoById,
-        getMusicosByUserId } = require('../controllers/musicos');
+        getMusicosByUserId, getMusicosByIntrumentoAndLocalidad} = require('../controllers/musicos');
 const { validarCampos } = require('../middlewares/validar-campos');
 const { validarInstrumentos } = require('../middlewares/validar-instrumento');
 const { validarVoz } = require('../middlewares/validar-voz');
@@ -25,5 +25,8 @@ router.get('/:id', getMusicoById);
 
     // Obtener los roles de músico de un usuario
 router.get('/user/id/:userId', getMusicosByUserId);
+
+    // Obtener musicos by instrumento y localidad
+router.get('/instrumento/:instrumento/localidad/:localidad', getMusicosByIntrumentoAndLocalidad);
 
 module.exports = router;    

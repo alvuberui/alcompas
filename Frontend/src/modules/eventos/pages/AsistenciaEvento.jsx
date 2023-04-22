@@ -1,48 +1,97 @@
 import React, { useEffect, useState } from 'react'
-import { useNavigate, useParams } from 'react-router-dom'
-import { useEventosStore } from '../../../hooks';
+import { Navigate,NavLink, useNavigate, useParams } from 'react-router-dom'
+import { useArchiverosStore, useAuthStore, useContratadosStore, useDirectivosStore, useEventosStore } from '../../../hooks';
 import { Box, CircularProgress, Grid, Typography} from '@mui/material';
 import { Evento } from '../../../Components/Evento';
 import { useAsistenciasStore } from '../../../hooks/useAsistenciasStore';
 import { Plantilla } from '../../../Components';
 import { Musico } from '../../../Components/Musico';
+import { Button } from '@material-ui/core';
+
 
 export const AsistenciaEvento = () => {
 
     const [ evento, setEvento ] = useState();
     const [ asistencias, setAsistencias ] = useState();
+    const [ contratados, setContratados ] = useState([]);
     const [ isLoading, setIsLoading ] = useState(true);
+    const [ esDirectivo, setEsDirectivo ] = useState('a');
+    const [ esArchivero, setEsArchivero ] = useState('a');
 
     const { eventoId } = useParams();
     const { tipoEvento } = useParams();
 
     const {  getByTipoId } = useEventosStore();
     const { getTodasAsistenciasByEvento } = useAsistenciasStore();
+    const { getDirectivoByUserId } = useDirectivosStore();
+    const { getArchiverosByUserId } = useArchiverosStore();
+    const { getContratadosByEnveto } = useContratadosStore();
+    const { user } = useAuthStore();
 
     useEffect(() => {
         const getEvento = async () => {
-            const evento = await getByTipoId(tipoEvento, eventoId);
-            setEvento(evento);
+            const even = await getByTipoId(tipoEvento, eventoId);
+            setEvento(even);
         }
         const getAsistencias = async () => {
-            const asistencias = await getTodasAsistenciasByEvento(eventoId,  tipoEvento === 'Actuación' ? 'Actuacion' : tipoEvento === 'Procesión' ? 'Procesion' : 'Ensayo');
-            setAsistencias(asistencias);
+            const asis = await getTodasAsistenciasByEvento(eventoId,  tipoEvento === 'Actuación' ? 'Actuacion' : tipoEvento === 'Procesión' ? 'Procesion' : 'Ensayo');
+            setAsistencias(asis);
         }
         getEvento();
         getAsistencias();
+      
     }, [tipoEvento, eventoId]);
-   
 
     useEffect(() => {
+      const getContratados = async () => {
+        if( evento ) {
+          const contratados = await getContratadosByEnveto( tipoEvento === 'Actuación' ? 'Actuacion' : tipoEvento === 'Procesión' ? 'Procesion' : 'Ensayo', eventoId);
+          setContratados(contratados);
+        }
+      }
+      getContratados();
+    }, [evento]);
+
+    useEffect(() => {
+      const getPermisos = async () => {
+        if( evento ) {
+            const directivos = await getDirectivoByUserId(user.uid);
+            const archiveros = await getArchiverosByUserId(user.uid);
+            if( directivos.length === 0) setEsDirectivo(false);
+            for( let i = 0; i < directivos.length; i++ ){
+              const directivo = directivos[i];
+              if( directivo.banda === evento.banda && !directivo.fechaFin){
+                setEsDirectivo(true);
+                break;
+              } else {
+                setEsDirectivo(false);
+              }
+            }
+            if( archiveros.length === 0) setEsArchivero(false);
+            for( let i = 0; i < archiveros.length; i++ ){
+              const archivero = archiveros[i];
+              if( archivero.banda === evento.banda && !archivero.fechaFin){
+                setEsArchivero(true);
+                break;
+              } else {
+                setEsArchivero(false);
+              }
+            }
+        }
+    }
+    getPermisos();
+    }, [evento]);
+   
+    useEffect(() => {
       const checkLoading = () => {
-        if( evento != undefined && asistencias != undefined && tipoEvento != undefined ){
+        if( evento != undefined && asistencias != undefined && tipoEvento != undefined && esDirectivo != 'a' && esArchivero != 'a' ){
           setIsLoading(false);
         } else {
           setIsLoading(true);
         }
       }
       checkLoading();
-    }, [evento, tipoEvento, asistencias]);
+    }, [evento, tipoEvento, asistencias, esDirectivo, esArchivero]);
 
     const renderizar = () => {
       let html = [];
@@ -59,8 +108,21 @@ export const AsistenciaEvento = () => {
                 html.push(<Musico key={ (j+1) * (i+1) } usuario={value[0]} tipo={"Directivo"} asistencia={value[1]} />);
               }
             }
-          }
-          return html;
+      }
+      // OBtenemos las claves de un objeto
+      let i = 0;
+      for(let clave in contratados){
+        i = i + 1;
+        // Separamos la clave por coma y hacemos un array
+        const key = clave.split(',');
+        const value = contratados[key];
+        // sustituir ' por " en el string key
+        html.push(<Grid justifyContent="center" alignItems="center" key={key[0] + i}  container><Typography  sx={{mt:2}} variant='h6' align='center' color='white'>{key[0]} Contratado </Typography></Grid>);
+        if( value ) {
+          html.push(<Musico key={ key[1] } usuario={value} tipo={"Directivo"} contratado={true} contratadoId= { key[1] } />);
+        }
+      }
+      return html;
         }
 
     
@@ -72,6 +134,7 @@ export const AsistenciaEvento = () => {
   }
   else {
     return (
+      
       <Grid
          
         container 
@@ -79,6 +142,9 @@ export const AsistenciaEvento = () => {
         justifyContent="center"
         alignItems="baseline"
     >
+        {
+          ( !esDirectivo && !esArchivero ) && <Navigate to="/" />
+        }
         <Grid 
         container
         display="flex"
@@ -93,6 +159,9 @@ export const AsistenciaEvento = () => {
             sx={{ padding:2, backgroundColor:'primary.main', borderRadius:'5px', boxShadow:' 1px 1px 1px 1px' }}
             >
               <Typography  variant='h4' sx={{textAlign:'center', color:'white'}}>{tipoEvento + ': ' + evento.titulo } </Typography>
+         
+                <Button sx={{mt:2, mb:2, ml:2}} variant="contained" color="secondary"  ><NavLink style={{textDecoration: "none", color: "white"}}  to={`/banda/panel/eventos/asistencia/contratar/${eventoId}/${tipoEvento}`}>Añadir contratado</NavLink></Button>
+       
           </Grid>
             <Grid
               container

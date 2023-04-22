@@ -6,3 +6,4 @@ export * from './pages/ActualizarEventoForm';
 export * from './modals/PublicarAsistenciaModal';
 export * from './pages/AsistenciaEvento';
 export * from './modals/VerMotivo';
+export * from './pages/ContratarMusico';

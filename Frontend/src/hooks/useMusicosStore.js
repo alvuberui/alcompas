@@ -61,6 +61,17 @@ export const useMusicosStore = () => {
         }
     }
 
+    const getMusicosByIntrumentoAndLocalidad = async(instrumento, localidad) => {
+        try {
+            const { data } = await alcompasAPI.get('musicos/instrumento/' + instrumento + '/localidad/' + localidad);
+            const musicos = data.musicosFiltrados;
+            return musicos;
+        }
+        catch(error) {
+            console.log('Error obteniendo músicos');
+        }
+    }
+
 
     return {
         // Métodos
@@ -69,5 +80,6 @@ export const useMusicosStore = () => {
         finalizarMusico,
         getMusicoById,
         getMusicosByUserId,
+        getMusicosByIntrumentoAndLocalidad
     }
 }

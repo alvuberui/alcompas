@@ -15,3 +15,4 @@ export * from  './useTransaccionesStore';
 export * from './useEventosStore';
 export * from './useLikesStore';
 export * from './useEstadisticasStore';
+export * from './useContratadosStore';

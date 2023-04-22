@@ -12,3 +12,4 @@ export * from './Noticia';
 export * from './Calendario';
 export * from './Evento';
 export * from './Estadistica';
+export * from './Contratado';

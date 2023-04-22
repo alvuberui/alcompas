@@ -14,13 +14,16 @@ import DoneIcon from '@mui/icons-material/Done';
 import ClearIcon from '@mui/icons-material/Clear';
 import QuestionMarkIcon from '@mui/icons-material/QuestionMark';
 import { VerMotivo } from '../modules/eventos';
+import { useContratadosStore } from '../hooks';
+import Swal from 'sweetalert2';
 
-export const Musico = ({usuario, tipo, directivo, asistencia}) => {
+export const Musico = ({ usuario, tipo, directivo, asistencia, contratado, contratadoId}) => {
   
   const { bandaId } = useParams();
   const [ open , setOpen ] = useState(false);
   const { finalizarMusico } = useMusicosStore();
   const { finalizarDirectivo, getDirectivosByBandaId } = useDirectivosStore();
+  const { deleteContratado } = useContratadosStore();
   const navigate = useNavigate();
 
   const handleEliminarMusico = (e) => {
@@ -53,6 +56,29 @@ export const Musico = ({usuario, tipo, directivo, asistencia}) => {
     } 
   }
 
+  const handleEliminarContratado = (e) => {
+    e.preventDefault();
+    Swal.fire({
+      title: '¿Estás seguro?',
+      text: "Se eliminará el músico contratado para esta actuación",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sí, eliminar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        deleteContratado(contratadoId);
+        Swal.fire(
+          'Eliminado',
+          'El músico contratado ha sido eliminado',
+          'success'
+        )
+      }
+    })
+  }
+
+
   return (
     <>
       { asistencia &&
@@ -81,6 +107,13 @@ export const Musico = ({usuario, tipo, directivo, asistencia}) => {
                       <DeleteIcon  ></DeleteIcon>
                     </IconButton>
                   }
+                </Grid>
+              }
+              { contratado && 
+                <Grid item xs={12} lg={1} alignContent={'center'} justifyContent={'center'} display='flex'>
+                    <IconButton  onClick={ handleEliminarContratado } sx = {{alignSelf:'flex-end'}}  aria-label="upload picture" component="label">
+                      <DeleteIcon style={{color:'#FF0000'}} ></DeleteIcon>
+                    </IconButton>
                 </Grid>
               }
               {
