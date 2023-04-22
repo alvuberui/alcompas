@@ -119,7 +119,7 @@ export const AsistenciaEvento = () => {
         // sustituir ' por " en el string key
         html.push(<Grid justifyContent="center" alignItems="center" key={key[0] + i}  container><Typography  sx={{mt:2}} variant='h6' align='center' color='white'>{key[0]} Contratado </Typography></Grid>);
         if( value ) {
-          html.push(<Musico key={ key[1] } usuario={value} tipo={"Directivo"} contratado={true} contratadoId= { key[1] } />);
+          html.push(<Musico key={ key[1] } usuario={value} tipo={"Directivo"} contratado={true} contratadoId= { key[1] } setContratados = {setContratados}  />);
         }
       }
       return html;

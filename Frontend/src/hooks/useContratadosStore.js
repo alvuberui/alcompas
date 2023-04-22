@@ -6,7 +6,6 @@ export const useContratadosStore = () => {
 
     const crearContratados = async(contratado) => {
         try {
-            console.log(contratado)
             const { data } = await alcompasAPI.post('contratados/', contratado);
             const contratadoDB = data.contratadoDB;
             return contratadoDB;

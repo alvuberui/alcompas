@@ -61,12 +61,12 @@ const getContratadosByEvento = async(req, res = express.response) => {
         const referencia = req.params.referencia;
         const contratados = await Contratado.find({tipo: tipoEvento, referencia: referencia});
         const resultados = {};
-
+  
         // Comprobamos que sea directivo de la banda
         const token = req.header('x-token');
         const payload = jwt.verify(token,process.env.SECRET_JWT_SEED);
         const payloadId = payload.uid;
-
+    
         let evento;
         switch(tipoEvento) {
             case 'Procesion':
@@ -79,7 +79,7 @@ const getContratadosByEvento = async(req, res = express.response) => {
                 evento = await Ensayo.findById(referencia);
                 break;
         }
-
+        
         const directivos = await Directivo.find({fechaFin: undefined, banda: evento.banda, usuario: payloadId});
         if(directivos.length === 0) {
             return res.status(401).json({

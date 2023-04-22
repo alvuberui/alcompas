@@ -17,13 +17,13 @@ import { VerMotivo } from '../modules/eventos';
 import { useContratadosStore } from '../hooks';
 import Swal from 'sweetalert2';
 
-export const Musico = ({ usuario, tipo, directivo, asistencia, contratado, contratadoId}) => {
+export const Musico = ({ usuario, tipo, directivo, asistencia, contratado, contratadoId, setContratados}) => {
   
-  const { bandaId } = useParams();
+  const { bandaId, eventoId, tipoEvento } = useParams();
   const [ open , setOpen ] = useState(false);
   const { finalizarMusico } = useMusicosStore();
   const { finalizarDirectivo, getDirectivosByBandaId } = useDirectivosStore();
-  const { deleteContratado } = useContratadosStore();
+  const { deleteContratado, getContratadosByEnveto } = useContratadosStore();
   const navigate = useNavigate();
 
   const handleEliminarMusico = (e) => {
@@ -69,6 +69,8 @@ export const Musico = ({ usuario, tipo, directivo, asistencia, contratado, contr
     }).then((result) => {
       if (result.isConfirmed) {
         deleteContratado(contratadoId);
+        const contratados = getContratadosByEnveto(tipoEvento === 'Procesión' ? 'Procesion' : tipoEvento === 'Actuación' ? 'Actuacion' : 'Ensayo', eventoId);
+        setContratados(contratados);
         Swal.fire(
           'Eliminado',
           'El músico contratado ha sido eliminado',
@@ -78,7 +80,7 @@ export const Musico = ({ usuario, tipo, directivo, asistencia, contratado, contr
     })
   }
 
-
+ 
   return (
     <>
       { asistencia &&
