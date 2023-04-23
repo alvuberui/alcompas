@@ -13,3 +13,4 @@ export * from './Calendario';
 export * from './Evento';
 export * from './Estadistica';
 export * from './Contratado';
+export * from './Documento';
