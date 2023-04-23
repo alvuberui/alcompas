@@ -1,6 +1,7 @@
 const express = require('express');
 const Musico = require('../models/Musico');
 const Directivo = require('../models/Directivo');
+const Usuario = require('../models/Usuario');
 const jwt = require('jsonwebtoken');
 
 
@@ -120,11 +121,53 @@ const getMusicosByUserId = async(req, res = express.response) => {
     }
 }
 
+const getMusicosByIntrumentoAndLocalidad = async(req, res = express.response) => {
+    try {
+        const instrumento = req.params.instrumento;
+        const localidad = req.params.localidad;
+        
+        const musicos = await Musico.find({'instrumento': instrumento});
+        const musicosFiltrados = [];
+
+        // Comprobamos que es directivo de alguna banda
+        const token = req.header('x-token');
+        const payload = jwt.verify(token,process.env.SECRET_JWT_SEED);
+        const payloadId = payload.uid;
+
+        const ds = await Directivo.find({'usuario': payloadId, 'fecha_final': undefined});
+        if(ds.length === 0) {
+            return res.status(401).json({
+                ok: false,
+                msg: 'No tiene privilegios para realizar esta acción'
+            });
+        }
+        
+        for(i=0; i<musicos.length; i++) {
+            let musico = musicos[i];
+            const usuario = await Usuario.findById(musico.usuario);
+            if(usuario.localidad !== localidad) {
+                continue;
+            }
+            musicosFiltrados.push(musico);
+        }
+        return res.status(201).json({
+            ok: true,
+            musicosFiltrados
+        });
+    } catch(error) {
+        res.status(500).json({
+            ok: false,
+            msg: 'Por favor hable con el administrador.'
+        });
+    }
+}
+
 
 
 module.exports = {
     finalizarMusico,
     getMusicosByBandaId,
     getMusicoById,
-    getMusicosByUserId
+    getMusicosByUserId,
+    getMusicosByIntrumentoAndLocalidad
 }

@@ -365,7 +365,7 @@ export class SegundoPasoForm extends Component {
                   <Select
                     labelId="demo-simple-select-standard-label"
                     id="demo-simple-select-standard"
-                    label="Bocadillo tras la procesión"
+                    label="Tipo de actuación"
                     fullWidth
                     value={values.tipoActuacion}
                     onChange={handleChange('tipoActuacion')}
@@ -408,7 +408,7 @@ export class SegundoPasoForm extends Component {
                 </Grid>
                 <Grid  item xs={ 6 } >
                   <Button  variant='contained' color="secondary" fullWidth onClick={this.confirmar}>
-                    Crear evento
+                    Publicar evento
                   </Button>
                 </Grid>
               </Grid>

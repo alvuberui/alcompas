@@ -79,7 +79,7 @@ export const NuevoAnuncio  = ( { open, handleClose, setAnuncios, setOpen }) => {
           
             <form>
                 <Typography  variant='h4' sx={{ textAlign:'center' ,color:'white'}} >
-                      Añadir comentario
+                      Añadir Anuncio
                     </Typography>
                 <Grid container>
                     <Grid item xs={ 12 } sx={{ mt: 2}}>

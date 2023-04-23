@@ -8,10 +8,13 @@ import { AdministrarBandas, AdministrarUsuarios, Menu } from '../modules/admin';
 import { BandaForm, MisBandas, PerfilBanda, RedesSociales, Transacciones, UpdateBandaForm } from '../modules/banda';
 import { PanelDirectivo } from '../modules/banda/pages/PanelDirectivo';
 import { Dashboard } from '../modules/dashboard/Dashboard';
-import { CrearEventoForm, Eventos } from '../modules/eventos';
+import { ActualizarEventoForm, CrearEventoForm, Eventos } from '../modules/eventos';
 import { Peticiones } from '../modules/peticiones/pages/Peticiones';
 import { PeticionesBanda } from '../modules/peticiones/pages/PeticionesBanda';
 import { Perfil } from '../modules/user';
+import { Estadisticas } from '../modules/dashboard/Estadisticas';
+import { AsistenciaEvento } from '../modules/eventos/pages/AsistenciaEvento';
+import { ContratarMusico } from '../modules/eventos/pages/ContratarMusico';
 
 export const AppRouter = () => {
   
@@ -40,6 +43,7 @@ export const AppRouter = () => {
                   <Route path="/bandas/crear/*" element={ <BandaForm/>} />
                   <Route path="/buscar/:nombre/*" element={ <MisBandas titulo='Buscar'/>} />
                   <Route path="/banda/:bandaId" element={ <PerfilBanda/>} />
+                  <Route path="/estadisticas/*" element={ <Estadisticas/>} />
 
                   <Route path="/peticiones/:id/*" element={ <Peticiones/>} />
                   <Route path="/modificar/:id/*" element={ <UpdateForm/>} />
@@ -52,7 +56,10 @@ export const AppRouter = () => {
                   <Route path="/banda/panel/economia/:bandaId" element={ <Transacciones/>} />
                   <Route path="/banda/panel/eventos/:bandaId" element={ <Eventos/>} />
                   <Route path="/banda/panel/eventos/crear/:bandaId" element={ <CrearEventoForm/>} />
-                
+                  <Route path="/banda/panel/eventos/editar/:tipoEvento/:eventoId" element={ <ActualizarEventoForm/>} />
+                  <Route path="/banda/panel/eventos/asistencia/:eventoId/:tipoEvento" element={ <AsistenciaEvento/>} />
+                  <Route path="/banda/panel/eventos/asistencia/contratar/:eventoId/:tipoEvento" element={ <ContratarMusico/>} />
+
                   <Route path="/admin" element={ <Menu/>} />
                   <Route path="/admin/usuarios" element={ <AdministrarUsuarios/>} />
                   <Route path="/admin/bandas" element={ <AdministrarBandas/>} />

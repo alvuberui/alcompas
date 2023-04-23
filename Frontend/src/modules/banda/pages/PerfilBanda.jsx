@@ -4,13 +4,20 @@ import * as React from 'react';
 import { useEffect, useState } from 'react';
 import { NavLink, useNavigate, useParams } from 'react-router-dom';
 import Swal from 'sweetalert2';
-import { Noticia, Plantilla } from '../../../Components';
+import { Calendario, Noticia, Plantilla } from '../../../Components';
 import { Comentario } from '../../../Components/Comentario';
-import { useAnunciosStore, useArchiverosStore, useAuthStore, useBandasStore, useComentariosStore, useDirectivosStore, useMusicosStore, useUploadsStore } from '../../../hooks';
+import { useAnunciosStore, useLikesStore, useAuthStore, useBandasStore, useComentariosStore, useDirectivosStore, useEventosStore, useMusicosStore, useUploadsStore } from '../../../hooks';
 import { useRedesSocialesStore } from '../../../hooks/useRedesSocialesStore';
 import { EditarFoto } from '../../user';
 import { NuevoAnuncio } from '../modals/NuevoAnuncio';
 import { NuevoComentario } from '../modals/NuevoComentario';
+import Card from '@material-ui/core/Card';
+import CardActions from '@material-ui/core/CardActions';
+import CardContent from '@material-ui/core/CardContent';
+import CardHeader from '@material-ui/core/CardHeader';
+import IconButton from '@material-ui/core/IconButton';
+import FavoriteIcon from '@material-ui/icons/Favorite';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 const r = [ 'Email', 'Facebook', 'Instagram', 'Twitter', 'Youtube', 'Apple Music', ' Soundcloud', 'Spotify', 'TikTok' ]
 
@@ -32,7 +39,8 @@ export const PerfilBanda = () => {
   const [ perteneceMusico, setPerteneceMusico ] = useState(false);
   const [ perteneceDirectivo, setPerteneceDirectivo ] = useState(false);
   const [ anuncios, setAnuncios ] = useState([]);
-  
+  const [ isLiked, setIsLiked ] = useState(false);
+  const [ numeroLikes, setNumeroLikes ] = useState(0);
 
   // Funciones
   const handleChange = (event, newValue) => {
@@ -71,6 +79,22 @@ export const PerfilBanda = () => {
     event.preventDefault();
     setOpenEditarFoto(false);
   };
+
+  const handleLike = e => {
+    e.preventDefault();
+    const like = { 'usuario': user.uid, 'referencia': banda._id, 'tipo': 'Banda' };
+    publicarLike(like);
+    setIsLiked(true);
+    setNumeroLikes(numeroLikes + 1);
+}
+
+const handleDislike = e => {
+    e.preventDefault();
+    const like = { 'referencia': banda._id, 'tipo': 'Banda' };
+    publicarDislike(like);   
+    setIsLiked(false);    
+    setNumeroLikes(numeroLikes - 1);
+}
 
   const eliminarComentario = (comentarioId) => {
     // "current" contains the latest state array
@@ -113,6 +137,8 @@ export const PerfilBanda = () => {
   const { getDirectivosByBandaId } = useDirectivosStore();
   const { getAllByBandaId } = useRedesSocialesStore();
   const { getNoticiasByBanda } = useAnunciosStore();
+  const { publicarLike, publicarDislike, getLikeByTipoAndReferencia, errores,
+    getNumeroLikes } = useLikesStore();
   
   useEffect(() => {
     const getBanda = async () => {
@@ -230,6 +256,45 @@ export const PerfilBanda = () => {
     getUsuariosMusicos();
     getUsuariosDirectivos();
   }, [musicos, directivos]);
+
+  useEffect(() => {
+    if( errores === 'No se pudo completar el dislike') {
+        Swal.fire('Error', 'No se pudo eliminar el dislike', 'error');
+        setIsLiked(true);
+        
+    } else if(errores === 'No se pudo completar el like') {
+        Swal.fire('Error', 'No se pudo eliminar el like', 'error');
+        setIsLiked(false);
+    }
+    
+}, [errores])
+
+// Efectos
+useEffect(() => {
+    const getLike = async () => {
+        if(banda._id ) {
+          const like = await getLikeByTipoAndReferencia({ tipo: 'Banda', referencia: banda._id });
+          
+          if(like) {
+              setIsLiked(true);
+          } else {
+              setIsLiked(false);
+          }
+        }
+    }  
+    getLike();
+}, [  banda ]);
+
+useEffect(() => {
+    const getNumeroLikesF = async () => {
+      if(banda._id ) {
+            const numeroLikes = await getNumeroLikes({ tipo: 'Banda', referencia: banda._id });
+            setNumeroLikes(numeroLikes);
+      }
+    }
+    getNumeroLikesF();
+}, [  banda ]);
+
  
   return (
     <>
@@ -237,128 +302,51 @@ export const PerfilBanda = () => {
       <NuevoComentario open={open} handleClose={handleClose} setOpen={setOpen} setComentarios={setComentarios}></NuevoComentario>
       <EditarFoto setFoto={setFotoPerfil} open={openEditarFoto} handleClose={handleCloseEditarFoto} setOpen={setOpenEditarFoto} tipo={"banda"}></EditarFoto>
       <NuevoAnuncio open={openAnuncio} handleClose={handleCloseAnuncio} setOpen={setOpenAnuncio} setAnuncios={setAnuncios}></NuevoAnuncio>
-      <Grid 
-        container 
-     
-      >
+      <Grid container justifyContent="center">
         <Grid 
           item
           lg={3}
-          xs= { 12 }
-          sx={{minHeight: '50vh', padding: 4, margin:'10px', backgroundColor: '#262254', borderRadius: '25px', boxShadow: '0px 0px 10px 0px rgba(0,0,0,0.75)' }}
-          
+          xs={12}
+          display="inline-flex"
+          justifyContent="center"
+          alignItems="center"
+          height="100%"
+          sx={{mt:5}}
+        >
+          <Grid 
+            item
+            xs={11.65}
+            sx={{ backgroundColor: '#262254', borderTopLeftRadius: '5px', borderRadius: '5px', padding: '10px'}}
           >
-            <Grid 
-            item
-            justifyContent="center"
-            alignItems="center" 
-            xs= { 12 }
-            sx={{  justifyContent: "center", display: "flex", backgroundColor: '#262254'  }}
-            >
-              { perteneceDirectivo ? 
-                <a onClick={handleOpenEditarFoto}>
-                  <Avatar  style={{ height: '150px', width: '150px' }} alt="Remy Sharp" src={`data:image/png;base64,${fotoPerfil}`} />
-                </a>
+            
+  
+              <Box  sx={{ display: 'flex', alignItems: 'center', flexDirection: 'column', justifyContent: 'center' }}>
+                { perteneceDirectivo ? 
+                  <a onClick={handleOpenEditarFoto}>
+                    <Avatar  style={{ height: '150px', width: '150px' }} alt="Remy Sharp" src={`data:image/png;base64,${fotoPerfil}`} />
+                  </a>
+                  :
+                  <Avatar style={{ height: '150px', width: '150px' }} alt="Remy Sharp" src={`data:image/png;base64,${fotoPerfil}`} />
+                }
+                { isLiked ?
+                <Button onClick={handleDislike} sx={{ mt:2, backgroundColor: 'rgba(10,10, 10, 0.5)',opacity: 0.8, color:'red' }} color='secondary' startIcon={<FavoriteIcon />}>
+                  { numeroLikes } Me gusta
+                </Button>
                 :
-                <Avatar style={{ height: '150px', width: '150px' }} alt="Remy Sharp" src={`data:image/png;base64,${fotoPerfil}`} />
-              }
-            </Grid>
-            <Grid 
-            item
-            justifyContent="center"
-            alignItems="center" 
-            xs= { 12 }
-            sx={{  justifyContent: "center", display: "flex" ,  backgroundColor: '#262254' }}
-            >
-              <Typography color='white' sx={{ fontWeight: 'bold', mt:'10px', textAlign:'center' }} variant='h5'>{ banda.tipo } { banda.nombre }</Typography>
-            </Grid>
-            <Grid 
-            item
-            justifyContent="center"
-            alignItems="center" 
-            xs= { 12 }
-            sx={{  justifyContent: "center", display: "flex",  backgroundColor: '#262254'  }}
-            >
-              <Typography color='white' sx={{ fontWeight: 'bold' }} variant='h5'>Fundada en { banda.año_fundacion }</Typography>
-            </Grid>
-            <Grid 
-            item
-            justifyContent="center"
-            alignItems="center" 
-            xs= { 12 }
-            sx={{  justifyContent: "center", display: "flex",  backgroundColor: '#262254'  }}
-            >
-              <Typography color='white' variant='h6'>{banda.localidad} ({banda.provincia})</Typography>
-            </Grid>
-            <Grid 
-            item
-            justifyContent="center"
-            alignItems="center" 
-            xs= { 12 }
-            sx={{  justifyContent: "center", display: "flex",  backgroundColor: '#262254'  }}
-            >
-              <Typography color='white' variant='h6'>{banda.codigo_postal}</Typography>
-            </Grid>
-            <Grid 
-            item
-            justifyContent="center"
-            alignItems="center" 
-            xs= { 12 }
-            sx={{  justifyContent: "center", display: "flex",  backgroundColor: '#262254'  }}
-            >
-              <Typography color='white' variant='h6'>{banda.direccion}</Typography>
-            </Grid>
-            
-            <Grid 
-            item
-            justifyContent="center"
-            alignItems="center" 
-            xs= { 12 }
-            sx={{  justifyContent: "center", display: "flex",  backgroundColor: '#262254'  }}
-            >
-              <Typography color='white' sx={{textDecoration: 'underline',  fontWeight: 'bold', mt:'10px' }} variant='h5'>Contacto</Typography>
-
-            </Grid>
-            <Grid 
-            item
-            justifyContent="center"
-            alignItems="center" 
-            xs= { 12 }
-            sx={{  justifyContent: "center", display: "flex",  backgroundColor: '#262254'  }}
-            >
-              <Typography color='white' variant='h6'>{banda.correo}</Typography> 
-            </Grid>
-            <Grid 
-            item
-            justifyContent="center"
-            alignItems="center" 
-            xs= { 12 }
-            sx={{  justifyContent: "center", display: "flex",  backgroundColor: '#262254'  }}
-            >
-              <Typography  color='white' variant='h6'>{banda.telefono}</Typography> 
-            </Grid>
-
-            <Grid 
-            item
-            justifyContent="center"
-            alignItems="center" 
-            xs= { 12 }
-            sx={{ justifyContent: "center", display: "flex",  backgroundColor: '#262254'  }}
-            >
-              <Typography color='white' sx={{textDecoration: 'underline',  fontWeight: 'bold', mt:'10px' }} variant='h5'>Descripción</Typography>
-
-            </Grid>
-            <Grid 
-            item
-            justifyContent="center"
-            alignItems="center" 
-            xs= { 12 }
-            sx={{  justifyContent: "center", display: "flex",  backgroundColor: '#262254'  }}
-            >
-              <Typography color='white' sx={{textAlign: 'center'}} variant='h6'>{banda.descripcion}</Typography> 
-            </Grid>
-            
-            <Grid  sx={{ backgroundColor: '#262254'  }}>
+                <Button onClick={handleLike} sx={{ mt:2, backgroundColor: 'rgba(10,10, 10, 0.5)',opacity: 0.8 }} color='secondary' startIcon={<FavoriteIcon />}>
+                { numeroLikes } Me gusta
+                </Button>
+                }
+                <Typography color='white' sx={{ fontWeight: 'bold', mt: 1, textAlign:'center' }} variant='h6'>{ banda.tipo } { banda.nombre }</Typography>
+                <Typography color='white' sx={{ fontWeight: 'bold', textAlign:'center' }} variant='h6'>Fundada en { banda.año_fundacion }</Typography>
+                <Typography color='white' sx={{ fontWeight: 'bold', mt:2, textAlign:'center'}} variant='h7'>Nuestra dirección:</Typography>
+                <Typography color='white' sx={{textAlign:'center'}} variant='h7'>{banda.localidad} ({banda.provincia}) {banda.codigo_postal}</Typography>
+                <Typography color='white' sx={{textAlign:'center'}} variant='h7'>{banda.direccion}</Typography>
+                <Typography color='white' sx={{ fontWeight: 'bold', mt:2, textAlign:'center' }} variant='h7'>Descripción:</Typography>
+                <Typography sx={{ fontStyle: 'italic', textAlign:'center'}} color='white' variant='h7'>"{banda.descripcion}"</Typography>
+                <Typography  color='white' sx={{ fontWeight: 'bold', mt:2, textAlign:'center' }} variant='h7'>¿Quieres contactar con nosotros?</Typography>
+                <Typography sx={{textAlign:'center'}} color='white' variant='h7'>{banda.correo}</Typography> 
+                <Typography sx={{textAlign:'center'}} color='white' variant='h7'>{banda.telefono}</Typography> 
                 { redesSociales.map( (redSocial) => (
                   <Grid key={redSocial._id} item xs={4} display='inline-block'>
                     <Button sx={{backgroundColor:'white', color:'primary.main', mt:1, ml:2}} color='secondary' href={redSocial.url} size="small"variant='contained' align="center" >
@@ -375,32 +363,29 @@ export const PerfilBanda = () => {
                     </Button>
                   </Grid>
                   ))
+                  
                 }
-            </Grid>
-            { perteneceMusico &&
-              <Box textAlign='center' sx={{mt:2}}>
-                <Button  color="error" variant='contained' align="center" onClick={handleAbadonarBanda} >Abandonar Banda COMO MÚSICO</Button>
+                { perteneceMusico &&
+                <Box textAlign='center' sx={{mt:3}}>
+                  <Button  sx={{width:'250px', backgroundColor:'#FF0000'}} variant='contained' align="center" onClick={handleAbadonarBanda} >Abandonar Banda COMO MÚSICO</Button>
+                </Box>
+                }
+                { perteneceDirectivo &&
+                  <>
+                  <Box textAlign='center' sx={{mt:3}}>
+                    <Button sx={{width:'250px'}} color="secondary" variant='contained' align="center" ><NavLink style={{textDecoration: "none", color: "black"}}  to={`/banda/panel/${ banda._id }`}>Panel Directivo</NavLink></Button>
+                  </Box>
+                  </>
+                }
               </Box>
-            }
-            { perteneceDirectivo &&
-              <>
-              <Box textAlign='center' sx={{mt:2}}>
-              <NavLink style={{textDecoration: "none", color: "black"}}  to={`/bandas/actualizar/${ banda._id }`}><Button  color="error" variant='contained' align="center"   >Editar datos de la banda</Button></NavLink>
-              </Box>
-              <Box textAlign='center' sx={{mt:2}}>
-                <Button  color="secondary" variant='contained' align="center" ><NavLink style={{textDecoration: "none", color: "black"}}  to={`/banda/panel/${ banda._id }`}>Panel Directivo</NavLink></Button>
-              </Box>
-              </>
-            }
-            
-            
+              </Grid>
           </Grid>
 
           <Grid 
           item
-          lg={8}
+          lg={9}
           xs= { 12 }
-          sx={{minHeight: '50vh', padding: 4 }}
+       
           >
             <Grid 
                 container
@@ -410,7 +395,7 @@ export const PerfilBanda = () => {
                 alignItems="center"
               
                 > 
-                <Box  xs={12}   sx={{ width: '95%', color:'white',display:"flex", justifyContent: 'space-evenly', flexDirection:'column', backgroundColor:'#262254', borderRadius:'5px' }}>
+                <Box  xs={12}   sx={{ width: '97.3%', color:'white',display:"flex", justifyContent: 'space-evenly', flexDirection:'column', backgroundColor:'#262254', borderRadius:'5px' }}>
                   <Tabs value={value} onChange={handleChange} textColor='inherit' centered sx={{
                     '& .MuiTabs-flexContainer': {
                       flexWrap: 'wrap',
@@ -439,7 +424,7 @@ export const PerfilBanda = () => {
             </Grid>
             <Grid 
                 container
-                sx = {{ mt: 3}}
+                sx = {{ mt: 1 }}
                 displey="flex"
                 justifyContent="center"
                 alignItems="center"
@@ -452,6 +437,10 @@ export const PerfilBanda = () => {
                     setNoticias={setAnuncios}
                   />
                 )}
+                {
+                  value === 1 &&
+                  <Calendario tipo={"perfil"} />
+                }
                 { value === 2 &&
                 comentarios.map((comentario, index) =>
                   <Comentario eliminar={eliminarComentario}

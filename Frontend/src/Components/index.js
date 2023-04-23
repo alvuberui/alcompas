@@ -9,3 +9,8 @@ export * from './Plantilla';
 export * from './Musico';
 export * from './Experiencia';
 export * from './Noticia';
+export * from './Calendario';
+export * from './Evento';
+export * from './Estadistica';
+export * from './Contratado';
+export * from './Documento';

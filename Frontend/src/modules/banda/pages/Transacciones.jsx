@@ -20,6 +20,8 @@ import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft';
 import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
 import LastPageIcon from '@mui/icons-material/LastPage';
 import Swal from 'sweetalert2';
+import { Documento } from '../../../Components/Documento';
+import { PDFDownloadLink } from '@react-pdf/renderer';
 
 function TablePaginationActions(props) {
   const theme = useTheme();
@@ -95,6 +97,7 @@ export const Transacciones = () => {
     const [ esDirectivo, setEsDirectivo ] = useState(false);
     const [ loading, setLoading ] = useState(true);
     const [ esTesorero, setEsTesorero ] = useState(false);
+    const [ vistaPdf, setVistaPdf ] = useState(false);
 
     // Avoid a layout jump when reaching the last page with empty rows.
     const emptyRows =
@@ -126,11 +129,9 @@ export const Transacciones = () => {
           const fecha2 = año + "-" + mes + "-" + dia;
           t[i].fecha = fecha2;
           transacciones2.push(t[i]);
-          if(t[i].tipo === 'Beneficio'){
+          
             cantidad = cantidad + t[i].cantidad;
-          }else{
-            cantidad = cantidad - t[i].cantidad;
-          }
+          
         }
         setTotal(cantidad);
         return transacciones2.reverse();
@@ -208,13 +209,20 @@ export const Transacciones = () => {
         getTransacciones();
     }, [bandaId])
 
+    const handleDocumento = (e) => {
+      e.preventDefault();
+      setVistaPdf(true);
+    }
+
     if(loading){
         return <CircularProgress />
 
     } else {
+
+    
     
     return (
-        <>
+        <>  
             { esDirectivo === false && <Navigate to='/' /> }
             <NuevoTransaccion handleClose={handleClose} open={open}  setOpen={setOpen} setTransacciones={setTransacciones} editar={openEditar} transaccion={transaccion}
               setTotal={setTotal} setOpenEditar={setOpenEditar}/>
@@ -229,9 +237,14 @@ export const Transacciones = () => {
                     esTesorero &&
                     <Grid 
                     xs = { 4 }
-                    sx={{ backgroundColor: '#262254', color:'white', mt:'20px', mb:'30px', justifyContent: "center", display: "flex", borderRadius: '10px', boxShadow:'5px 5px 10px rgba(0, 0, 0, 0.5)'  }}
+                    sx={{ color:'white', mt:'20px', mb:'30px', justifyContent: "center", display: "flex", borderRadius: '10px' }}
                     item>
-                            <Button onClick={handleOpen} variant='contained' align="center" sx={{color:'white'}} fullWidth >Añadir Transacción</Button>    
+                            <Button onClick={handleOpen} variant='contained' align="center" sx={{color:'white', width:90}}  >Añadir</Button>  
+                            <PDFDownloadLink document={<Documento transacciones={transacciones} />} fileName="transacciones.pdf">
+                            <Button o variant='contained' align="center" sx={{color:'white', width:90, ml:2}}  >Imprimir</Button>  
+                            </PDFDownloadLink>
+
+
                     </Grid>
                 }
                 <Grid 

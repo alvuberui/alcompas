@@ -40,7 +40,7 @@ export const  CrearEventoForm = () => {
 
     useEffect(() => {
         if(  mensajeError !== '' && mensajeError !== '200' ){
-          Swal.fire('Error Creaando Evento', mensajeError, 'error');
+          Swal.fire('Error Creando Evento', mensajeError, 'error');
         }
         setTimeout(()=> {
             if ( mensajeError === '200') {
