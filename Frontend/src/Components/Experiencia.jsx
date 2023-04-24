@@ -20,7 +20,7 @@ export const Experiencia = ({experiencia}) => {
   return (
     <Grid 
         container
-        sx={{ mt:'15px', maxWidth:'125vh', padding:2, backgroundColor:'white', borderRadius:'5px', border:1, borderColor:'gray', boxShadow:' 5px 5px 10px' }}
+        sx={{ mt:'15px', maxWidth:'95%', padding:2, backgroundColor:'white', borderRadius:'5px', boxShadow:'rgba(0, 0, 0, 0.14) 0px 1px 1px 1px, rgba(0, 0, 0, 0.12) 0px 2px 1px -1px,  rgba(0, 0, 0, 0.2) 0px 1px 3px 1px'  }}
         >   
             <Grid
             container
@@ -29,11 +29,11 @@ export const Experiencia = ({experiencia}) => {
             alignItems="baseline">
                 <>  
                     { experiencia.cargo !== undefined ?
-                        <Typography variant='h6' sx={{fontWeight: 'bold', textAlign:'center', color:'black', textDecoration: 'underline'}}>Experiencia como directivo</Typography>
+                        <Typography variant='h6' sx={{fontWeight: 'bold', textAlign:'center', color:'black'}}>Experiencia como directivo</Typography>
                         : experiencia.instrumento !== undefined ?
-                        <Typography variant='h6' sx={{fontWeight: 'bold', textAlign:'center', color:'black', textDecoration: 'underline'}}>Experiencia como músico</Typography>
+                        <Typography variant='h6' sx={{fontWeight: 'bold', textAlign:'center', color:'black'}}>Experiencia como músico</Typography>
                         :
-                        <Typography variant='h6' sx={{fontWeight: 'bold', textAlign:'center', color:'black', textDecoration: 'underline'}}>Experiencia como archivero</Typography>
+                        <Typography variant='h6' sx={{fontWeight: 'bold', textAlign:'center', color:'black'}}>Experiencia como archivero</Typography>
                     }
                 </>
             </Grid>

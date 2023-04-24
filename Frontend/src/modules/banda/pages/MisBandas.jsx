@@ -54,7 +54,7 @@ export const MisBandas = ( { titulo }) => {
             item
             lg={10}
             xs= { 12 }
-            sx={{ padding:2, backgroundColor:'primary.main', borderRadius:'5px', boxShadow:' 1px 1px 1px 1px' }}
+            sx={{ padding:2, backgroundColor:'primary.main', borderRadius:'5px', boxShadow:'rgba(0, 0, 0, 0.14) 0px 1px 1px 1px, rgba(0, 0, 0, 0.12) 0px 2px 1px -1px,  rgba(0, 0, 0, 0.2) 0px 1px 3px 1px'  }}
             >
                 <Typography  variant='h4' sx={{textAlign:'center', color:'white'}}>{titulo}: {nombre}</Typography>
             </Grid>
@@ -64,7 +64,7 @@ export const MisBandas = ( { titulo }) => {
                 
                 item
                 xs= { 0.5 }
-                sx={{":hover":{} , ml:'15px', minWidth:'40px', backgroundColor:'primary.main', borderRadius:'5px', boxShadow:'1px 1px 1px 1px' }}
+                sx={{":hover":{} , ml:'15px', minWidth:'40px', backgroundColor:'primary.main', borderRadius:'5px', boxShadow:'rgba(0, 0, 0, 0.14) 0px 1px 1px 1px, rgba(0, 0, 0, 0.12) 0px 2px 1px -1px,  rgba(0, 0, 0, 0.2) 0px 1px 3px 1px' }}
                 >
                     <Typography  variant='h4' sx={{textAlign:'center', color:'white'}}>+</Typography>
                 </Grid>

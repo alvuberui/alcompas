@@ -17,11 +17,7 @@ export class CrearBandaTres extends Component {
     confirmar = e => {
       e.preventDefault();
       this.props.confirmar(e);
-  }
-
-  
-
-    
+    }
 
   render() {
     const { values: {  nombre, tipo, localidad, provincia, codigo_postal,

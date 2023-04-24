@@ -24,8 +24,8 @@ export const Banda = ({ _id, nombre, tipo }) => {
         <Grid 
         item
         xs= { 12 }
-        lg= { 4 }
-        sx={{ mt:'15px', maxWidth:'125vh', padding:2, backgroundColor:'white', borderRadius:'5px', border:1, borderColor: 'white', boxShadow:' 1px 1px 1px 1px' }}
+        lg= { 10 }
+        sx={{ mt:'15px', maxWidth:'125vh', padding:2, backgroundColor:'white', borderRadius:'5px', border:1, borderColor: 'white', boxShadow:'rgba(0, 0, 0, 0.14) 0px 1px 1px 1px, rgba(0, 0, 0, 0.12) 0px 2px 1px -1px,  rgba(0, 0, 0, 0.2) 0px 1px 3px 1px' }}
         >   
             <NavLink style={{textDecoration: "none", color: "black"}}  to={`/banda/${_id}`}>
             

@@ -16,4 +16,5 @@ router.put('/:userId/:bandaId', finalizarArchivero);
    // Obtener archiveros a través del usuario id
 router.get('/usuario/id/:userId', getArchiveroByUserId);
 
+
 module.exports = router;    
