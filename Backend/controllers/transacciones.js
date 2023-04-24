@@ -75,7 +75,7 @@ const getByBanda = async(req, res = express.response) => {
             });
         }
 
-        const transacciones = await Transaccion.find({banda: bandaId}).sort({fecha: 1});
+        const transacciones = await Transaccion.find({banda: bandaId}).sort({fecha: 0});
         res.json({
             ok: true,
             transacciones
@@ -175,10 +175,44 @@ const deleteById = async(req, res = express.response) => {
     }
 }
 
+const getTransaccionesUltimoAño = async(req, res = express.response) => {
+    try {
+        const bandaId = req.params.bandaId;
+        // Comprobar que el usuario es directivo
+        const token = req.header('x-token');
+        const payload = jwt.verify(token,process.env.SECRET_JWT_SEED);
+        const payloadId = payload.uid;
+        const rolesDirectivo = await Directivo.find({usuario: payloadId, banda: bandaId, fechaFin: null});
+        if(rolesDirectivo.length === 0) {
+            return res.status(401).json({
+                ok: false,
+                msg: 'No tiene permisos para realizar esta operación'
+            });
+        }
+
+        const fechaActual = new Date();
+        const fechaInicio = new Date(fechaActual.getFullYear() - 1, fechaActual.getMonth(), fechaActual.getDate());
+        // Buscar transacciones ordenado por primero por año, luego por mes, y luego por dia
+        const transacciones = await Transaccion.find({banda: bandaId, fecha: {$gte: fechaInicio}}).sort({fecha: 0});
+        res.json({
+            ok: true,
+            transacciones
+        });
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({
+            ok: false,
+            msg: 'Por favor hable con el administrador'
+        });
+    }
+}
+        
+
 
 module.exports = {
     crearTransaccion,
     getByBanda,
     actualizarTransaccion,
-    deleteById
+    deleteById,
+    getTransaccionesUltimoAño
 }

@@ -3,7 +3,7 @@ const router = Router();
 const { check } = require('express-validator');
 const { validarJWT } = require('../middlewares/validar-jwt');
 const { validarCampos } = require('../middlewares/validar-campos');
-const { crearTransaccion, getByBanda, actualizarTransaccion, deleteById} = require('../controllers/transacciones');
+const { crearTransaccion, getByBanda, actualizarTransaccion, deleteById, getTransaccionesUltimoAño} = require('../controllers/transacciones');
 
     // Validar JWT
 router.use( validarJWT, validarCampos);
@@ -50,5 +50,8 @@ router.put('/:transaccionId',
 router.get('/banda/:bandaId', getByBanda);
 
 router.delete('/:transaccionId', deleteById);
+
+// Obtener todas las transacciones del ultimo año
+router.get('/ano/banda/:bandaId', getTransaccionesUltimoAño);
 
 module.exports = router;

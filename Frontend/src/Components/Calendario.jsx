@@ -37,10 +37,11 @@ export const Calendario = ({tipo}) => {
           display="flex"
           justifyContent="center"
           alignItems="center"
-          sx={{ mb:5 }}
+          sx={{ mb:5, width:'100%', height:'100%', border:'0px !important' }}
+
         >
-          <Calendar 
-          sx={{ border:'0px !important' }}
+          <Calendar  
+          sx={{ border:'0px !important'}}
           style={{ border:'0px !important' }}
           className="react-calendar"
           onChange={onChange} 

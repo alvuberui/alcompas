@@ -307,7 +307,7 @@ export const Evento = ({ evento, index, style, setEventos }) => {
                         title= {banda.titulo}
                     />
                     <CardContent>
-                        <Typography variant="body1" fontWeight={'bold'  } textTransform={'uppercase'} color="text.primary">
+                        <Typography variant="body1" textTransform={'uppercase'} color="text.primary">
                         {tipoEvento} - {evento.titulo}
                         </Typography>
                     </CardContent>
@@ -413,7 +413,7 @@ export const Evento = ({ evento, index, style, setEventos }) => {
                                     </Typography>
                     
                                         <Typography  sx={{display:'inline'}}>
-                                            { evento.comentarioEconomico}
+                                            { evento.comentarioEconomico ? evento.comentarioEconomico : 'No hay comentario económico'}
                                         </Typography>
                             
                                 </>
@@ -494,7 +494,7 @@ export const Evento = ({ evento, index, style, setEventos }) => {
                             tipoEvento === 'Actuación' &&
                         <>      
                                 <Typography variant="body1" fontWeight={'bold'  } color="text.primary">
-                                    Descripción: { ' '}
+                                    Tipo de actuación: { ' '}
                                     
                                 </Typography>
                                 
@@ -508,7 +508,7 @@ export const Evento = ({ evento, index, style, setEventos }) => {
                                 </Typography>
                             
                                     <Typography  sx={{display:'inline'}}>
-                                        { evento.descripcion}
+                                        { evento.descripcion? evento.descripcion : 'No hay ninguna descripción...'}
                                     </Typography>
                                 
                                 <Typography variant="body1" fontWeight={'bold'  } color="text.primary">
@@ -582,7 +582,7 @@ export const Evento = ({ evento, index, style, setEventos }) => {
                                     </Typography>
                                     
                                         <Typography  sx={{display:'inline'}}>
-                                            { evento.comentarioEconomico}
+                                            { evento.comentarioEconomico ? evento.comentarioEconomico : 'No hay ningún comentario económico...'}
                                         </Typography>
                                     
                                 </>

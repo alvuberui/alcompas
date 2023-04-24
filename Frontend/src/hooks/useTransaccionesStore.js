@@ -42,6 +42,17 @@ export const useTransaccionesStore = () => {
         }
     }
 
+    const getTransaccionesUltimoAño = async(bandaId) => {
+        try{
+            const { data } = await alcompasAPI.get(`transacciones/ano/banda/${bandaId}`);
+            const transacciones = data.transacciones;
+            return transacciones;
+        }
+        catch(error){
+            setErrores("No tienes acceso a esta operación");
+        }
+    }
+
 
     return {
         // Estado
@@ -51,6 +62,7 @@ export const useTransaccionesStore = () => {
         crearTransaccion,
         getByBanda,
         actualizarTransaccion,
-        deleteById
+        deleteById,
+        getTransaccionesUltimoAño
     }
 }
