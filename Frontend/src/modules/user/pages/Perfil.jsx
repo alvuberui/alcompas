@@ -282,137 +282,57 @@ export const Perfil = () => {
         </Modal>
       </div>
     <Grid 
-      container 
+      container justifyContent="center" 
     >
       <Grid 
-        item
-        lg={3}
-        xs= { 12 }
-        sx={{minHeight: '50vh', padding: 4 }}
+          item
+          lg={3}
+          xs={12}
+          display="inline-flex"
+          justifyContent="center"
+          alignItems="center"
+          height="100%"
+          sx={{mt:9}}
         >
           <Grid 
-          item
-          justifyContent="center"
-          alignItems="center" 
-          xs= { 12 }
-          sx={{ backgroundColor: 'white', justifyContent: "center", display: "flex"  }}
-          > 
-            { iguales === true &&
-            <a onClick={ handleOpenEditarFoto }>
-              { fotoPerfil !== undefined && 
-                <Avatar   style={{ height: '150px', width: '150px' }} alt="Remy Sharp" src={`data:image/png;base64,${fotoPerfil}`}  />
-              }
-            </a>
-            }
-            { iguales === false &&
-              <>
-              { fotoPerfil !== undefined && 
-                <Avatar   style={{ height: '150px', width: '150px' }} alt="Remy Sharp" src={`data:image/png;base64,${fotoPerfil}`}  />
-              }
-              </>
-            }
-          </Grid>
-          <Grid 
-          item
-          justifyContent="center"
-          alignItems="center" 
-          xs= { 12 }
-          sx={{ backgroundColor: 'white', justifyContent: "center", display: "flex"  }}
+            item
+            xs={11.65}
+            sx={{ backgroundColor: '#262254', borderTopLeftRadius: '5px', borderRadius: '5px', padding: '10px', boxShadow:'rgba(0, 0, 0, 0.14) 0px 1px 1px 1px, rgba(0, 0, 0, 0.12) 0px 2px 1px -1px,  rgba(0, 0, 0, 0.2) 0px 1px 3px 1px' }}
           >
-            <Typography sx={{ fontWeight: 'bold', mt:'10px', textAlign:'center' }} variant='h5'>{ userU.nombre } {userU.primer_apellido} {userU.segundo_apellido}</Typography>
-          </Grid>
-          <Grid 
-          item
-          justifyContent="center"
-          alignItems="center" 
-          xs= { 12 }
-          sx={{ backgroundColor: 'white', justifyContent: "center", display: "flex"  }}
-          >
-            <Typography className='usuario' sx={{ fontWeight: 'bold', textAlign:'center' }} variant='h5'>@{userU.usuario}</Typography>
-          </Grid>
-          <Grid 
-          item
-          justifyContent="center"
-          alignItems="center" 
-          xs= { 12 }
-          sx={{ backgroundColor: 'white', justifyContent: "center", display: "flex"  }}
-          >
-            <Typography variant='h6' sx={{textAlign:'center'}}>{userU.localidad} ({userU.provincia})</Typography>
-          </Grid>
-          <Grid 
-          item
-          justifyContent="center"
-          alignItems="center" 
-          xs= { 12 }
-          sx={{ backgroundColor: 'white', justifyContent: "center", display: "flex"  }}
-          >
-            <Typography variant='h6' sx={{textAlign:'center'}}>{userU.fecha_nacimiento}</Typography>
-          </Grid>
-          <Grid 
-          item
-          justifyContent="center"
-          alignItems="center" 
-          xs= { 12 }
-          sx={{ backgroundColor: 'white', justifyContent: "center", display: "flex"  }}
-          >
-            <Typography sx={{textDecoration: 'underline',  fontWeight: 'bold', mt:'10px', textAlign:'center' }} variant='h5'>Contacto</Typography>
-
-          </Grid>
-          <Grid 
-          item
-          justifyContent="center"
-          alignItems="center" 
-          xs= { 12 }
-          sx={{ backgroundColor: 'white', justifyContent: "center", display: "flex"  }}
-          >
-            <Typography sx={{textAlign:'center'}} variant='h6'>{userU.correo}</Typography> 
-          </Grid>
-          <Grid 
-          item
-          justifyContent="center"
-          alignItems="center" 
-          xs= { 12 }
-          sx={{ backgroundColor: 'white', justifyContent: "center", display: "flex"  }}
-          >
-            <Typography sx={{textAlign:'center'}} variant='h6'>{userU.telefono}</Typography> 
-          </Grid>
-
-          <Grid 
-          item
-          justifyContent="center"
-          alignItems="center" 
-          xs= { 12 }
-          sx={{ backgroundColor: 'white', justifyContent: "center", display: "flex"  }}
-          >
-            <Typography sx={{textDecoration: 'underline',  fontWeight: 'bold', mt:'10px', textAlign:'center' }} variant='h5'>Descripción</Typography>
-
-          </Grid>
-          <Grid 
-          item
-          justifyContent="center"
-          alignItems="center" 
-          xs= { 12 }
-          sx={{ backgroundColor: 'white', justifyContent: "center", display: "flex"  }}
-          >
-            <Typography  sx={{textAlign: 'center'}} variant='h6'>{userU.descripcion}</Typography> 
-          </Grid>
-          
-          { iguales === true &&
-            <>
-            <Box textAlign='center' sx={{mt:2}}>
-              <Button  variant='contained' align="center" ><NavLink style={{textDecoration: "none", color: "white"}}  to={`/modificar/${id}`}>Modificar datos</NavLink></Button>
-            </Box>
-            <Box textAlign='center' sx={{mt:2}}>
-              <Button  variant='contained' align="center"  onClick={handleOpen}>Modificar contraseña</Button>
-            </Box>
-            <Box textAlign='center' sx={{mt:2}}>
-              <Button  variant='contained' align="center" color='error' onClick={handleDelete}>Eliminar cuenta</Button>
-            </Box>
-            </>
-          }
-          
-          
-          
+            <Box  sx={{ display: 'flex', alignItems: 'center', flexDirection: 'column', justifyContent: 'center' }}>
+                { iguales ? 
+                  <a onClick={handleOpenEditarFoto}>
+                    <Avatar  style={{ height: '150px', width: '150px' }} alt="Remy Sharp" src={`data:image/png;base64,${fotoPerfil}`} />
+                  </a>
+                  :
+                  <Avatar style={{ height: '150px', width: '150px' }} alt="Remy Sharp" src={`data:image/png;base64,${fotoPerfil}`} />
+                }
+                <Typography color='white' sx={{ fontWeight: 'bold', mt: 1, textAlign:'center' }} variant='h6'>{ userU.nombre } { userU.primer_apellido } {userU.segundo_apellido}</Typography>
+                <Typography color='white' sx={{ fontWeight: 'bold', textAlign:'center' }} variant='h6'>@{userU.usuario}</Typography>
+                <Typography color='white' sx={{textAlign:'center'}} variant='h7'>{userU.fecha_nacimiento}</Typography>
+                <Typography color='white' sx={{textAlign:'center'}} variant='h7'>{userU.localidad}({userU.provincia})</Typography>
+                <Typography color='white' sx={{textAlign:'center'}} variant='h7'>{userU.direccion}</Typography>
+                <Typography color='white' sx={{ fontWeight: 'bold', mt:2, textAlign:'center' }} variant='h7'>Descripción:</Typography>
+                <Typography sx={{ fontStyle: 'italic', textAlign:'center'}} color='white' variant='h7'>"{userU.descripcion}"</Typography>
+                <Typography  color='white' sx={{ fontWeight: 'bold', mt:2, textAlign:'center' }} variant='h7'>¿Quieres conmigo?</Typography>
+                <Typography sx={{textAlign:'center'}} color='white' variant='h7'>{userU.correo}</Typography> 
+                <Typography sx={{textAlign:'center'}} color='white' variant='h7'>{userU.telefono}</Typography> 
+                
+                { iguales === true &&
+                  <>
+                  <Box textAlign='center' sx={{mt:2}}>
+                    <Button  variant='contained' align="center" color='secondary'><NavLink style={{width:'220px',textDecoration: "none", color: "black"}}  to={`/modificar/${id}`}>Modificar datos</NavLink></Button>
+                  </Box>
+                  <Box textAlign='center' sx={{mt:2}}>
+                    <Button  variant='contained' align="center" color='secondary' sx={{width:'250px'}} onClick={handleOpen}>Modificar contraseña</Button>
+                  </Box>
+                  <Box textAlign='center' sx={{mt:2}}>
+                    <Button  variant='contained' align="center" color='error' sx={{width:'250px'}} onClick={handleDelete}>Eliminar cuenta</Button>
+                  </Box>
+                  </>
+                }
+              </Box>
+          </Grid> 
         </Grid>
 
         <Grid 
@@ -427,7 +347,7 @@ export const Perfil = () => {
                 displey="flex"
                 justifyContent="center"
                 alignItems="center">
-                <Box  xs={12}   sx={{ width: '95%', color:'white',display:"flex", justifyContent: 'space-evenly', flexDirection:'column', backgroundColor:'#262254', borderRadius:'5px' }}>
+                <Box  xs={12}   sx={{ width: '95%', color:'white',display:"flex", justifyContent: 'space-evenly', flexDirection:'column', backgroundColor:'#262254', borderRadius:'5px', boxShadow:'rgba(0, 0, 0, 0.14) 0px 1px 1px 1px, rgba(0, 0, 0, 0.12) 0px 2px 1px -1px,  rgba(0, 0, 0, 0.2) 0px 1px 3px 1px'  }}>
                         <Tabs value={value} onChange={handleChange} textColor='inherit' centered sx={{
                           '& .MuiTabs-flexContainer': {
                             flexWrap: 'wrap',

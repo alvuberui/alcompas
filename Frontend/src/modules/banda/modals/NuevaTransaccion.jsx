@@ -25,7 +25,7 @@ const style = {
 
 const nombres = [ 'Beneficio', 'Gasto'];
 
-export const NuevoTransaccion  = ( { open, handleClose, setTransacciones, setOpen, editar, transaccion, setTotal, setOpenEditar }) => {
+export const NuevoTransaccion  = ( { open, handleClose, setTransacciones, setOpen, editar, transaccion, setTotal, setOpenEditar, ultimoAño }) => {
 
     const [values, setValues] = useState({motivo:'', descripcion: '', tipo: 'Beneficio', cantidad:'1.00', fecha:'2023-03-15'});
 
@@ -39,7 +39,7 @@ export const NuevoTransaccion  = ( { open, handleClose, setTransacciones, setOpe
     }, [editar, transaccion]);
 
     // Hooks
-    const { crearTransaccion, errores, getByBanda, actualizarTransaccion } = useTransaccionesStore();
+    const { crearTransaccion, errores, getByBanda, actualizarTransaccion, getTransaccionesUltimoAño } = useTransaccionesStore();
     const { bandaId } = useParams();
 
     const updateFecha = (t) => {
@@ -80,7 +80,12 @@ export const NuevoTransaccion  = ( { open, handleClose, setTransacciones, setOpe
           if(editar) {
             const c = await actualizarTransaccion( values, transaccion._id );
             if( c !== undefined ) {
-              const t = await getByBanda(bandaId);
+              let t;
+              if(ultimoAño) {
+                 t = await getTransaccionesUltimoAño(bandaId);
+              } else {
+                 t = await getByBanda(bandaId);
+              }
               const transacciones2 = updateFecha(t);
               setTransacciones(transacciones2);
               setOpenEditar(false);
@@ -94,9 +99,15 @@ export const NuevoTransaccion  = ( { open, handleClose, setTransacciones, setOpe
           } else {
             const c = await crearTransaccion( values );
             if( c !== undefined ) {
-              const t = await getByBanda(bandaId);
+              let t;
+              if(ultimoAño) {
+                 t = await getTransaccionesUltimoAño(bandaId);
+              } else {
+                 t = await getByBanda(bandaId);
+              }
               const transacciones2 = updateFecha(t);
               setTransacciones(transacciones2);
+              
               setValues({motivo:'', descripcion: '', tipo: 'Beneficio', cantidad:'1.00', fecha:''});
               setOpen(false);
             } else {

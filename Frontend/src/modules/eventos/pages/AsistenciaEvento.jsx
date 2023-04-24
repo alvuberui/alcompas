@@ -99,8 +99,9 @@ export const AsistenciaEvento = () => {
       const keys = Object.keys(asistencias);
   
       for(let i = 0; i < keys.length; i++){
-            const key = keys[i];
-            html.push(<Grid justifyContent="center" alignItems="center" key={key}  container><Typography  sx={{mt:2}} variant='h6' align='center' color='white'> {key} </Typography></Grid>);
+            const clave = keys[i];
+            const key = clave.split(',');
+            html.push(<Grid justifyContent="center" alignItems="center" key={key}  container><Typography  sx={{mt:2}} variant='h6' align='center' color='white'> {key[0] + key[1]} </Typography></Grid>);
             const lista = asistencias[key]
             if( lista ) {
               for(let j = 0; j < lista.length; j++){

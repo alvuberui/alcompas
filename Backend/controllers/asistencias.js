@@ -255,15 +255,16 @@ const getTodasAsistenciasByEvento = async(req, res = express.response) => {
 
         for(let i = 0; i < musicos.length; i++) {
             const musico = musicos[i];
-            const instrumento = musico.instrumento
+            const instrumento = musico.instrumento + ' '
+            const voz = musico.voz;
             const asistencia =  asistencias.find(a => a.usuario.toString() === musico.usuario.toString());
             const usuario = await Usuario.findById(musico.usuario);
-            if(resultado[instrumento]) {
-                const lista = resultado[instrumento];
+            if(resultado[[instrumento, voz]]) {
+                const lista = resultado[[instrumento, voz]];
                 lista.push([usuario, asistencia]);
-                resultado[instrumento] = lista;
+                resultado[i[instrumento, voz]] = lista;
             } else {
-                resultado[instrumento] = [ [usuario, asistencia]];
+                resultado[[instrumento, voz]] = [ [usuario, asistencia]];
             }
             
         }
@@ -272,24 +273,24 @@ const getTodasAsistenciasByEvento = async(req, res = express.response) => {
             const instrumento = directivo.cargo
             const asistencia =  asistencias.find(a => a.usuario.toString() === directivo.usuario.toString());
             const usuario = await Usuario.findById(directivo.usuario);
-            if(resultado[instrumento]) {
-                const lista = resultado[instrumento];
+            if(resultado[['Directivo: ',instrumento]]) {
+                const lista = resultado[['Directivo: ',instrumento]];
                 lista.push([usuario, asistencia]);
-                resultado[instrumento] = lista;
+                resultado[['Directivo: ',instrumento]] = lista;
             } else {
-                resultado[instrumento] = [ [usuario, asistencia]];
+                resultado[['Directivo: ',instrumento]] = [ [usuario, asistencia]];
             }
         }
         for(let i = 0; i < archiveros.length; i++) {
             const archivero = archiveros[i];
             const asistencia =  asistencias.find(a => a.usuario.toString() === archivero.usuario.toString());
             const usuario = await Usuario.findById(archivero.usuario);
-            if(resultado[instrumento]) {
-                const lista = resultado[instrumento];
+            if(resultado[['',instrumento]]) {
+                const lista = resultado[['',instrumento]];
                 lista.push([usuario, asistencia]);
-                resultado[instrumento] = lista;
+                resultado[['',instrumento]] = lista;
             } else {
-                resultado[instrumento] = [ [usuario, asistencia]];
+                resultado[['',instrumento]] = [ [usuario, asistencia]];
             }
         }
 

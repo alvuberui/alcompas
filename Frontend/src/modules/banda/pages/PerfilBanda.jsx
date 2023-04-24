@@ -316,7 +316,7 @@ useEffect(() => {
           <Grid 
             item
             xs={11.65}
-            sx={{ backgroundColor: '#262254', borderTopLeftRadius: '5px', borderRadius: '5px', padding: '10px'}}
+            sx={{ backgroundColor: '#262254', borderTopLeftRadius: '5px', borderRadius: '5px', padding: '10px', boxShadow:'rgba(0, 0, 0, 0.14) 0px 1px 1px 1px, rgba(0, 0, 0, 0.12) 0px 2px 1px -1px,  rgba(0, 0, 0, 0.2) 0px 1px 3px 1px' }}
           >
             
   
@@ -424,8 +424,8 @@ useEffect(() => {
             </Grid>
             <Grid 
                 container
-                sx = {{ mt: 1 }}
-                displey="flex"
+                sx = {{ mt: 1}}
+                display="flex"
                 justifyContent="center"
                 alignItems="center"
               > 
@@ -448,7 +448,6 @@ useEffect(() => {
                     key={index}
                   />
                 )}
-
                 { value === 5 &&
                   <>
                     <Plantilla musicos={musicos}  usuarios={usuariosMusicos} tipo='Músicos' directivo={perteneceDirectivo}/>
