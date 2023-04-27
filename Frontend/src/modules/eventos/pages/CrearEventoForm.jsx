@@ -3,17 +3,15 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import { PrimerPasoForm, SegundoPasoForm } from '../';
-import { validarBanda } from '../../../helpers/validarBanda';
 import { useEventosStore } from '../../../hooks';
-import dayjs from 'dayjs';
 import { validarEvento } from '../../../helpers/validarEvento';
 
 
 const state = {
     titulo: '',
     descripcion: '',
-    fechaInicio: dayjs('2025-04-28T00:00:00.000Z').locale('es'),
-    fechaFin: dayjs('2025-05-28T00:00:00.000Z').locale('es'),
+    fechaInicio: new Date('2025-04-28T20:00:00.000Z'),
+    fechaFin: new Date('2025-04-28T21:00:00.000Z'),
     localidad: '',
     provincia: '',
     lugar: '',
@@ -21,7 +19,7 @@ const state = {
     beneficios: '',
     dia: 'Viernes Dolores',
     tipo:  'Semana Santa',
-    fechaSalida:  dayjs('2025-03-28T05:00:00.000Z').locale('es'),
+    fechaSalida:  new Date('2025-04-28T19:00:00.000Z'),
     lugarSalida:  '',
     bocadillo:  false,
     hermandad:  '',

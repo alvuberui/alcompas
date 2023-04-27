@@ -1,30 +1,33 @@
 
 import { useEffect, useState } from 'react';
-import { Box , List , Typography} from '@mui/material';
+import { Box , List , Typography, Grid} from '@mui/material';
 import Calendar from 'react-calendar';
 import '../Theme/calendar.css'
 import { useEventosStore } from '../hooks/useEventosStore';
 import { Evento } from './Evento';
 import { useParams } from 'react-router-dom';
-
+import { format, parseISO } from 'date-fns';
 
 
 export const Calendario = ({tipo}) => {
   
-    const [value, onChange] = useState(new Date());
+    const [value, setValue] = useState(format(new Date(), 'yyyy-MM-dd'));
     const [eventos, setEventos] = useState([]);
     const { bandaId } = useParams();
   
     const { getDestacados, getEventosByDateAndBanda } = useEventosStore();
-   
+    const onChange = (date) => {
+      const formattedDate = format(date, 'yyyy-MM-dd');
+      setValue(formattedDate);
+    };
     useEffect(() => {
       const getEventos = async () => {
         if(tipo === 'dashboard') {
-          const userreq = await getDestacados({ fecha: value });
+          const userreq = await getDestacados({ fecha: new Date(value).toISOString() });
           setEventos(userreq);
         }
         if(tipo === 'perfil') {
-          const userreq = await getEventosByDateAndBanda({ 'fecha': value, 'banda': bandaId });
+          const userreq = await getEventosByDateAndBanda({ 'fecha': new Date(value).toISOString(), 'banda': bandaId });
           setEventos(userreq);
         }
       }
@@ -33,21 +36,43 @@ export const Calendario = ({tipo}) => {
     
     return (
       <>
+        <Grid 
+        container
+        direction="row"
+        
+        >
+        <Grid 
+        item  xs={12}
+        >
         <Box
           display="flex"
           justifyContent="center"
           alignItems="center"
-          sx={{ mb:5, width:'100%', height:'100%', border:'0px !important' }}
+          sx={{ mb:5, width:'100%', border:'0px !important' }}
 
         >
+          
           <Calendar  
-          sx={{ border:'0px !important'}}
-          style={{ border:'0px !important' }}
+          locale='es-ES'
           className="react-calendar"
           onChange={onChange} 
-          value={value} />
+          value={value}
+          showNeighboringMonth={false}
+          calendarType="ISO 8601"
+          minDetail="year"
+          maxDetail="month"
+          view="month"
+          returnValue="start"
+          />
         
         </Box>
+        <Box
+          display="flex"
+          justifyContent="center"
+          alignItems="center"
+          sx={{ mb:5, width:'100%', border:'0px !important' }}
+
+        >
         <List
             sx={{
               width: '100%',
@@ -63,11 +88,15 @@ export const Calendario = ({tipo}) => {
               ))
               :
               <>
+              
                 <Typography variant="h6"  component="div" sx={{textAlign:'center', mt:5, mb:5}}>No hay eventos destacados el día seleccionado...</Typography>
                 <Typography variant="h6"  component="div" sx={{textAlign:'center', mt:5, mb:5}}>Seleccione otro día o vuelva en otro momento.</Typography>
               </>
           }
           </List>
+          </Box>
+          </Grid>
+          </Grid>
       </>
       );
 }

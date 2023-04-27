@@ -2,9 +2,11 @@ import { Button, Grid, Link, TextField, FormControl, InputLabel, Select, MenuIte
 import React, { Component } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 import { AuthLayout } from '../../../auth/layout/AuthLayout';
-import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import DateTimePicker from 'react-datetime-picker';
+
+import '../../../Theme/picker.css';
+import 'react-calendar/dist/Calendar.css';
+import 'react-clock/dist/Clock.css';
 
 export class SegundoPasoForm extends Component {
       retroceder = e => {
@@ -26,9 +28,9 @@ export class SegundoPasoForm extends Component {
           <Grid container>
             { values.tipoEvento == 'ensayo' &&
             <>
-                <Grid item xs={ 12 } sx={{ mt: 2}}>
+                <Grid item className='input-wrapper' xs={ 12 } sx={{ mt: 2}}>
+                <label >Temática*</label>
                 <TextField 
-                    label="Temática*"
                     type="text"
                     placeholder="Temática del ensayo*"
                     fullWidth
@@ -41,9 +43,9 @@ export class SegundoPasoForm extends Component {
                     focused
                 />
                 </Grid>
-                <Grid item xs={ 12 } sx={{ mt: 2}}>
+                <Grid item className='input-wrapper' xs={ 12 } sx={{ mt: 3}}>
+                <label >Lugar*</label>
                 <TextField 
-                  label="Lugar*"
                   type="text"
                   placeholder="Lugar"
                   fullWidth
@@ -59,9 +61,10 @@ export class SegundoPasoForm extends Component {
             }
             {   (values.tipoEvento == 'actuacion' || values.tipoEvento == 'procesion') &&
             <>
-            <Grid item xs={ 12 } sx={{ mt: 2}}>
+            <Grid item className='input-wrapper' xs={ 12 } sx={{ mt: 2}}>
+                <label >Localidad*</label>
               <TextField 
-                label="Localidad*"
+               
                 type="text"
                 placeholder="Localidad"
                 fullWidth
@@ -73,9 +76,10 @@ export class SegundoPasoForm extends Component {
               />
             </Grid>
              
-            <Grid item xs={ 12 } sx={{ mt: 2}}>
+            <Grid item className='input-wrapper' xs={ 12 } sx={{ mt: 3}}>
+                <label >Provincia*</label>
               <TextField 
-                label="Provincia*"
+               
                 type="text"
                 placeholder="Provincia"
                 fullWidth
@@ -86,9 +90,10 @@ export class SegundoPasoForm extends Component {
                 focused
               />
             </Grid>
-            <Grid item xs={ 12 } sx={{ mt: 2}}>
+            <Grid item className='input-wrapper' xs={ 12 } sx={{ mt: 3}}>
+                <label >Lugar*</label>
               <TextField 
-                label="Lugar*"
+          
                 type="text"
                 placeholder="Lugar"
                 fullWidth
@@ -99,9 +104,10 @@ export class SegundoPasoForm extends Component {
                 focused
               />
             </Grid>
-            <Grid item xs={ 12 } sx={{ mt: 2}}>
+            <Grid item className='input-wrapper' xs={ 12 } sx={{ mt: 3}}>
+                <label >Costes*</label>
               <TextField 
-                label="Costes*"
+      
                 type="number"
                 placeholder="Costes"
                 fullWidth
@@ -112,9 +118,10 @@ export class SegundoPasoForm extends Component {
                 focused
               />
             </Grid>
-            <Grid item xs={ 12 } sx={{ mt: 2}}>
+            <Grid item className='input-wrapper' xs={ 12 } sx={{ mt: 3}}>
+                <label >Beneficios*</label>
               <TextField 
-                label="Beneficios*"
+           
                 type="number"
                 placeholder="Beneficios"
                 fullWidth
@@ -125,9 +132,9 @@ export class SegundoPasoForm extends Component {
                 focused
               />
             </Grid>
-            <Grid item xs={ 12 } sx={{ mt: 2}}>
+            <Grid item className='input-wrapper' xs={ 12 } sx={{ mt: 3}}>
+                <label >Comentario sobre beneficios y costes</label>
                 <TextField 
-                    label="Comentario sobre beneficios y costes"
                     type="text"
                     placeholder="Comentario sobre beneficios y costes"
                     fullWidth
@@ -140,9 +147,10 @@ export class SegundoPasoForm extends Component {
                     focused
                 />
                 </Grid>
-                <Grid item xs={ 12 } sx={{ mt: 2}}>
+                <Grid item className='input-wrapper' xs={ 12 } sx={{ mt: 3}}>
+                <label >Lugar de salida*</label>
               <TextField 
-                label="Lugar de salida*"
+                
                 type="text"
                 placeholder="Lugar de salida"
                 fullWidth
@@ -153,59 +161,22 @@ export class SegundoPasoForm extends Component {
                 focused
               />
             </Grid>
-            <Grid item xs={ 12 } sx={{ mt: 2}}>
-              <LocalizationProvider dateAdapter={AdapterDayjs}>
-              <DateTimePicker 
-                disablePast
-                focused
-                onChange={ value => setValues({ ...values, ["fechaSalida"]: value })}
-                value={values.fechaSalida}
-                label="Fecha y hora de salida*"
-                error={true}
-                sx={{ 
-                  color: 'white !important',
-                  width: '100%', 
-                  '& .MuiInputBase-input': {
-                    color: '#e2e2e1',
-                  },
-                  '& .MuiInputLabel-root': {
-                    color: 'white',
-                  },
-                  '& .MuiInputLabel-outlined.Mui-focused': {
-                    color: 'white !important',
-                  },
-                  '& .MuiOutlinedInput-root': {
-                    '& fieldset': {
-                      borderColor: 'white',
-                    },
-                    '&:hover fieldset': {
-                      borderColor: 'white',
-                    },
-                    '&.Mui-disabled:hover': {
-                      '& .MuiOutlinedInput-notchedOutline': {
-                        borderColor: 'grey',
-                      },
-                    },
-                  },
-                  
-                  '& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline': {
-                    borderWidth: '0.5px',
-                    borderColor: '#e2e2e1',
-                  },
-
-                  borderRadius: '5px',
-                }}
-              />
-              </LocalizationProvider>
-            </Grid>
+         
+              <Grid item className='input-wrapper' xs={ 12 } sx={{ mt: 3}}>
+                <label >Fecha y hora de salida*</label>
+                <DateTimePicker 
+                id="datetime-picker"
+                onChange={ value => setValues({ ...values, ["fechaSalida"]: value })} value={values.fechaSalida} />
+              </Grid>
+    
             </>
             }
             {
               values.tipoEvento == 'procesion' &&
               <>
-              <Grid item xs={12} sx={{ mt: 2 }}>
+              <Grid item className='input-wrapper' xs={ 12 } sx={{ mt: 3}}>
+                <label >Tipo de procesión*</label>
                 <FormControl variant="outlined" fullWidth sx={{ minWidth: 120 }}>
-                  <InputLabel id="demo-simple-select-standard-label" sx={{ color: 'white !important' }}>Tipo de procesión*</InputLabel>
                   <Select
                     labelId="demo-simple-select-standard-label"
                     id="demo-simple-select-standard"
@@ -242,9 +213,10 @@ export class SegundoPasoForm extends Component {
                 </FormControl>
               </Grid>
               { values.tipo == 'Semana Santa' &&
-                <Grid item xs={12} sx={{ mt: 2 }}>
+                <Grid item className='input-wrapper' xs={ 12 } sx={{ mt: 3}}>
+                <label >Día de la procesión*</label>
                   <FormControl variant="outlined" fullWidth sx={{ minWidth: 120 }}>
-                    <InputLabel id="demo-simple-select-standard-label" sx={{ color: 'white !important' }}>Día de la procesión*</InputLabel>
+                    
                     <Select
                       labelId="demo-simple-select-standard-label"
                       id="demo-simple-select-standard"
@@ -290,9 +262,10 @@ export class SegundoPasoForm extends Component {
                   </FormControl>
                 </Grid>
               }
-              <Grid item xs={12} sx={{ mt: 2 }}>
+              <Grid item className='input-wrapper' xs={ 12 } sx={{ mt: 3}}>
+                <label >Bocadillo tras la procesión*</label>
                 <FormControl variant="outlined" fullWidth sx={{ minWidth: 120 }}>
-                  <InputLabel id="demo-simple-select-standard-label" sx={{ color: 'white !important' }}>Bocadillo tras las procesión*</InputLabel>
+                  
                   <Select
                     labelId="demo-simple-select-standard-label"
                     id="demo-simple-select-standard"
@@ -328,9 +301,10 @@ export class SegundoPasoForm extends Component {
                   </Select>
                 </FormControl>
               </Grid>
-              <Grid item xs={12} sx={{ mt: 2 }}>
+              <Grid item className='input-wrapper' xs={ 12 } sx={{ mt: 3}}>
+                <label >Nombre de la hermandad*</label>
               <TextField 
-                label="Nombre de la hermandad*"
+        
                 type="text"
                 placeholder="Nombre de la hermandad"
                 fullWidth
@@ -341,9 +315,10 @@ export class SegundoPasoForm extends Component {
                 focused
               />
               </Grid>
-              <Grid item xs={12} sx={{ mt: 2 }}>
+              <Grid item className='input-wrapper' xs={ 12 } sx={{ mt: 3}}>
+                <label >Nombre del titular*</label>
               <TextField 
-                label="Nombre del titular*"
+       
                 type="text"
                 placeholder="Nombre del titular"
                 fullWidth
@@ -359,13 +334,14 @@ export class SegundoPasoForm extends Component {
             }
             {
               values.tipoEvento == 'actuacion' &&
-              <Grid item xs={12} sx={{ mt: 2 }}>
+              <Grid item className='input-wrapper' xs={ 12 } sx={{ mt: 3}}>
+                <label >Tipo de actuación*</label>
                 <FormControl variant="outlined" fullWidth sx={{ minWidth: 120 }}>
-                  <InputLabel id="demo-simple-select-standard-label" sx={{ color: 'white !important' }}>Tipo de actuación*</InputLabel>
+                  
                   <Select
                     labelId="demo-simple-select-standard-label"
                     id="demo-simple-select-standard"
-                    label="Tipo de actuación"
+               
                     fullWidth
                     value={values.tipoActuacion}
                     onChange={handleChange('tipoActuacion')}
