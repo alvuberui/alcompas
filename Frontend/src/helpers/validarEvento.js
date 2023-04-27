@@ -4,7 +4,7 @@ export const validarEvento = (values) => {
     const dias = ['Viernes Dolores', 'Sábado de Pasión', 'Domingo de Resurreción', 'Lunes Santo',
     'Martes Santo', 'Miércoles Santo', 'Jueves Santo', 'Viernes Santo', 'Sábado Santo', 'Domingo de Ramos'];
     const tipos = ['Gloria', 'Semana Santa'];
-    const fechaHoy = dayjs(new Date());
+    const fechaHoy = new Date();
     const tipoActuacion = ['Concierto', 'Encuentro de Bandas', 'Corrida de Toros', 'Pasacalles'];
     if( values.tipoEvento === 'procesion') {
         let error = '';
@@ -28,9 +28,9 @@ export const validarEvento = (values) => {
         if( values.hermandad.length > 100) error = error + ' <br> -La longitud máxima de la hermandad es 100 caracteres'
         if( values.nombreTitular.length < 1)  error = error + ' <br> -El nombre del titular es obligatorio';
         if( values.nombreTitular.length > 50) error = error + ' <br> -La longitud máxima del nombre del titular es 50 caracteres';
-        if( values.fechaSalida.isBefore(fechaHoy) ) error = error + ' <br> -La fecha de salida no puede ser anterior a hoy';
-        if( values.fechaInicio.isBefore(values.fechaSalida) ) error = error + ' <br> -La fecha de inicio no puede ser anterior a la de salida';
-        if( values.fechaFin.isBefore(values.fechaInicio)) error = error + ' <br> -La fecha de fin no puede ser anterior a la fecha de inicio';
+        if( values.fechaSalida < fechaHoy  ) error = error + ' <br> -La fecha de salida no puede ser anterior a hoy';
+        if( values.fechaInicio < values.fechaSalida  ) error = error + ' <br> -La fecha de inicio no puede ser anterior a la de salida';
+        if( values.fechaFin < values.fechaInicio) error = error + ' <br> -La fecha de fin no puede ser anterior a la fecha de inicio';
         return error;   
     }
     else if( values.tipoEvento === 'ensayo') {
@@ -40,7 +40,7 @@ export const validarEvento = (values) => {
         if( values.descripcion.length > 200) error = error + ' <br> -La longitud máxima de la descripción es 2000 caracteres'
         if( values.lugar.length < 1)  error = error + ' <br> -El lugar es obligatorio';
         if( values.lugar.length > 50) error = error + ' <br> -La longitud máxima del lugar es 50 caracteres'
-        if( values.fechaFin.isBefore(values.fechaInicio)) error = error + ' <br> -La fecha de fin no puede ser anterior a la fecha de inicio';
+        if( values.fechaFin < values.fechaInicio) error = error + ' <br> -La fecha de fin no puede ser anterior a la fecha de inicio';
         if( values.tematica.length < 1)  error = error + ' <br> -La temática es obligatoria';
         if( values.tematica.length > 200) error = error + ' <br> -La longitud máxima de la temática es 200 caracteres'
         return error;   
@@ -60,10 +60,10 @@ export const validarEvento = (values) => {
         if( values.beneficios < 0 ) error = error + ' <br> -Los beneficios deben ser un número positivo'
         if( values.lugarSalida.length < 1)  error = error + ' <br> -El lugar de salida es obligatorio';
         if( values.lugarSalida.length > 50) error = error + ' <br> -La longitud máxima del lugar de salida es 50 caracteres'
-        if( values.fechaSalida.isBefore(fechaHoy) ) error = error + ' <br> -La fecha de salida no puede ser anterior a hoy';
-        if( values.fechaInicio.isBefore(values.fechaSalida) ) error = error + ' <br> -La fecha de inicio no puede ser anterior a la de salida';
-        if( values.fechaFin.isBefore(values.fechaInicio)) error = error + ' <br> -La fecha de fin no puede ser anterior a la fecha de inicio';
-        if( ! tipoActuacion.includes(values.tipoActuacion)) error = error + ' <br> -El tipo de actuación no es válido';
+        if( values.fechaSalida < fechaHoy ) error = error + ' <br> -La fecha de salida no puede ser anterior a hoy';
+        if( values.fechaInicio < values.fechaSalida ) error = error + ' <br> -La fecha de inicio no puede ser anterior a la de salida';
+        if( values.fechaFin < values.fechaInicio) error = error + ' <br> -La fecha de fin no puede ser anterior a la fecha de inicio';
+        if( ! tipoActuacion < values.tipoActuacion) error = error + ' <br> -El tipo de actuación no es válido';
         return error;
     }
 

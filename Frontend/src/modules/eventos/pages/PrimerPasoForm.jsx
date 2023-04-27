@@ -2,10 +2,12 @@ import { Button, Grid, Link, MenuItem, Select, TextField, IconButton, InputLabel
 import React, { Component } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 import { AuthLayout } from '../../../auth/layout/AuthLayout';
-import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import CalendarToday from '@mui/icons-material/CalendarToday';
+import DateTimePicker from 'react-datetime-picker';
+
+import '../../../Theme/picker.css';
+import 'react-calendar/dist/Calendar.css';
+import 'react-clock/dist/Clock.css';
+
 
 export class PrimerPasoForm extends Component {
     continuar = e => {
@@ -21,13 +23,15 @@ export class PrimerPasoForm extends Component {
         <form>
           <Grid container>
           { titulo === 'Crear Evento' &&
-          <Grid item xs={12} sx={{ mt: 2 }}>
+          
+            <Grid item className='input-wrapper'   xs={ 12 } sx={{ mt: 2} }>
+              <label >Tipo del evento*</label>
             <FormControl variant="outlined" fullWidth sx={{ minWidth: 120 }}>
-              <InputLabel id="demo-simple-select-standard-label" sx={{ color: 'white !important' }}>Tipo de evento*</InputLabel>
+              
               <Select
                 labelId="demo-simple-select-standard-label"
                 id="demo-simple-select-standard"
-                label="Tipo de evento"
+        
                 fullWidth
                 value={values.tipoEvento}
                 
@@ -64,10 +68,10 @@ export class PrimerPasoForm extends Component {
           }
 
 
-            <Grid item xs={ 12 } sx={{ mt: 2}}>
+            <Grid item className='input-wrapper'   xs={ 12 } sx={{ mt: 3} }>
+              <label >Título del evento*</label>
               <TextField 
                 type="text"
-                label="Título del evento*"
                 placeholder="Título del evento"
                 fullWidth
                 onChange={handleChange('titulo')}
@@ -77,10 +81,10 @@ export class PrimerPasoForm extends Component {
                 focused
               />
             </Grid>
-            <Grid item xs={ 12 } sx={{ mt: 2} }>
+            <Grid item className='input-wrapper'   xs={ 12 } sx={{ mt: 3} }>
+              <label >Descripción del evento</label>
               <TextField 
                 type="text"
-                label="Descripción del evento"
                 placeholder="Descripción del evento"
                 fullWidth
                 onChange={handleChange('descripcion')}
@@ -92,95 +96,15 @@ export class PrimerPasoForm extends Component {
                 focused
               />
             </Grid>
-            <Grid item xs={ 12 } sx={{ mt: 2}}>
-              <LocalizationProvider dateAdapter={AdapterDayjs}>
+            <Grid item className='input-wrapper' xs={ 12 } sx={{ mt: 3}}>
+              <label >Fecha y hora inicio*</label>
               <DateTimePicker 
-                disablePast
-                focused
-                onChange={ value => setValues({ ...values, ["fechaInicio"]: value })}
-                value={values.fechaInicio}
-                label="Fecha y hora de inicio del evento*"
-                error={true}
-                sx={{ 
-                  color: 'white !important',
-                  width: '100%', 
-                  '& .MuiInputBase-input': {
-                    color: '#e2e2e1',
-                  },
-                  '& .MuiInputLabel-root': {
-                    color: 'white',
-                  },
-                  '& .MuiInputLabel-outlined.Mui-focused': {
-                    color: 'white !important',
-                  },
-                  '& .MuiOutlinedInput-root': {
-                    '& fieldset': {
-                      borderColor: 'white',
-                    },
-                    '&:hover fieldset': {
-                      borderColor: 'white',
-                    },
-                    '&.Mui-disabled:hover': {
-                      '& .MuiOutlinedInput-notchedOutline': {
-                        borderColor: 'grey',
-                      },
-                    },
-                  },
-                  
-                  '& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline': {
-                    borderWidth: '0.5px',
-                    borderColor: '#e2e2e1',
-                  },
-
-                  borderRadius: '5px',
-                }}
-              />
-              </LocalizationProvider>
+              id="datetime-picker"
+              onChange={ value => setValues({ ...values, ["fechaInicio"]: value })} value={values.fechaInicio} />
             </Grid>
-            <Grid item xs={ 12 } sx={{ mt: 2}}>
-              <LocalizationProvider dateAdapter={AdapterDayjs}>
-              <DateTimePicker 
-                disablePast
-                focused
-                onChange={ value => setValues({ ...values, ["fechaFin"]: value })}
-                value={values.fechaFin}
-                label="Fecha y hora de finalización del evento*"
-                error={true}
-                sx={{ 
-                  color: 'white !important',
-                  width: '100%', 
-                  '& .MuiInputBase-input': {
-                    color: '#e2e2e1',
-                  },
-                  '& .MuiInputLabel-root': {
-                    color: 'white',
-                  },
-                  '& .MuiInputLabel-outlined.Mui-focused': {
-                    color: 'white !important',
-                  },
-                  '& .MuiOutlinedInput-root': {
-                    '& fieldset': {
-                      borderColor: 'white',
-                    },
-                    '&:hover fieldset': {
-                      borderColor: 'white',
-                    },
-                    '&.Mui-disabled:hover': {
-                      '& .MuiOutlinedInput-notchedOutline': {
-                        borderColor: 'grey',
-                      },
-                    },
-                  },
-                  
-                  '& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline': {
-                    borderWidth: '0.5px',
-                    borderColor: '#e2e2e1',
-                  },
-
-                  borderRadius: '5px',
-                }}
-              />
-              </LocalizationProvider>
+            <Grid className='input-wrapper' item xs={ 12 } sx={{ mt: 3}}>
+              <label >Fecha y hora de finalización*</label>
+              <DateTimePicker id="datetime-picker" onChange={ value => setValues({ ...values, ["fechaFin"]: value })} value={values.fechaFin} />
             </Grid>
             
               <Grid container justifyContent='center' spacing={ 2 } sx={{ mb: 2, mt: 1 }}>

@@ -37,7 +37,7 @@ export const Dashboard = () => {
             justifyContent="center"
             alignItems="center"
             xs={12}
-            sx={{ mt:10, mb:5 }}
+           
           >
             <Typography variant="h4"  component="div" sx={{textAlign:'center', mt:5, mb:5}}>Noticias Destacadas</Typography>
           </Box>
@@ -67,9 +67,18 @@ export const Dashboard = () => {
           display="flex"
           justifyContent="center"
           alignItems="center"
-          sx={{ width: '100%', height: 400, maxWidth: 360, bgcolor: 'background.paper', mt:'10px' }}
+          xs={12}
         >
           <Typography variant="h4"  component="div" sx={{textAlign:'center', mt:5, mb:5}}>Eventos Destacados</Typography>
+         
+        </Box>
+        <Box
+          display="flex"
+          justifyContent="center"
+          alignItems="center"
+          xs={12}
+    
+        > 
           <Calendario tipo={"dashboard"}/>
         </Box>
         
