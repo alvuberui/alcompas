@@ -1,5 +1,7 @@
 import { useState } from 'react';
 import { alcompasAPI } from '../api';
+import Swal from 'sweetalert2';
+
 
 export const useAsistenciasStore = () => {
 
@@ -11,19 +13,30 @@ export const useAsistenciasStore = () => {
             const asistenciaDB = data.asistenciaDB;
             return asistenciaDB;
         } catch(error) {
+            setErrores("No puedes dar de alta una asistencia que ya existe");
             // Obtener los errores de la respuesta
-            const errores = error.response.data.errors;
+            const errors = error.response.data.errors;
             const error2 = error.response.data.msg;
             // Recorremos los errores para mostrarlos en el state
             let erroresArray = [];
-            for (const key in errores) {
-                erroresArray.push(errores[key].msg);
+            for (const key in errors) {
+                erroresArray.push(errors[key].msg);
             }
             // Guardar los errores en el state
             if(erroresArray.length > 0) {
-                setErrores(erroresArray[0]);
+                Swal.fire({
+                    title: 'Error',
+                    text: erroresArray[0],
+                    icon: 'error',
+                    confirmButtonText: 'Aceptar'
+                })
             } else {
-                setErrores(error2);
+                Swal.fire({
+                    title: 'Error',
+                    text: error2,
+                    icon: 'error',
+                    confirmButtonText: 'Aceptar'
+                })
             }
            
         }
@@ -36,18 +49,28 @@ export const useAsistenciasStore = () => {
             return asistenciaDB;
         } catch(error) {
             // Obtener los errores de la respuesta
-            const errores = error.response.data.errors;
+            const errors = error.response.data.errors;
             const error2 = error.response.data.msg;
             // Recorremos los errores para mostrarlos en el state
             let erroresArray = [];
-            for (const key in errores) {
-                erroresArray.push(errores[key].msg);
+            for (const key in errors) {
+                erroresArray.push(errors[key].msg);
             }
             // Guardar los errores en el state
             if(erroresArray.length > 0) {
-                setErrores(erroresArray[0]);
+                Swal.fire({
+                    title: 'Error',
+                    text: erroresArray[0],
+                    icon: 'error',
+                    confirmButtonText: 'Aceptar'
+                })
             } else {
-                setErrores(error2);
+                Swal.fire({
+                    title: 'Error',
+                    text: error2,
+                    icon: 'error',
+                    confirmButtonText: 'Aceptar'
+                })
             }
             
         }
