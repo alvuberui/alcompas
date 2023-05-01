@@ -46,6 +46,7 @@ app.use(fileUpload({
 * 15) Likes
 * 16) Asistencias
 * 17) Contratados
+* 18) Vestimentas
 */
 app.use('/api/auth', require('./routes/auth'));
 app.use('/api/bandas', require('./routes/bandas'));
@@ -65,6 +66,7 @@ app.use('/api/likes', require('./routes/likes'));
 app.use('/api/estadisticas', require('./routes/estadisticas'));
 app.use('/api/asistencias', require('./routes/asistencias'));
 app.use('/api/contratados', require('./routes/contratados'));
+app.use('/api/vestimentas', require('./routes/vestimentas'));
 
 // Escuchar peticiones
 if (process.env.NODE_ENV !== 'test') {

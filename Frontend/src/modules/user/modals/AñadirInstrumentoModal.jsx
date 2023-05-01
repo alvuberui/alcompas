@@ -29,14 +29,14 @@ const nombres = ['Corneta', 'Tambor', 'Bordonera', 'Caja', 'Bombo', 'Platos',
                             'Fagot', 'Lira', 'Campana', 'Cascabeles', 'Batería', 'Xilófono',
                             'Timbales', 'Campanilla', 'Clarinete Bajo', 'Requinto'];
 
-export const AñadirInstrumentoModal  = ( { open, handleClose, setInstrumentos, setOpen, editar, instrumentoId }) => {
+export const AñadirInstrumentoModal  = ( { open, handleClose, setInstrumentos, setOpen, editar, instrumentoId, banda }) => {
     
     // Estados
     const [instrumento, setInstrumento] = useState({instrumento:'Corneta', marca: '', modelo: '', numeroSerie: ''});
 
     // Funciones
     const { crearInstrumentoUsuario, errores, setErrores, getInstrumentosById,
-      editarInstrumentoUsuario } = useInstrumentosStore();
+      editarInstrumentoUsuario, crearInstrumentoBanda, editarInstrumentoBanda } = useInstrumentosStore();
     const { user } = useAuthStore();
 
     const validarInstrumento =  () => {
@@ -56,12 +56,20 @@ export const AñadirInstrumentoModal  = ( { open, handleClose, setInstrumentos, 
         Swal.fire('Error al editar instrumento', error, 'error');
       }
       else {
-
-        const c = await editarInstrumentoUsuario( instrumento, user.uid, instrumentoId );
-        setInstrumentos( co => [...co, c].filter( i => i._id !== instrumentoId) );
-        setInstrumentos( co => [...co, c]);
-        setInstrumento({instrumento:'Corneta', marca: '', modelo: '', numeroSerie: ''});
-        setOpen(false);
+        if( banda ) {
+          const c = await editarInstrumentoBanda( instrumento, banda, instrumentoId );
+          setInstrumentos( co => [...co, c].filter( i => i._id !== instrumentoId) );
+          setInstrumentos( co => [...co, c]);
+          setInstrumento({instrumento:'Corneta', marca: '', modelo: '', numeroSerie: ''});
+          setOpen(false);
+        }
+        else {
+          const c = await editarInstrumentoUsuario( instrumento, user.uid, instrumentoId );
+          setInstrumentos( co => [...co, c].filter( i => i._id !== instrumentoId) );
+          setInstrumentos( co => [...co, c]);
+          setInstrumento({instrumento:'Corneta', marca: '', modelo: '', numeroSerie: ''});
+          setOpen(false);
+        }
       }
     }
    
@@ -73,11 +81,18 @@ export const AñadirInstrumentoModal  = ( { open, handleClose, setInstrumentos, 
           Swal.fire('Error al publicar instrumento', error, 'error');
         }
         else {
-  
-          const c = await crearInstrumentoUsuario( instrumento, user.uid );
-          setInstrumentos( co => [...co, c]);
-          setInstrumento({instrumento:'Corneta', marca: '', modelo: '', numeroSerie: ''});
-          setOpen(false);
+          if( banda ) {
+            const c = await crearInstrumentoBanda( instrumento, banda );
+            setInstrumentos( co => [...co, c]);
+            setInstrumento({instrumento:'Corneta', marca: '', modelo: '', numeroSerie: ''});
+            setOpen(false);
+          }
+          else {
+            const c = await crearInstrumentoUsuario( instrumento, user.uid );
+            setInstrumentos( co => [...co, c]);
+            setInstrumento({instrumento:'Corneta', marca: '', modelo: '', numeroSerie: ''});
+            setOpen(false);
+          }
         }
       }
     

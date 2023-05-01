@@ -10,3 +10,6 @@ export * from './modals/NuevoAnuncio';
 export * from './pages/UpdateBandaForm';
 export * from './pages/Transacciones';
 export * from './modals/NuevaTransaccion';
+export * from './pages/Vestimentas';
+export * from './pages/Instrumentos';
+export * from './modals/AñadirVestimenta';

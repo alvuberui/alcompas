@@ -16,3 +16,4 @@ export * from './useEventosStore';
 export * from './useLikesStore';
 export * from './useEstadisticasStore';
 export * from './useContratadosStore';
+export * from './useVestimentasStore';

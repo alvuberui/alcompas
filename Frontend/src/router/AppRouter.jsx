@@ -5,7 +5,7 @@ import { NavBar, NavbarInvitado } from '../Components';
 import { useAuthStore } from '../hooks';
 import { Inicial } from '../invitado';
 import { AdministrarBandas, AdministrarUsuarios, Menu } from '../modules/admin';
-import { BandaForm, MisBandas, PerfilBanda, RedesSociales, Transacciones, UpdateBandaForm } from '../modules/banda';
+import { BandaForm, Instrumentos, MisBandas, PerfilBanda, RedesSociales, Transacciones, UpdateBandaForm, Vestimentas } from '../modules/banda';
 import { PanelDirectivo } from '../modules/banda/pages/PanelDirectivo';
 import { Dashboard } from '../modules/dashboard/Dashboard';
 import { ActualizarEventoForm, CrearEventoForm, Eventos } from '../modules/eventos';
@@ -59,6 +59,8 @@ export const AppRouter = () => {
                   <Route path="/banda/panel/eventos/editar/:tipoEvento/:eventoId" element={ <ActualizarEventoForm/>} />
                   <Route path="/banda/panel/eventos/asistencia/:eventoId/:tipoEvento" element={ <AsistenciaEvento/>} />
                   <Route path="/banda/panel/eventos/asistencia/contratar/:eventoId/:tipoEvento" element={ <ContratarMusico/>} />
+                  <Route path="/banda/panel/instrumentos/:bandaId" element={ <Instrumentos/>} />
+                  <Route path="/banda/panel/vestimentas/:bandaId" element={ <Vestimentas/>} />
 
                   <Route path="/admin" element={ <Menu/>} />
                   <Route path="/admin/usuarios" element={ <AdministrarUsuarios/>} />
