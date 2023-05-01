@@ -23,7 +23,10 @@ const InstrumentoSchema = Schema({
     usuario: {
         type: Schema.Types.ObjectId,
         ref: 'Usuario',
-        required: true
+    },
+    banda: {
+        type: Schema.Types.ObjectId,
+        ref: 'Banda',
     }
 });
 

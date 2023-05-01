@@ -6,6 +6,7 @@ import {
 } from "react-router-dom";
 import Swal from 'sweetalert2';
 import { useAuthStore, useBandasStore, useDirectivosStore } from '../../../hooks';
+import { Vestimentas } from './Vestimentas';
 
 export const PanelDirectivo = () => {
     const { bandaId } = useParams();
@@ -112,7 +113,10 @@ export const PanelDirectivo = () => {
                         alignItems="center"  
                         container>
                         <Box textAlign='center' sx={{mt:"10px", width:'50vh'}}>
-                            <Button  variant='contained' align="center" color="secondary" fullWidth ><NavLink style={{textDecoration: "none", color: "black",  fontWeight: 'bold'}}  to={`/banda/panel/`}>Administrar Préstamos</NavLink></Button>
+                            <Button  variant='contained' align="center" color="secondary" fullWidth ><NavLink style={{textDecoration: "none", color: "black",  fontWeight: 'bold'}}  to={`/banda/panel/instrumentos/${bandaId}`}>Administrar Instrumentos</NavLink></Button>
+                        </Box>
+                        <Box textAlign='center' sx={{mt:"10px", width:'50vh'}}>
+                            <Button  variant='contained' align="center" color="secondary" fullWidth ><NavLink style={{textDecoration: "none", color: "black",  fontWeight: 'bold'}}  to={`/banda/panel/vestimentas/${bandaId}`}>Administrar Vestimentas</NavLink></Button>
                         </Box>
                         <Box textAlign='center' sx={{mt:"10px", minWidth:'50vh'}}>
                             <Button  variant='contained' align="center" color="secondary" fullWidth ><NavLink style={{textDecoration: "none", color: "black",  fontWeight: 'bold'}}  to={`/peticiones/banda/${bandaId}`}>Administrar Peticiones</NavLink></Button>

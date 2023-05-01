@@ -36,6 +36,18 @@ export const useInstrumentosStore = () => {
         }
     }
 
+    const crearInstrumentoBanda = async(instrumentoNuevo, bandaId) => {
+        try {
+            instrumentoNuevo.banda = bandaId;
+            const { data } = await alcompasAPI.post('instrumentos/banda', instrumentoNuevo);
+            const instrumento = data.instrumentoDB;
+            return instrumento;
+        } catch(error) {
+            
+            setErrores(["Error en el servidor"]);
+        }
+    }
+
     const editarInstrumentoUsuario = async(instrumentoNuevo, userId, instrumentoId) => {
         try {
             instrumentoNuevo.usuario = userId;
@@ -57,6 +69,38 @@ export const useInstrumentosStore = () => {
         }
     }
 
+    const getTodosInstrumentosByBanda = async(bandaId) => {
+        try {
+            const { data } = await alcompasAPI.get('instrumentos/banda/' + bandaId);
+            const instrumentos = data.instrumentos;
+            return instrumentos;
+        } catch(error) {
+            console.log('Error cargando instrumentos');
+        }
+    }
+
+    const editarInstrumentoBanda = async(instrumentoNuevo, bandaId, instrumentoId) => {
+        try {
+            instrumentoNuevo.banda = bandaId;
+            const { data } = await alcompasAPI.put('instrumentos/banda/' + instrumentoId, instrumentoNuevo);
+            const instrumento = data.instrumentoActualizado;
+            return instrumento;
+        } catch(error) {
+            setErrores(["Error en el servidor"]);
+        }
+    }
+
+    const eliminarInstrumentoBanda = async(instrumentoId) => {
+        try {
+            const { data } = await alcompasAPI.delete('instrumentos/banda/' + instrumentoId);
+            return data.instrumentoEliminado
+        } catch(error) {
+            console.log(error)
+            setErrores(["Error en el servidor"]);
+            
+        }
+    }
+
 
 
     return {
@@ -68,6 +112,10 @@ export const useInstrumentosStore = () => {
         getInstrumentosByUserId,
         eliminarInstrumento,
         getInstrumentosById,
-        editarInstrumentoUsuario
+        editarInstrumentoUsuario,
+        crearInstrumentoBanda,
+        getTodosInstrumentosByBanda,
+        editarInstrumentoBanda,
+        eliminarInstrumentoBanda
     }
 }
