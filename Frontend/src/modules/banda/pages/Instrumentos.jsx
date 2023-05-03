@@ -92,7 +92,7 @@ export const Instrumentos = () => {
 
           <Grid 
           xs = { 9 }
-          sx={{  mt:'20px', justifyContent: "center", display: "flex"  }}
+          sx={{  mt:'20px', justifyContent: "center"  }}
           item>
             {
               instrumentos.map((instrumento, index) =>

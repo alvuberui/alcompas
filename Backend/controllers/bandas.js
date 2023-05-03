@@ -421,6 +421,43 @@ const getPerteneceUsuarioBanda = async( req, res = express.response ) => {
     }
 }
 
+const getTodosComponentesBanda = async( req, res = express.response ) => {
+    try {
+        const bandaId = req.params.bandaId;
+        const musicos = await Musico.find({'banda': bandaId, 'fecha_final': null});
+        const directivos = await Directivo.find({'banda': bandaId, 'fecha_final': null});
+        const archiveros = await Archivero.find({'banda': bandaId, 'fecha_final': null});
+        const componentes = musicos.concat(directivos).concat(archiveros);
+        // quitamos aquellos componentes que tienen el mismo usuario
+        let componentesSinRepetir = [];
+        for(i=0; i < componentes.length; i++) {
+            let componente = componentes[i];
+            if(!componentesSinRepetir.some(e => e.usuario.toString() === componente.usuario.toString())) {
+                componentesSinRepetir.push(componente);
+            }
+        }
+
+        let usuarios = [];
+        for(i=0; i < componentesSinRepetir.length; i++) {
+            let componente = componentesSinRepetir[i];
+            const usuario = await Usuario.findById(componente.usuario);
+            usuarios.push(usuario);
+        }
+
+        res.status(201).json({
+            ok: true,
+            componentes: usuarios
+        });
+
+    } catch (error) {
+        console.log(error)
+        res.status(500).json({
+            ok: false,
+            msg: 'Por favor hable con el administrador.'
+        });
+    }
+}
+
 module.exports = {
     crearBanda,
     actualizar_banda,
@@ -429,5 +466,6 @@ module.exports = {
     getBandasByUserId,
     getBandas,
     getBandasByNombre,
-    getPerteneceUsuarioBanda
+    getPerteneceUsuarioBanda,
+    getTodosComponentesBanda
 }

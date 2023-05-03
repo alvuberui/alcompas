@@ -5,13 +5,13 @@ const PrestamoSchema = Schema({
         type: Date,
         required: true, 
     },
-    fechaFin: {
+    fechaInicio: {
         type: Date,
     },
     estado: {
-        type: Date,
+        type: String,
         required: true,
-        enum: ['Activo', 'Finalizado', 'Cancelado']
+        enum: ['Activo', 'Finalizado']
     },
     comentario: {
         type: String,
@@ -21,8 +21,8 @@ const PrestamoSchema = Schema({
         ref: 'Usuario',
         required: true
     },
-    estado: {
-        type: Date,
+    tipo: {
+        type: String,
         required: true,
         enum: ['Vestimenta', 'Instrumento']
     },

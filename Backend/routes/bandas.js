@@ -4,7 +4,7 @@ const router = Router();
 
 const { check } = require('express-validator');
 const { validarJWT } = require('../middlewares/validar-jwt');
-const { crearBanda, actualizar_banda, eliminar_banda, getBandaById
+const { crearBanda, actualizar_banda, eliminar_banda, getBandaById, getTodosComponentesBanda
         ,getBandasByUserId, getBandas, getBandasByNombre, getPerteneceUsuarioBanda} = require('../controllers/bandas');
 
 const { validarCampos } = require('../middlewares/validar-campos');
@@ -124,6 +124,9 @@ router.get('/buscar/:nombre', getBandasByNombre);
 
 // Comprobar si un usuario pertenece a una banda (Independientemente del rol)
 router.get('/pertenece/usuario/:usuarioId/banda/:bandaId', getPerteneceUsuarioBanda);
+
+// Obtener todos los componentes de una banda
+router.get('/componentes/:bandaId', getTodosComponentesBanda);
 
 
 

@@ -1,17 +1,60 @@
 
-import { Button, Grid, Typography } from '@mui/material';
+import { Button, CircularProgress, Grid, Typography } from '@mui/material';
 import { useEffect, useState } from 'react';
 import Swal from 'sweetalert2';
-import { useAuthStore, useVestimentasStore } from '../hooks';
+import { useAuthStore, usePrestamosStore, useVestimentasStore } from '../hooks';
 import { useInstrumentosStore } from '../hooks/useInstrumentosStore';
 import { AñadirInstrumentoModal } from '../modules/user/';
 import { AñadirVestimenta } from '../modules/banda/modals/AñadirVestimenta';
+import { NuevoPrestamo } from '../modules/banda/modals/NuevoPrestamo';
+import { NavLink } from 'react-router-dom';
 
 export const Vestimenta = ({ vestimenta, iguales, banda, setVestimentas, eliminar }) => {
     // Estados
     const [ open, setOpen ] = useState(false);
-    const { eliminarVestimenta } = useVestimentasStore();
+    const [ openPrestamo, setOpenPrestamo ] = useState(false);
+    const [ prestamo, setPrestamo ] = useState('');
 
+    const { eliminarVestimenta } = useVestimentasStore();
+    const { getPrestamoActivoByReferencia, cancelarPrestamo } = usePrestamosStore();
+
+    const handleOpenPrestamo = (event, newValue, editar) => {
+        event.preventDefault();
+        setOpenPrestamo(true);
+    };
+
+    const handleClosePrestamo = (event, newValue) => {
+        event.preventDefault();
+        setOpenPrestamo(false);
+    };
+
+    const handleCancelarPrestamo = async (event, newValue) => {
+        event.preventDefault();
+        Swal
+        .fire({
+            title: "¿Está seguro de que desea cancelar el préstamo?",
+            text: "Esta acción será irreversible y no podrá recuperarlo",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: "Sí, cancelar",
+            cancelButtonText: "Cancelar",
+        })
+        .then(async resultado => {
+            if (resultado.value) {
+                // Hicieron click en "Sí"
+                const c = await cancelarPrestamo(prestamo._id);
+                if(c) {
+                    Swal.fire({
+                        title: "Préstamo cancelado",
+                        text: "El préstamo ha sido cancelado correctamente",
+                        icon: 'success',
+                        confirmButtonText: "Aceptar",
+                    });
+                    setPrestamo(undefined);
+                } 
+            }
+        });
+    }
     
 
     const handleOpenEditar = (event, newValue, editar) => {
@@ -46,7 +89,23 @@ export const Vestimenta = ({ vestimenta, iguales, banda, setVestimentas, elimina
     });
     }
 
+    useEffect(() => {
+        const getPrestamo = async () => {
+            if(vestimenta._id) {
+                const prestamo = await getPrestamoActivoByReferencia(vestimenta._id, 'Vestimenta');
+                if(prestamo) {
+                    prestamo.fechaInicio = new Date(prestamo.fechaInicio).toLocaleDateString();
+                } 
+                setPrestamo(prestamo);
+            }
+        }
+        getPrestamo();
+    }, [vestimenta]);
 
+    if( prestamo === '') {
+        <CircularProgress size={200}></CircularProgress>
+    }
+    else {
   
   return (
         
@@ -55,6 +114,7 @@ export const Vestimenta = ({ vestimenta, iguales, banda, setVestimentas, elimina
         sx={{ mt:'15px', maxWidth:'95%', padding:2, backgroundColor:'white', borderRadius:'5px',  borderColor:'white', boxShadow:'rgba(0, 0, 0, 0.14) 0px 1px 1px 1px, rgba(0, 0, 0, 0.12) 0px 2px 1px -1px,  rgba(0, 0, 0, 0.2) 0px 1px 3px 1px'  }}
         >   
             <AñadirVestimenta  vestimentaAntigua={vestimenta} editar={true} open={open} handleClose={handleCloseEditar} setOpen={setOpen} setVestimentas={setVestimentas} banda={banda}></AñadirVestimenta>
+            <NuevoPrestamo handleClose={handleClosePrestamo} open={openPrestamo} setOpen={setOpenPrestamo} setPrestamoIns={setPrestamo} vestimentaId={vestimenta._id}></NuevoPrestamo>
             <Grid
             container
             display="flex"
@@ -73,9 +133,32 @@ export const Vestimenta = ({ vestimenta, iguales, banda, setVestimentas, elimina
                 sx={{ padding:2 }}
                 >   
                     <div>
-                        <Typography style={{display: 'inline-block'}}>
-                            <b>No hay información</b> 
-                        </Typography>
+                        {
+                            prestamo ?
+                            <>
+                            <b>Prestado a: </b> 
+                            <NavLink to={'/perfil/'+ prestamo.usuario._id} style={{color:'black'}}>
+                                {prestamo.usuario.nombre + ' ' + prestamo.usuario.primer_apellido + ' ' + prestamo.usuario.segundo_apellido}
+                            </NavLink>
+                            <br></br>
+                            <Typography style={{display: 'inline-block'}}>
+                                <b>Comentario del préstamo: </b> {prestamo.comentario}
+                            </Typography>
+                            <br></br>
+                            <Typography style={{display: 'inline-block'}}>
+                                <b>Fecha de inicio: </b> {prestamo.fechaInicio}
+                            </Typography>
+                            <br></br>
+                            <Typography style={{display: 'inline-block'}}>
+                                <b>Estado del préstamo: </b> {prestamo.estado}
+                            </Typography>
+                            </>
+                            :
+                        
+                            <Typography style={{display: 'inline-block'}}>
+                                <b>No hay información</b> 
+                            </Typography>
+                        }
                         
                     </div>
                 </Grid> 
@@ -95,11 +178,20 @@ export const Vestimenta = ({ vestimenta, iguales, banda, setVestimentas, elimina
                             <Button  color='primary' onClick={handleElminar} sx={{ml:'5px'}} variant='contained'>
                                 <Typography sx={{ fontWeight: 'bold', fontSize:'12px' }} >Eliminar</Typography>
                             </Button>
+                            { !prestamo ?
+                            <Button  color='primary' onClick={handleOpenPrestamo} sx={{ml:'5px'}} variant='contained'>
+                                <Typography sx={{ fontWeight: 'bold', fontSize:'12px' }} >Prestar</Typography>
+                            </Button>
+                            :
+                            <Button  color='primary' onClick={handleCancelarPrestamo} sx={{ml:'5px'}} variant='contained'>
+                                <Typography sx={{ fontWeight: 'bold', fontSize:'12px' }} >Cancelar</Typography>
+                            </Button>
+                            }
                         </div>
                     </Grid> 
                 }
             </Grid>
         </Grid>
         
-    );
+    );}
 }

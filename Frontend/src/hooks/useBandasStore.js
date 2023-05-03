@@ -135,6 +135,16 @@ export const useBandasStore = () => {
         }
     }
 
+    const obtenerTodosCompontesBanda = async(bandaId) => {
+        try {
+            const { data } = await alcompasAPI.get('bandas/componentes/' + bandaId);
+            const componentes = data.componentes;
+            return componentes;
+        } catch(error) {
+            console.log('Error cargando componentes');
+        }
+    }
+
     return {
         mensajeError,
         // Métodos
@@ -145,6 +155,7 @@ export const useBandasStore = () => {
         getBandasByNombre,
         eliminarBanda,
         editarBandas,
-        perteneceUsuarioBanda
+        perteneceUsuarioBanda,
+        obtenerTodosCompontesBanda
     }
 }

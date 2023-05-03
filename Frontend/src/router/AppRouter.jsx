@@ -11,7 +11,7 @@ import { Dashboard } from '../modules/dashboard/Dashboard';
 import { ActualizarEventoForm, CrearEventoForm, Eventos } from '../modules/eventos';
 import { Peticiones } from '../modules/peticiones/pages/Peticiones';
 import { PeticionesBanda } from '../modules/peticiones/pages/PeticionesBanda';
-import { Perfil } from '../modules/user';
+import { Perfil, Prestamos } from '../modules/user';
 import { Estadisticas } from '../modules/dashboard/Estadisticas';
 import { AsistenciaEvento } from '../modules/eventos/pages/AsistenciaEvento';
 import { ContratarMusico } from '../modules/eventos/pages/ContratarMusico';
@@ -48,6 +48,7 @@ export const AppRouter = () => {
                   <Route path="/peticiones/:id/*" element={ <Peticiones/>} />
                   <Route path="/modificar/:id/*" element={ <UpdateForm/>} />
                   <Route path="/bandas/:userId/*" element={ <MisBandas titulo='Mis Bandas'/>} />
+                  <Route path="/prestamos/:userId/*" element={ <Prestamos/>} />
 
                   <Route path="/peticiones/banda/:id/*" element={ <PeticionesBanda/>} />
                   <Route path="/bandas/actualizar/:bandaId" element={ <UpdateBandaForm/>} />

@@ -1,18 +1,21 @@
 
-import { Button, Grid, Typography } from '@mui/material';
+import { Button, CircularProgress, Grid, Typography } from '@mui/material';
 import { useEffect, useState } from 'react';
 import Swal from 'sweetalert2';
-import { useAuthStore } from '../hooks';
+import { useAuthStore, usePrestamosStore } from '../hooks';
 import { useInstrumentosStore } from '../hooks/useInstrumentosStore';
 import { AñadirInstrumentoModal } from '../modules/user/';
+import { NuevoPrestamo } from '../modules/banda/modals/NuevoPrestamo';
+import { NavLink } from 'react-router-dom';
 
 export const Instrumento = ({ _id, instrumento, marca, modelo, numeroSerie, usuario, setInstrumentos, eliminar, iguales, banda }) => {
     // Estados
-    const [ usuarioPet, setUsuario ] = useState([]);
     const [ open, setOpen ] = useState(false);
+    const [ openPrestamo, setOpenPrestamo ] = useState(false);
+    const [ prestamo, setPrestamo ] = useState('');
     // Funciones
-    const { getUserByiD } = useAuthStore();
     const { eliminarInstrumento, eliminarInstrumentoBanda } = useInstrumentosStore();
+    const { getPrestamoActivoByReferencia, cancelarPrestamo } = usePrestamosStore();
     
 
     const handleOpenEditar = (event, newValue, editar) => {
@@ -22,7 +25,45 @@ export const Instrumento = ({ _id, instrumento, marca, modelo, numeroSerie, usua
     const handleCloseEditar = (event, newValue) => {
         event.preventDefault();
         setOpen(false);
-      };
+    };
+
+    const handleOpenPrestamo = (event, newValue, editar) => {
+        event.preventDefault();
+        setOpenPrestamo(true);
+    };
+
+    const handleClosePrestamo = (event, newValue) => {
+        event.preventDefault();
+        setOpenPrestamo(false);
+    };
+
+    const handleCancelarPrestamo = async (event, newValue) => {
+        event.preventDefault();
+        Swal
+        .fire({
+            title: "¿Está seguro de que desea cancelar el préstamo?",
+            text: "Esta acción será irreversible y no podrá recuperarlo",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: "Sí, cancelar",
+            cancelButtonText: "Cancelar",
+        })
+        .then(async resultado => {
+            if (resultado.value) {
+                // Hicieron click en "Sí"
+                const c = await cancelarPrestamo(prestamo._id);
+                if(c) {
+                    Swal.fire({
+                        title: "Préstamo cancelado",
+                        text: "El préstamo ha sido cancelado correctamente",
+                        icon: 'success',
+                        confirmButtonText: "Aceptar",
+                    });
+                    setPrestamo(undefined);
+                } 
+            }
+        });
+    }
 
     const handleElminar = e => {
         e.preventDefault();
@@ -53,13 +94,22 @@ export const Instrumento = ({ _id, instrumento, marca, modelo, numeroSerie, usua
 
     // Efectos
     useEffect(() => {
-        const getUsuario = async () => {
-            const usuarioreq = await getUserByiD(usuario);
-            setUsuario(usuarioreq);  
+        const getPrestamo = async () => {
+            if(_id) {
+                const prestamo = await getPrestamoActivoByReferencia(_id, 'Instrumento');
+                if(prestamo) {
+                    prestamo.fechaInicio = new Date(prestamo.fechaInicio).toLocaleDateString();
+                }
+                setPrestamo(prestamo);
+            }
         }
-        getUsuario();
-    }, [open]);
+        getPrestamo();
+    }, [_id]);
 
+    if( prestamo === '') {
+        <CircularProgress size={200}></CircularProgress>
+    }
+    else {
   
   return (
         
@@ -68,6 +118,7 @@ export const Instrumento = ({ _id, instrumento, marca, modelo, numeroSerie, usua
         sx={{ mt:'15px', maxWidth:'95%', padding:2, backgroundColor:'white', borderRadius:'5px',  borderColor:'white', boxShadow:'rgba(0, 0, 0, 0.14) 0px 1px 1px 1px, rgba(0, 0, 0, 0.12) 0px 2px 1px -1px,  rgba(0, 0, 0, 0.2) 0px 1px 3px 1px'  }}
         >   
             <AñadirInstrumentoModal  instrumentoId={_id} editar={true} open={open} handleClose={handleCloseEditar} setOpen={setOpen} setInstrumentos={setInstrumentos} banda={banda}></AñadirInstrumentoModal>
+            <NuevoPrestamo handleClose={handleClosePrestamo} open={openPrestamo} setOpen={setOpenPrestamo} setPrestamoIns={setPrestamo} instrumentoId={_id}></NuevoPrestamo> 
             <Grid
             container
             display="flex"
@@ -97,6 +148,20 @@ export const Instrumento = ({ _id, instrumento, marca, modelo, numeroSerie, usua
                         <Typography style={{display: 'inline-block'}}>
                             <b>Número de serie:</b> {numeroSerie || 'No especificado'}
                         </Typography>
+                        <br></br>
+                        {
+                            prestamo ?
+                            <Typography style={{display: 'inline-block'}}>
+                                <b>Prestado a: </b> 
+                                <NavLink to={'/perfil/'+ prestamo.usuario._id} style={{color:'black'}}>
+                                    {prestamo.usuario.nombre + ' ' + prestamo.usuario.primer_apellido + ' ' + prestamo.usuario.segundo_apellido}
+                                </NavLink>
+                            </Typography>
+                            :
+                            <Typography style={{display: 'inline-block'}}>
+                                <b>Sin prestar</b> 
+                            </Typography>
+                        }
                     </div>
                 </Grid> 
                 { iguales &&
@@ -115,11 +180,20 @@ export const Instrumento = ({ _id, instrumento, marca, modelo, numeroSerie, usua
                             <Button  color='primary' onClick={handleElminar} sx={{ml:'5px'}} variant='contained'>
                                 <Typography sx={{ fontWeight: 'bold', fontSize:'12px' }} >Eliminar</Typography>
                             </Button>
+                            { !prestamo ?
+                            <Button  color='primary' onClick={handleOpenPrestamo} sx={{ml:'5px'}} variant='contained'>
+                                <Typography sx={{ fontWeight: 'bold', fontSize:'12px' }} >Prestar</Typography>
+                            </Button>
+                            :
+                            <Button  color='primary' onClick={handleCancelarPrestamo} sx={{ml:'5px'}} variant='contained'>
+                                <Typography sx={{ fontWeight: 'bold', fontSize:'12px' }} >Cancelar</Typography>
+                            </Button>
+                            }
                         </div>
                     </Grid> 
                 }
             </Grid>
         </Grid>
         
-    );
+    );}
 }

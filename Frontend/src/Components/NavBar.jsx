@@ -139,7 +139,7 @@ export const NavBar = () => {
       <NavLink style={{textDecoration: "none", color: "black"}}  to={`/perfil/${user.uid}`}><MenuItem onClick={perfil} sx={{ justifyContent:'center'}} >Perfil</MenuItem></NavLink>
       <NavLink style={{textDecoration: "none", color: "black"}}  to={`/peticiones/${user.uid}`}><MenuItem onClick={handleMenuClose} sx={{ justifyContent:'center'}}>Peticiones</MenuItem></NavLink>
       <NavLink style={{textDecoration: "none", color: "black"}}  to={`/bandas/${user.uid}`}><MenuItem onClick={handleMenuClose} sx={{ justifyContent:'center'}}>Mis Bandas</MenuItem></NavLink>
-      <MenuItem onClick={handleMenuClose}>Mis Préstamos</MenuItem>
+      <NavLink style={{textDecoration: "none", color: "black"}}  to={`/prestamos/${user.uid}`}><MenuItem onClick={handleMenuClose} sx={{ justifyContent:'center'}}>Mis Préstamos</MenuItem></NavLink>
       { admin && 
         <NavLink style={{textDecoration: "none", color: "black"}}  to={`/admin`}><MenuItem onClick={handleMenuClose} sx={{ justifyContent:'center'}}>Administrador</MenuItem></NavLink>
       }
@@ -171,6 +171,8 @@ export const NavBar = () => {
       
         
       <NavLink style={{textDecoration: "none", color: "black"}}  to={`/perfil/${user.uid}`}><MenuItem aria-label='perfil' onClick={perfil} sx={{ justifyContent:'center'}} >Perfil</MenuItem></NavLink>
+
+      
   
       
         

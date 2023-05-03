@@ -93,7 +93,7 @@ export const Vestimentas = () => {
 
           <Grid 
           xs = { 9 }
-          sx={{  mt:'20px', justifyContent: "center", display: "flex"  }}
+          sx={{  mt:'20px', justifyContent: "center" }}
           item>
 
             {

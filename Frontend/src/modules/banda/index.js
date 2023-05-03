@@ -13,3 +13,4 @@ export * from './modals/NuevaTransaccion';
 export * from './pages/Vestimentas';
 export * from './pages/Instrumentos';
 export * from './modals/AñadirVestimenta';
+export * from './modals/NuevoPrestamo';

@@ -15,3 +15,4 @@ export * from './Estadistica';
 export * from './Contratado';
 export * from './Documento';
 export * from './Vestimenta';
+export * from './Prestamo';
