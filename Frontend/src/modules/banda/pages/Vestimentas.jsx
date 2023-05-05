@@ -1,7 +1,7 @@
 import DeleteIcon from '@mui/icons-material/Delete';
 import {
   Button, Grid, Paper, styled, Table, TableBody, TableCell, tableCellClasses,
-  TableContainer, TableHead, TableRow, Box, CircularProgress
+  TableContainer, TableHead, TableRow, Box, CircularProgress, Typography
 } from '@mui/material';
 import IconButton from '@mui/material/IconButton';
 import React, { useEffect, useState } from 'react';
@@ -25,12 +25,29 @@ export const Vestimentas = () => {
   const [ permiso, setPermiso ] = useState('');
   const { user } = useAuthStore();
   const { getDirectivoByUserId } = useDirectivosStore()
-  const { getTodosInstrumentosByBanda } = useInstrumentosStore();
-  const { getAllVestimentasByBanda } = useVestimentasStore();
+  const { getAllVestimentasByBanda, obtenerTodosConPrestamosByBanda, obtenerTodosVestimentasSinPrestarByBanda } = useVestimentasStore();
 
   const handleClose = (event, newValue) => {
     event.preventDefault();
     setOpen(false);
+  };
+
+  const handleTodos = async(event) => {
+    event.preventDefault();
+    const todos = await getAllVestimentasByBanda(bandaId);
+    setVestimentas(todos);
+  };
+
+  const handlePrestados = async(event) => {
+    event.preventDefault();
+    const prestados = await obtenerTodosConPrestamosByBanda(bandaId);
+    setVestimentas(prestados);
+  };
+
+  const handleSinPrestar = async(event) => {
+    event.preventDefault();
+    const sinPrestar = await obtenerTodosVestimentasSinPrestarByBanda(bandaId);
+    setVestimentas(sinPrestar);
   };
 
 
@@ -77,7 +94,7 @@ export const Vestimentas = () => {
       <>
         { permiso === false && <Navigate to='/' /> }
         <AñadirVestimenta open={open} handleClose={handleClose} setOpen={setOpen} banda={bandaId} setVestimentas={setVestimentas} />
-        <Grid container justifyContent="center" alignItems="center" >
+        <Grid container justifyContent="center" alignItems="center" sx={{mb:2}}>
           <Grid 
           xs = { 9 }
           sx={{ backgroundColor: '#262254', color:'white', mt:'20px', justifyContent: "center", display: "flex", borderRadius: '10px', boxShadow:'5px 5px 10px rgba(0, 0, 0, 0.5)'  }}
@@ -86,9 +103,12 @@ export const Vestimentas = () => {
           </Grid>
           <Grid 
           xs = { 4 }
-          sx={{ backgroundColor: '#262254', color:'white', mt:'20px', justifyContent: "center", display: "flex", borderRadius: '10px', boxShadow:'5px 5px 10px rgba(0, 0, 0, 0.5)'  }}
+          sx={{  mt:'20px', justifyContent: "center", display: "flex", borderRadius: '10px'  }}
           item>
             <Button onClick={handleOpen} variant='contained' align="center" sx={{color:'white'}} fullWidth >Añadir Vestimenta</Button>
+            <Button onClick={handleTodos} variant='contained' align="center" sx={{color:'white', ml:2}} fullWidth >Todas</Button>
+            <Button onClick={handlePrestados} variant='contained' align="center" sx={{color:'white', ml:2}} fullWidth >Prestadas</Button>
+            <Button onClick={handleSinPrestar} variant='contained' align="center" sx={{color:'white', ml:2}} fullWidth >Sin Prestar</Button>
           </Grid>
 
           <Grid 
@@ -108,6 +128,9 @@ export const Vestimentas = () => {
              banda={bandaId}
              />)
 
+            }
+            {
+              vestimentas.length === 0 && <Typography variant='h5' align='center'>No hay vestimentas...</Typography>
             }
             
           </Grid>

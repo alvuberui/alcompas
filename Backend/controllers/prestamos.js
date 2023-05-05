@@ -195,6 +195,58 @@ const obtenerPrestamosUsuario = async(req, res = express.response) => {
         });
     }
 }
+
+const obtenerTodasByBanda = async(req, res = express.response) => {
+    try {
+        const id = req.params.id;
+        // Comprobar que es directivo
+        const token = req.header('x-token');
+        const payload = jwt.verify(token,process.env.SECRET_JWT_SEED);
+        const payloadId = payload.uid;
+        const directivos = await Directivo.find({ banda: id, usuario: payloadId, fecha_final: undefined });
+
+        if(directivos.length === 0) {
+            return res.status(400).json({
+                ok: false,
+                msg: 'El usuario no es directivo de la banda'
+            });
+        }
+
+        // Obtener todos los prestmaos de la banda ordenador por fechaInicio de mas antiguos a mas reciente
+        const prestamos = await Prestamo.find().sort({ fechaInicio: 1 });
+        const lista = [];
+      
+        for(let i = 0; i < prestamos.length; i++) {
+            const prestamo = prestamos[i];
+            
+            // Map de prestamo a objeto
+            const map = prestamo.toObject();
+            let objeto = null;
+            if(prestamo.tipo === 'Instrumento') {
+                objeto = await Instrumento.findById(prestamo.referencia);
+            } else {
+                objeto =  await Vestimenta.findById(prestamo.referencia);
+            }
+            if(objeto.banda.toString() === id) {
+                const usuario = await Usuario.findById(prestamo.usuario);
+                map.usuario = usuario;
+                map.referencia = objeto;
+                lista.push(map);
+            }
+        }
+    
+        res.json({
+            ok: true,
+            prestamos: lista
+        });
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({
+            ok: false,
+            msg: error
+        });
+    }
+}
         
 
 
@@ -203,5 +255,6 @@ module.exports = {
     crearPrestamo,
     getPrestamoActivoObjeto,
     cancelarPrestamo,
-    obtenerPrestamosUsuario
+    obtenerPrestamosUsuario,
+    obtenerTodasByBanda
 }

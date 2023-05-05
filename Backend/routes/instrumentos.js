@@ -6,7 +6,8 @@ const { validarCampos } = require('../middlewares/validar-campos');
 const { validarInstrumentos } = require('../middlewares/validar-instrumento');
 const { crearInstrumentoUsuario, getInstrumentosByUserId, eliminarInstrumento,
         actualizarInstrumentoUsuario,getinstrumentosById, crearInstrumentoBanda,
-        getTodosInstrumentosByBanda, editarInstrumentoBanda, eliminarInstrumentoBanda } = require('../controllers/instrumentos');
+        getTodosInstrumentosByBanda, editarInstrumentoBanda, eliminarInstrumentoBanda, 
+        obtenerTodosConPrestamosByBanda, obtenerTodosInstrumentosSinPrestarByBanda } = require('../controllers/instrumentos');
 
 
     // Validar JWT
@@ -111,6 +112,11 @@ router.put('/banda/:instrumentoId',
 // Eliminar instrumento banda
 router.delete('/banda/:instrumentoId', eliminarInstrumentoBanda);
 
+// Obtener todos los instrumentos pretados de una banda
+router.get('/banda/prestados/:bandaId', obtenerTodosConPrestamosByBanda);
+
+// Obtener todos los instrumentos sin prestar de una banda
+router.get('/banda/sinprestar/:bandaId', obtenerTodosInstrumentosSinPrestarByBanda);
 
 
 

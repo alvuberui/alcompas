@@ -101,6 +101,27 @@ export const useInstrumentosStore = () => {
         }
     }
 
+    const obtenerTodosConPrestamosByBanda = async(bandaId) => {
+        try {
+            const { data } = await alcompasAPI.get('instrumentos/banda/prestados/' + bandaId);
+            const instrumentos = data.instrumentos;
+            return instrumentos;
+        } catch(error) {
+            console.log('Error cargando instrumentos');
+        }
+    }
+
+    const obtenerTodosInstrumentosSinPrestarByBanda = async(bandaId) => {
+        try {
+            const { data } = await alcompasAPI.get('instrumentos/banda/sinprestar/' + bandaId);
+            const instrumentos = data.instrumentos;
+            return instrumentos;
+        } catch(error) {
+            console.log('Error cargando instrumentos');
+        }
+    }
+
+
 
 
     return {
@@ -116,6 +137,8 @@ export const useInstrumentosStore = () => {
         crearInstrumentoBanda,
         getTodosInstrumentosByBanda,
         editarInstrumentoBanda,
-        eliminarInstrumentoBanda
+        eliminarInstrumentoBanda,
+        obtenerTodosConPrestamosByBanda,
+        obtenerTodosInstrumentosSinPrestarByBanda
     }
 }

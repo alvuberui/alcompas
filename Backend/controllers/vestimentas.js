@@ -2,6 +2,7 @@ const express = require('express');
 const Vestimenta = require('../models/Vestimenta');
 const Directivo = require('../models/Directivo');
 const Banda = require('../models/Banda');
+const Prestamo = require('../models/Prestamo');
 const jwt = require('jsonwebtoken');
 
 const crearVestimenta = async(req, res = express.response) => {
@@ -132,10 +133,90 @@ const eliminarVestimenta = async(req, res = express.response) => {
     }
 }
 
+const obtenerTodosConPrestamosByBanda = async(req, res = express.response) => {
+    try {
+        const bandaId = req.params.bandaId;
+        // Comprobar que eres directivo de la banda
+        const token = req.header('x-token');
+        const payload = jwt.verify(token,process.env.SECRET_JWT_SEED);
+        const payloadId = payload.uid;
+        
+        const directivos = await Directivo.find({usuario: payloadId, banda: bandaId, fecha_final: undefined});
+        if(directivos.length === 0) {
+            return res.status(400).json({
+                ok: false,
+                msg: 'No tiene permisos para crear este instrumento'
+            });
+        }
+
+        const vestimentas = await Vestimenta.find({banda: bandaId});
+        const lista = [];
+        for (let i = 0; i < vestimentas.length; i++) {
+            const vestimenta = vestimentas[i];
+            const prestamo = await Prestamo.find({referencia: vestimenta._id, estado: 'Activo', tipo:'Vestimenta'});
+            if(prestamo.length > 0 ) {
+                lista.push(vestimenta);
+            }
+        }
+        res.json({
+            ok: true,
+            vestimentas: lista
+        });
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({
+            ok: false,
+            msg: 'Por favor hable con el administrador'
+        });
+    }
+
+}
+
+const obtenerTodosInstrumentosSinPrestarByBanda = async(req, res = express.response) => {
+    try {
+        const bandaId = req.params.bandaId;
+        // Comprobar que eres directivo de la banda
+        const token = req.header('x-token');
+        const payload = jwt.verify(token,process.env.SECRET_JWT_SEED);
+        const payloadId = payload.uid;
+
+        const directivos = await Directivo.find({usuario: payloadId, banda: bandaId, fecha_final: undefined});
+        if(directivos.length === 0) {
+            return res.status(400).json({
+                ok: false,
+                msg: 'No tiene permisos para crear este instrumento'
+            });
+        }
+
+        const vestimentas = await Vestimenta.find({banda: bandaId});
+        const lista = [];
+        for (let i = 0; i < vestimentas.length; i++) {
+            const vestimenta = vestimentas[i];
+            const prestamo = await Prestamo.find({referencia: vestimenta._id, estado: 'Activo', tipo:'Vestimenta'});
+            if(prestamo.length  === 0 ) {
+                lista.push(vestimenta);
+            }
+        }
+   
+        res.json({
+            ok: true,
+            vestimentas: lista
+        });
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({
+            ok: false,
+            msg: 'Por favor hable con el administrador'
+        });
+    }
+}
+
 module.exports = {
     crearVestimenta,
     getTodasVestimentasByBanda,
     editarVestimenta,
-    eliminarVestimenta
+    eliminarVestimenta,
+    obtenerTodosConPrestamosByBanda,
+    obtenerTodosInstrumentosSinPrestarByBanda
 }
             

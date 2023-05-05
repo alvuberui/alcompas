@@ -1,7 +1,7 @@
 import DeleteIcon from '@mui/icons-material/Delete';
 import {
   Button, Grid, Paper, styled, Table, TableBody, TableCell, tableCellClasses,
-  TableContainer, TableHead, TableRow, Box, CircularProgress
+  TableContainer, TableHead, TableRow, Box, CircularProgress, Typography
 } from '@mui/material';
 import IconButton from '@mui/material/IconButton';
 import React, { useEffect, useState } from 'react';
@@ -25,11 +25,29 @@ export const Instrumentos = () => {
   const [ permiso, setPermiso ] = useState('');
   const { user } = useAuthStore();
   const { getDirectivoByUserId } = useDirectivosStore()
-  const { getTodosInstrumentosByBanda } = useInstrumentosStore();
+  const { getTodosInstrumentosByBanda, obtenerTodosConPrestamosByBanda, obtenerTodosInstrumentosSinPrestarByBanda } = useInstrumentosStore();
 
   const handleClose = (event, newValue) => {
     event.preventDefault();
     setOpen(false);
+  };
+
+  const handleTodos = async(event) => {
+    event.preventDefault();
+    const todos = await getTodosInstrumentosByBanda(bandaId);
+    setInstrumentos(todos);
+  };
+
+  const handlePrestados = async(event) => {
+    event.preventDefault();
+    const prestados = await obtenerTodosConPrestamosByBanda(bandaId);
+    setInstrumentos(prestados);
+  };
+
+  const handleSinPrestar = async(event) => {
+    event.preventDefault();
+    const sinPrestar = await obtenerTodosInstrumentosSinPrestarByBanda(bandaId);
+    setInstrumentos(sinPrestar);
   };
 
 
@@ -76,7 +94,7 @@ export const Instrumentos = () => {
       <>
         { permiso === false && <Navigate to='/' /> }
         <AñadirInstrumentoModal instrumentos={instrumentos} setInstrumentos={setInstrumentos} open={open} handleClose={handleClose} setOpen={setOpen} banda={bandaId}/>
-        <Grid container justifyContent="center" alignItems="center" >
+        <Grid container justifyContent="center" alignItems="center" sx={{mb:2}} >
           <Grid 
           xs = { 9 }
           sx={{ backgroundColor: '#262254', color:'white', mt:'20px', justifyContent: "center", display: "flex", borderRadius: '10px', boxShadow:'5px 5px 10px rgba(0, 0, 0, 0.5)'  }}
@@ -85,9 +103,12 @@ export const Instrumentos = () => {
           </Grid>
           <Grid 
           xs = { 4 }
-          sx={{ backgroundColor: '#262254', color:'white', mt:'20px', justifyContent: "center", display: "flex", borderRadius: '10px', boxShadow:'5px 5px 10px rgba(0, 0, 0, 0.5)'  }}
+          sx={{  mt:'20px', justifyContent: "center", display: "flex", borderRadius: '10px'  }}
           item>
-            <Button onClick={handleOpen} variant='contained' align="center" sx={{color:'white'}} fullWidth >Añadir Instrumento</Button>
+            <Button onClick={handleOpen} variant='contained' align="center" sx={{color:'white'}} fullWidth >Nuevo</Button>
+            <Button onClick={handleTodos} variant='contained' align="center" sx={{color:'white', ml:2}} fullWidth >Todos</Button>
+            <Button onClick={handlePrestados} variant='contained' align="center" sx={{color:'white', ml:2}} fullWidth >Prestados</Button>
+            <Button onClick={handleSinPrestar} variant='contained' align="center" sx={{color:'white', ml:2}} fullWidth >Sin Prestar</Button>
           </Grid>
 
           <Grid 
@@ -106,6 +127,7 @@ export const Instrumentos = () => {
               />
             )
             }
+            { instrumentos.length === 0 && <Typography align='center' variant='h4'> No hay instrumentos... </Typography> }
           </Grid>
 
         </Grid>

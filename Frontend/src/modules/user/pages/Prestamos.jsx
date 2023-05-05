@@ -44,7 +44,7 @@ export const Prestamos = () => {
           </Grid>
           <Grid 
           xs = { 9 }
-          sx={{  mt:'20px', justifyContent: "center" }}
+          sx={{  mt:'20px', justifyContent: "center", display: '-ms-flexbox' }}
           item>
 
             {

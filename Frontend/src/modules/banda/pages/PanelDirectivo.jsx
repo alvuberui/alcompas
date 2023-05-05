@@ -113,6 +113,9 @@ export const PanelDirectivo = () => {
                         alignItems="center"  
                         container>
                         <Box textAlign='center' sx={{mt:"10px", width:'50vh'}}>
+                            <Button  variant='contained' align="center" color="secondary" fullWidth ><NavLink style={{textDecoration: "none", color: "black",  fontWeight: 'bold'}}  to={`/banda/panel/prestamos/${bandaId}`}>Administrar Préstamos</NavLink></Button>
+                        </Box>
+                        <Box textAlign='center' sx={{mt:"10px", width:'50vh'}}>
                             <Button  variant='contained' align="center" color="secondary" fullWidth ><NavLink style={{textDecoration: "none", color: "black",  fontWeight: 'bold'}}  to={`/banda/panel/instrumentos/${bandaId}`}>Administrar Instrumentos</NavLink></Button>
                         </Box>
                         <Box textAlign='center' sx={{mt:"10px", width:'50vh'}}>

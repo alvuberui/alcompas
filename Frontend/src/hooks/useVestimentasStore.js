@@ -47,11 +47,34 @@ export const useVestimentasStore = () => {
         }
     }
 
+    const obtenerTodosConPrestamosByBanda = async(bandaId) => {
+        try {
+            const { data } = await alcompasAPI.get(`vestimentas/banda/prestados/${bandaId}`);
+            const vestimentas = data.vestimentas;
+            return vestimentas;
+        } catch(error) {
+            console.log('Error cargando vestimentas');
+        }
+    }
+
+    const obtenerTodosVestimentasSinPrestarByBanda = async(bandaId) => {
+        try {
+            const { data } = await alcompasAPI.get(`vestimentas/banda/sinprestar/${bandaId}`);
+            const vestimentas = data.vestimentas;
+            return vestimentas;
+        } catch(error) {
+            console.log('Error cargando vestimentas');
+        }
+    }
+
     return {
         crearVestimenta,
         getAllVestimentasByBanda,
         editarVestimenta,
         eliminarVestimenta,
-        errores
+        errores,
+        obtenerTodosConPrestamosByBanda,
+        obtenerTodosVestimentasSinPrestarByBanda
+        
     }
 }

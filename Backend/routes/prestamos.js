@@ -3,7 +3,8 @@ const router = Router();
 const { check } = require('express-validator');
 const { validarJWT } = require('../middlewares/validar-jwt');
 const { validarCampos } = require('../middlewares/validar-campos');
-const { crearPrestamo, getPrestamoActivoObjeto, cancelarPrestamo, obtenerPrestamosUsuario} = require('../controllers/prestamos');
+const { crearPrestamo, getPrestamoActivoObjeto, cancelarPrestamo, obtenerPrestamosUsuario, 
+        obtenerTodasByBanda } = require('../controllers/prestamos');
 
     // Validar JWT
 router.use( validarJWT, validarCampos);
@@ -25,5 +26,8 @@ router.put('/cancelar/:id', cancelarPrestamo);
 
 //Obtener todos los prestamos de un usuario
 router.get('/usuario/:id', obtenerPrestamosUsuario);
+
+// Obtener todos los prestamos de una banda
+router.get('/banda/:id', obtenerTodasByBanda);
 
 module.exports = router;

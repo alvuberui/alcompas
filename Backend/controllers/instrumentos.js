@@ -3,6 +3,7 @@ const Instrumento = require('../models/Instrumento');
 const Directivo = require('../models/Directivo');
 const Banda = require('../models/Banda');
 const jwt = require('jsonwebtoken');
+const Prestamo = require('../models/Prestamo');
 
 const getInstrumentosByUserId = async(req, res = express.response) => {
     try {
@@ -291,6 +292,85 @@ const eliminarInstrumentoBanda = async(req, res = express.response) => {
 }
 
 
+const obtenerTodosInstrumentosSinPrestarByBanda = async(req, res = express.response) => {
+    try {
+        const bandaId = req.params.bandaId;
+        // Comprobar que eres directivo de la banda
+        const token = req.header('x-token');
+        const payload = jwt.verify(token,process.env.SECRET_JWT_SEED);
+        const payloadId = payload.uid;
+
+        const directivos = await Directivo.find({usuario: payloadId, banda: bandaId, fecha_final: undefined});
+        if(directivos.length === 0) {
+            return res.status(400).json({
+                ok: false,
+                msg: 'No tiene permisos para crear este instrumento'
+            });
+        }
+
+        const instrumentos = await Instrumento.find({banda: bandaId});
+        const lista = [];
+        for (let i = 0; i < instrumentos.length; i++) {
+            const instrumento = instrumentos[i];
+            const prestamo = await Prestamo.find({referencia: instrumento._id, estado: 'Activo', tipo:'Instrumento'});
+
+            if(prestamo.length  === 0 ) {
+                lista.push(instrumento);
+            }
+        }
+        res.json({
+            ok: true,
+            instrumentos: lista
+        });
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({
+            ok: false,
+            msg: 'Por favor hable con el administrador'
+        });
+    }
+}
+
+const obtenerTodosConPrestamosByBanda = async(req, res = express.response) => {
+    try {
+        const bandaId = req.params.bandaId;
+        // Comprobar que eres directivo de la banda
+        const token = req.header('x-token');
+        const payload = jwt.verify(token,process.env.SECRET_JWT_SEED);
+        const payloadId = payload.uid;
+        
+        const directivos = await Directivo.find({usuario: payloadId, banda: bandaId, fecha_final: undefined});
+        if(directivos.length === 0) {
+            return res.status(400).json({
+                ok: false,
+                msg: 'No tiene permisos para crear este instrumento'
+            });
+        }
+
+        const instrumentos = await Instrumento.find({banda: bandaId});
+        const lista = [];
+        for (let i = 0; i < instrumentos.length; i++) {
+            const instrumento = instrumentos[i];
+            const prestamo = await Prestamo.find({referencia: instrumento._id, estado: 'Activo', tipo:'Instrumento'});
+            if(prestamo.length > 0 ) {
+                lista.push(instrumento);
+            }
+        }
+        res.json({
+            ok: true,
+            instrumentos: lista
+        });
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({
+            ok: false,
+            msg: 'Por favor hable con el administrador'
+        });
+    }
+
+}
+
+
 
 
 
@@ -308,5 +388,7 @@ module.exports = {
     crearInstrumentoBanda,
     getTodosInstrumentosByBanda,
     editarInstrumentoBanda,
-    eliminarInstrumentoBanda
+    eliminarInstrumentoBanda,
+    obtenerTodosInstrumentosSinPrestarByBanda,
+    obtenerTodosConPrestamosByBanda
 }

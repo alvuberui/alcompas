@@ -95,10 +95,21 @@ export const usePrestamosStore = () => {
         }
     }
 
+    const obtenerTodosByBanda = async(id) => {
+        try {
+            const { data } = await alcompasAPI.get('prestamos/banda/'+id);
+            const prestamos = data.prestamos;
+            return  prestamos ;
+        } catch(error) {
+            console.log("Error obteniendo prestamos")
+        }
+    }
+
     return {
         crearPrestamo,
         getPrestamoActivoByReferencia,
         cancelarPrestamo,
-        obtenerPrestamosUsuario
+        obtenerPrestamosUsuario,
+        obtenerTodosByBanda
     }
 }

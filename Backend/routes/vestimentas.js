@@ -3,7 +3,8 @@ const router = Router();
 const { check } = require('express-validator');
 const { validarJWT } = require('../middlewares/validar-jwt');
 const { validarCampos } = require('../middlewares/validar-campos');
-const { crearVestimenta, getTodasVestimentasByBanda, editarVestimenta, eliminarVestimenta} = require('../controllers/vestimentas');
+const { crearVestimenta, getTodasVestimentasByBanda, editarVestimenta, eliminarVestimenta ,
+        obtenerTodosConPrestamosByBanda, obtenerTodosInstrumentosSinPrestarByBanda} = require('../controllers/vestimentas');
 
 
     // Validar JWT
@@ -43,6 +44,12 @@ router.delete('/:id', eliminarVestimenta);
 
 // Obtener todas las vestimentas de una banda
 router.get('/banda/:banda', getTodasVestimentasByBanda);
+
+// Obtener todos las vestimentas pretados de una banda
+router.get('/banda/prestados/:bandaId', obtenerTodosConPrestamosByBanda);
+
+// Obtener todos las vestimentas sin prestar de una banda
+router.get('/banda/sinprestar/:bandaId', obtenerTodosInstrumentosSinPrestarByBanda);
 
 
 module.exports = router;  
