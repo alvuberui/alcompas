@@ -48,6 +48,7 @@ app.use(fileUpload({
 * 17) Contratados
 * 18) Vestimentas
 * 19) Préstamos
+* 20) Repertorios
 */
 app.use('/api/auth', require('./routes/auth'));
 app.use('/api/bandas', require('./routes/bandas'));
@@ -69,6 +70,7 @@ app.use('/api/asistencias', require('./routes/asistencias'));
 app.use('/api/contratados', require('./routes/contratados'));
 app.use('/api/vestimentas', require('./routes/vestimentas'));
 app.use('/api/prestamos', require('./routes/prestamos'));
+app.use('/api/repertorios', require('./routes/repertorios'));
 
 // Escuchar peticiones
 if (process.env.NODE_ENV !== 'test') {

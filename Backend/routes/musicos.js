@@ -3,7 +3,7 @@ const router = Router();
 const { check } = require('express-validator');
 
 const { crearMusico, finalizarMusico, eliminarMusicos, getMusicosByBandaId, getMusicoById,
-        getMusicosByUserId, getMusicosByIntrumentoAndLocalidad} = require('../controllers/musicos');
+        getMusicosByUserId, getMusicosByIntrumentoAndLocalidad, esMusicoByBandaId} = require('../controllers/musicos');
 const { validarCampos } = require('../middlewares/validar-campos');
 const { validarInstrumentos } = require('../middlewares/validar-instrumento');
 const { validarVoz } = require('../middlewares/validar-voz');
@@ -28,5 +28,8 @@ router.get('/user/id/:userId', getMusicosByUserId);
 
     // Obtener musicos by instrumento y localidad
 router.get('/instrumento/:instrumento/localidad/:localidad', getMusicosByIntrumentoAndLocalidad);
+
+    // Es músico de una banda
+router.get('/banda/:bandaId', esMusicoByBandaId);
 
 module.exports = router;    

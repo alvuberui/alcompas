@@ -15,3 +15,4 @@ export * from './pages/Instrumentos';
 export * from './modals/AñadirVestimenta';
 export * from './modals/NuevoPrestamo';
 export * from './pages/PrestamosBanda';
+export * from './modals/NuevoRepertorio';

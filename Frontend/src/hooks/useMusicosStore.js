@@ -72,6 +72,17 @@ export const useMusicosStore = () => {
         }
     }
 
+    const esMusicoByBandaId = async(bandaId) => {
+        try {
+            const { data } = await alcompasAPI.get('musicos/banda/' + bandaId);
+            const esMusico = data.esMusico;
+            return esMusico;
+        }
+        catch(error) {
+            console.log('Error obteniendo músicos');
+        }
+    }
+
 
     return {
         // Métodos
@@ -80,6 +91,7 @@ export const useMusicosStore = () => {
         finalizarMusico,
         getMusicoById,
         getMusicosByUserId,
-        getMusicosByIntrumentoAndLocalidad
+        getMusicosByIntrumentoAndLocalidad,
+        esMusicoByBandaId
     }
 }

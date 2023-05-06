@@ -162,6 +162,31 @@ const getMusicosByIntrumentoAndLocalidad = async(req, res = express.response) =>
     }
 }
 
+const esMusicoByBandaId = async(req, res = express.response) => {
+    try {
+        const bandaId = req.params.bandaId;
+        // usuario atravez token
+        const token = req.header('x-token');
+        const payload = jwt.verify(token,process.env.SECRET_JWT_SEED);
+        const payloadId = payload.uid;
+        const musicos = await Musico.find({'usuario': payloadId, 'banda': bandaId, 'fecha_final': undefined});
+        let esMusico = false;
+        if(musicos.length > 0) {
+            esMusico = true;
+        }
+        res.status(200).json({
+            ok: true,
+            esMusico
+        });
+    } catch(error) {
+        res.status(500).json({
+            ok: false,
+            msg: 'Por favor hable con el administrador.'
+        });
+    }
+}
+
+
 
 
 module.exports = {
@@ -169,5 +194,6 @@ module.exports = {
     getMusicosByBandaId,
     getMusicoById,
     getMusicosByUserId,
-    getMusicosByIntrumentoAndLocalidad
+    getMusicosByIntrumentoAndLocalidad,
+    esMusicoByBandaId
 }

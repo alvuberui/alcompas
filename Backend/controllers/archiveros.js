@@ -102,8 +102,35 @@ const getArchiveroByUserId = async(req, res = express.response) => {
     }
 }
 
+const esArchiveroByBandaId = async(req, res = express.response) => {
+    try {
+        const bandaId = req.params.id;
+        const token = req.header('x-token');
+        const payload = jwt.verify(token,process.env.SECRET_JWT_SEED);
+        const payloadId = payload.uid;
+        const archivero = await Archivero.find({'usuario': payloadId, 'banda': bandaId, 'fecha_final': undefined});
+        let esArchivero = false;
+        if(archivero.length === 0) {
+            esArchivero = false;
+        } else {
+            esArchivero = true;
+        }
+        return res.status(201).json({
+            ok: true,
+            esArchivero
+        });
+    } catch (error) {
+        console.log(error)
+        res.status(500).json({
+            ok: false,
+            msg: 'Por favor hable con el administrador.'
+        });
+    }
+}
+
 module.exports = {
     finalizarArchivero,
     eliminarArchiveros,
-    getArchiveroByUserId
+    getArchiveroByUserId,
+    esArchiveroByBandaId
 }

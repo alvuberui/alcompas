@@ -1,7 +1,7 @@
 const { Router }= require('express');
 const router = Router();
 const { check } = require('express-validator');
-const { finalizarArchivero, eliminarArchiveros, getArchiveroByUserId } = require('../controllers/archiveros');
+const { finalizarArchivero, eliminarArchiveros, getArchiveroByUserId, esArchiveroByBandaId } = require('../controllers/archiveros');
 const { validarCampos } = require('../middlewares/validar-campos');
 const { validarJWT } = require('../middlewares/validar-jwt');
 
@@ -15,6 +15,9 @@ router.put('/:userId/:bandaId', finalizarArchivero);
 
    // Obtener archiveros a través del usuario id
 router.get('/usuario/id/:userId', getArchiveroByUserId);
+
+// Es archivero de una banda 
+router.get('/banda/:bandaId', esArchiveroByBandaId);
 
 
 module.exports = router;    

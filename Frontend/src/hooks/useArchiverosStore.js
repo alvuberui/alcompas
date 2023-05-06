@@ -16,10 +16,22 @@ export const useArchiverosStore = () => {
         }
     }
 
+    const esArchiveroByBandaId = async(bandaId) => {
+        try {
+            const { data } = await alcompasAPI.get('archiveros/banda/' + bandaId);
+            const archiveros = data.esArchivero;
+            return archiveros;
+        } catch(error) {
+            console.log('Error cargando archivero');
+        }
+    }
+
+
     return {
         // Estado
         errores,
         // Métodos
-        getArchiverosByUserId
+        getArchiverosByUserId,
+        esArchiveroByBandaId
     }
 }

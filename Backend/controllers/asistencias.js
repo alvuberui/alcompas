@@ -285,12 +285,12 @@ const getTodasAsistenciasByEvento = async(req, res = express.response) => {
             const archivero = archiveros[i];
             const asistencia =  asistencias.find(a => a.usuario.toString() === archivero.usuario.toString());
             const usuario = await Usuario.findById(archivero.usuario);
-            if(resultado[['',instrumento]]) {
-                const lista = resultado[['',instrumento]];
+            if(resultado[['',"Archivero"]]) {
+                const lista = resultado[['',"Archivero"]];
                 lista.push([usuario, asistencia]);
-                resultado[['',instrumento]] = lista;
+                resultado[['',"Archivero"]] = lista;
             } else {
-                resultado[['',instrumento]] = [ [usuario, asistencia]];
+                resultado[['',"Archivero"]] = [ [usuario, asistencia]];
             }
         }
 

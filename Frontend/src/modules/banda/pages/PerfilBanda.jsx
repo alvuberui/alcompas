@@ -4,9 +4,9 @@ import * as React from 'react';
 import { useEffect, useState } from 'react';
 import { NavLink, useNavigate, useParams } from 'react-router-dom';
 import Swal from 'sweetalert2';
-import { Calendario, Noticia, Plantilla } from '../../../Components';
+import { Calendario, Noticia, Plantilla, Repertorio } from '../../../Components';
 import { Comentario } from '../../../Components/Comentario';
-import { useAnunciosStore, useLikesStore, useAuthStore, useBandasStore, useComentariosStore, useDirectivosStore, useEventosStore, useMusicosStore, useUploadsStore } from '../../../hooks';
+import { useAnunciosStore, useLikesStore, useAuthStore, useBandasStore, useComentariosStore, useDirectivosStore, useEventosStore, useMusicosStore, useUploadsStore, useRepertoriosStore, useArchiverosStore } from '../../../hooks';
 import { useRedesSocialesStore } from '../../../hooks/useRedesSocialesStore';
 import { EditarFoto } from '../../user';
 import { NuevoAnuncio } from '../modals/NuevoAnuncio';
@@ -18,6 +18,7 @@ import CardHeader from '@material-ui/core/CardHeader';
 import IconButton from '@material-ui/core/IconButton';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import DeleteIcon from '@mui/icons-material/Delete';
+import { NuevoRepertorio } from '../modals/NuevoRepertorio';
 
 const r = [ 'Email', 'Facebook', 'Instagram', 'Twitter', 'Youtube', 'Apple Music', ' Soundcloud', 'Spotify', 'TikTok' ]
 
@@ -28,6 +29,7 @@ export const PerfilBanda = () => {
   const [value, setValue] = React.useState(0);
   const [comentarios, setComentarios] = useState([]);
   const [open, setOpen] = React.useState(false);
+  const [ openRepertorio, setOpenRepertorio ] = useState(false);
   const [ openAnuncio, setOpenAnuncio ] = useState(false);
   const [ openEditarFoto, setOpenEditarFoto ] = useState(false);
   const [ musicos, setMusicos ] = useState({});
@@ -41,6 +43,8 @@ export const PerfilBanda = () => {
   const [ anuncios, setAnuncios ] = useState([]);
   const [ isLiked, setIsLiked ] = useState(false);
   const [ numeroLikes, setNumeroLikes ] = useState(0);
+  const [ repertorios, setRepertorios ] = useState([]);
+  const [ esArchivero, setEsArchivero ] = useState(false);
 
   // Funciones
   const handleChange = (event, newValue) => {
@@ -56,6 +60,17 @@ export const PerfilBanda = () => {
   const handleOpen = (event, newValue) => {
     event.preventDefault();
     setOpen(true);
+  };
+
+  const handleCloseRepertorio = (event, newValue) => {
+    event.preventDefault();
+    setOpenRepertorio(false);
+  };
+
+
+  const handleOpenRepertorio = (event, newValue) => {
+    event.preventDefault();
+    setOpenRepertorio(true);
   };
 
   const handleCloseAnuncio = (event, newValue) => {
@@ -129,7 +144,7 @@ const handleDislike = e => {
   const { getBandaById } = useBandasStore();
   const { getComentariosByBandaId } = useComentariosStore();
   const { bandaId } = useParams();
-  const { abandonarBanda, getMusicosBanda } = useMusicosStore();
+  const { abandonarBanda, getMusicosBanda, esMusicoByBandaId } = useMusicosStore();
   const { getUserByiD } = useAuthStore();
   const { user } = useAuthStore();
   const navigate = useNavigate();
@@ -139,6 +154,8 @@ const handleDislike = e => {
   const { getNoticiasByBanda } = useAnunciosStore();
   const { publicarLike, publicarDislike, getLikeByTipoAndReferencia, errores,
     getNumeroLikes } = useLikesStore();
+  const { getAllRepertoriosByBandaId } = useRepertoriosStore();
+  const { esArchiveroByBandaId } = useArchiverosStore();
   
   useEffect(() => {
     const getBanda = async () => {
@@ -187,6 +204,19 @@ const handleDislike = e => {
       setComentarios(userreq.reverse());
     }
     getComentarios();
+  }, []);
+
+  useEffect(() => {
+    const esArchiveroF = async () => {
+      const archivero = await esArchiveroByBandaId(bandaId);
+      setEsArchivero(archivero);
+    }
+    const getRepertorios = async () => {
+      const repertorios = await getAllRepertoriosByBandaId(bandaId);
+      setRepertorios(repertorios);
+    }
+    esArchiveroF();
+    getRepertorios();
   }, []);
   
 
@@ -286,6 +316,14 @@ useEffect(() => {
 }, [  banda ]);
 
 useEffect(() => {
+    const esMusico = async () => {
+      const mus = await esMusicoByBandaId(bandaId);
+      setPerteneceMusico(mus);
+    }
+    esMusico();
+}, []);
+
+useEffect(() => {
     const getNumeroLikesF = async () => {
       if(banda._id ) {
             const numeroLikes = await getNumeroLikes({ tipo: 'Banda', referencia: banda._id });
@@ -302,6 +340,7 @@ useEffect(() => {
       <NuevoComentario open={open} handleClose={handleClose} setOpen={setOpen} setComentarios={setComentarios}></NuevoComentario>
       <EditarFoto setFoto={setFotoPerfil} open={openEditarFoto} handleClose={handleCloseEditarFoto} setOpen={setOpenEditarFoto} tipo={"banda"}></EditarFoto>
       <NuevoAnuncio open={openAnuncio} handleClose={handleCloseAnuncio} setOpen={setOpenAnuncio} setAnuncios={setAnuncios}></NuevoAnuncio>
+      <NuevoRepertorio handleClose={handleCloseRepertorio} open={openRepertorio} setOpen={setOpenRepertorio} setRepertorios={setRepertorios}></NuevoRepertorio>
       <Grid container justifyContent="center">
         <Grid 
           item
@@ -367,7 +406,7 @@ useEffect(() => {
                 }
                 { perteneceMusico &&
                 <Box textAlign='center' sx={{mt:3}}>
-                  <Button  sx={{width:'250px', backgroundColor:'#FF0000'}} variant='contained' align="center" onClick={handleAbadonarBanda} >Abandonar Banda COMO MÚSICO</Button>
+                  <Button  sx={{width:'250px'}} color='error' variant='contained' align="center" onClick={handleAbadonarBanda} >Abandonar Banda COMO MÚSICO</Button>
                 </Box>
                 }
                 { perteneceDirectivo &&
@@ -448,6 +487,19 @@ useEffect(() => {
                     key={index}
                   />
                 )}
+                {
+                  value === 4 &&
+                  <>
+                    { esArchivero &&
+                    <Button onClick={handleOpenRepertorio} color='primary' sx={{ mx:'auto', mb:'5px', width:'30vh', maxWidth:'4opx'}} variant='contained'>
+                        <Typography  >Añadir Repertorio</Typography>
+                    </Button>
+                    }
+                    { repertorios.map((repertorio, index) =>
+                      <Repertorio repertorio={repertorio} key={index} ></Repertorio>
+                    )}
+                  </>
+                }
                 { value === 5 &&
                   <>
                     <Plantilla musicos={musicos}  usuarios={usuariosMusicos} tipo='Músicos' directivo={perteneceDirectivo}/>
