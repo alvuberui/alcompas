@@ -3,7 +3,7 @@ const router = Router();
 const { check } = require('express-validator');
 const { validarJWT } = require('../middlewares/validar-jwt');
 const { validarCampos } = require('../middlewares/validar-campos');
-const { crearRepertorio, getRepertoriosByBandaId } = require('../controllers/repertorios');
+const { crearRepertorio, getRepertoriosByBandaId, eliminarRepertorio } = require('../controllers/repertorios');
 
 
     // Validar JWT
@@ -19,6 +19,9 @@ router.post('/',
 
     // Obtener repertorios asignados a una banda
 router.get('/banda/:bandaId', getRepertoriosByBandaId);
+
+    // Eliminar repertorio
+router.delete('/:id', eliminarRepertorio);
 
 
 

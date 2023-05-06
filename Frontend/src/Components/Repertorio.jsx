@@ -4,7 +4,7 @@ import {
     NavLink
 } from "react-router-dom";
 
-import { useAuthStore, useComentariosStore, useLikesStore, useUploadsStore } from '../hooks';
+import { useArchiverosStore, useAuthStore, useComentariosStore, useLikesStore, useRepertoriosStore, useUploadsStore } from '../hooks';
 
 import DeleteIcon from '@mui/icons-material/Delete';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
@@ -24,13 +24,15 @@ import Swal from 'sweetalert2';
 
 
 
-export const Repertorio = ({ repertorio, eliminar }) => {
+export const Repertorio = ({ repertorio, eliminar, esArchivero }) => {
+
+    const { eliminarRepertorio } = useRepertoriosStore();
 
     const handleElminar = e => {
         e.preventDefault();
         Swal
         .fire({
-            title: "¿Está seguro de que desea eliminar su comentario?",
+            title: "¿Está seguro de que desea eliminar el repertorio?",
             text: "Esta acción será irreversible y no podrá recuperarlo",
             icon: 'warning',
             showCancelButton: true,
@@ -40,8 +42,16 @@ export const Repertorio = ({ repertorio, eliminar }) => {
         .then(async resultado => {
             if (resultado.value) {
                 // Hicieron click en "Sí"
-                const c = await eliminarComentario(comentario._id);
-                eliminar(comentario._id);
+                const c = await eliminarRepertorio(repertorio._id);
+                if (c) {
+                    eliminar(repertorio._id);
+                    Swal.fire({
+                        title: "Repertorio eliminado",
+                        text: "El repertorio ha sido eliminado correctamente",
+                        icon: 'success',
+                        confirmButtonText: "Aceptar",
+                    });
+                }
             }
         });
     }
@@ -51,6 +61,7 @@ export const Repertorio = ({ repertorio, eliminar }) => {
             <Card  style={{marginTop: '5px', width: '95%'}}>
                 <CardHeader
                     action={
+                    esArchivero &&
                     <IconButton onClick={handleElminar} aria-label="settings">
                         <DeleteIcon />
                     </IconButton>

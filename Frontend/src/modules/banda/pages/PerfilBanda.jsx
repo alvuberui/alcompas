@@ -118,6 +118,13 @@ const handleDislike = e => {
     );
   };
 
+  const eliminarRepertorio = (repertorioId) => {
+    // "current" contains the latest state array
+    setRepertorios(
+      [...repertorios.filter((c) => c._id !== repertorioId)]
+    );
+  };
+
   const handleAbadonarBanda = e => {
     e.preventDefault();
     Swal
@@ -333,7 +340,6 @@ useEffect(() => {
     getNumeroLikesF();
 }, [  banda ]);
 
- 
   return (
     <>
 
@@ -496,7 +502,7 @@ useEffect(() => {
                     </Button>
                     }
                     { repertorios.map((repertorio, index) =>
-                      <Repertorio repertorio={repertorio} key={index} ></Repertorio>
+                      <Repertorio repertorio={repertorio} key={index} esArchivero={esArchivero} eliminar={eliminarRepertorio}></Repertorio>
                     )}
                   </>
                 }

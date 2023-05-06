@@ -53,7 +53,48 @@ const getRepertoriosByBandaId = async(req, res = express.response) => {
     }
 }
 
+const eliminarRepertorio = async(req, res = express.response) => {
+    try {
+        const id = req.params.id;
+        // Comprobar que es archivero
+        const token = req.header('x-token');
+        const payload = jwt.verify(token,process.env.SECRET_JWT_SEED);
+        const payloadId = payload.uid;
+
+        const repertorio = await Repertorio.findById(id);
+        if(!repertorio){
+            return res.status(404).json({
+                ok: false,
+                msg: 'Repertorio no encontrado por id'
+            });
+        }
+
+        const archiveros = await Archivero.find({"usuario": payloadId, "banda": repertorio.banda, "fecha_final": undefined});
+        if(archiveros.length === 0){
+            return res.status(401).json({
+                ok: false,
+                msg: 'No tiene privilegios para eliminar repertorios'
+            });
+        }
+
+        await Repertorio.findByIdAndDelete(id);
+        res.json({
+            ok: true,
+            msg: 'Repertorio eliminado',
+            repertorio
+        });
+
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({
+            ok: false,
+            msg: 'Por favor hable con el administrador'
+        });
+    }
+}
+
 module.exports = {
     crearRepertorio,
-    getRepertoriosByBandaId
+    getRepertoriosByBandaId,
+    eliminarRepertorio
 }
