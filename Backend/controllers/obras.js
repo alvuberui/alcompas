@@ -67,7 +67,46 @@ const obtenerByRepertorioId = async(req, res = express.response) => {
     }
 }
 
+const eliminarObra = async(req, res = express.response) => {
+    try {
+        const id = req.params.id;
+        const obra = await Obra.findById(id);
+        if(!obra){
+            return res.status(404).json({
+                ok: false,
+                msg: 'No existe la obra'
+            });
+        }
+        const repertorio = await Repertorio.findById(obra.repertorio);
+        
+        const token = req.header('x-token');
+        const payload = jwt.verify(token,process.env.SECRET_JWT_SEED);
+        const payloadId = payload.uid;
+
+        const archiveros = await Archivero.find({"usuario": payloadId, "banda": repertorio.banda, "fecha_final": undefined});
+        if(archiveros.length === 0){
+            return res.status(401).json({
+                ok: false,
+                msg: 'No tiene privilegios para eliminar obras'
+            });
+        }
+
+        await Obra.findByIdAndDelete(id);
+        res.json({
+            ok: true,
+            obra
+        });
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({
+            ok: false,
+            msg: 'Por favor hable con el administrador'
+        });
+    }
+}
+
 module.exports = {
     crearObra,
-    obtenerByRepertorioId
+    obtenerByRepertorioId,
+    eliminarObra
 }

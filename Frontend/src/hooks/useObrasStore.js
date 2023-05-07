@@ -48,10 +48,25 @@ export const useObrasStore = () => {
         }
     }
 
+    const eliminarObra = async(obraId) => {
+        try {
+            const { data } = await alcompasAPI.delete(`obras/${obraId}`);
+            const obra = data.obra;
+            return obra;
+        } catch(error) {
+            Swal.fire({
+                title: 'Error',
+                text: 'No se pudo eliminar la obra, contacte con el administrador',
+                icon: 'error',
+                confirmButtonText: 'Aceptar'
+            })
+        }
+    }
     
 
     return {
         getAllObrasByRepertorioId,
-        crearObra
+        crearObra,
+        eliminarObra
     }
 }

@@ -3,7 +3,7 @@ const router = Router();
 const { check } = require('express-validator');
 const { validarJWT } = require('../middlewares/validar-jwt');
 const { validarCampos } = require('../middlewares/validar-campos');
-const { crearObra, obtenerByRepertorioId } = require('../controllers/obras');
+const { crearObra, obtenerByRepertorioId, eliminarObra } = require('../controllers/obras');
 
 
 
@@ -20,5 +20,8 @@ router.post('/',
 
     // Obtener obras asignadas a un repertorio
 router.get('/repertorio/:repertorioId', obtenerByRepertorioId);
+
+// Eliminar obra
+router.delete('/:id', eliminarObra);
 
 module.exports = router;

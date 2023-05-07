@@ -42,21 +42,62 @@ const theme = createTheme({
   });
 
 export const Obra = ({ obra, eliminar, esArchivero, setPartituras, setObra}) => {
+
+    const { eliminarObra } = useObrasStore();
+    const [hovered, setHovered] = useState(false);
+
+    const handleMouseOver = () => {
+      setHovered(true);
+    };
+  
+    const handleMouseOut = () => {
+      setHovered(false);
+    };
+
+    const handleElminar = e => {
+      e.preventDefault();
+      Swal
+      .fire({
+          title: "¿Está seguro de que desea eliminar la obra?",
+          text: "Esta acción será irreversible y no podrá recuperarla",
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonText: "Sí, eliminar",
+          cancelButtonText: "Cancelar",
+      })
+      .then(async resultado => {
+          if (resultado.value) {
+              // Hicieron click en "Sí"
+              const c = await eliminarObra(obra._id);
+              if (c) {
+                  eliminar(obra._id);
+                  Swal.fire({
+                      title: "Obra eliminada",
+                      text: "La obra ha sido eliminada correctamente",
+                      icon: 'success',
+                      confirmButtonText: "Aceptar",
+                  });
+              }
+          }
+      });
+  }
+
   return (
-    <Card 
-                style={{
-                marginTop: 5,
+    <Card onMouseOver={handleMouseOver}
+    onMouseOut={handleMouseOut} 
+              style={{
+                marginTop: '5px',
                 width: '95%',
-             
+                backgroundColor: hovered ? '#F5F5F5' : 'white',
                 transition: 'background-color 0.3s ease-out'
               }}>
                 <CardHeader
                     action={
-                    esArchivero &&
-                    <IconButton  aria-label="settings">
-                        <DeleteIcon />
-                    </IconButton>
-                    }
+                      esArchivero &&
+                      <IconButton onClick={handleElminar} aria-label="settings">
+                          <DeleteIcon />
+                      </IconButton>
+                      }
                     title={obra.titulo + " (" + obra.compositor + ")"}
                 />
                 </Card>

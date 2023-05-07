@@ -143,6 +143,13 @@ const handleDislike = e => {
     );
   };
 
+  const eliminarObra = (obraId) => {
+    // "current" contains the latest state array
+    setObras(
+      [...obras.filter((c) => c._id !== obraId)]
+    );
+  };
+
   const handleAbadonarBanda = e => {
     e.preventDefault();
     Swal
@@ -538,10 +545,11 @@ useEffect(() => {
                           obras.length > 0 ?
                           <Grid container justifyContent='center' sx={{ mt:2 }}>{
                           obras.map((obra, index) =>
-                            <Obra obra={obra} eliminar={eliminarComentario}
+                            <Obra obra={obra} eliminar={eliminarObra}
                               key={index}
                               setPartituras={setPartituras}
                               setObra={setObra}
+                              esArchivero={esArchivero}
                             />
                           )
                           }</Grid>
