@@ -4,7 +4,7 @@ import {
     NavLink
 } from "react-router-dom";
 
-import { useArchiverosStore, useAuthStore, useComentariosStore, useLikesStore, useRepertoriosStore, useUploadsStore } from '../hooks';
+import { useArchiverosStore, useAuthStore, useComentariosStore, useLikesStore, useObrasStore, useRepertoriosStore, useUploadsStore } from '../hooks';
 
 import DeleteIcon from '@mui/icons-material/Delete';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
@@ -24,9 +24,26 @@ import Swal from 'sweetalert2';
 
 
 
-export const Repertorio = ({ repertorio, eliminar, esArchivero }) => {
+export const Repertorio = ({ repertorio, eliminar, esArchivero, setObras, setRepertorio}) => {
 
     const { eliminarRepertorio } = useRepertoriosStore();
+    const { getAllObrasByRepertorioId } = useObrasStore();
+
+    const [hovered, setHovered] = useState(false);
+
+    const handleObras = async () => {
+        const obras = await getAllObrasByRepertorioId(repertorio._id);
+        setRepertorio(repertorio);
+        setObras(obras);
+    }
+
+    const handleMouseOver = () => {
+        setHovered(true);
+      };
+    
+      const handleMouseOut = () => {
+        setHovered(false);
+      };
 
     const handleElminar = e => {
         e.preventDefault();
@@ -58,7 +75,14 @@ export const Repertorio = ({ repertorio, eliminar, esArchivero }) => {
 
 
   return (
-            <Card  style={{marginTop: '5px', width: '95%'}}>
+            <Card  onClick={handleObras} onMouseOver={handleMouseOver}
+                onMouseOut={handleMouseOut} 
+                style={{
+                marginTop: '5px',
+                width: '95%',
+                backgroundColor: hovered ? '#F5F5F5' : 'white',
+                transition: 'background-color 0.3s ease-out'
+              }}>
                 <CardHeader
                     action={
                     esArchivero &&

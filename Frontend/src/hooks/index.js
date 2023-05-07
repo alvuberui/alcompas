@@ -19,3 +19,4 @@ export * from './useContratadosStore';
 export * from './useVestimentasStore';
 export * from './usePrestamosStore';
 export * from './useRepertoriosStore';
+export * from './useObrasStore';

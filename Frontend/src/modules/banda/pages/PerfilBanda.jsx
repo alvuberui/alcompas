@@ -19,6 +19,8 @@ import IconButton from '@material-ui/core/IconButton';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { NuevoRepertorio } from '../modals/NuevoRepertorio';
+import { NuevaObra } from '../modals/NuevaObra';
+import { Obra } from '../../../Components/Obra';
 
 const r = [ 'Email', 'Facebook', 'Instagram', 'Twitter', 'Youtube', 'Apple Music', ' Soundcloud', 'Spotify', 'TikTok' ]
 
@@ -45,6 +47,11 @@ export const PerfilBanda = () => {
   const [ numeroLikes, setNumeroLikes ] = useState(0);
   const [ repertorios, setRepertorios ] = useState([]);
   const [ esArchivero, setEsArchivero ] = useState(false);
+  const [ obras, setObras ] = useState('');
+  const [ partituras, setPartituras ] = useState('');
+  const [ openObra, setOpenObra ] = useState(false);
+  const [ repertorio, setRepertorio ] = useState('');
+  const [ obra, setObra ] = useState('');
 
   // Funciones
   const handleChange = (event, newValue) => {
@@ -71,6 +78,17 @@ export const PerfilBanda = () => {
   const handleOpenRepertorio = (event, newValue) => {
     event.preventDefault();
     setOpenRepertorio(true);
+  };
+
+  const handleCloseObra = (event, newValue) => {
+    event.preventDefault();
+    setOpenObra(false);
+  };
+
+
+  const handleOpenObra = (event, newValue) => {
+    event.preventDefault();
+    setOpenObra(true);
   };
 
   const handleCloseAnuncio = (event, newValue) => {
@@ -342,7 +360,7 @@ useEffect(() => {
 
   return (
     <>
-
+      <NuevaObra setObras={setObras} handleClose={handleCloseObra} open={openObra} setOpen={setOpenObra} repertorio={repertorio} ></NuevaObra>
       <NuevoComentario open={open} handleClose={handleClose} setOpen={setOpen} setComentarios={setComentarios}></NuevoComentario>
       <EditarFoto setFoto={setFotoPerfil} open={openEditarFoto} handleClose={handleCloseEditarFoto} setOpen={setOpenEditarFoto} tipo={"banda"}></EditarFoto>
       <NuevoAnuncio open={openAnuncio} handleClose={handleCloseAnuncio} setOpen={setOpenAnuncio} setAnuncios={setAnuncios}></NuevoAnuncio>
@@ -496,14 +514,55 @@ useEffect(() => {
                 {
                   value === 4 &&
                   <>
-                    { esArchivero &&
-                    <Button onClick={handleOpenRepertorio} color='primary' sx={{ mx:'auto', mb:'5px', width:'30vh', maxWidth:'4opx'}} variant='contained'>
-                        <Typography  >Añadir Repertorio</Typography>
-                    </Button>
+                    { esArchivero ?
+                      partituras !== '' ?
+                      <Button color='primary' sx={{ mx:'auto', mb:'5px', width:'30vh', maxWidth:'4opx'}} variant='contained'>
+                          <Typography  >Añadir Partitura</Typography>
+                      </Button>
+                      :
+                      obras !== '' ?
+                      <Button onClick={handleOpenObra} color='primary' sx={{ mx:'auto', mb:'5px', width:'30vh', maxWidth:'4opx'}} variant='contained'>
+                          <Typography  >Añadir Obra</Typography>
+                      </Button>
+                      :
+                      <Button onClick={handleOpenRepertorio} color='primary' sx={{ mx:'auto', mb:'5px', width:'30vh', maxWidth:'4opx'}} variant='contained'>
+                          <Typography  >Añadir Repertorio</Typography>
+                      </Button>
+                    :
+                    <></>
                     }
-                    { repertorios.map((repertorio, index) =>
-                      <Repertorio repertorio={repertorio} key={index} esArchivero={esArchivero} eliminar={eliminarRepertorio}></Repertorio>
-                    )}
+                    { 
+                      obras !== '' ?
+                      <>
+                        {
+                          obras.length > 0 ?
+                          <Grid container justifyContent='center' sx={{ mt:2 }}>{
+                          obras.map((obra, index) =>
+                            <Obra obra={obra} eliminar={eliminarComentario}
+                              key={index}
+                              setPartituras={setPartituras}
+                              setObra={setObra}
+                            />
+                          )
+                          }</Grid>
+                          :
+                          <Typography sx={{ textAlign:'center', mt:2 }} variant='h7'>No hay obras en este repertorio</Typography>
+                        }
+                      </>
+                      :
+                      <>
+                      {
+                        repertorios.map((repertorio, index) =>
+                          <Repertorio repertorio={repertorio} eliminar={eliminarRepertorio}
+                            key={index}
+                            setObras={setObras}
+                            setRepertorio={setRepertorio}
+                          />
+                        ) 
+                      }
+                      </>
+
+                    }
                   </>
                 }
                 { value === 5 &&

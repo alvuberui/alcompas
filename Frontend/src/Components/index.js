@@ -17,3 +17,4 @@ export * from './Documento';
 export * from './Vestimenta';
 export * from './Prestamo';
 export * from './Repertorio';
+export * from './Obra';
