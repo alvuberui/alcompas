@@ -18,3 +18,5 @@ export * from './Vestimenta';
 export * from './Prestamo';
 export * from './Repertorio';
 export * from './Obra';
+export * from './Partitura';
+export * from './Archivo';

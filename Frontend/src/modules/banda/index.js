@@ -17,3 +17,4 @@ export * from './modals/NuevoPrestamo';
 export * from './pages/PrestamosBanda';
 export * from './modals/NuevoRepertorio';
 export * from './modals/NuevaObra';
+export * from './modals/NuevaPartitura';

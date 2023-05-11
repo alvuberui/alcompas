@@ -25,7 +25,7 @@ import Swal from 'sweetalert2';
 
 
 export const Repertorio = ({ repertorio, eliminar, esArchivero, setObras, setRepertorio}) => {
-
+   
     const { eliminarRepertorio } = useRepertoriosStore();
     const { getAllObrasByRepertorioId } = useObrasStore();
 
@@ -47,6 +47,7 @@ export const Repertorio = ({ repertorio, eliminar, esArchivero, setObras, setRep
 
     const handleElminar = e => {
         e.preventDefault();
+        e.stopPropagation();
         Swal
         .fire({
             title: "¿Está seguro de que desea eliminar el repertorio?",

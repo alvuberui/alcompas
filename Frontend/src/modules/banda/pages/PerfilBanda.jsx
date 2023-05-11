@@ -4,7 +4,7 @@ import * as React from 'react';
 import { useEffect, useState } from 'react';
 import { NavLink, useNavigate, useParams } from 'react-router-dom';
 import Swal from 'sweetalert2';
-import { Calendario, Noticia, Plantilla, Repertorio } from '../../../Components';
+import { Archivo, Calendario, Noticia, Partitura, Plantilla, Repertorio } from '../../../Components';
 import { Comentario } from '../../../Components/Comentario';
 import { useAnunciosStore, useLikesStore, useAuthStore, useBandasStore, useComentariosStore, useDirectivosStore, useEventosStore, useMusicosStore, useUploadsStore, useRepertoriosStore, useArchiverosStore } from '../../../hooks';
 import { useRedesSocialesStore } from '../../../hooks/useRedesSocialesStore';
@@ -21,6 +21,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import { NuevoRepertorio } from '../modals/NuevoRepertorio';
 import { NuevaObra } from '../modals/NuevaObra';
 import { Obra } from '../../../Components/Obra';
+import { NuevaPartitura } from '../modals/NuevaPartitura';
 
 const r = [ 'Email', 'Facebook', 'Instagram', 'Twitter', 'Youtube', 'Apple Music', ' Soundcloud', 'Spotify', 'TikTok' ]
 
@@ -48,10 +49,12 @@ export const PerfilBanda = () => {
   const [ repertorios, setRepertorios ] = useState([]);
   const [ esArchivero, setEsArchivero ] = useState(false);
   const [ obras, setObras ] = useState('');
-  const [ partituras, setPartituras ] = useState('');
   const [ openObra, setOpenObra ] = useState(false);
   const [ repertorio, setRepertorio ] = useState('');
   const [ obra, setObra ] = useState('');
+  const [ openPartitura, setOpenPartitura ] = useState(false);
+  const [ partituras, setPartituras ] = useState('');
+  const [ partitura, setPartitura ] = useState('');
 
   // Funciones
   const handleChange = (event, newValue) => {
@@ -67,6 +70,16 @@ export const PerfilBanda = () => {
   const handleOpen = (event, newValue) => {
     event.preventDefault();
     setOpen(true);
+  };
+
+  const handleOpenPartitura = (event, newValue) => {
+    event.preventDefault();
+    setOpenPartitura(true);
+  };
+
+  const handleClosePartitura = (event, newValue) => {
+    event.preventDefault();
+    setOpenPartitura(false);
   };
 
   const handleCloseRepertorio = (event, newValue) => {
@@ -113,6 +126,21 @@ export const PerfilBanda = () => {
     setOpenEditarFoto(false);
   };
 
+  const handleVolverObras = (event, newValue) => {
+    event.preventDefault();
+    setPartituras('');
+  };
+
+  const handleVolverPartituras = (event, newValue) => {
+    event.preventDefault();
+    setPartitura('');
+  };
+
+  const handleVolverRepertorio = (event, newValue) => {
+    event.preventDefault();
+    setObras('');
+  };
+
   const handleLike = e => {
     e.preventDefault();
     const like = { 'usuario': user.uid, 'referencia': banda._id, 'tipo': 'Banda' };
@@ -147,6 +175,13 @@ const handleDislike = e => {
     // "current" contains the latest state array
     setObras(
       [...obras.filter((c) => c._id !== obraId)]
+    );
+  };
+
+  const eliminarPartitura = (partituraId) => {
+    // "current" contains the latest state array
+    setPartituras(
+      [...partituras.filter((c) => c._id !== partituraId)]
     );
   };
 
@@ -367,6 +402,7 @@ useEffect(() => {
 
   return (
     <>
+      <NuevaPartitura setPartituras={setPartituras} handleClose={handleClosePartitura} open={openPartitura} setOpen={setOpenPartitura} obra={obra} ></NuevaPartitura>
       <NuevaObra setObras={setObras} handleClose={handleCloseObra} open={openObra} setOpen={setOpenObra} repertorio={repertorio} ></NuevaObra>
       <NuevoComentario open={open} handleClose={handleClose} setOpen={setOpen} setComentarios={setComentarios}></NuevoComentario>
       <EditarFoto setFoto={setFotoPerfil} open={openEditarFoto} handleClose={handleCloseEditarFoto} setOpen={setOpenEditarFoto} tipo={"banda"}></EditarFoto>
@@ -522,15 +558,30 @@ useEffect(() => {
                   value === 4 &&
                   <>
                     { esArchivero ?
-                      partituras !== '' ?
-                      <Button color='primary' sx={{ mx:'auto', mb:'5px', width:'30vh', maxWidth:'4opx'}} variant='contained'>
-                          <Typography  >Añadir Partitura</Typography>
+                      partitura !== '' ?
+                      <Button onClick={handleVolverPartituras} color='primary' sx={{  mb:'5px', width:'30vh', maxWidth:'4opx'}} variant='contained'>
+                        <Typography  >Volver a partituras</Typography>
                       </Button>
                       :
+                      partituras !== '' ?
+                      <>
+                      <Button onClick={handleOpenPartitura} color='primary' sx={{ mr:2, mb:'5px', width:'30vh', maxWidth:'4opx'}} variant='contained'>
+                          <Typography  >Añadir Partitura</Typography>
+                      </Button>
+                      <Button onClick={handleVolverObras} color='primary' sx={{  mb:'5px', width:'30vh', maxWidth:'4opx'}} variant='contained'>
+                        <Typography  >Volver a obras</Typography>
+                      </Button>
+                      </>
+                      :
                       obras !== '' ?
-                      <Button onClick={handleOpenObra} color='primary' sx={{ mx:'auto', mb:'5px', width:'30vh', maxWidth:'4opx'}} variant='contained'>
+                      <>
+                      <Button onClick={handleOpenObra} color='primary' sx={{mr:2,  mb:'5px', width:'30vh', maxWidth:'4opx'}} variant='contained'>
                           <Typography  >Añadir Obra</Typography>
                       </Button>
+                      <Button onClick={handleVolverRepertorio} color='primary' sx={{  mb:'5px', width:'30vh', maxWidth:'4opx'}} variant='contained'>
+                      <Typography  >Volver a repertorios</Typography>
+                      </Button>
+                      </>
                       :
                       <Button onClick={handleOpenRepertorio} color='primary' sx={{ mx:'auto', mb:'5px', width:'30vh', maxWidth:'4opx'}} variant='contained'>
                           <Typography  >Añadir Repertorio</Typography>
@@ -539,6 +590,19 @@ useEffect(() => {
                     <></>
                     }
                     { 
+                      partitura !== '' ?
+                      <Archivo partitura={partitura}></Archivo>
+                      :
+                      partituras !== '' ?
+                      partituras.length > 0 ?
+                      <Grid container justifyContent='center' sx={{ mt:2 }}>{
+                      partituras.map((partitura, index) =>
+                        <Partitura partitura={partitura} key={index} eliminar={eliminarPartitura} esArchivero={esArchivero} setPartitura={setPartitura}></Partitura>
+                      )
+                      }</Grid>
+                      :
+                          <Typography sx={{ textAlign:'center', mt:2 }} variant='h7'>No hay partituras en esta obra</Typography>
+                      :
                       obras !== '' ?
                       <>
                         {
@@ -550,6 +614,8 @@ useEffect(() => {
                               setPartituras={setPartituras}
                               setObra={setObra}
                               esArchivero={esArchivero}
+                              esDirectivo={perteneceDirectivo}
+                              esMusico={perteneceMusico}
                             />
                           )
                           }</Grid>
@@ -565,6 +631,7 @@ useEffect(() => {
                             key={index}
                             setObras={setObras}
                             setRepertorio={setRepertorio}
+                            esArchivero={esArchivero}
                           />
                         ) 
                       }

@@ -41,23 +41,11 @@ const theme = createTheme({
     },
   });
 
-export const Obra = ({ obra, eliminar, esArchivero, setPartituras, setObra, esDirectivo, esMusico}) => {
+export const Partitura = ({ partitura, eliminar, esArchivero, setPartitura }) => {
  
-    const { eliminarObra } = useObrasStore();
     const [ hovered, setHovered ] = useState(false);
-    const { verMisParituras } = usePartiturasStore();
-
-    const handlePartituras = async (e) => {
-      e.preventDefault();
+    const { getPartituraById, eliminarPartitura } = usePartiturasStore();
  
-      if(esArchivero || esDirectivo || esMusico){
-        const partituras = await verMisParituras(obra._id);
-
-        setObra(obra);
-        setPartituras(partituras);
-      }
-    }
-    
     const handleMouseOver = () => {
       setHovered(true);
     };
@@ -66,12 +54,18 @@ export const Obra = ({ obra, eliminar, esArchivero, setPartituras, setObra, esDi
       setHovered(false);
     };
 
+    const handleClick = async(e) => {
+      e.preventDefault();
+      const p = await getPartituraById(partitura._id);
+      setPartitura(p);
+    }
+
     const handleElminar = e => {
       e.preventDefault();
       e.stopPropagation();
       Swal
       .fire({
-          title: "¿Está seguro de que desea eliminar la obra?",
+          title: "¿Está seguro de que desea eliminar la partitura?",
           text: "Esta acción será irreversible y no podrá recuperarla",
           icon: 'warning',
           showCancelButton: true,
@@ -81,12 +75,12 @@ export const Obra = ({ obra, eliminar, esArchivero, setPartituras, setObra, esDi
       .then(async resultado => {
           if (resultado.value) {
               // Hicieron click en "Sí"
-              const c = await eliminarObra(obra._id);
+              const c = await eliminarPartitura(partitura._id);
               if (c) {
-                  eliminar(obra._id);
+                  eliminar(partitura._id);
                   Swal.fire({
-                      title: "Obra eliminada",
-                      text: "La obra ha sido eliminada correctamente",
+                      title: "Partitura eliminada",
+                      text: "La partitura ha sido eliminada correctamente",
                       icon: 'success',
                       confirmButtonText: "Aceptar",
                   });
@@ -96,7 +90,7 @@ export const Obra = ({ obra, eliminar, esArchivero, setPartituras, setObra, esDi
   }
 
   return (
-    <Card onClick={handlePartituras} onMouseOver={handleMouseOver}
+    <Card onClick={handleClick} onMouseOver={handleMouseOver}
     onMouseOut={handleMouseOut} 
               style={{
                 marginTop: '5px',
@@ -111,7 +105,7 @@ export const Obra = ({ obra, eliminar, esArchivero, setPartituras, setObra, esDi
                           <DeleteIcon />
                       </IconButton>
                       }
-                    title={obra.titulo + " (" + obra.compositor + ")"}
+                    title={ partitura.instrumento + " " + partitura.voz }
                 />
                 </Card>
     );
