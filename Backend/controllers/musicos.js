@@ -10,7 +10,7 @@ const finalizarMusico = async(req, res = express.response) => {
         const userId = req.params.userId;
         const bandaId = req.params.bandaId;
         const musico = await Musico.find({'usuario': userId, 'banda': bandaId, 'fecha_final': undefined});
-        if(!musico) {   
+        if(musico.length === 0 ) {   
             return res.status(404).json({
                 ok: false,
                 msg: 'No existe un músico con ese id'
@@ -28,11 +28,8 @@ const finalizarMusico = async(req, res = express.response) => {
         }
 
         const ds = await Directivo.find({'usuario': payloadId, 'banda': bandaId, 'fecha_final': undefined});
-        for (i=0; i<ds.length; i++) {
-            let d = ds[i];
-            if(d.usuario === payloadId) {
-                condicion = true;
-            }
+        if(ds.length > 0) {
+            condicion = true;
         }
         if( condicion === false && condicion2 === false) {
             return res.status(401).json({
@@ -40,7 +37,6 @@ const finalizarMusico = async(req, res = express.response) => {
                 msg: 'No tiene privilegios para realizar esta acción'
             });
         }
-
 
         musico[0].fecha_final = new Date();
         const newMusico = new Musico(musico[0]);

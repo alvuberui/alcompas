@@ -116,6 +116,7 @@ export const Instrumento = ({ _id, instrumento, marca, modelo, numeroSerie, usua
         <Grid 
         container
         sx={{ mt:'15px', maxWidth:'95%', padding:2, backgroundColor:'white', borderRadius:'5px',  borderColor:'white', boxShadow:'rgba(0, 0, 0, 0.14) 0px 1px 1px 1px, rgba(0, 0, 0, 0.12) 0px 2px 1px -1px,  rgba(0, 0, 0, 0.2) 0px 1px 3px 1px'  }}
+        
         >   
             <AñadirInstrumentoModal  instrumentoId={_id} editar={true} open={open} handleClose={handleCloseEditar} setOpen={setOpen} setInstrumentos={setInstrumentos} banda={banda}></AñadirInstrumentoModal>
             <NuevoPrestamo handleClose={handleClosePrestamo} open={openPrestamo} setOpen={setOpenPrestamo} setPrestamoIns={setPrestamo} instrumentoId={_id}></NuevoPrestamo> 

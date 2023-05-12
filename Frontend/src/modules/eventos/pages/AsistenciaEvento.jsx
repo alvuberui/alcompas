@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import { Navigate,NavLink, useNavigate, useParams } from 'react-router-dom'
 import { useArchiverosStore, useAuthStore, useContratadosStore, useDirectivosStore, useEventosStore } from '../../../hooks';
-import { Box, CircularProgress, Grid, Typography} from '@mui/material';
+import { Box, CircularProgress, Grid, Typography, Button} from '@mui/material';
 import { Evento } from '../../../Components/Evento';
 import { useAsistenciasStore } from '../../../hooks/useAsistenciasStore';
 import { Plantilla } from '../../../Components';
 import { Musico } from '../../../Components/Musico';
-import { Button } from '@material-ui/core';
+
 
 
 export const AsistenciaEvento = () => {
@@ -151,7 +151,7 @@ export const AsistenciaEvento = () => {
         display="flex"
         justifyContent="center"
         alignItems="baseline"
-        sx={{minHeight: '50vh', maxWidth:'160vh', padding:4 }}
+        sx={{ padding:4 }}
         >
           <Grid 
             item
@@ -161,25 +161,32 @@ export const AsistenciaEvento = () => {
             >
               <Typography  variant='h4' sx={{textAlign:'center', color:'white'}}>{tipoEvento + ': ' + evento.titulo } </Typography>
          
-                <Button sx={{mt:2, mb:2, ml:2}} variant="contained" color="secondary"  ><NavLink style={{textDecoration: "none", color: "white"}}  to={`/banda/panel/eventos/asistencia/contratar/${eventoId}/${tipoEvento}`}>Añadir contratado</NavLink></Button>
+               
        
           </Grid>
             <Grid
               container
-              sx={{ backgroundColor:'#262254', mt:'10px', borderRadius: '5px'}}
               justifyContent="center"
+              sx={{mt:2}}
                 alignItems="center" >
+                 
+                  <Button sx={{ mb:2, ml:2}} variant="contained" color='primary'  ><NavLink style={{textDecoration: "none", color:'white'}}  to={`/banda/panel/eventos/asistencia/contratar/${eventoId}/${tipoEvento}`}>Añadir contratado</NavLink></Button>
+    
+                  
                 <Grid
                 item
                 xs={11}
                 justifyContent="center"
                 alignItems="center" 
+                sx={{ backgroundColor:'#262254', mt:'10px', borderRadius: '5px'}}
                 >
+                  
                     <Grid
                       container
                       spacing={1}
-                      
+                      m={1}
                     >
+                      
                       { renderizar().map( (item, key) => {
                           return item;
                         })

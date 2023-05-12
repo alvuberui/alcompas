@@ -137,6 +137,9 @@ export const PanelDirectivo = () => {
                             <Button  variant='contained' align="center" color="secondary" fullWidth ><NavLink style={{textDecoration: "none", color: "black",  fontWeight: 'bold'}}  to={`/banda/panel/eventos/${bandaId}`}>Administrar Eventos</NavLink></Button>
                         </Box>
                         <Box textAlign='center' sx={{mt:"10px", minWidth:'50vh'}}>
+                            <Button  variant='contained' align="center" color="secondary" fullWidth ><NavLink style={{textDecoration: "none", color: "black",  fontWeight: 'bold'}}  to={`/banda/panel/anuncios/${bandaId}`}>Administrar Anuncios</NavLink></Button>
+                        </Box>
+                        <Box textAlign='center' sx={{mt:"10px", minWidth:'50vh'}}>
                             <Button aria-label='directivo' onClick={handleAbadonarBanda} variant='contained' sx={{color:'black', fontWeight:'bold'}} align="center" color="error" fullWidth >Abandonar Banda Como Directivo</Button>
                         </Box>
                         <Box textAlign='center' sx={{mt:"10px", mb:"10px", minWidth:'50vh'}}>

@@ -17,13 +17,8 @@ const finalizarDirectivo = async(req, res = express.response) => {
 
         const ds = await Directivo.find({'usuario': payloadId, 'banda': bandaId, 'fecha_final': undefined});
     
-        for (i=0; i<ds.length; i++) {
-            let d = ds[i];
-           
-            if(d.usuario.valueOf()  === payloadId) {
-                
-                condicion = true;
-            }
+        if(ds.length > 0) {
+            condicion = true;
         }
         
         if(!condicion && payloadId !== userId) {
@@ -118,7 +113,7 @@ const getDirectivoByBandaId = async(req, res = express.response) => {
             if(diccionario[directivo.cargo] == undefined) {
                 diccionario[directivo.cargo] = [directivo];
             } else {
-                diccionario[directivo.cargo] = [...diccionario[musico.cargo], directivo];
+                diccionario[directivo.cargo] = [...diccionario[directivo.cargo], directivo];
             }
         }
         return res.status(201).json({

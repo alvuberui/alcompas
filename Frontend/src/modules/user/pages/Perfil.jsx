@@ -196,6 +196,7 @@ export const Perfil = () => {
   useEffect(() => {
     const getExperiencias = async () => {
         const archiveros = await getArchiverosByUserId(id);
+        
         const musicos = await getMusicosByUserId(id);
         const directivos = await getDirectivoByUserId(id);
         const union = archiveros.concat(musicos, directivos);
@@ -209,6 +210,10 @@ export const Perfil = () => {
           } else u.fecha_final = "Actualmente";
           res.push(u);
         }
+        // Ordenar res por la fecha de inicio de cada objeto de mayor a menor
+        res.sort((a, b) => a.fecha_inicio - b.fecha_inicio).reverse();
+       
+
         setExperiencias(res);
     }
     getExperiencias();

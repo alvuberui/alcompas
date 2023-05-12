@@ -4,6 +4,8 @@ import { Navigate, useParams } from 'react-router-dom';
 import { CrearPeticion } from '../';
 import { Peticion } from '../../../Components';
 import { useAuthStore, useDirectivosStore, usePeticionesStore } from '../../../hooks';
+import Pagination from '@mui/material/Pagination';
+import Stack from '@mui/material/Stack';
 
 export const PeticionesBanda = ( ) => {
 
@@ -15,6 +17,13 @@ export const PeticionesBanda = ( ) => {
   const [ permiso, setPermiso ] = useState('')
   const { id } = useParams();
   const { user } = useAuthStore();
+  const [paginados, setPaginados] = useState([]);
+
+  const [page, setPage] = useState(1);
+  const handleChange = (event, value) => {
+    setPage(value);
+    setPaginados(peticiones.slice((value-1)*10, value*10));
+  };
 
 
   // Funciones
@@ -31,8 +40,8 @@ export const PeticionesBanda = ( ) => {
   useEffect(() => {
     const getPeticiones = async () => {
         const bandareq = await getPeticionesByBandaId(id);
-        
-        setPeticiones(bandareq.reverse());  
+        setPeticiones(bandareq.reverse()); 
+        setPaginados(bandareq.slice((1-1)*10, 1*10)); 
     }
     const getPermiso = async () => {
       const directivoreq = await getDirectivoByUserId(user.uid);
@@ -48,7 +57,7 @@ export const PeticionesBanda = ( ) => {
     }
     getPermiso();
     getPeticiones();
-  }, [peticiones]);
+  }, []);
 
   if( permiso === '' ) return (
       <>
@@ -81,27 +90,26 @@ export const PeticionesBanda = ( ) => {
               item
             
               xs= { 10 }
-              sx={{ padding:2, backgroundColor:'primary.main', borderRadius:'5px', boxShadow:' 5px 5px 30px' }}
+              sx={{ padding:2, backgroundColor:'primary.main', borderRadius:'5px', boxShadow:'rgba(0, 0, 0, 0.14) 0px 1px 1px 1px, rgba(0, 0, 0, 0.12) 0px 2px 1px -1px,  rgba(0, 0, 0, 0.2) 0px 1px 3px 1px' }}
               >
                   <Typography variant='h4' sx={{textAlign:'center', color:'white'}}>MIS PETICIONES</Typography>
-                  <Grid 
-                  item
-                  display="flex"
-                  justifyContent="center"
-                  alignItems="center"
-                  >
-                    <Button color='secondary' onClick={handleOpenCrear}  sx={{mt:'5px', width:'30vh' , backgroundColor:'white', color:'black'}} variant='contained'>
+                  
+              </Grid>
+              <Button color='primary' onClick={handleOpenCrear}  sx={{mt:'5px', width:'30vh' , color:'white'}} variant='contained'>
                       <Typography sx={{ fontWeight: 'bold' }} >Nueva Petición</Typography>
                     </Button>
-                  </Grid>
-              </Grid>
 
-              {peticiones.map((peticion, index) =>
+              {paginados.map((peticion, index) =>
                 <Peticion
                   { ...peticion }
                   key={index}
                 />
               )}
+              <Box sx={{ display: 'flex', justifyContent:"center", alignItems:"center", mt:5}}>
+              <Stack spacing={2} >
+              <Pagination count={ Math.ceil((peticiones.length/10))  } page={page} onChange={handleChange} />
+            </Stack>
+            </Box>
               
 
           </Grid>

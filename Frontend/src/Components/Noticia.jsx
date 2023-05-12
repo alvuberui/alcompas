@@ -33,7 +33,7 @@ export const Noticia = ({ noticia, index, style, setNoticias }) => {
     const [expanded, setExpanded] = useState(false);
     const [banda, setBanda] = useState({});
     const [fotoPerfil, setFotoPerfil] = useState('');
-    const [ esDirectivo, setEsDirectivo ] = useState(false);
+    const [ esDirectivo, setEsDirectivo ] = useState('');
     const horas  = new Date(noticia.fecha).getHours() + ":" + new Date(noticia.fecha).getMinutes();
     const fecha = new Date(noticia.fecha).toLocaleDateString();
     const [ isLiked, setIsLiked ] = useState(false);
@@ -74,6 +74,9 @@ export const Noticia = ({ noticia, index, style, setNoticias }) => {
                 if( directivos[i].banda === banda._id && !directivos[i].fecha_final ) {
                     setEsDirectivo(true);
                     break;
+                }
+                else {
+                    setEsDirectivo(false);
                 }
             }
         }
@@ -149,7 +152,8 @@ export const Noticia = ({ noticia, index, style, setNoticias }) => {
         }
         getNumeroLikesF();
     }, [  noticia ]);
-
+    if( esDirectivo === '' ) return (<></>)
+    else {
   return (
     <ListItem style={style} key={index} component="div" disablePadding>
         <ListItemButton>
@@ -204,5 +208,5 @@ export const Noticia = ({ noticia, index, style, setNoticias }) => {
             </Card>
         </ListItemButton>
     </ListItem>
-  )
+  )};
 }

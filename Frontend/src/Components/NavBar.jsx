@@ -165,18 +165,10 @@ export const NavBar = () => {
       onClose={handleMobileMenuClose}
     >
       
-        
-      <NavLink style={{textDecoration: "none", color: "black"}}  to={`/peticiones/${user.uid}`}><MenuItem onClick={handleMenuClose} sx={{ justifyContent:'center'}}>Peticiones</MenuItem></NavLink>
-      
-      
-        
       <NavLink style={{textDecoration: "none", color: "black"}}  to={`/perfil/${user.uid}`}><MenuItem aria-label='perfil' onClick={perfil} sx={{ justifyContent:'center'}} >Perfil</MenuItem></NavLink>
-
-      
-  
-      
-        
+      <NavLink style={{textDecoration: "none", color: "black"}}  to={`/peticiones/${user.uid}`}><MenuItem onClick={handleMenuClose} sx={{ justifyContent:'center'}}>Peticiones</MenuItem></NavLink> 
         <NavLink style={{textDecoration: "none", color: "black"}}  to={`/bandas/${user.uid}`}><MenuItem onClick={handleMenuClose} sx={{ justifyContent:'center'}}>Mis Bandas</MenuItem></NavLink>
+        <NavLink style={{textDecoration: "none", color: "black"}}  to={`/prestamos/${user.uid}`}><MenuItem onClick={handleMenuClose} sx={{ justifyContent:'center'}}>Mis Préstamos</MenuItem></NavLink>
  
       { admin && 
       

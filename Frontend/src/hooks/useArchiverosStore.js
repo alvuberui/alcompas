@@ -1,5 +1,7 @@
 import { useState } from 'react';
 import { alcompasAPI } from '../api';
+import Swal from 'sweetalert2';
+
 
 export const useArchiverosStore = () => {
 
@@ -26,12 +28,35 @@ export const useArchiverosStore = () => {
         }
     }
 
+    const getArchiverosByBandaId = async(bandaId) => {
+        try {
+            const { data } = await alcompasAPI.get('archiveros/archivero/banda/' + bandaId);
+            const archiveros = data.diccionario;
+            return archiveros;
+        } catch(error) {
+            console.log('Error cargando archivero');
+        }
+    }
+
+    const finalizarArchivero = async(userId, bandaId) => {
+        try {
+            const { data } = await alcompasAPI.put('archiveros/' + userId + '/' + bandaId);
+            const archivero = data.archivero;
+            return archivero;
+        } catch(error) {
+            Swal("Error", "No se pudo finalizar el rol de archivero", "error");
+        }
+    }
+
+
 
     return {
         // Estado
         errores,
         // Métodos
         getArchiverosByUserId,
-        esArchiveroByBandaId
+        esArchiveroByBandaId,
+        getArchiverosByBandaId,
+        finalizarArchivero
     }
 }

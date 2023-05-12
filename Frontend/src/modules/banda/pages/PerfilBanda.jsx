@@ -22,6 +22,8 @@ import { NuevoRepertorio } from '../modals/NuevoRepertorio';
 import { NuevaObra } from '../modals/NuevaObra';
 import { Obra } from '../../../Components/Obra';
 import { NuevaPartitura } from '../modals/NuevaPartitura';
+import Pagination from '@mui/material/Pagination';
+import Stack from '@mui/material/Stack';
 
 const r = [ 'Email', 'Facebook', 'Instagram', 'Twitter', 'Youtube', 'Apple Music', ' Soundcloud', 'Spotify', 'TikTok' ]
 
@@ -38,6 +40,7 @@ export const PerfilBanda = () => {
   const [ musicos, setMusicos ] = useState({});
   const [ usuariosMusicos, setUsuariosMusicos ] = useState([]);
   const [ usuariosDirectivos, setUsuariosDirectivos ] = useState([]);
+  const [ usuariosArchiveros, setUsuariosArchiveros ] = useState([]);
   const [ fotoPerfil, setFotoPerfil ] = useState('');
   const [ directivos, setDirectivos ] = useState({});
   const [ redesSociales, setRedesSociales ] = useState([]);
@@ -55,6 +58,14 @@ export const PerfilBanda = () => {
   const [ openPartitura, setOpenPartitura ] = useState(false);
   const [ partituras, setPartituras ] = useState('');
   const [ partitura, setPartitura ] = useState('');
+  const [ archiveros, setArchiveros ] = useState({});
+  const [paginados, setPaginados] = useState([]);
+
+  const [page, setPage] = useState(1);
+  const handleChangePaginados = (event, value) => {
+    setPage(value);
+    setPaginados(anuncios.slice((value-1)*5, value*5));
+  };
 
   // Funciones
   const handleChange = (event, newValue) => {
@@ -104,16 +115,7 @@ export const PerfilBanda = () => {
     setOpenObra(true);
   };
 
-  const handleCloseAnuncio = (event, newValue) => {
-    event.preventDefault();
-    setOpenAnuncio(false);
-  };
-
-
-  const handleOpenAnuncio = (event, newValue) => {
-    event.preventDefault();
-    setOpenAnuncio(true);
-  };
+  
 
   const handleOpenEditarFoto = (event, newValue) => {
     event.preventDefault();
@@ -206,6 +208,28 @@ const handleDislike = e => {
     });
   }
 
+  const handleAbadonarBandaArchivero = e => {
+    e.preventDefault();
+    Swal
+    .fire({
+        title: "¿Está seguro de que desea dejar la banda como archivero?",
+        text: "Esta acción será irreversible",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: "Sí, abandonar banda",
+        cancelButtonText: "Cancelar",
+    })
+    .then(async resultado => {
+        if (resultado.value) {
+            // Hicieron click en "Sí"
+            const c = await finalizarArchivero( user.uid, bandaId);
+            //Redireccionar al inicio
+            navigate('/');
+            Swal.fire('¡Has abandonado la banda!', 'Has abandonado la banda como archivero', 'success');
+        }
+    });
+  }
+
 
   // Hooks
   const { getBandaById } = useBandasStore();
@@ -222,7 +246,7 @@ const handleDislike = e => {
   const { publicarLike, publicarDislike, getLikeByTipoAndReferencia, errores,
     getNumeroLikes } = useLikesStore();
   const { getAllRepertoriosByBandaId } = useRepertoriosStore();
-  const { esArchiveroByBandaId } = useArchiverosStore();
+  const { esArchiveroByBandaId, getArchiverosByBandaId, finalizarArchivero } = useArchiverosStore();
   
   useEffect(() => {
     const getBanda = async () => {
@@ -240,6 +264,7 @@ const handleDislike = e => {
     const getNoticias = async () => {
       const noticias = await getNoticiasByBanda(bandaId);
       setAnuncios(noticias);
+      setPaginados(noticias.slice((1-1)*5, 1*5));
     }
     getBanda();
     getFotoPerfil();
@@ -297,8 +322,13 @@ const handleDislike = e => {
       const dirreq = await getDirectivosByBandaId(bandaId);
       setDirectivos(dirreq);
     }
+    const getArchiveros = async () => {
+      const dirreq = await getArchiverosByBandaId(bandaId);
+      setArchiveros(dirreq);
+    }
     getMusicos();
     getDirectivos();
+    getArchiveros();
   }, []);
 
   useEffect(() => {
@@ -336,6 +366,7 @@ const handleDislike = e => {
     const getUsuariosDirectivos = async () => {
       let res = {}
       let keys = Object.keys(directivos);
+   
       for( let i = 0; i < keys.length; i++) {
         const key = keys[i];
         const element = directivos[key];
@@ -350,9 +381,30 @@ const handleDislike = e => {
       }
       setUsuariosDirectivos(res);
     }
+    const getUsuariosArchiveros = async () => {
+      let res = {}
+ 
+      let keys = Object.keys(archiveros);
+      
+      for( let i = 0; i < keys.length; i++) {
+        const key = keys[i];
+        const element = archiveros[key];
+    
+        let lista = [];
+        for(let j = 0; j < element.length; j++) {
+          const mus = element[j]; 
+          const usuario = await getUserByiD(mus.usuario)
+        
+          lista.push(usuario);
+        }
+        res[key] = lista;
+      }
+      setUsuariosArchiveros(res);
+    }
     getUsuariosMusicos();
     getUsuariosDirectivos();
-  }, [musicos, directivos]);
+    getUsuariosArchiveros();
+  }, [musicos, directivos, archiveros]);
 
   useEffect(() => {
     if( errores === 'No se pudo completar el dislike') {
@@ -380,7 +432,7 @@ useEffect(() => {
         }
     }  
     getLike();
-}, [  banda ]);
+}, [ ]);
 
 useEffect(() => {
     const esMusico = async () => {
@@ -398,7 +450,7 @@ useEffect(() => {
       }
     }
     getNumeroLikesF();
-}, [  banda ]);
+}, [  ]);
 
   return (
     <>
@@ -406,7 +458,6 @@ useEffect(() => {
       <NuevaObra setObras={setObras} handleClose={handleCloseObra} open={openObra} setOpen={setOpenObra} repertorio={repertorio} ></NuevaObra>
       <NuevoComentario open={open} handleClose={handleClose} setOpen={setOpen} setComentarios={setComentarios}></NuevoComentario>
       <EditarFoto setFoto={setFotoPerfil} open={openEditarFoto} handleClose={handleCloseEditarFoto} setOpen={setOpenEditarFoto} tipo={"banda"}></EditarFoto>
-      <NuevoAnuncio open={openAnuncio} handleClose={handleCloseAnuncio} setOpen={setOpenAnuncio} setAnuncios={setAnuncios}></NuevoAnuncio>
       <NuevoRepertorio handleClose={handleCloseRepertorio} open={openRepertorio} setOpen={setOpenRepertorio} setRepertorios={setRepertorios}></NuevoRepertorio>
       <Grid container justifyContent="center">
         <Grid 
@@ -476,6 +527,11 @@ useEffect(() => {
                   <Button  sx={{width:'250px'}} color='error' variant='contained' align="center" onClick={handleAbadonarBanda} >Abandonar Banda COMO MÚSICO</Button>
                 </Box>
                 }
+                { esArchivero &&
+                <Box textAlign='center' sx={{mt:3}}>
+                  <Button  sx={{width:'250px'}} color='error' variant='contained' align="center" onClick={handleAbadonarBandaArchivero} >Abandonar Banda como archivero</Button>
+                </Box>
+                }
                 { perteneceDirectivo &&
                   <>
                   <Box textAlign='center' sx={{mt:3}}>
@@ -510,21 +566,11 @@ useEffect(() => {
                     <Tab label="Anuncios" />
                     <Tab label="Eventos" />
                     <Tab label="Comentarios" />
-                    <Tab label="Encuestas" />
                     <Tab label="Repertorios" />
                     <Tab label="Plantilla" />
                     
                   </Tabs>
-                  { value === 0 && perteneceDirectivo &&
-                    <Button color='secondary' onClick={handleOpenAnuncio} sx={{ mx:'auto', mb:'5px', width:'30vh', maxWidth:'4opx', backgroundColor:'white', color:'black'}} variant='contained'>
-                        <Typography sx={{ fontWeight: 'bold' }} >Añadir Anuncio</Typography>
-                    </Button>
-                  }
-                  { value === 2 && 
-                    <Button color='secondary' onClick={handleOpen} sx={{ mx:'auto', mb:'5px', width:'30vh', maxWidth:'4opx', backgroundColor:'white', color:'black'}} variant='contained'>
-                        <Typography sx={{ fontWeight: 'bold' }} >Añadir Comentario</Typography>
-                    </Button>
-                  }
+                
                 </Box>
                 
             </Grid>
@@ -535,17 +581,35 @@ useEffect(() => {
                 justifyContent="center"
                 alignItems="center"
               > 
-
+                
                 { value === 0 &&
-                anuncios.map((anuncio, index) =>
+                
+                paginados.map((anuncio, index) =>
+              
                   <Noticia noticia={anuncio} index={index} eliminar={eliminarComentario}
                     key={index}
                     setNoticias={setAnuncios}
                   />
                 )}
+                <Box sx={{ display: 'flex', justifyContent:"center", alignItems:"center", mt:5}}>
+                  <Stack spacing={2} >
+                  <Pagination count={ Math.ceil((anuncios.length/5))  } page={page} onChange={handleChangePaginados} />
+                </Stack>
+                </Box>
+                {
+                  value === 0 && anuncios.length === 0 &&
+                  <Typography sx={{ textAlign:'center', mt:2 }} variant='h7'>No hay anuncios en esta banda</Typography>
+                }
+                
                 {
                   value === 1 &&
                   <Calendario tipo={"perfil"} />
+                }
+                {
+                  value === 2 &&
+                  <Button color='primary' onClick={handleOpen} sx={{ mx:'auto', mb:'5px', width:'30vh', maxWidth:'4opx' }} variant='contained'>
+                        <Typography sx={{ fontWeight: 'bold' }} >Añadir Comentario</Typography>
+                  </Button>
                 }
                 { value === 2 &&
                 comentarios.map((comentario, index) =>
@@ -555,7 +619,13 @@ useEffect(() => {
                   />
                 )}
                 {
-                  value === 4 &&
+                  value === 2 && comentarios.length === 0 &&
+                  <Grid container justifyContent='center' sx={{ mt:2 }}>
+                  <Typography sx={{ textAlign:'center', mt:2 }} variant='h7'>No hay comentarios en esta banda</Typography>
+                  </Grid>
+                }
+                {
+                  value === 3 &&
                   <>
                     { esArchivero ?
                       partitura !== '' ?
@@ -640,10 +710,15 @@ useEffect(() => {
                     }
                   </>
                 }
-                { value === 5 &&
+                {
+                  value === 3 && repertorios.length === 0 &&
+                  <Typography sx={{ textAlign:'center', mt:2 }} variant='h7'>No hay repertorios en esta banda</Typography>
+                }
+                { value === 4 &&
                   <>
-                    <Plantilla musicos={musicos}  usuarios={usuariosMusicos} tipo='Músicos' directivo={perteneceDirectivo}/>
-                    <Plantilla  musicos={directivos}  usuarios={usuariosDirectivos} tipo='Directivos'directivo={perteneceDirectivo} />
+                    <Plantilla musicos={musicos}  usuarios={usuariosMusicos} tipo='Músicos' directivo={perteneceDirectivo} setComponente={setMusicos}/>
+                    <Plantilla  musicos={directivos}  usuarios={usuariosDirectivos} tipo='Directivos'directivo={perteneceDirectivo} setComponente={setDirectivos}/>
+                    <Plantilla  musicos={archiveros}  usuarios={usuariosArchiveros} tipo='Archiveros'directivo={perteneceDirectivo} setComponente={setArchiveros} />
                   </>
                 }
             </Grid>
