@@ -6,6 +6,8 @@ const Actuacion = require('../models/Actuacion');
 const Ensayo = require('../models/Ensayo');
 const Like = require('../models/Like');
 const jwt = require('jsonwebtoken');
+const Contratado = require('../models/Contratado');
+const Asistencia = require('../models/Asistencia');
 
 // Controladores sobre procesiones
 const crearProcesion = async(req, res = express.response) => {
@@ -456,6 +458,8 @@ const eliminarEvento = async(req, res = express.response) => {
         } else {
             evento = await Ensayo.findByIdAndDelete(id);
         }
+        await Contratado.deleteMany({evento: id});
+        await Asistencia.deleteMany({evento: id});
         res.json({
             ok: true,
             evento

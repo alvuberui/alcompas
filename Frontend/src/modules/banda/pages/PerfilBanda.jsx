@@ -60,11 +60,18 @@ export const PerfilBanda = () => {
   const [ partitura, setPartitura ] = useState('');
   const [ archiveros, setArchiveros ] = useState({});
   const [paginados, setPaginados] = useState([]);
-
   const [page, setPage] = useState(1);
+  const [paginadosComentarios, setPaginadosComentarios] = useState([]);
+  const [pageComentarios, setPageComentarios] = useState(1);
+
   const handleChangePaginados = (event, value) => {
     setPage(value);
     setPaginados(anuncios.slice((value-1)*5, value*5));
+  };
+
+  const handleChangePaginadosComentarios = (event, value) => {
+    setPage(value);
+    setPaginados(comentarios.slice((value-1)*5, value*5));
   };
 
   // Funciones
@@ -294,6 +301,7 @@ const handleDislike = e => {
     const getComentarios = async () => {
       const userreq = await getComentariosByBandaId(bandaId);
       setComentarios(userreq.reverse());
+      setPaginadosComentarios(userreq.slice((1-1)*5, 1*5));
     }
     getComentarios();
   }, []);
@@ -423,7 +431,6 @@ useEffect(() => {
     const getLike = async () => {
         if(banda._id ) {
           const like = await getLikeByTipoAndReferencia({ tipo: 'Banda', referencia: banda._id });
-          
           if(like) {
               setIsLiked(true);
           } else {
@@ -432,7 +439,7 @@ useEffect(() => {
         }
     }  
     getLike();
-}, [ ]);
+}, [banda]);
 
 useEffect(() => {
     const esMusico = async () => {
@@ -450,7 +457,7 @@ useEffect(() => {
       }
     }
     getNumeroLikesF();
-}, [  ]);
+}, [banda]);
 
   return (
     <>
@@ -591,11 +598,13 @@ useEffect(() => {
                     setNoticias={setAnuncios}
                   />
                 )}
-                <Box sx={{ display: 'flex', justifyContent:"center", alignItems:"center", mt:5}}>
+                { value === 0 &&
+                <Box sx={{ display: 'flex', justifyContent:"center", alignItems:"center", mt:5, mb:5}}>
                   <Stack spacing={2} >
                   <Pagination count={ Math.ceil((anuncios.length/5))  } page={page} onChange={handleChangePaginados} />
                 </Stack>
                 </Box>
+                }
                 {
                   value === 0 && anuncios.length === 0 &&
                   <Typography sx={{ textAlign:'center', mt:2 }} variant='h7'>No hay anuncios en esta banda</Typography>
@@ -612,11 +621,12 @@ useEffect(() => {
                   </Button>
                 }
                 { value === 2 &&
-                comentarios.map((comentario, index) =>
+                paginadosComentarios.map((comentario, index) =>
                   <Comentario eliminar={eliminarComentario}
                     comentario={comentario}
                     key={index}
                   />
+                  
                 )}
                 {
                   value === 2 && comentarios.length === 0 &&
@@ -625,9 +635,17 @@ useEffect(() => {
                   </Grid>
                 }
                 {
+                  value === 2 && comentarios.length > 0 &&
+                  <Box sx={{ display: 'flex', justifyContent:"center", alignItems:"center", mt:5, mb:5}}>
+                  <Stack spacing={2} >
+                  <Pagination count={ Math.ceil((comentarios.length/5))  } page={pageComentarios} onChange={handleChangePaginadosComentarios} />
+                  </Stack>
+                </Box>
+                }
+                {
                   value === 3 &&
                   <>
-                    { esArchivero ?
+                    { 
                       partitura !== '' ?
                       <Button onClick={handleVolverPartituras} color='primary' sx={{  mb:'5px', width:'30vh', maxWidth:'4opx'}} variant='contained'>
                         <Typography  >Volver a partituras</Typography>
@@ -635,9 +653,11 @@ useEffect(() => {
                       :
                       partituras !== '' ?
                       <>
+                      { esArchivero &&
                       <Button onClick={handleOpenPartitura} color='primary' sx={{ mr:2, mb:'5px', width:'30vh', maxWidth:'4opx'}} variant='contained'>
                           <Typography  >Añadir Partitura</Typography>
                       </Button>
+                      }
                       <Button onClick={handleVolverObras} color='primary' sx={{  mb:'5px', width:'30vh', maxWidth:'4opx'}} variant='contained'>
                         <Typography  >Volver a obras</Typography>
                       </Button>
@@ -645,19 +665,23 @@ useEffect(() => {
                       :
                       obras !== '' ?
                       <>
+                      { esArchivero &&
                       <Button onClick={handleOpenObra} color='primary' sx={{mr:2,  mb:'5px', width:'30vh', maxWidth:'4opx'}} variant='contained'>
                           <Typography  >Añadir Obra</Typography>
                       </Button>
+                      }
                       <Button onClick={handleVolverRepertorio} color='primary' sx={{  mb:'5px', width:'30vh', maxWidth:'4opx'}} variant='contained'>
                       <Typography  >Volver a repertorios</Typography>
                       </Button>
                       </>
                       :
+                      <>
+                      { esArchivero &&
                       <Button onClick={handleOpenRepertorio} color='primary' sx={{ mx:'auto', mb:'5px', width:'30vh', maxWidth:'4opx'}} variant='contained'>
                           <Typography  >Añadir Repertorio</Typography>
                       </Button>
-                    :
-                    <></>
+                      }
+                      </>
                     }
                     { 
                       partitura !== '' ?

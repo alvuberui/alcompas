@@ -4,6 +4,7 @@ const Directivo = require('../models/Directivo');
 const Repertorio = require('../models/Repertorio');
 const Archivero = require('../models/Archivero');
 const Obra = require('../models/Obra');
+const Partitura = require('../models/Partitura');
 
 const crearObra = async(req, res = express.response) => {
     try {
@@ -92,6 +93,7 @@ const eliminarObra = async(req, res = express.response) => {
         }
 
         await Obra.findByIdAndDelete(id);
+        await Partitura.deleteMany({obra: id});
         res.json({
             ok: true,
             obra

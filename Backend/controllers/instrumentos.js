@@ -278,6 +278,7 @@ const eliminarInstrumentoBanda = async(req, res = express.response) => {
         }
 
         const instrumentoEliminado = await Instrumento.findByIdAndDelete(instrumentoId);
+        await Prestamo.deleteMany({referencia: instrumentoId, tipo: 'Instrumento'});
         res.json({
             ok: true,
             instrumentoEliminado

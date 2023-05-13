@@ -169,7 +169,7 @@ const eliminarNoticiaById = async(req, res = express.response) => {
         }
 
         await anuncio.delete();
-
+        await Like.deleteMany({referencia: id});
         res.json({
             ok: true,
             anuncio

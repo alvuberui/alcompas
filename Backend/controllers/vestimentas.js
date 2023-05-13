@@ -120,6 +120,7 @@ const eliminarVestimenta = async(req, res = express.response) => {
 
         // Se elimina la vestimenta
         const vestimentaEliminada = await Vestimenta.findByIdAndDelete(id);
+        await Prestamo.deleteMany({referencia: id, tipo: 'Vestimenta'});
         res.json({
             ok: true,
             vestimentaEliminada

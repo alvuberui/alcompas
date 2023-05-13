@@ -78,6 +78,7 @@ export const Repertorio = ({ repertorio, eliminar, esArchivero, setObras, setRep
   return (
             <Card  onClick={handleObras} onMouseOver={handleMouseOver}
                 onMouseOut={handleMouseOut} 
+                sx={{ mb:5}}
                 style={{
                 marginTop: '5px',
                 width: '95%',

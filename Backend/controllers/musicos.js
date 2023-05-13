@@ -124,7 +124,8 @@ const getMusicosByIntrumentoAndLocalidad = async(req, res = express.response) =>
         
         const musicos = await Musico.find({'instrumento': instrumento});
         const musicosFiltrados = [];
-
+        const usuariosFiltrados = [];
+    
         // Comprobamos que es directivo de alguna banda
         const token = req.header('x-token');
         const payload = jwt.verify(token,process.env.SECRET_JWT_SEED);
@@ -141,9 +142,15 @@ const getMusicosByIntrumentoAndLocalidad = async(req, res = express.response) =>
         for(i=0; i<musicos.length; i++) {
             let musico = musicos[i];
             const usuario = await Usuario.findById(musico.usuario);
+          
             if(usuario.localidad !== localidad) {
                 continue;
             }
+            // Añadir solo aquellos musicos que su usuario no haya sido añadido
+            if(usuariosFiltrados.includes(usuario._id.toString())) {
+                continue;
+            }
+            usuariosFiltrados.push(usuario._id.toString());
             musicosFiltrados.push(musico);
         }
         return res.status(201).json({

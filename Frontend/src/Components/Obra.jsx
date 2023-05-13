@@ -98,6 +98,7 @@ export const Obra = ({ obra, eliminar, esArchivero, setPartituras, setObra, esDi
   return (
     <Card onClick={handlePartituras} onMouseOver={handleMouseOver}
     onMouseOut={handleMouseOut} 
+              sx={{ mb: 5 }}
               style={{
                 marginTop: '5px',
                 width: '95%',

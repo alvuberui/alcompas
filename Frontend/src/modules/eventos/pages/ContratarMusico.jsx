@@ -21,6 +21,7 @@ export const ContratarMusico = () => {
     const [ values, setValues ] = useState({ instrumento: 'Corneta', localidad:'' });
     const [ musicos, setMusicos ] = useState([]);
     const [ esDirectivo, setEsDirectivo ] = useState('a');
+    const [ localidades, setLocalidades] = useState([]);
 
     const { eventoId, tipoEvento } = useParams();
 
@@ -29,6 +30,7 @@ export const ContratarMusico = () => {
         setValues({ ...values, [input]: value });
     }
 
+    const { obtenerTodasLocalidades } = useAuthStore();
     const { getMusicosByIntrumentoAndLocalidad } = useMusicosStore();
     const { getByTipoId } = useEventosStore();
     const { getDirectivoByUserId } = useDirectivosStore();
@@ -36,7 +38,9 @@ export const ContratarMusico = () => {
 
     const handleClickBuscar = async() => {
         const musicosReq = await getMusicosByIntrumentoAndLocalidad(values.instrumento, values.localidad);
+    
         setMusicos(musicosReq);
+
     }
 
     useEffect(() => {
@@ -56,7 +60,23 @@ export const ContratarMusico = () => {
                 }
             }
       }
+      const obtenerLocalidades = async () => {
+        const loc = await obtenerTodasLocalidades();
+        // ordenar alfabeticamente
+        loc.sort((a, b) => {
+            if (a.nombre > b.nombre) {
+                return 1;
+            }
+            if (a.nombre < b.nombre) {
+                return -1;
+            }
+            return 0;
+        });
+        values.localidad = loc[0];
+        setLocalidades(loc);
+        }
       getPermisos();
+      obtenerLocalidades();
       }, [eventoId, tipoEvento]);
 
       if( esDirectivo === 'a' ) return (
@@ -125,15 +145,19 @@ export const ContratarMusico = () => {
                     sx={{ backgroundColor: 'white', mt:'20px', justifyContent: "center", display: "flex"  }}
         
                     item>
-                        <TextField 
-                            style={{ border: '1px solid #e2e2e1', borderRadius:'5px'}}
-                            sx={{ width:'50%'}} 
-                            type="text"
-                            placeholder="Escriba aquí la localidad" 
-                            fullWidth
-                            onChange={handleChangeInput('localidad')}
-                            defaultValue={values.localidad}
-                        />
+                        
+                        <Select
+                        style={{  border: '1px solid #e2e2e1' }}
+                        sx={{ width:'50%'}} 
+                        id="demo-simple-select"
+                        value={ values.localidad }
+                        fullWidth
+                        onChange={handleChangeInput('localidad')}
+                        >
+                        { localidades.map( (tipo, index) => (
+                          <MenuItem key={index} value={tipo}>{tipo}</MenuItem>
+                          )) }
+                        </Select>
                     </Grid>
                     <Grid 
                     xs = { 12 }

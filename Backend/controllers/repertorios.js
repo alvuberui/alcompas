@@ -3,6 +3,7 @@ const jwt = require('jsonwebtoken');
 const Directivo = require('../models/Directivo');
 const Repertorio = require('../models/Repertorio');
 const Archivero = require('../models/Archivero');
+const Obra = require('../models/Obra');
 
 const crearRepertorio = async(req, res = express.response) => {
     try {
@@ -78,6 +79,7 @@ const eliminarRepertorio = async(req, res = express.response) => {
         }
 
         await Repertorio.findByIdAndDelete(id);
+        await Obra.deleteMany({repertorio: id});
         res.json({
             ok: true,
             msg: 'Repertorio eliminado',

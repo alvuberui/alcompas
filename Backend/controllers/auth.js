@@ -11,6 +11,7 @@ const Banda = require('../models/Banda');
 const bcrypt = require('bcryptjs');
 const { generarJWT } = require('../helpers/jwt');
 const jwt = require('jsonwebtoken');
+const Like = require('../models/Like');
 
 /*
 * En primer lugar se comprueba si existe ya un usuario con ese correo, nif o telefon, en caso de que no se
@@ -319,6 +320,7 @@ const deleteById = async(req, res = express.response) => {
         await Archivero.deleteMany({usuario: uid});
         await Estudio.deleteMany({usuario: uid});
         await Instrumento.deleteMany({usuario: uid});
+        await Like.deleteMany({usuario: uid});
 
         const peticiones = await Peticion.find({'usuario': uid});
         
@@ -373,6 +375,7 @@ const deleteAdminById = async(req, res = express.response) => {
         await Archivero.deleteMany({usuario: uid});
         await Estudio.deleteMany({usuario: uid});
         await Instrumento.deleteMany({usuario: uid});
+        await Like.deleteMany({usuario: uid});
 
         const peticiones = await Peticion.find({'usuario': uid});
     
@@ -432,6 +435,29 @@ const getByUsername = async(req, res = express.response) => {
         });
     }
 }
+
+const obtenerTodasLocalidades = async(req, res = express.response) => {
+    try {
+        const usuarios = await Usuario.find();
+        const localidades = [];
+
+        for(let i = 0; i < usuarios.length; i++) {
+            const u = usuarios[i];
+            if(!localidades.includes(u.localidad)) localidades.push(u.localidad);
+        }
+        res.json({
+            ok: true,
+            localidades
+        });
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({
+            ok: false,
+            msg: 'Por favor hable con el administrador'
+        });
+    }
+}
+
 module.exports = {
     crearUsuario,
     loginUsuario,
@@ -442,5 +468,6 @@ module.exports = {
     deleteById,
     getAll,
     getByUsername,
-    deleteAdminById
+    deleteAdminById,
+    obtenerTodasLocalidades
 }

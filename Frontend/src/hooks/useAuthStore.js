@@ -208,6 +208,16 @@ export const useAuthStore = () => {
         }
     }
 
+    const obtenerTodasLocalidades = async() => {
+        try {
+            const { data } = await alcompasAPI.get('auth/todas/localidades');
+            const localidades = data.localidades;
+            return localidades;
+        } catch(error) {
+            console.log('Error cargando localidades');
+        }
+    }
+
     return {
         // Propiedades
         status, 
@@ -225,6 +235,7 @@ export const useAuthStore = () => {
         startDelete,
         getAllUsers,
         getUserByUsername,
-        deleteAdminById
+        deleteAdminById,
+        obtenerTodasLocalidades
     }
 }

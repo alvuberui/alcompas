@@ -10,6 +10,15 @@ const path = require('path');
 const fs   = require('fs');
 const jwt = require('jsonwebtoken');
 const Peticion = require('../models/Peticion');
+const Like = require('../models/Like');
+const Transaccion = require('../models/Transaccion');
+const Noticia = require('../models/Noticia');
+const Actuacion = require('../models/Actuacion');
+const Ensayo = require('../models/Ensayo');
+const Procesion = require('../models/Procesion');
+const Repertorio = require('../models/Repertorio');
+const Instrumento = require('../models/Prestamo');
+const Vestimenta = require('../models/Vestimenta');
 
 const crearBanda = async(req, res = express.response) => {
 
@@ -213,8 +222,17 @@ const eliminar_banda = async(req, res = express.response) => {
         }
 
         // Eliminamos todas las composiciones de la banda
-        const redes = RedSocial.find({'banda': bandaId});
-        const comentarios = Comentario.find({'banda': bandaId});
+        const redes = await RedSocial.find({'banda': bandaId});
+        const comentarios = await Comentario.find({'banda': bandaId});
+        await Like.deleteMany({'banda': bandaId});
+        await Transaccion.deleteMany({'banda': bandaId});
+        await Noticia.deleteMany({'banda': bandaId});
+        await Procesion.deleteMany({'banda': bandaId});
+        await Ensayo.deleteMany({'banda': bandaId});
+        await Actuacion.deleteMany({'banda': bandaId});
+        await Repertorio.deleteMany({'banda': bandaId});
+        await Instrumento.deleteMany({'banda': bandaId});
+        await Vestimenta.deleteMany({'banda': bandaId});
 
         for(i=0; i < redes.length; i++) {
             let red = redes[i];

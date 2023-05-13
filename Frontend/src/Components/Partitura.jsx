@@ -92,6 +92,7 @@ export const Partitura = ({ partitura, eliminar, esArchivero, setPartitura }) =>
   return (
     <Card onClick={handleClick} onMouseOver={handleMouseOver}
     onMouseOut={handleMouseOut} 
+              sx={{ mb:5}}
               style={{
                 marginTop: '5px',
                 width: '95%',

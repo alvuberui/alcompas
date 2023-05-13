@@ -136,6 +136,7 @@ const getPartituraById = async(req, res = express.response) => {
         const payloadId = payload.uid;
 
         const partitura = await Partitura.findById(partituraId);
+   
         if(!partitura){
             return res.status(404).json({
                 ok: false,
@@ -169,12 +170,12 @@ const getPartituraById = async(req, res = express.response) => {
                 msg: 'No tiene privilegios para ver partituras'
             });
         }
-
-        if(musicos[0].instrumento !== partitura.instrumento && archiveros.length === 0 && directivos.length === 0){
-            return res.status(401).json({
-                ok: false,
-                msg: 'No tiene privilegios para ver partituras'
-            });
+        if(musicos.length > 0 && musicos[0].instrumento !== partitura.instrumento){
+                return res.status(401).json({
+                    ok: false,
+                    msg: 'No tiene privilegios para ver partituras'
+                });
+            
         }
        
         const pathImagen = path.join( __dirname, '../uploads/partituras/', partitura.url );
