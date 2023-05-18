@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useAuthStore, useBandasStore, useDirectivosStore, useMusicosStore, usePeticionesStore } from '../hooks';
 
-export const Peticion = ({ _id, estado, instrumento, mensaje, rol, voz, cargo, banda, usuario,  directivo, fecha }) => {
+export const Peticion = ({ _id, estado, instrumento, mensaje, rol, voz, cargo, banda, usuario,  directivo, fecha, setPeticiones, tipo}) => {
     // Estados
     const [ banda_nombre, setBanda ] = useState([]);
     const [ directivo_nombre, setDirectivo_nombre ] = useState([]);
@@ -17,18 +17,36 @@ export const Peticion = ({ _id, estado, instrumento, mensaje, rol, voz, cargo, b
     const { getBandaById } = useBandasStore();
     const { getDirectivoById } = useDirectivosStore();
     const { getUserByiD, user } = useAuthStore();
-    const { aceptarPeticion, rechazarPeticion } = usePeticionesStore();
+    const { aceptarPeticion, rechazarPeticion, getPeticionesByBandaId, getPeticionesByUserId } = usePeticionesStore();
 
-    const handleButtonAceptar = (event)  => {
+    const handleButtonAceptar = async(event)  => {
         event.preventDefault();
-        const peticion = aceptarPeticion(_id);
+        const c = await aceptarPeticion(_id);
         estado = 'Aceptada';
+        if( tipo === 'usuario') {
+            const peticiones = await getPeticionesByUserId(user.uid);
+            setPeticiones( peticiones.reverse() );
+        }
+        else {
+        const peticiones = await getPeticionesByBandaId(id);
+        // Actualizar el estado de la peticion en peticiones
+        setPeticiones( peticiones.reverse() );
+        }
     };
 
-    const handleButtonRechazar = (event)  => {  
+    const handleButtonRechazar = async(event)  => {  
         event.preventDefault();
-        rechazarPeticion(_id);
+        const c = await  rechazarPeticion(_id);
         estado = 'Rechazada';
+        if( tipo === 'usuario') {
+            const peticiones = await getPeticionesByUserId(user.uid);
+            setPeticiones( peticiones.reverse() );
+        }
+        else {
+        const peticiones = await getPeticionesByBandaId(id);
+        // Actualizar el estado de la peticion en peticiones
+        setPeticiones( peticiones.reverse() );
+        }
     };
 
     // Efectos
@@ -57,7 +75,7 @@ export const Peticion = ({ _id, estado, instrumento, mensaje, rol, voz, cargo, b
         getDirectivo();
         convertirFecha();
         
-    }, [usuario, _id]);
+    }, [usuario, _id, fecha]);
 
   return (
         <Grid 
@@ -94,7 +112,7 @@ export const Peticion = ({ _id, estado, instrumento, mensaje, rol, voz, cargo, b
                     {
                         cargo &&
                         <div>
-                                <Typography style={{display: 'inline-block'}}><b>Instrumento:</b> { instrumento } </Typography>
+                                <Typography style={{display: 'inline-block'}}><b>Cargo:</b> { cargo } </Typography>
                         </div>
                         
                     }

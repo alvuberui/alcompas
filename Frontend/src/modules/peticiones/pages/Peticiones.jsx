@@ -1,4 +1,4 @@
-import { Grid, Typography } from '@mui/material';
+import { Grid, Typography, Box } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import { Navigate, useParams } from 'react-router-dom';
 import { Peticion } from '../../../Components';
@@ -21,7 +21,7 @@ export const Peticiones = ( ) => {
     }
     getPeticiones();
   }, [peticiones]);
-  //console.log(user.uid + " " + id)
+
   return (
     <>
     {
@@ -44,17 +44,32 @@ export const Peticiones = ( ) => {
             item
           
             xs= { 10 }
-            sx={{ padding:2, backgroundColor:'primary.main', borderRadius:'5px', boxShadow:' 5px 5px 30px' }}
+            sx={{ padding:2, backgroundColor:'primary.main', borderRadius:'5px', boxShadow:'rgba(0, 0, 0, 0.14) 0px 1px 1px 1px, rgba(0, 0, 0, 0.12) 0px 2px 1px -1px,  rgba(0, 0, 0, 0.2) 0px 1px 3px 1px', mb:4 }}
             >
                 <Typography variant='h4' sx={{textAlign:'center', color:'white'}}>MIS PETICIONES</Typography>
             </Grid>
 
-            {peticiones.map((peticion, index) =>
+            {
+           
+            peticiones.map((peticion, index) =>
               <Peticion
                 { ...peticion }
+                setPeticiones={setPeticiones}
+                tipo={'usuario'}
                 key={index}
               />
             )}
+            {
+              peticiones.length === 0 && <Grid 
+              item
+              lg={12}
+              xs= { 12 }
+  
+              >
+               <Typography align='center' variant='h5'> No hay préstamos... </Typography>
+              </Grid>
+            }
+            
             
 
         </Grid>

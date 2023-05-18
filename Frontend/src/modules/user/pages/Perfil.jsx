@@ -75,7 +75,8 @@ export const Perfil = () => {
     .then(resultado => {
         if (resultado.value) {
             // Hicieron click en "Sí"
-            startDelete()
+            
+            startDelete();
             navigate('/');
         }
     });
@@ -85,14 +86,13 @@ export const Perfil = () => {
     let error = ""
     if(values.contraseñaNueva != values.confirmarNueva ) error = "*La contraseña nueva no coincide con la confirmación \n";
     if(values.contraseñaNueva.length > 20 ) error = error + "*La contraseña debe de tener como máximo 200 caracteres \n";
-    if(values.contraseñaNueva.length < 8 ) error = error + "*La contraseña debe de tener como mínimo 7 caracteres";
+    if(values.contraseñaNueva.length < 8 ) error = error + "*La contraseña debe de tener como mínimo 8 caracteres";
 
     if(error != "") {
       Swal.fire('Error al modificar contraseña', error, 'error');
     }
     else {
       const respuesta = startUpdatePassword({contraseñaNueva: values.confirmarNueva});
-      setUser(respuesta);
       setOpen(false);
     }
   }
@@ -362,16 +362,7 @@ export const Perfil = () => {
                           <Tab aria-label='click1' label="Instrumentos" />
                           <Tab aria-label='click2' label="Estudios" />
                         </Tabs>
-                        { value === 1 && iguales === true &&
-                          <Button color='secondary' onClick={handleOpenAñadir} sx={{ mx:'auto', mb:'5px', width:'20vh', maxWidth:'4opx', backgroundColor:'white', color:'black'}} variant='contained'>
-                              <Typography sx={{ fontWeight: 'bold' }} >AÑADIR</Typography>
-                          </Button>
-                        }
-                        { value === 2 && iguales === true &&
-                          <Button color='secondary' onClick={handleOpenEstudio} sx={{ mx:'auto', mb:'5px', width:'20vh', maxWidth:'4opx', backgroundColor:'white', color:'black'}} variant='contained'>
-                              <Typography sx={{ fontWeight: 'bold' }} >AÑADIR</Typography>
-                          </Button>
-                        }
+                        
                   </Box>
             </Grid>
             <Grid 
@@ -381,6 +372,11 @@ export const Perfil = () => {
             justifyContent="center"
             alignItems="center"
             > 
+              { value === 2 && iguales === true &&
+                          <Button color='primary' onClick={handleOpenEstudio} sx={{ mx:'auto', mb:'5px', width:'20vh', maxWidth:'4opx'}} variant='contained'>
+                              <Typography sx={{ fontWeight: 'bold' }} >AÑADIR</Typography>
+                          </Button>
+                        }
               { value === 2 &&
                 estudios.map((estudio, index) =>
                 <Estudio 
@@ -391,7 +387,21 @@ export const Perfil = () => {
                 iguales={iguales}
                 />
               )}
-
+              { value === 2 && estudios.length === 0 &&
+                <Grid 
+                item
+                lg={12}
+                xs= { 12 }
+    
+                >
+                 <Typography align='center' variant='h6'> No hay estudios... </Typography>
+                </Grid>
+              }
+              { value === 1 && iguales === true &&
+                          <Button color='primary' onClick={handleOpenAñadir} sx={{ mx:'auto', mb:'5px', width:'20vh', maxWidth:'4opx'}} variant='contained'>
+                              <Typography sx={{ fontWeight: 'bold' }} >AÑADIR</Typography>
+                          </Button>
+                        }
               { value === 1 &&
                 instrumentos.map((instrumento, index) =>
                 <Instrumento 
@@ -403,6 +413,17 @@ export const Perfil = () => {
                 />
               )}
 
+              { value === 1 && instrumentos.length === 0 &&
+
+                <Grid
+                item
+                lg={12}
+                xs= { 12 }
+                >
+                  <Typography align='center' variant='h6'> No hay instrumentos... </Typography>
+                </Grid>
+              }
+
               { value === 0 &&
                 experiencias.map((experiencia, index) =>
                 <Experiencia
@@ -410,6 +431,16 @@ export const Perfil = () => {
                 key={index}
                 />
               )}
+              { value === 0 && experiencias.length === 0 &&
+
+                <Grid
+                item
+                lg={12}
+                xs= { 12 }
+                >
+                  <Typography align='center' variant='h6'> No hay experiencias... </Typography>
+                </Grid>
+              }
             </Grid>
         </Grid>
         

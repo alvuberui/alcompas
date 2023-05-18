@@ -92,6 +92,7 @@ export const Instrumento = ({ _id, instrumento, marca, modelo, numeroSerie, usua
     });
     }
 
+    if(banda) {
     // Efectos
     useEffect(() => {
         const getPrestamo = async () => {
@@ -105,8 +106,11 @@ export const Instrumento = ({ _id, instrumento, marca, modelo, numeroSerie, usua
         }
         getPrestamo();
     }, [_id]);
+    }
 
-    if( prestamo === '') {
+    
+
+    if( prestamo === '' && banda) {
         <CircularProgress size={200}></CircularProgress>
     }
     else {
@@ -119,7 +123,9 @@ export const Instrumento = ({ _id, instrumento, marca, modelo, numeroSerie, usua
         
         >   
             <AñadirInstrumentoModal  instrumentoId={_id} editar={true} open={open} handleClose={handleCloseEditar} setOpen={setOpen} setInstrumentos={setInstrumentos} banda={banda}></AñadirInstrumentoModal>
+            { banda &&
             <NuevoPrestamo handleClose={handleClosePrestamo} open={openPrestamo} setOpen={setOpenPrestamo} setPrestamoIns={setPrestamo} instrumentoId={_id}></NuevoPrestamo> 
+            }
             <Grid
             container
             display="flex"
@@ -150,7 +156,8 @@ export const Instrumento = ({ _id, instrumento, marca, modelo, numeroSerie, usua
                             <b>Número de serie:</b> {numeroSerie || 'No especificado'}
                         </Typography>
                         <br></br>
-                        {
+                        { banda && 
+                        <>
                             prestamo ?
                             <Typography style={{display: 'inline-block'}}>
                                 <b>Prestado a: </b> 
@@ -162,6 +169,7 @@ export const Instrumento = ({ _id, instrumento, marca, modelo, numeroSerie, usua
                             <Typography style={{display: 'inline-block'}}>
                                 <b>Sin prestar</b> 
                             </Typography>
+                            </>
                         }
                     </div>
                 </Grid> 
@@ -181,7 +189,10 @@ export const Instrumento = ({ _id, instrumento, marca, modelo, numeroSerie, usua
                             <Button  color='primary' onClick={handleElminar} sx={{ml:'5px'}} variant='contained'>
                                 <Typography sx={{ fontWeight: 'bold', fontSize:'12px' }} >Eliminar</Typography>
                             </Button>
-                            { !prestamo ?
+                            { 
+                            banda &&
+                            <>
+                            !prestamo ?
                             <Button  color='primary' onClick={handleOpenPrestamo} sx={{ml:'5px'}} variant='contained'>
                                 <Typography sx={{ fontWeight: 'bold', fontSize:'12px' }} >Prestar</Typography>
                             </Button>
@@ -189,6 +200,7 @@ export const Instrumento = ({ _id, instrumento, marca, modelo, numeroSerie, usua
                             <Button  color='primary' onClick={handleCancelarPrestamo} sx={{ml:'5px'}} variant='contained'>
                                 <Typography sx={{ fontWeight: 'bold', fontSize:'12px' }} >Cancelar</Typography>
                             </Button>
+                            </>
                             }
                         </div>
                     </Grid> 

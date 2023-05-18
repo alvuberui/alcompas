@@ -71,8 +71,15 @@ export const PerfilBanda = () => {
 
   const handleChangePaginadosComentarios = (event, value) => {
     setPage(value);
-    setPaginados(comentarios.slice((value-1)*5, value*5));
+    setPageComentarios(comentarios.slice((value-1)*5, value*5));
   };
+
+  useEffect(() => {
+    const updateComentariosPaginados = () => {
+      setPaginadosComentarios(comentarios.slice((pageComentarios-1)*5, pageComentarios*5));
+    }
+    updateComentariosPaginados();
+  }, [comentarios]);
 
   // Funciones
   const handleChange = (event, newValue) => {
@@ -598,7 +605,7 @@ useEffect(() => {
                     setNoticias={setAnuncios}
                   />
                 )}
-                { value === 0 &&
+                { value === 0 && anuncios.length > 0 &&
                 <Box sx={{ display: 'flex', justifyContent:"center", alignItems:"center", mt:5, mb:5}}>
                   <Stack spacing={2} >
                   <Pagination count={ Math.ceil((anuncios.length/5))  } page={page} onChange={handleChangePaginados} />

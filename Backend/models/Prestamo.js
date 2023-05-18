@@ -5,9 +5,6 @@ const PrestamoSchema = Schema({
         type: Date,
         required: true, 
     },
-    fechaInicio: {
-        type: Date,
-    },
     estado: {
         type: String,
         required: true,

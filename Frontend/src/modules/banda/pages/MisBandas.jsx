@@ -1,4 +1,4 @@
-import { Grid, Typography } from '@mui/material';
+import { Box, Grid, Typography } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import { Navigate, NavLink, useParams } from 'react-router-dom';
 import { Banda } from '../../../Components';
@@ -77,6 +77,20 @@ export const MisBandas = ( { titulo }) => {
                 key={index}
               />
             )}
+            {
+              bandas.length === 0 &&
+             
+              <Grid 
+              item
+              lg={12}
+              xs= { 12 }
+  
+              >
+               <Typography align='center' variant='h5'> No hay bandas... </Typography>
+              </Grid>
+          
+
+            }
             
 
         </Grid>

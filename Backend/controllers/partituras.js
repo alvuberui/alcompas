@@ -12,6 +12,8 @@ const Obra = require('../models/Obra');
 const Repertorio = require('../models/Repertorio');
 const Archivero = require('../models/Archivero');
 const Partitura = require('../models/Partitura');
+const { validarInstrumentos } = require('../middlewares/validar-instrumento');
+const { validarVoz } = require('../middlewares/validar-voz');
 
 const crearPartitura = async(req, res = express.response) => {
     try {
@@ -22,6 +24,13 @@ const crearPartitura = async(req, res = express.response) => {
         const payloadId = payload.uid;
 
         const datos = JSON.parse(request.partitura);
+
+        if(validarInstrumentos(datos.instrumento) === false || validarVoz(datos.voz) === false) {
+            return res.status(400).json({
+                ok: false,
+                msg: 'El instrumento o la voz no son válidos'
+            });
+        }
 
         const obra = await Obra.findById(datos.obra);
         if(!obra){

@@ -12,7 +12,7 @@ const PartituraSchema = Schema({
         'Fliscorno', 'Trompeta', 'Saxofón Alto', 'Saxofón Tenor', 
         'Saxofón Barítono', 'Clarinete', 'Flauta', 'Flautín', 'Oboe',
         'Fagot', 'Lira', 'Campana', 'Cascabeles', 'Batería', 'Xilófono',
-        'Timbales', 'Campanilla', 'Clarinete Bajo', 'Requinto'],
+        'Timbales', 'Campanilla', 'Clarinete Bajo', 'Requinto', 'Director'],
         required: true
     },
     voz: {

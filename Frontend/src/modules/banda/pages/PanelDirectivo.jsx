@@ -11,6 +11,7 @@ import { Vestimentas } from './Vestimentas';
 export const PanelDirectivo = () => {
     const { bandaId } = useParams();
     const { abandonarBandaDirectivo, getDirectivoByUserId } = useDirectivosStore();
+    const [ presidente, setPresidente ] = useState(false);
     const { eliminarBanda, mensajeError } = useBandasStore()
     const { user } = useAuthStore();
     const navigate  = useNavigate();
@@ -58,7 +59,7 @@ export const PanelDirectivo = () => {
                 const c = await eliminarBanda(bandaId);
                 //Redireccionar al inicio
                 if(c){
-                    navigate('/bandas')
+                    navigate('/')
                 }
             }
         });
@@ -67,11 +68,15 @@ export const PanelDirectivo = () => {
     useEffect (() => {
         const getPermiso = async () => {
             const directivoreq = await getDirectivoByUserId(user.uid);
+            
             let condicion = false
             for( const directivo of directivoreq ) {
                
               if( directivo.fecha_final === undefined && directivo.banda === bandaId && directivo.usuario === user.uid ) {
                 condicion = true;
+                if(directivo.cargo === 'Presidente'){
+                    setPresidente(true)
+                }
               } 
             }
             setPermiso(condicion)
@@ -107,7 +112,7 @@ export const PanelDirectivo = () => {
 
                     <Grid 
                         
-                        sx={{ width:'140vh', backgroundColor: '#262254', color:'white', mt:'20px', justifyContent: "center", display: "flex", borderRadius: '10px',  boxShadow:'5px 5px 10px rgba(0, 0, 0, 0.5)'  }}
+                        sx={{ padding:2, width:'140vh', backgroundColor: '#262254', color:'white', mt:'20px', justifyContent: "center", display: "flex", borderRadius: '10px',  boxShadow:'5px 5px 10px rgba(0, 0, 0, 0.5)'  }}
                         direction="column"
                         justifyContent="center"
                         alignItems="center"  
@@ -142,9 +147,11 @@ export const PanelDirectivo = () => {
                         <Box textAlign='center' sx={{mt:"10px", minWidth:'50vh'}}>
                             <Button aria-label='directivo' onClick={handleAbadonarBanda} variant='contained' sx={{color:'black', fontWeight:'bold'}} align="center" color="error" fullWidth >Abandonar Banda Como Directivo</Button>
                         </Box>
+                        { presidente &&
                         <Box textAlign='center' sx={{mt:"10px", mb:"10px", minWidth:'50vh'}}>
                             <Button aria-label='banda' onClick={ handleEliminarBanda } variant='contained' align="center" color="error" sx={{color:'black', fontWeight:'bold'}} fullWidth >Eliminar Banda</Button>
                         </Box>
+                        }
                         
                     </Grid>
                     

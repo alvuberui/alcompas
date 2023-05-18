@@ -1,19 +1,6 @@
 const { Schema, model} = require('mongoose');
 
 const VestimentaSchema = Schema({
-    fechaInicio: {
-        type: Date,
-    },
-    fechaFin: {
-        type: Date,
-    },
-    estado: {
-        type: String,
-        enum: ['Activo', 'Finalizado', 'Denegado', 'Cancelado']
-    },
-    comentario: {
-        type: String,
-    },
     tipo: {
         type: String,
         type: String,

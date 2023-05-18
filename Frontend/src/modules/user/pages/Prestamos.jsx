@@ -58,13 +58,13 @@ export const Prestamos = () => {
             }
             {
               prestamos.length === 0 &&
-              <Grid
-              container
-              display="flex"
-              justifyContent="center"
-              alignItems="center"
+              <Grid 
+              item
+              lg={12}
+              xs= { 12 }
+  
               >
-                <Typography variant='h6' sx={{fontWeight: 'bold', textAlign:'center', color:'black'}}>{'No tienes préstamos'}</Typography>
+               <Typography align='center' variant='h5'> No hay préstamos... </Typography>
               </Grid>
 
             }

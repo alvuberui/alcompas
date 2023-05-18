@@ -109,16 +109,18 @@ export const CrearPeticion  = ( { open, handleClose, setPeticiones, setOpen, pet
             }
           }
           // Crear la petición
-          await crearPeticion( peticion, id, d._id);
-          setPeticiones([peticion, ... peticiones]);
+          const p = await crearPeticion( peticion, id, d._id);
+          setPeticiones([p, ... peticiones]);
           setPeticion({rol: 'Músico', cargo: 'Presidente', mensaje: '', instrumento:'Corneta', voz:'Primero', usuario:''});
           
           setOpen(false);
         }
       }
+      
     
       const handleChangeInput = input => e => {    
-        peticion[input] = e.target.value;
+        const { value } = e.target;
+        setPeticion({ ...peticion, [input]: value });
         if(input === 'rol') setRol(e.target.value);
       }
 

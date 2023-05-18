@@ -8,6 +8,8 @@ const Like = require('../models/Like');
 const jwt = require('jsonwebtoken');
 const Contratado = require('../models/Contratado');
 const Asistencia = require('../models/Asistencia');
+const Archivero = require('../models/Archivero');
+const Musico = require('../models/Musico');
 
 // Controladores sobre procesiones
 const crearProcesion = async(req, res = express.response) => {
@@ -391,9 +393,29 @@ const getEventosBandaFecha = async(req, res = express.response) => {
         const banda = req.body.banda;
         const dia = new Date(fecha).getDate();
         fecha = new Date(fecha).setHours(0,0,0,0);
-        const procesiones = await Procesion.find({'banda': banda,'fechaInicio': { $gte: fecha, $lt: new Date(fecha).setDate(dia + 1) }});
-        const actuaciones = await Actuacion.find({'banda': banda,'fechaInicio': { $gte: fecha, $lt: new Date(fecha).setDate(dia + 1) }});
-        const ensayos = await Ensayo.find({'banda': banda,'fechaInicio': { $gte: fecha, $lt: new Date(fecha).setDate(dia + 1) }});
+
+        // Obtenemos token 
+        const token = req.header('x-token');
+        const payload = jwt.verify(token,process.env.SECRET_JWT_SEED);
+        const payloadId = payload.uid;
+
+        // Comprobamos si pertenece a la banda
+        const directivos = await Directivo.find({usuario: payloadId, banda: banda, fecha_final: undefined});
+        const archiveros = await Archivero.find({usuario: payloadId, banda: banda, fecha_final: undefined});
+        const musicos = await Musico.find({usuario: payloadId, banda: banda, fecha_final: undefined});
+
+        let procesiones = [];
+        let actuaciones = [];
+        let ensayos = [];
+
+        if(directivos.length == 0 && archiveros.length == 0 && musicos.length == 0) {
+            procesiones = await Procesion.find({'banda': banda,'fechaInicio': { $gte: fecha, $lt: new Date(fecha).setDate(dia + 1) }});
+            actuaciones = await Actuacion.find({'banda': banda,'fechaInicio': { $gte: fecha, $lt: new Date(fecha).setDate(dia + 1) }});
+        } else {
+            procesiones = await Procesion.find({'banda': banda,'fechaInicio': { $gte: fecha, $lt: new Date(fecha).setDate(dia + 1) }});
+            actuaciones = await Actuacion.find({'banda': banda,'fechaInicio': { $gte: fecha, $lt: new Date(fecha).setDate(dia + 1) }});
+            ensayos = await Ensayo.find({'banda': banda,'fechaInicio': { $gte: fecha, $lt: new Date(fecha).setDate(dia + 1) }});
+        }
         eventos = [...procesiones, ...actuaciones, ...ensayos];
 
         res.json({
@@ -460,6 +482,7 @@ const eliminarEvento = async(req, res = express.response) => {
         }
         await Contratado.deleteMany({evento: id});
         await Asistencia.deleteMany({evento: id});
+        await Like.deleteMany({referencia: id});
         res.json({
             ok: true,
             evento

@@ -28,6 +28,7 @@ const state = {
 
 export const  RegisterFrom = () => {
     const [step, setStep] = useState(1);
+    const [values,setValues] = useState(state);
 
     const  { startRegister, errorMessage, status } = useAuthStore();
     let navigate = useNavigate();
@@ -37,12 +38,7 @@ export const  RegisterFrom = () => {
         }
       }, [errorMessage])
 
-    const { nombre, primer_apellido, segundo_apellido, correo,
-             descripcion, localidad, provincia, codigo_postal, direccion,
-              nif, telefono, usuario, contraseña, confirmacion_contraseña, fecha_nacimiento } =  state;
-    let values = { nombre, primer_apellido, segundo_apellido, correo,
-            descripcion, localidad, provincia, codigo_postal, direccion,
-             nif, telefono, usuario, contraseña, confirmacion_contraseña, fecha_nacimiento }
+    
 
     // Siguiente  
     const siguiente = () => {
@@ -55,16 +51,35 @@ export const  RegisterFrom = () => {
     }
 
     // Confirmar
-    const confirmar = () => {
+    const confirmar = async() => {
         
         let error = validarRegistro(values);
         
         if(error == '') {
-            startRegister({nombre: values.nombre, primer_apellido: values.primer_apellido, segundo_apellido: values.segundo_apellido,
+            const data = await startRegister({nombre: values.nombre, primer_apellido: values.primer_apellido, segundo_apellido: values.segundo_apellido,
                 correo: values.correo, descripcion: values.descripcion, localidad: values.localidad, provincia: values.provincia,
                 codigo_postal: values.codigo_postal, direccion: values.direccion, nif: values.nif, telefono: values.telefono,
                 usuario: values.usuario, contraseña: values.contraseña, confirmacion_contraseña: values.confirmacion_contraseña,
                  fecha_nacimiento: values.fecha_nacimiento});
+                 
+            if(data !== undefined) {
+                setValues( { nombre: '',
+                primer_apellido: '',
+                segundo_apellido: '',
+                correo: '',
+                descripcion: '',
+                localidad: '',
+                provincia: '',
+                codigo_postal: '',
+                direccion: '',
+                nif: '',
+                telefono:  '',
+                usuario: '',
+                contraseña: '',
+                confirmacion_contraseña: '',
+                fecha_nacimiento: '' });
+            }
+
                 
         }
         else {

@@ -42,6 +42,13 @@ export const Anuncios = () => {
     setOpen(false);
     };
 
+  useEffect(() => {
+    const updatePaginados = () => {
+      setPaginados(anuncios.slice((page-1)*5, page*5));
+    }
+    updatePaginados();
+  }, [anuncios])
+
 
  
   useEffect(() => {
@@ -106,7 +113,7 @@ export const Anuncios = () => {
              />)
 
             }
-            { anuncios.length === 0 && <Typography align='center' variant='h4'> No hay anuncios... </Typography> }
+            { anuncios.length === 0 && <Typography align='center' variant='h6'> No hay anuncios... </Typography> }
             <Box sx={{ display: 'flex', justifyContent:"center", alignItems:"center", mt:5}}>
               <Stack spacing={2} >
               <Pagination count={ Math.ceil((anuncios.length/5))  } page={page} onChange={handleChange} />

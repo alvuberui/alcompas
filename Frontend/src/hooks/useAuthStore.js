@@ -40,6 +40,7 @@ export const useAuthStore = () => {
             localStorage.setItem('token-init-date', new Date().getTime());
             
             dispatch( onLogin({ nombre: data.nombre, uid: data.uid }) );
+            return data;
             
         }catch (error) {
             let fallo = ''
@@ -138,10 +139,10 @@ export const useAuthStore = () => {
     const startDelete = async() => {
         try{
             
-            const { data } = await alcompasAPI.delete('/auth/' + user.uid);
-   
-            localStorage.clear();
             dispatch(onLogout());
+            const { data } = await alcompasAPI.delete('/auth/' + user.uid);
+            localStorage.clear();
+            
        
             
         }catch (error) {

@@ -25,6 +25,13 @@ export const PeticionesBanda = ( ) => {
     setPaginados(peticiones.slice((value-1)*10, value*10));
   };
 
+  useEffect(() => {
+    const updatePaginados = () => {
+      setPaginados(peticiones.slice((page-1)*10, page*10));
+    }
+    updatePaginados();
+  }, [peticiones])
+
 
   // Funciones
   const handleOpenCrear = (event, newValue) => {
@@ -99,17 +106,34 @@ export const PeticionesBanda = ( ) => {
                       <Typography sx={{ fontWeight: 'bold' }} >Nueva Petición</Typography>
                     </Button>
 
-              {paginados.map((peticion, index) =>
+              { peticiones.length === 0 ?
+              <Grid 
+              item
+              lg={12}
+              xs= { 12 }
+  
+              >
+               <Typography align='center' variant='h5'> No hay peticiones... </Typography>
+              </Grid>
+              :
+              paginados.map((peticion, index) =>
+      
                 <Peticion
                   { ...peticion }
+                  setPeticiones={setPeticiones}
                   key={index}
                 />
+                
+              
               )}
+              { peticiones.length !== 0 &&
               <Box sx={{ display: 'flex', justifyContent:"center", alignItems:"center", mt:5}}>
               <Stack spacing={2} >
               <Pagination count={ Math.ceil((peticiones.length/10))  } page={page} onChange={handleChange} />
             </Stack>
             </Box>
+              }
+              
               
 
           </Grid>

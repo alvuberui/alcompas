@@ -30,7 +30,7 @@ export const Comentario = ({ comentario, eliminar}) => {
     const [ foto, setFoto ] = useState('');
     const [ isLiked, setIsLiked ] = useState(false);
     const [ numeroLikes, setNumeroLikes ] = useState(0);
-    const horas  = new Date(comentario.fecha).getHours() + ":" + new Date(comentario.fecha).getMinutes();
+    const horas  = new Date(comentario.fecha).getHours() + ":" +  new Date(comentario.fecha).getMinutes().toString().padStart(2, '0');
     const fecha = new Date(comentario.fecha).toLocaleDateString();
 
     // Funciones
