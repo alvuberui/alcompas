@@ -64,7 +64,7 @@ export const Instrumentos = () => {
   useEffect(() => {
     const getInstrumentos = async () => {
       const userreq = await getTodosInstrumentosByBanda(bandaId);
-      setInstrumentos(userreq);  
+      setInstrumentos(userreq.reverse());  
     }
     const getPermiso = async () => {
       const directivoreq = await getDirectivoByUserId(user.uid);

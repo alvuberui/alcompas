@@ -39,7 +39,7 @@ export const PrestamosBanda = () => {
   useEffect(() => {
     const getPrestamos = async () => {
       const  prestamos = await obtenerTodosByBanda(bandaId);
-      setPrestamos(prestamos); 
+      setPrestamos(prestamos.reverse()); 
       setPaginados(prestamos.slice((1-1)*10, 1*10));
     }
     const getPermiso = async () => {

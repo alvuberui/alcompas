@@ -40,6 +40,25 @@ const crearContratado = async(req, res = express.response) => {
             });
         }
 
+        // Comprobar que el usuario contratado no esta contratado ya para ese evento
+        const contratados = await Contratado.find({usuario: contratado.usuario, tipo: contratado.tipo, referencia: contratado.referencia});
+        if(contratados.length > 0) {
+
+            return res.status(400).json({
+                ok: false,
+                msg: 'El usuario ya esta contratado para este evento'
+            });
+        }
+
+        // Comrpobar que el usuario contratado no pertenece a la banda
+        const musicos = await Musico.find({usuario: contratado.usuario, banda: evento.banda, fecha_final: undefined});
+        if(musicos.length > 0) {
+            return res.status(400).json({
+                ok: false,
+                msg: 'El usuario ya pertenece a la banda'
+            });
+        }
+
         const contratadoDB = await contratado.save();
 
         res.json({

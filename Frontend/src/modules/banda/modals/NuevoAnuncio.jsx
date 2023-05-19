@@ -135,7 +135,7 @@ export const NuevoAnuncio  = ( { open, handleClose, setAnuncios, setOpen }) => {
                 </Grid>
                 <Box  sx={{mt:2, display:'flex', alignContent:'center', justifyContent:'center'}} >
                       <Button aria-label='enviar' color='secondary' sx={{ backgroundColor:'white', color:'black'}} variant='contained' onClick={handleForm}>
-                        Publicar comentario
+                        Publicar anuncio
                       </Button>
                 </Box>
             </form>

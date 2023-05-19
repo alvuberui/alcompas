@@ -64,7 +64,7 @@ export const Vestimentas = () => {
   useEffect(() => {
     const getVestimentas = async () => {
       const userreq = await getAllVestimentasByBanda(bandaId);
-      setVestimentas(userreq);  
+      setVestimentas(userreq.reverse());  
     }
     const getPermiso = async () => {
       const directivoreq = await getDirectivoByUserId(user.uid);

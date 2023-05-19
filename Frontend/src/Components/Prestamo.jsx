@@ -9,12 +9,14 @@ import { NuevoPrestamo } from '../modules/banda/modals/NuevoPrestamo';
 import { NavLink } from 'react-router-dom';
 
 export const Prestamo = ({ prestamo, tipo }) => {
+ 
     if( !prestamo ) {
         <CircularProgress size={200}></CircularProgress>
     }
     else {
-        prestamo.fechaInicio = new Date(prestamo.fechaInicio).toLocaleDateString();
-        if( prestamo.fechaFin ) prestamo.fechaFin = new Date(prestamo.fechaFin).toLocaleDateString();
+        const fecha = new Date(prestamo.fechaInicio).toLocaleDateString();
+        
+        
   return (
     
         <Grid 
@@ -53,17 +55,9 @@ export const Prestamo = ({ prestamo, tipo }) => {
                         </Typography>
                         <br/>
                         <Typography style={{display: 'inline-block'}}>
-                            <b>Fecha de inicio:</b> { prestamo.fechaInicio }
+                            <b>Fecha de inicio:</b> { fecha }
                         </Typography>
                         <br/>
-                        { prestamo.fechaFin &&
-                        <>
-                        <Typography style={{display: 'inline-block'}}>
-                            <b>Fecha fin:</b> { prestamo.fechaFin }
-                        </Typography>
-                        <br/>
-                        </>
-                        }
                         <Typography style={{display: 'inline-block'}}>
                             <b>Comentario:</b> { prestamo.comentario ? prestamo.comentario : 'Sin comentario' }
                         </Typography>
@@ -73,6 +67,12 @@ export const Prestamo = ({ prestamo, tipo }) => {
                         <Typography style={{display: 'inline-block'}}>
                             <b>Instrumento:</b> { prestamo.referencia.instrumento } { prestamo.referencia.marca && prestamo.referencia.marca  } { prestamo.referencia.modelo && prestamo.referencia.modelo } { prestamo.referencia.numeroSerie && prestamo.referencia.numeroSerie }
                         </Typography>
+                        }
+                        {
+                            prestamo.tipo === 'Vestimenta' &&
+                            <Typography style={{display: 'inline-block'}}>
+                                <b>Vestimenta:</b> { prestamo.referencia.tipo } 
+                            </Typography>
                         }
 
                         

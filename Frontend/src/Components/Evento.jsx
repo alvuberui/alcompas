@@ -338,11 +338,15 @@ export const Evento = ({ evento, index, style, setEventos }) => {
                                 <Typography variant="body1" fontWeight={'bold'  } color="text.primary">
                                     Descripción: { ' '}
                                 </Typography>
-                            
+                                    { evento.descripcion ?
                                     <Typography  >
                                         { evento.descripcion}
                                     </Typography>
-                                
+                                    :
+                                    <Typography  >
+                                        No hay ninguna descripción...
+                                    </Typography>
+                                    }
                                 <Typography variant="body1" fontWeight={'bold'  } color="text.primary">
                                     Fecha y hora de inicio: { ' '}
                                 </Typography>
@@ -620,7 +624,7 @@ export const Evento = ({ evento, index, style, setEventos }) => {
                                 </Typography>
                                 
                                     <Typography  sx={{display:'inline'}}>
-                                        { evento.descripcion}
+                                        { evento.descripcion ? evento.descripcion : 'No hay ninguna descripción...'}
                                     </Typography>
                                 
                                 <Typography variant="body1" fontWeight={'bold'  } color="text.primary">

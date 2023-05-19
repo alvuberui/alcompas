@@ -60,7 +60,12 @@ export const AñadirInstrumentoModal  = ( { open, handleClose, setInstrumentos, 
           const c = await editarInstrumentoBanda( instrumento, banda, instrumentoId );
           setInstrumentos( co => [...co, c].filter( i => i._id !== instrumentoId) );
           setInstrumentos( co => [...co, c]);
-          setInstrumento({instrumento:'Corneta', marca: '', modelo: '', numeroSerie: ''});
+          if( editar ) {
+            setInstrumento({ instrumento: c.instrumento, marca: c.marca, modelo: c.modelo, numeroSerie: c.numeroSerie  })
+          }
+          else {
+            setInstrumento({instrumento:'Corneta', marca: '', modelo: '', numeroSerie: ''});
+          }
           setOpen(false);
         }
         else {

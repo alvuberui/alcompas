@@ -4,6 +4,10 @@ const Directivo = require('../models/Directivo');
 const Repertorio = require('../models/Repertorio');
 const Archivero = require('../models/Archivero');
 const Obra = require('../models/Obra');
+const Partitura = require('../models/Partitura');
+const path = require('path');
+const fs   = require('fs');
+
 
 const crearRepertorio = async(req, res = express.response) => {
     try {
@@ -79,6 +83,17 @@ const eliminarRepertorio = async(req, res = express.response) => {
         }
 
         await Repertorio.findByIdAndDelete(id);
+        const obras = await Obra.find({repertorio: id});
+        for(let i = 0; i < obras.length; i++){
+            const partituras = await Partitura.find({obra: obras[i]._id});
+            for(let j = 0; j < partituras.length; j++){
+                const pathImagen = path.join( __dirname, '../uploads/partituras/', partituras[j].url );
+                if ( fs.existsSync( pathImagen ) ) {
+                    fs.unlinkSync( pathImagen );
+                }
+            }
+            await Partitura.deleteMany({obra: obras[i]._id});
+        }
         await Obra.deleteMany({repertorio: id});
         res.json({
             ok: true,

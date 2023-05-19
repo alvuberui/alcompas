@@ -702,7 +702,9 @@ useEffect(() => {
                       )
                       }</Grid>
                       :
-                          <Typography sx={{ textAlign:'center', mt:2 }} variant='h7'>No hay partituras en esta obra</Typography>
+                      <Grid container justifyContent='center' sx={{ mt:2 }}>
+                      <Typography sx={{ textAlign:'center', mt:2 }} variant='h7'>No hay partituras en esta banda</Typography>
+                      </Grid>
                       :
                       obras !== '' ?
                       <>
@@ -721,7 +723,9 @@ useEffect(() => {
                           )
                           }</Grid>
                           :
-                          <Typography sx={{ textAlign:'center', mt:2 }} variant='h7'>No hay obras en este repertorio</Typography>
+                          <Grid container justifyContent='center' sx={{ mt:2 }}>
+                          <Typography sx={{ textAlign:'center', mt:2 }} variant='h7'>No hay obras en esta banda</Typography>
+                          </Grid>
                         }
                       </>
                       :
@@ -743,7 +747,9 @@ useEffect(() => {
                 }
                 {
                   value === 3 && repertorios.length === 0 &&
+                  <Grid container justifyContent='center' sx={{ mt:2 }}>
                   <Typography sx={{ textAlign:'center', mt:2 }} variant='h7'>No hay repertorios en esta banda</Typography>
+                  </Grid>
                 }
                 { value === 4 &&
                   <>

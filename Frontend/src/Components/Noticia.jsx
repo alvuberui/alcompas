@@ -34,7 +34,7 @@ export const Noticia = ({ noticia, index, style, setNoticias }) => {
     const [banda, setBanda] = useState({});
     const [fotoPerfil, setFotoPerfil] = useState('');
     const [ esDirectivo, setEsDirectivo ] = useState('');
-    const horas  = new Date(noticia.fecha).getHours() + ":" + new Date(noticia.fecha).getMinutes();
+    const horas  = new Date(noticia.fecha).getHours() + ":" + new Date(noticia.fecha).getMinutes().toString().padStart(2, '0');
     const fecha = new Date(noticia.fecha).toLocaleDateString();
     const [ isLiked, setIsLiked ] = useState(false);
     const [ numeroLikes, setNumeroLikes ] = useState(0);
@@ -70,6 +70,7 @@ export const Noticia = ({ noticia, index, style, setNoticias }) => {
     useEffect(() => {
         const esDirectivo = async () => {
             const directivos = await getDirectivoByUserId(user.uid);
+            if( directivos.length === 0 ) setEsDirectivo(false);
             for( let i = 0; i < directivos.length; i++ ){
                 if( directivos[i].banda === banda._id && !directivos[i].fecha_final ) {
                     setEsDirectivo(true);

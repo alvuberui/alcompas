@@ -38,7 +38,7 @@ export const Documento = ({ transacciones }) => {
     <Document >
         <Page size="A4" >
         <View style={styles.container}>
-            <Text>Table example:</Text>
+            <Text>Cuentas banda:</Text>
             <View style={styles.table}>
                 <View style={styles.tableRow}>
                 <View style={styles.tableColHeader}>

@@ -26,7 +26,7 @@ export const Prestamos = () => {
   useEffect(() => {
     const getPrestamos = async () => {
       const userreq = await obtenerPrestamosUsuario(user.uid);
-      setPrestamos(userreq);  
+      setPrestamos(userreq.reverse());  
     }
     getPrestamos();
   }, []); 

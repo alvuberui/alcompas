@@ -175,7 +175,7 @@ export const NuevoPrestamo  = ( { open, handleClose, setPrestamoIns, setOpen, in
                 <Box  sx={{mt:2, display:'flex', alignContent:'center', justifyContent:'center'}} >
                    
                       <Button  aria-label='crear' color='secondary' sx={{ backgroundColor:'white', color:'black'}} variant='contained' onClick={handleForm}>
-                        Crear vestimenta
+                        Crear Préstamo
                       </Button>
                   
                 </Box>

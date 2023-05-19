@@ -51,7 +51,8 @@ export const ContratarMusico = () => {
                 if( directivos.length === 0) setEsDirectivo(false);
                 for( let i = 0; i < directivos.length; i++ ){
                     const directivo = directivos[i];
-                    if( directivo.banda === evento.banda && !directivo.fechaFin){
+                
+                    if( directivo.banda === evento.banda && !directivo.fecha_final){
                         setEsDirectivo(true);
                     break;
                     } else {
@@ -78,6 +79,7 @@ export const ContratarMusico = () => {
       getPermisos();
       obtenerLocalidades();
       }, [eventoId, tipoEvento]);
+
 
       if( esDirectivo === 'a' ) return (
         <Box sx={{ display: 'flex', justifyContent:"center", alignItems:"center"}}>

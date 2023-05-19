@@ -59,9 +59,8 @@ export const Calendario = ({tipo}) => {
           value={value}
           showNeighboringMonth={false}
           calendarType="ISO 8601"
-          minDetail="year"
-          maxDetail="month"
-          view="month"
+          
+       
           returnValue="start"
           />
         

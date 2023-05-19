@@ -1,19 +1,21 @@
 import React, { useEffect, useState } from 'react';
 import { Box, CircularProgress } from '@mui/material';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams, Navigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import { PrimerPasoForm, SegundoPasoForm } from '../';
 import { validarBanda } from '../../../helpers/validarBanda';
-import { useEventosStore } from '../../../hooks';
+import { useEventosStore, useDirectivosStore, useAuthStore } from '../../../hooks';
 import dayjs from 'dayjs';
 import { validarEvento } from '../../../helpers/validarEvento';
 
 export const  ActualizarEventoForm = ( ) => {
     const [step, setStep] = useState(1);
-
+    const [ permiso, setPermiso ] = useState('')
     const  { actualizarProcesion, actualizarEnsayo, actualizarActuacion, mensajeError, getByTipoId } = useEventosStore();
     const { tipoEvento } = useParams();
     const { eventoId } = useParams();
+    const { getDirectivoByUserId } = useDirectivosStore();
+    const { user } = useAuthStore();
 
     
     let navigate = useNavigate();
@@ -34,19 +36,19 @@ export const  ActualizarEventoForm = ( ) => {
         const getEvento = async () => {
             const evento = await getByTipoId(tipoEvento, eventoId);
             
-            evento.fechaInicio = dayjs(evento.fechaInicio).locale('es');
-            evento.fechaFin = dayjs(evento.fechaFin).locale('es');
+            evento.fechaInicio = new Date(evento.fechaInicio);
+            evento.fechaFin = new Date(evento.fechaFin);
             
             if(tipoEvento === 'Procesión') {
                 evento.tipoEvento = 'procesion';
-                evento.fechaSalida = dayjs(evento.fechaSalida).locale('es');
+                evento.fechaSalida = new Date(evento.fechaSalida);
             }
             else if(tipoEvento === 'Ensayo') {
                 evento.tipoEvento = 'ensayo';
             }
             else if(tipoEvento === 'Actuación') {
                 evento.tipoEvento = 'actuacion';
-                evento.fechaSalida = dayjs(evento.fechaSalida).locale('es');
+                evento.fechaSalida = new Date(evento.fechaSalida);
             }
             setValues(evento);
         }
@@ -55,7 +57,7 @@ export const  ActualizarEventoForm = ( ) => {
 
     const [values, setValues] = useState({});
     
-    const { bandaId } = useParams();
+    
       
 
     // Siguiente paso
@@ -75,7 +77,7 @@ export const  ActualizarEventoForm = ( ) => {
     const confirmar = () => {
         
         let error = validarEvento(values);
-        console.log(values)
+  
         if(error == '') {
             if(values.tipoEvento === 'ensayo') actualizarEnsayo(values, eventoId);
             else if(values.tipoEvento === 'procesion') actualizarProcesion(values, eventoId);
@@ -92,6 +94,25 @@ export const  ActualizarEventoForm = ( ) => {
         setValues({ ...values, [input]: value });
     }
 
+    useEffect (() => {
+        const getPermiso = async () => {
+            if(values.banda) {
+            const directivoreq = await getDirectivoByUserId(user.uid);
+           
+            let condicion = false
+            
+                for( const directivo of directivoreq ) {
+                
+                if( directivo.fecha_final === undefined && directivo.banda === values.banda && directivo.usuario === user.uid ) {
+                    condicion = true;
+                } 
+                }
+                setPermiso(condicion)
+            }
+          }
+          getPermiso();
+    }, [values])
+
     
 
     if( ! values.tipoEvento ) return (
@@ -103,9 +124,22 @@ export const  ActualizarEventoForm = ( ) => {
         </>
     )
     else {
+        if( permiso === '' ) return (
+            <>
+          
+              <Box sx={{ display: 'flex', justifyContent:"center", alignItems:"center"}}>
+                  <CircularProgress   size={200} />
+              </Box>
+          
+            </>
+        )
+        else {
         switch(step) {
             case 1:
                 return (
+                    <>
+                    
+                    { permiso === false && <Navigate to='/' /> }
                     <PrimerPasoForm
                         siguiente = {siguiente}
                         handleChange = { handleChange }
@@ -113,19 +147,28 @@ export const  ActualizarEventoForm = ( ) => {
                         titulo = 'Editar Evento'
                         setValues = { setValues }
                     />
+                    </>
                 );
             case 2:
-                return (<SegundoPasoForm
+
+                return (
+                    <>
+                    
+                    { permiso === false && <Navigate to='/' /> }
+                <SegundoPasoForm
                 confirmar = {confirmar}
                 retroceder = { previo }
                 handleChange = { handleChange }
                 values = { values }
                 titulo = 'Editar Evento'
                 setValues = { setValues }
-                />);
+                />
+                
+                </>);
+
         }
     }
-    
+}
     
 }
 

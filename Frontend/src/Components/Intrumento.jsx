@@ -158,7 +158,7 @@ export const Instrumento = ({ _id, instrumento, marca, modelo, numeroSerie, usua
                         <br></br>
                         { banda && 
                         <>
-                            prestamo ?
+                            { prestamo  ?
                             <Typography style={{display: 'inline-block'}}>
                                 <b>Prestado a: </b> 
                                 <NavLink to={'/perfil/'+ prestamo.usuario._id} style={{color:'black'}}>
@@ -169,6 +169,7 @@ export const Instrumento = ({ _id, instrumento, marca, modelo, numeroSerie, usua
                             <Typography style={{display: 'inline-block'}}>
                                 <b>Sin prestar</b> 
                             </Typography>
+                            }
                             </>
                         }
                     </div>
@@ -192,6 +193,7 @@ export const Instrumento = ({ _id, instrumento, marca, modelo, numeroSerie, usua
                             { 
                             banda &&
                             <>
+                            {
                             !prestamo ?
                             <Button  color='primary' onClick={handleOpenPrestamo} sx={{ml:'5px'}} variant='contained'>
                                 <Typography sx={{ fontWeight: 'bold', fontSize:'12px' }} >Prestar</Typography>
@@ -200,6 +202,7 @@ export const Instrumento = ({ _id, instrumento, marca, modelo, numeroSerie, usua
                             <Button  color='primary' onClick={handleCancelarPrestamo} sx={{ml:'5px'}} variant='contained'>
                                 <Typography sx={{ fontWeight: 'bold', fontSize:'12px' }} >Cancelar</Typography>
                             </Button>
+                            }
                             </>
                             }
                         </div>

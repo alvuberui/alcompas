@@ -49,18 +49,8 @@ export const Contratado = ({musico}) => {
         getFoto();
     }, [musico]);
 
-    useEffect(() => {
-        if(errores.length > 0){
-            Swal.fire({
-                icon: 'error',
-                title: 'Oops...',
-                text: 'Algo ha ido mal. Contacte con el administrador.',
-            })
-        }
-    }, [errores]);
 
-
-    const handleContratar = () => {
+    const handleContratar = async() => {
         Swal.fire({
             title: '¿Estás seguro contratar a este músico para el evento?',
             text: "Se añadirá a la asistencia del evento",
@@ -69,16 +59,19 @@ export const Contratado = ({musico}) => {
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
             confirmButtonText: 'Sí, contratar'
-            }).then((result) => {
+            }).then( async(result) => {
             if (result.isConfirmed) {
                 const contratado = {'tipo': tipoEvento === 'Procesión' ? 'Procesión' : tipoEvento === 'Actuación'? 'Actuacion' : 'Ensayo', 
                                     'referencia': eventoId, 'usuario': musico.usuario, 'instrumento': musico.instrumento}
-                crearContratados(contratado);
-                Swal.fire(
-                'Contratado!',
-                'El músico ha sido contratado para el evento.',
-                'success'
-                )
+                const b = await crearContratados(contratado);
+                
+                if(b) {
+                    Swal.fire(
+                    'Contratado!',
+                    'El músico ha sido contratado para el evento.',
+                    'success'
+                    )
+                }
             }
         })
     }

@@ -56,6 +56,8 @@ export const NuevaPartitura = ({ open, handleClose, setPartituras, setOpen, obra
                 setOpen(false);
                 Swal.fire('Partitura añadida', 'La partitura se ha añadido correctamente', 'success');
                 setValues({instrumento:'Clarinete', voz: 'Primero'});
+                setPartitura('');
+                setNombre('');
             }
         }
       }

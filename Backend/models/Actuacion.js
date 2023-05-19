@@ -31,6 +31,7 @@ const ActuacionSchema = Schema({
     tipoActuacion: {  // NO ESTÁ
         type: String,
         enum: ['Concierto', 'Encuentro de Bandas', 'Corrida de Toros', 'Pasacalles'],
+        required: true,
     },
     fechaSalida: {
         type: String,

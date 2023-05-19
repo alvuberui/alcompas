@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
+import { Box, CircularProgress } from '@mui/material';
+import { useNavigate, useParams,Navigate } from 'react-router-dom';
 
-import { useNavigate, useParams } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import { PrimerPasoForm, SegundoPasoForm } from '../';
-import { useEventosStore } from '../../../hooks';
+import { useDirectivosStore, useEventosStore, useAuthStore } from '../../../hooks';
 import { validarEvento } from '../../../helpers/validarEvento';
 
 
@@ -31,8 +32,12 @@ const state = {
 
 export const  CrearEventoForm = () => {
     const [step, setStep] = useState(1);
+    const [ permiso, setPermiso ] = useState('')
+  
 
     const  { crearProcesion, crearEnsayo, crearActuacion, mensajeError } = useEventosStore();
+    const { getDirectivoByUserId } = useDirectivosStore();
+    const { user } = useAuthStore();
 
     let navigate = useNavigate();
 
@@ -87,12 +92,41 @@ export const  CrearEventoForm = () => {
         setValues({ ...values, [input]: value });
     }
 
-    
+    useEffect (() => {
+        const getPermiso = async () => {
+            const directivoreq = await getDirectivoByUserId(user.uid);
+            
+            let condicion = false
+            for( const directivo of directivoreq ) {
+               
+              if( directivo.fecha_final === undefined && directivo.banda === bandaId && directivo.usuario === user.uid ) {
+                condicion = true;
+              } 
+            }
+            setPermiso(condicion)
+          }
+          getPermiso();
+    }, [])
 
-    //const cambiar = (step) => {   
+    
+    if( permiso === '' ) return (
+        <>
+      
+          <Box sx={{ display: 'flex', justifyContent:"center", alignItems:"center"}}>
+              <CircularProgress   size={200} />
+          </Box>
+      
+        </>
+    )
+    else {
+    //const cambiar = (step) => {  
+         
         switch(step) {
             case 1:
                 return (
+                    <>
+                    
+                    { permiso === false && <Navigate to='/' /> }
                     <PrimerPasoForm
                         siguiente = {siguiente}
                         handleChange = { handleChange }
@@ -100,18 +134,26 @@ export const  CrearEventoForm = () => {
                         titulo = 'Crear Evento'
                         setValues = { setValues }
                     />
+                    </>
                 );
             case 2:
-                return (<SegundoPasoForm
+                
+                return (
+                    <>
+                    
+                    { permiso === false && <Navigate to='/' /> }
+                <SegundoPasoForm
                 confirmar = {confirmar}
                 retroceder = { previo }
                 handleChange = { handleChange }
                 values = { values }
                 titulo = 'Crear Evento'
                 setValues = { setValues }
-                />);
+                />
+                </>);
+                
     }
-    
+}
     
 }
 

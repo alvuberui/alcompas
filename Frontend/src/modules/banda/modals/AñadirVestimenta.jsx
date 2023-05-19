@@ -55,7 +55,12 @@ export const AñadirVestimenta  = ( { open, handleClose, setVestimentas, setOpen
           const c = await editarVestimenta( vestimenta );
           setVestimentas( co => [...co, c].filter( i => i._id !== vestimentaAntigua._id) );
           setVestimentas( co => [...co, c]);
-          setVestimenta({tipo:'Camisa'});
+          if( editar ) {
+            setVestimenta({ tipo: c.tipo  })
+          }
+          else {
+            setVestimenta({ tipo: 'Camisa' });
+          }
           setOpen(false);
       }
     }
@@ -83,7 +88,7 @@ export const AñadirVestimenta  = ( { open, handleClose, setVestimentas, setOpen
             if( editar === true && vestimentaAntigua ) {
                 setVestimenta( vestimentaAntigua );
             }
-        }, [editar])
+        }, [editar, vestimentaAntigua])
       
   return (
     <div>

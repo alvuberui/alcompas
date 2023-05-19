@@ -470,13 +470,13 @@ const eliminarEvento = async(req, res = express.response) => {
         const id = req.params.id;
         let evento = undefined;
         if( tipo === 'Procesión') {
-            const transaccion = await Procesion.findById(id).transaccion;
-            await Transaccion.findByIdAndDelete(transaccion);
-            evento = await Procesion.findByIdAndDelete(id);
+            evento = await Procesion.findById(id);
+            await Procesion.findByIdAndDelete(id);
+            await Transaccion.findByIdAndDelete(evento.transaccion);
         } else if( tipo === 'Actuación') {
-            const transaccion = await Actuacion.findById(id).transaccion;
-            await Transaccion.findByIdAndDelete(transaccion);
-            evento = await Actuacion.findByIdAndDelete(id);
+            evento = await Actuacion.findById(id);
+            await Actuacion.findByIdAndDelete(id);
+            await Transaccion.findByIdAndDelete(evento.transaccion);
         } else {
             evento = await Ensayo.findByIdAndDelete(id);
         }
