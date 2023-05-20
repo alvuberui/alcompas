@@ -1,20 +1,20 @@
 import { useEffect, useState } from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
-import { LoginPage, RegisterFrom, UpdateForm } from '../auth';
 import { NavBar, NavbarInvitado } from '../Components';
+import { LoginPage, RegisterFrom, UpdateForm } from '../auth';
 import { useAuthStore } from '../hooks';
 import { Inicial } from '../invitado';
 import { AdministrarBandas, AdministrarUsuarios, Menu } from '../modules/admin';
 import { Anuncios, BandaForm, Instrumentos, MisBandas, PerfilBanda, PrestamosBanda, RedesSociales, Transacciones, UpdateBandaForm, Vestimentas } from '../modules/banda';
 import { PanelDirectivo } from '../modules/banda/pages/PanelDirectivo';
 import { Dashboard } from '../modules/dashboard/Dashboard';
+import { Estadisticas } from '../modules/dashboard/Estadisticas';
 import { ActualizarEventoForm, CrearEventoForm, Eventos } from '../modules/eventos';
+import { AsistenciaEvento } from '../modules/eventos/pages/AsistenciaEvento';
+import { ContratarMusico } from '../modules/eventos/pages/ContratarMusico';
 import { Peticiones } from '../modules/peticiones/pages/Peticiones';
 import { PeticionesBanda } from '../modules/peticiones/pages/PeticionesBanda';
 import { Perfil, Prestamos } from '../modules/user';
-import { Estadisticas } from '../modules/dashboard/Estadisticas';
-import { AsistenciaEvento } from '../modules/eventos/pages/AsistenciaEvento';
-import { ContratarMusico } from '../modules/eventos/pages/ContratarMusico';
 
 export const AppRouter = () => {
   

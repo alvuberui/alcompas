@@ -1,6 +1,5 @@
 const express = require('express');
 const jwt = require('jsonwebtoken');
-const Directivo = require('../models/Directivo');
 const Repertorio = require('../models/Repertorio');
 const Archivero = require('../models/Archivero');
 const Obra = require('../models/Obra');
@@ -8,6 +7,9 @@ const Partitura = require('../models/Partitura');
 const path = require('path');
 const fs   = require('fs');
 
+/*
+    Crear una obra
+*/
 const crearObra = async(req, res = express.response) => {
     try {
         const obra = new Obra(req.body);
@@ -51,6 +53,9 @@ const crearObra = async(req, res = express.response) => {
     }
 }
 
+/*
+    Obtener obras por repertorio
+*/
 const obtenerByRepertorioId = async(req, res = express.response) => {
     try {
         const id = req.params.repertorioId;
@@ -70,6 +75,9 @@ const obtenerByRepertorioId = async(req, res = express.response) => {
     }
 }
 
+/*
+    Eliminar obra
+*/
 const eliminarObra = async(req, res = express.response) => {
     try {
         const id = req.params.id;

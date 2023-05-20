@@ -1,30 +1,35 @@
-const { Router }= require('express');
+const { Router } = require("express");
 const router = Router();
-const { check } = require('express-validator');
-const { validarJWT } = require('../middlewares/validar-jwt');
-const { validarCampos } = require('../middlewares/validar-campos');
-const { crearPartitura, verMisParituras, getPartituraById, eliminarPartitura } = require('../controllers/partituras');
-const { validarInstrumentos } = require('../middlewares/validar-instrumento');
-const { validarArchivoSubir } = require('../middlewares/validar-archivo');
-const { validarVoz } = require('../middlewares/validar-voz');
+const { check } = require("express-validator");
+const { validarJWT } = require("../middlewares/validar-jwt");
+const { validarCampos } = require("../middlewares/validar-campos");
+const {
+  crearPartitura,
+  verMisParituras,
+  getPartituraById,
+  eliminarPartitura,
+} = require("../controllers/partituras");
+const { validarArchivoSubir } = require("../middlewares/validar-archivo");
 
-    // Validar JWT
-router.use( validarJWT, validarCampos);
+// Validar JWT
+router.use(validarJWT, validarCampos);
 
-    // Craer repertorio
-router.post('/',
-    validarArchivoSubir,
-    crearPartitura);
+// Craer repertorio
+router.post("/", validarArchivoSubir, crearPartitura);
 
-    // Obtener partituras 
-router.get('/obra/:obraId', verMisParituras);
+// Obtener partituras
+router.get("/obra/:obraId", verMisParituras);
 
-router.get('/:partituraId', [
-    check('partituraId','El id debe de ser de mongo').isMongoId(),
-    validarCampos
-], getPartituraById)
+router.get(
+  "/:partituraId",
+  [
+    check("partituraId", "El id debe de ser de mongo").isMongoId(),
+    validarCampos,
+  ],
+  getPartituraById
+);
 
 // Eliminar partitura
-router.delete('/:partituraId', eliminarPartitura);
+router.delete("/:partituraId", eliminarPartitura);
 
 module.exports = router;
