@@ -8,6 +8,9 @@ const path = require('path');
 const fs   = require('fs');
 const jwt = require('jsonwebtoken');
 
+/*
+    Añadir foto de perfil
+*/
 const añadirFoto = async(req, res = express.response) => {
     try {
         const { usuarioId} = req.params;
@@ -55,6 +58,9 @@ const añadirFoto = async(req, res = express.response) => {
     }
 }
 
+/*
+    Mostrar imagen de usuario
+*/
 const mostrarImagenUsuario = async(req, res = response ) => {
     try {
         const { userId } = req.params;
@@ -88,6 +94,9 @@ const mostrarImagenUsuario = async(req, res = response ) => {
     }
 }
 
+/*
+    Añadir foto de banda
+*/
 const añadirFotoBanda = async(req, res = express.response) => {
     try {
         const { bandaId } = req.params;
@@ -136,6 +145,9 @@ const añadirFotoBanda = async(req, res = express.response) => {
     }
 }
 
+/*
+    Mostrar imagen de banda
+*/
 const mostrarImagenBanda = async(req, res = response ) => {
     try {
         const { bandaId } = req.params;

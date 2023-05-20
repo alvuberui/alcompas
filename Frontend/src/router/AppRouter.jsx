@@ -1,20 +1,20 @@
 import { useEffect, useState } from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
-import { LoginPage, RegisterFrom, UpdateForm } from '../auth';
 import { NavBar, NavbarInvitado } from '../Components';
+import { LoginPage, RegisterFrom, UpdateForm } from '../auth';
 import { useAuthStore } from '../hooks';
 import { Inicial } from '../invitado';
 import { AdministrarBandas, AdministrarUsuarios, Menu } from '../modules/admin';
-import { BandaForm, MisBandas, PerfilBanda, RedesSociales, Transacciones, UpdateBandaForm } from '../modules/banda';
+import { Anuncios, BandaForm, Instrumentos, MisBandas, PerfilBanda, PrestamosBanda, RedesSociales, Transacciones, UpdateBandaForm, Vestimentas } from '../modules/banda';
 import { PanelDirectivo } from '../modules/banda/pages/PanelDirectivo';
 import { Dashboard } from '../modules/dashboard/Dashboard';
-import { ActualizarEventoForm, CrearEventoForm, Eventos } from '../modules/eventos';
-import { Peticiones } from '../modules/peticiones/pages/Peticiones';
-import { PeticionesBanda } from '../modules/peticiones/pages/PeticionesBanda';
-import { Perfil } from '../modules/user';
 import { Estadisticas } from '../modules/dashboard/Estadisticas';
+import { ActualizarEventoForm, CrearEventoForm, Eventos } from '../modules/eventos';
 import { AsistenciaEvento } from '../modules/eventos/pages/AsistenciaEvento';
 import { ContratarMusico } from '../modules/eventos/pages/ContratarMusico';
+import { Peticiones } from '../modules/peticiones/pages/Peticiones';
+import { PeticionesBanda } from '../modules/peticiones/pages/PeticionesBanda';
+import { Perfil, Prestamos } from '../modules/user';
 
 export const AppRouter = () => {
   
@@ -48,6 +48,7 @@ export const AppRouter = () => {
                   <Route path="/peticiones/:id/*" element={ <Peticiones/>} />
                   <Route path="/modificar/:id/*" element={ <UpdateForm/>} />
                   <Route path="/bandas/:userId/*" element={ <MisBandas titulo='Mis Bandas'/>} />
+                  <Route path="/prestamos/:userId/*" element={ <Prestamos/>} />
 
                   <Route path="/peticiones/banda/:id/*" element={ <PeticionesBanda/>} />
                   <Route path="/bandas/actualizar/:bandaId" element={ <UpdateBandaForm/>} />
@@ -59,6 +60,10 @@ export const AppRouter = () => {
                   <Route path="/banda/panel/eventos/editar/:tipoEvento/:eventoId" element={ <ActualizarEventoForm/>} />
                   <Route path="/banda/panel/eventos/asistencia/:eventoId/:tipoEvento" element={ <AsistenciaEvento/>} />
                   <Route path="/banda/panel/eventos/asistencia/contratar/:eventoId/:tipoEvento" element={ <ContratarMusico/>} />
+                  <Route path="/banda/panel/instrumentos/:bandaId" element={ <Instrumentos/>} />
+                  <Route path="/banda/panel/vestimentas/:bandaId" element={ <Vestimentas/>} />
+                  <Route path="/banda/panel/prestamos/:bandaId" element={ <PrestamosBanda/>} />
+                  <Route path="/banda/panel/anuncios/:bandaId" element={ <Anuncios/>} />
 
                   <Route path="/admin" element={ <Menu/>} />
                   <Route path="/admin/usuarios" element={ <AdministrarUsuarios/>} />

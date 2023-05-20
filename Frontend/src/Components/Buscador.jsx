@@ -1,9 +1,9 @@
-import Autocomplete from '@mui/material/Autocomplete';
-import CircularProgress from '@mui/material/CircularProgress';
-import TextField from '@mui/material/TextField';
-import * as React from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useBandasStore } from '../hooks/useBandasStore';
+import Autocomplete from "@mui/material/Autocomplete";
+import CircularProgress from "@mui/material/CircularProgress";
+import TextField from "@mui/material/TextField";
+import * as React from "react";
+import { useNavigate } from "react-router-dom";
+import { useBandasStore } from "../hooks/useBandasStore";
 
 function sleep(delay = 0) {
   return new Promise((resolve) => {
@@ -11,7 +11,7 @@ function sleep(delay = 0) {
   });
 }
 
-export  function Buscador( { tipo, setBanda, fullwidth, freeSolo}) {
+export function Buscador({ tipo, setBanda, fullwidth, freeSolo }) {
   const [open, setOpen] = React.useState(false);
   const [options, setOptions] = React.useState([]);
   const loading = open && options.length === 0;
@@ -20,20 +20,18 @@ export  function Buscador( { tipo, setBanda, fullwidth, freeSolo}) {
 
   const handleChange = (event, values) => {
     event.preventDefault();
-    if(values !== null) {
-      if(tipo === 'admin') {
+    if (values !== null) {
+      if (tipo === "admin") {
         setBanda(values);
       } else {
-        if( typeof values === 'object') {
-          navigate('/buscar/' + values.nombre);
+        if (typeof values === "object") {
+          navigate("/buscar/" + values.nombre);
         } else {
-          navigate('/buscar/' + values);
+          navigate("/buscar/" + values);
         }
       }
     }
-    
-    
-  }
+  };
 
   React.useEffect(() => {
     let active = true;
@@ -64,14 +62,14 @@ export  function Buscador( { tipo, setBanda, fullwidth, freeSolo}) {
 
   return (
     <Autocomplete
-      aria-label='autocomplete'
+      aria-label="autocomplete"
       onChange={handleChange}
       freeSolo={freeSolo}
       autoComplete={false}
       autoHighlight={true}
       fullWidth={fullwidth}
       id="asynchronous-demo"
-      sx={{  backgroundColor: 'white', borderRadius: '5px', height: '50px' }}
+      sx={{ backgroundColor: "white", borderRadius: "5px", height: "50px" }}
       open={open}
       onOpen={() => {
         setOpen(true);
@@ -80,11 +78,12 @@ export  function Buscador( { tipo, setBanda, fullwidth, freeSolo}) {
         setOpen(false);
       }}
       isOptionEqualToValue={(option, value) => option.nombre === value.nombre}
-      getOptionLabel={(option) => option.nombre? option.nombre : "" }
+      getOptionLabel={(option) => (option.nombre ? option.nombre : "")}
       options={options}
       loading={loading}
       renderInput={(params) => (
-        <TextField aria-label='buscador'
+        <TextField
+          aria-label="buscador"
           variant="filled"
           {...params}
           label="Buscar banda..."
@@ -92,7 +91,9 @@ export  function Buscador( { tipo, setBanda, fullwidth, freeSolo}) {
             ...params.InputProps,
             endAdornment: (
               <React.Fragment>
-                {loading ? <CircularProgress color="inherit" size={20} /> : null}
+                {loading ? (
+                  <CircularProgress color="inherit" size={20} />
+                ) : null}
                 {params.InputProps.endAdornment}
               </React.Fragment>
             ),

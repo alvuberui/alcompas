@@ -17,7 +17,7 @@ const MusicoSchema = Schema({
     },
     voz: {
         type: String,
-        enum: ['Primero', 'Segundo', 'Tercero'],
+        enum: ['Principal', 'Primero', 'Segundo', 'Tercero'],
         required: true
     },
     fecha_final: {
