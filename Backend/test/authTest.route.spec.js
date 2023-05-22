@@ -86,6 +86,8 @@ describe('Pruebas sobre la API de auth', () => {
             uid = response.body.uid;
         });
 
+       
+
         /*
         * Prueba para actualizar datos de usuario
         */
@@ -128,6 +130,26 @@ describe('Pruebas sobre la API de auth', () => {
            
             expect(response.status).toBe(200);
             expect(response.body.usuario.nombre).toBe("TestUpdate");
+        });
+
+        /*
+        * Obtener usuario a través de su nombre de usuario
+        */
+        test('Obtener usuario por su nombre de usuario', async() => {
+            const response = await request( app ).get('/api/auth/getByUsername/Test')
+                .set('x-token', token);
+            expect(response.status).toBe(200);
+            expect(response.body.usuario[0].nombre).toBe("TestUpdate");
+        });
+
+        /*
+        * Obtener todas las localidades
+        */
+        test('Obtener todas las localidades', async() => {
+            const response = await request( app ).get('/api/auth/todas/localidades')
+                .set('x-token', token);
+            expect(response.status).toBe(200);
+            expect(response.body.localidades.length).toBe(2);
         });
 
         /*
@@ -257,6 +279,20 @@ describe('Pruebas sobre la API de auth', () => {
             const response = await request( app ).delete('/api/auth/admin/' + uid ).set('x-token', tokenIncorrecto);
      
             expect(response.status).toBe(401);
+        });
+
+        test('Crear usuario menor de 12 años' , async() => {
+            let menor = newUser;
+            menor.fecha_nacimiento = "2020-01-01";
+            const response = await request( app ).post('/api/auth/register').send(menor);
+            expect(response.status).toBe(400);
+        });
+
+        test('Editar usuario menor de 12 años' , async() => {
+            let menor = newUser;
+            menor.fecha_nacimiento = "2020-01-01";
+            const response = await request( app ).put('/api/auth/update/' + uid).send(menor).set('x-token', token);
+            expect(response.status).toBe(400);
         });
 
         afterAll(async() => {

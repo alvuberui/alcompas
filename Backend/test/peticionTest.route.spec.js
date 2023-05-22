@@ -93,6 +93,22 @@ describe("Tests sobre la api de peticiones", () => {
             expect(response.statusCode).toBe(201);
         });
 
+        test("Crear peticion archivero y Aceptar petición", async () => {
+            const newPeticion2 = {
+                "fecha": "1999-01-01",
+                "mensaje": "Mensaje de prueba"
+            }
+            newPeticion2.directivo = directivoId;
+            newPeticion2.banda = bandaId;
+            newPeticion2.usuario = uid;
+            newPeticion2.rol = "Archivero";
+
+            const response1 = await request(app).post('/api/peticiones').send(newPeticion2).set('x-token', token);
+            expect(response1.statusCode).toBe(200);
+            const response = await request(app).put('/api/peticiones/rechazar/' + response1.body.peticion._id + '/' + uid).set('x-token', token);
+            expect(response.statusCode).toBe(201);
+        });
+
         test("Rechazar petición", async () => {
             const pet = { "mensaje": "Mensaje de prueba", "fecha": "1999-01-01", "rol": "Archivero", "banda": bandaId, "directivo": directivoId, "usuario": uid};
             const response = await request(app).post('/api/peticiones').send(pet).set('x-token', token);
@@ -176,6 +192,35 @@ describe("Tests sobre la api de peticiones", () => {
             const response = await request(app).post('/api/peticiones').send(pet).set('x-token', token);
      
             expect(response.statusCode).toBe(400);
+        });
+
+        test("Crear petición inválida", async () => {
+            const pet = { "mensaje": "Mensaje de prueba", "fecha": "1999-01-01", "rol": "Músico", "banda": bandaId, "directivo": directivoId, "usuario": uid};
+            const response = await request(app).post('/api/peticiones').send(pet).set('x-token', token);
+     
+            expect(response.statusCode).toBe(400);
+        });
+
+        test("Crear petición inválida", async () => {
+            const pet = { "mensaje": "Mensaje de prueba", "fecha": "1999-01-01", "rol": "Directivo", "cargo": "Presidente", "banda": bandaId, "directivo": directivoId, "usuario": uid};
+            const response = await request(app).post('/api/peticiones').send(pet).set('x-token', token);
+            expect(response.statusCode).toBe(400);
+
+            const pet2 = { "mensaje": "Mensaje de prueba", "fecha": "1999-01-01", "rol": "dasda", "banda": bandaId, "directivo": directivoId, "usuario": uid};
+            const response2 = await request(app).post('/api/peticiones').send(pet2).set('x-token', token);
+            expect(response2.statusCode).toBe(400);
+
+            const pet3 = { "mensaje": "Mensaje de prueba", "fecha": "1999-01-01", "rol": "Directivo", "cargo": "fsdfsd", "banda": bandaId, "directivo": directivoId, "usuario": uid};
+            const response3 = await request(app).post('/api/peticiones').send(pet3).set('x-token', token);
+            expect(response3.statusCode).toBe(400);
+
+            const pet4 = { "instrumento": "sfsd", "mensaje": "Mensaje de prueba", "fecha": "1999-01-01", "rol": "Directivo", "cargo": "Presidente", "banda": bandaId, "directivo": directivoId, "usuario": uid};
+            const response4 = await request(app).post('/api/peticiones').send(pet4).set('x-token', token);
+            expect(response4.statusCode).toBe(400);
+
+            const voz = { "voz": "wgweg", "mensaje": "Mensaje de prueba", "fecha": "1999-01-01", "rol": "Directivo", "cargo": "Presidente", "banda": bandaId, "directivo": directivoId, "usuario": uid};
+            const response5 = await request(app).post('/api/peticiones').send(voz).set('x-token', token);
+            expect(response5.statusCode).toBe(400);
         });
 
         afterAll(async () => {

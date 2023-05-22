@@ -26,7 +26,7 @@ const crearProcesion = async (req, res = express.response) => {
     const payloadId = payload.uid;
 
     // Comprobar que el directivo pertenece a la banda
-    const directivos = Directivo.find({
+    const directivos = await  Directivo.find({
       usuario: payloadId,
       banda: procesion.banda,
       fecha_final: undefined,
@@ -123,7 +123,7 @@ const actualizarProcesion = async (req, res = express.response) => {
     const payloadId = payload.uid;
 
     // Comprobar que el directivo pertenece a la banda
-    const directivos = Directivo.find({
+    const directivos = await Directivo.find({
       usuario: payloadId,
       banda: procesion.banda,
       fecha_final: undefined,
@@ -202,7 +202,8 @@ const actualizarProcesion = async (req, res = express.response) => {
 
     const procesionDB = await Procesion.findByIdAndUpdate(
       procesionId,
-      procesion
+      procesion,
+      { new: true }
     );
 
     res.json({
@@ -233,7 +234,7 @@ const crearActuacion = async (req, res = express.response) => {
     const payloadId = payload.uid;
 
     // Comprobar que el directivo pertenece a la banda
-    const directivos = Directivo.find({
+    const directivos = await Directivo.find({
       usuario: payloadId,
       banda: actuacion.banda,
       fecha_final: undefined,
@@ -252,7 +253,6 @@ const crearActuacion = async (req, res = express.response) => {
         msg: "La fecha de finalización debe ser mayor a la fecha de inicio",
       });
     }
-
     if (actuacion.fechaInicio < actuacion.fechaSalida) {
       return res.status(400).json({
         ok: false,
@@ -264,7 +264,7 @@ const crearActuacion = async (req, res = express.response) => {
     let transaccion = {};
     const cantidad = actuacion.beneficios - actuacion.costes;
     if (cantidad > 0) {
-      transaccion = new Transaccion({
+      transaccion =  new Transaccion({
         cantidad: cantidad,
         motivo: actuacion.titulo,
         descripcion:
@@ -282,7 +282,7 @@ const crearActuacion = async (req, res = express.response) => {
         banda: actuacion.banda,
       });
     } else {
-      transaccion = new Transaccion({
+      transaccion =  new Transaccion({
         cantidad: cantidad,
         motivo: actuacion.titulo,
         descripcion:
@@ -330,7 +330,7 @@ const actualizarActuacion = async (req, res = express.response) => {
     const payloadId = payload.uid;
 
     // Comprobar que el directivo pertenece a la banda
-    const directivos = Directivo.find({
+    const directivos = await Directivo.find({
       usuario: payloadId,
       banda: actuacion.banda,
       fecha_final: undefined,
@@ -378,7 +378,7 @@ const actualizarActuacion = async (req, res = express.response) => {
         banda: actuacion.banda,
       });
       transaccion._id = actuacion.transaccion;
-      await Transaccion.findByIdAndUpdate(actuacion.transaccion, transaccion);
+      await Transaccion.findByIdAndUpdate(actuacion.transaccion, transaccion, { new: true });
     } else {
       transaccion = new Transaccion({
         cantidad: cantidad,
@@ -402,7 +402,8 @@ const actualizarActuacion = async (req, res = express.response) => {
     }
     const actuacionDB = await Actuacion.findByIdAndUpdate(
       actuacionId,
-      actuacion
+      actuacion,
+      { new: true }
     );
 
     res.json({
@@ -432,7 +433,7 @@ const crearEnsayo = async (req, res = express.response) => {
     const payloadId = payload.uid;
 
     // Comprobar que el directivo pertenece a la banda
-    const directivos = Directivo.find({
+    const directivos = await Directivo.find({
       usuario: payloadId,
       banda: ensayo.banda,
       fecha_final: undefined,
@@ -480,7 +481,7 @@ const actualizarEnsayo = async (req, res = express.response) => {
     const payloadId = payload.uid;
 
     // Comprobar que el directivo pertenece a la banda
-    const directivos = Directivo.find({
+    const directivos = await Directivo.find({
       usuario: payloadId,
       banda: ensayo.banda,
       fecha_final: undefined,
@@ -500,7 +501,7 @@ const actualizarEnsayo = async (req, res = express.response) => {
       });
     }
 
-    const ensayoDB = await Ensayo.findByIdAndUpdate(ensayoId, ensayo);
+    const ensayoDB = await Ensayo.findByIdAndUpdate(ensayoId, ensayo, { new: true });
 
     res.json({
       ok: true,
@@ -684,17 +685,61 @@ const eliminarEvento = async (req, res = express.response) => {
     const tipo = req.params.tipo;
     const id = req.params.id;
     let evento = undefined;
+
+    //Comprobamos si es directivo
+    const token = req.header("x-token");
+    const payload = jwt.verify(token, process.env.SECRET_JWT_SEED);
+    const payloadId = payload.uid;
+
+
     if (tipo === "Procesión") {
       evento = await Procesion.findById(id);
+      const directivos = await Directivo.find({
+        usuario: payloadId,
+        banda: evento.banda,
+        fecha_final: undefined,
+      });
+      if (directivos.length == 0) {
+        return res.status(400).json({
+          ok: false,
+          msg: "No tiene permisos para eliminar esta procesión",
+        });
+      }
       await Procesion.findByIdAndDelete(id);
       await Transaccion.findByIdAndDelete(evento.transaccion);
     } else if (tipo === "Actuación") {
       evento = await Actuacion.findById(id);
+      const directivos = await Directivo.find({
+        usuario: payloadId,
+        banda: evento.banda,
+        fecha_final: undefined,
+      });
+      if (directivos.length == 0) {
+        return res.status(400).json({
+          ok: false,
+          msg: "No tiene permisos para eliminar esta procesión",
+        });
+      }
       await Actuacion.findByIdAndDelete(id);
       await Transaccion.findByIdAndDelete(evento.transaccion);
     } else {
+      evento = await Ensayo.findById(id);
+      const directivos = await Directivo.find({
+        usuario: payloadId,
+        banda: evento.banda,
+        fecha_final: undefined,
+      });
+      if (directivos.length == 0) {
+        return res.status(400).json({
+          ok: false,
+          msg: "No tiene permisos para eliminar esta procesión",
+        });
+      }
       evento = await Ensayo.findByIdAndDelete(id);
     }
+
+
+
     await Contratado.deleteMany({ evento: id });
     await Asistencia.deleteMany({ evento: id });
     await Like.deleteMany({ referencia: id });

@@ -16,7 +16,7 @@ const crearVestimenta = async (req, res = express.response) => {
     const payloadId = payload.uid;
 
     // Comprobar que es directivo de la banda
-    const directivos = await Directivo.findOne({
+    const directivos = await Directivo.find({
       usuario: payloadId,
       banda: vestimenta.banda,
       fecha_final: undefined,
@@ -54,7 +54,7 @@ const getTodasVestimentasByBanda = async (req, res = express.response) => {
     const payload = jwt.verify(token, process.env.SECRET_JWT_SEED);
     const payloadId = payload.uid;
 
-    const directivos = await Directivo.findOne({
+    const directivos = await Directivo.find({
       usuario: payloadId,
       banda: banda,
       fecha_final: undefined,
@@ -93,7 +93,7 @@ const editarVestimenta = async (req, res = express.response) => {
     const payloadId = payload.uid;
 
     // Comprobar que es directivo de la banda
-    const directivos = await Directivo.findOne({
+    const directivos = await Directivo.find({
       usuario: payloadId,
       banda: vestimenta.banda,
       fecha_final: undefined,
@@ -135,7 +135,7 @@ const eliminarVestimenta = async (req, res = express.response) => {
     const payloadId = payload.uid;
 
     // Comprobar que es directivo de la banda
-    const directivos = await Directivo.findOne({
+    const directivos = await Directivo.find({
       usuario: payloadId,
       banda: vestimenta.banda,
       fecha_final: undefined,

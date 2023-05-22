@@ -11,6 +11,13 @@ describe('Pruebas sobre la API de instrumeto', () => {
         "usuario": "Test",
     }
 
+    const newInstrumentoBanda = {
+        "modelo": "Test",
+        "instrumento": "Trompeta",
+        "marca": "Test",
+        "numeroSerie": "Test",
+    }
+
     const newUser = {
         "nombre": "Test",
         "primer_apellido": "Test",
@@ -28,20 +35,169 @@ describe('Pruebas sobre la API de instrumeto', () => {
         "contraseña": "asdf1234"
     }
 
+    const newBanda = {
+        "nombre": "TestBanda",
+        "tipo": "Agrupación Musical",
+        "localidad": "TestBanda",
+        "provincia": "TestBanda",
+        "codigo_postal": 41400,
+        "direccion": "TestBanda",
+        "año_fundacion": 1999,
+        "descripcion": "TestBanda",
+        "telefono": 111222333,
+        "correo": "testbanda2@gmail.com",
+        "cif": "G01536622",
+    }
 
-    describe('Casos positivos de instrumento', () => {
+    describe('Casos positivos de instrumento para banda', () => {
 
         let token = "";
         let uid = "";
 
         let instrumentoId = "";
 
-
         beforeAll(async () => {
-            const response = await request(app).post('/api/auth/register').send(newUser);
+            await request(app).post('/api/auth/register').send(newUser);
             const loginReponse = await request(app).post('/api/auth').send({"correo": "test@test.com", "contraseña": "asdf1234"});
             token = loginReponse.body.token;
             uid = loginReponse.body.uid;
+            
+        });
+
+        test("Crear instrumento banda", async () => {
+            const response = await request(app).post('/api/bandas').send(newBanda).set('x-token', token);
+           expect(response.statusCode).toBe(201);
+            bandaId = response.body.nueva_banda._id;
+            newInstrumentoBanda.banda = bandaId;
+            
+            const response2 = await request(app).post('/api/instrumentos/banda').send(newInstrumentoBanda).set('x-token', token);
+            expect(response2.statusCode).toBe(200);
+            expect(response2.body.instrumentoDB).toHaveProperty('modelo');
+        
+            const eliminar = await request(app).delete('/api/bandas/' + bandaId).set('x-token', token);
+            expect(eliminar.statusCode).toBe(201);
+
+            const response5 = await request(app).delete('/api/auth/' + uid).set('x-token', token);
+            expect(response5.statusCode).toBe(200);
+            
+        });
+
+        test("Obtener todos los instrumentos de una banda", async () => {
+            const response1 = await request(app).post('/api/bandas').send(newBanda).set('x-token', token);
+           
+            bandaId = response1.body.nueva_banda._id;
+            newInstrumentoBanda.banda = bandaId;
+            
+            const response2 = await request(app).post('/api/instrumentos/banda').send(newInstrumentoBanda).set('x-token', token);
+            const isntrumentoBandaId = response2.body.instrumentoDB._id;
+            const response = await request(app).get('/api/instrumentos/banda/' + bandaId).set('x-token', token);
+            const lista = response.body.instrumentos;
+            expect(response.statusCode).toBe(200);
+            expect(lista.length).toBeGreaterThan(0);
+            const eliminar = await request(app).delete('/api/bandas/' + bandaId).set('x-token', token);
+            expect(eliminar.statusCode).toBe(201);
+
+            const response5 = await request(app).delete('/api/auth/' + uid).set('x-token', token);
+            expect(response5.statusCode).toBe(200);
+            
+        });
+
+        test("Editar instrumento banda", async () => {
+            const response1 = await request(app).post('/api/bandas').send(newBanda).set('x-token', token);
+           
+            bandaId = response1.body.nueva_banda._id;
+            newInstrumentoBanda.banda = bandaId;
+            
+            const response2 = await request(app).post('/api/instrumentos/banda').send(newInstrumentoBanda).set('x-token', token);
+            const isntrumentoBandaId = response2.body.instrumentoDB._id;
+            newInstrumentoBanda.banda = bandaId;
+            newInstrumentoBanda.instrumento = "Clarinete";
+            const response = await request(app).put('/api/instrumentos/banda/' + isntrumentoBandaId).send(newInstrumentoBanda).set('x-token', token);
+            
+            expect(response.statusCode).toBe(200);
+            expect(response.body.instrumentoActualizado.instrumento).toBe("Clarinete");
+            const eliminar = await request(app).delete('/api/bandas/' + bandaId).set('x-token', token);
+            expect(eliminar.statusCode).toBe(201);
+
+            const response5 = await request(app).delete('/api/auth/' + uid).set('x-token', token);
+            expect(response5.statusCode).toBe(200);
+            
+        });
+
+        test("Eliminar instrumento banda", async () => {
+            const response1 = await request(app).post('/api/bandas').send(newBanda).set('x-token', token);
+           
+            bandaId = response1.body.nueva_banda._id;
+            newInstrumentoBanda.banda = bandaId;
+            
+            const response2 = await request(app).post('/api/instrumentos/banda').send(newInstrumentoBanda).set('x-token', token);
+            const isntrumentoBandaId = response2.body.instrumentoDB._id;
+            newInstrumentoBanda.banda = bandaId;
+            newInstrumentoBanda.instrumento = "Clarinete";
+            const response = await request(app).delete('/api/instrumentos/banda/' + isntrumentoBandaId).set('x-token', token);
+            
+            expect(response.statusCode).toBe(200);
+            const eliminar = await request(app).delete('/api/bandas/' + bandaId).set('x-token', token);
+            expect(eliminar.statusCode).toBe(201);
+
+            const response5 = await request(app).delete('/api/auth/' + uid).set('x-token', token);
+            expect(response5.statusCode).toBe(200);
+            
+        });
+
+        test("Listar todos los instrumentos prestados", async () => {
+            const response1 = await request(app).post('/api/bandas').send(newBanda).set('x-token', token);
+           
+            const bandaId = response1.body.nueva_banda._id;
+            newInstrumentoBanda.banda = bandaId;
+            await request(app).post('/api/instrumentos/banda').send(newInstrumentoBanda).set('x-token', token);
+
+            const response = await request(app).get('/api/instrumentos/banda/prestados/' + bandaId).set('x-token', token);
+            expect(response.statusCode).toBe(200);
+            expect(response.body.instrumentos.length).toBe(0);
+
+            const eliminar = await request(app).delete('/api/bandas/' + bandaId).set('x-token', token);
+            expect(eliminar.statusCode).toBe(201);
+
+            const response5 = await request(app).delete('/api/auth/' + uid).set('x-token', token);
+            expect(response5.statusCode).toBe(200);
+            
+        });
+
+        test("Listar todos los instrumentos sin prestar", async () => {
+            const response1 = await request(app).post('/api/bandas').send(newBanda).set('x-token', token);
+           
+            const bandaId = response1.body.nueva_banda._id;
+            newInstrumentoBanda.banda = bandaId;
+            await request(app).post('/api/instrumentos/banda').send(newInstrumentoBanda).set('x-token', token);
+
+            const response = await request(app).get('/api/instrumentos/banda/sinprestar/' + bandaId).set('x-token', token);
+            expect(response.statusCode).toBe(200);
+            expect(response.body.instrumentos.length).toBe(1);
+
+            const eliminar = await request(app).delete('/api/bandas/' + bandaId).set('x-token', token);
+            expect(eliminar.statusCode).toBe(201);
+
+            const response5 = await request(app).delete('/api/auth/' + uid).set('x-token', token);
+            expect(response5.statusCode).toBe(200);
+            
+        });
+
+      
+    });
+
+
+    describe('Casos positivos de instrumento', () => {
+
+        
+
+
+        beforeAll(async () => {
+            await request(app).post('/api/auth/register').send(newUser);
+            const loginReponse = await request(app).post('/api/auth').send({"correo": "test@test.com", "contraseña": "asdf1234"});
+            token = loginReponse.body.token;
+            uid = loginReponse.body.uid;
+            
         });
             
 
@@ -54,14 +210,7 @@ describe('Pruebas sobre la API de instrumeto', () => {
             instrumentoId = response.body.instrumentoGuardado._id;
         });
 
-        test("Editar instrumento", async () => {
-            newInstrumento.usuario = uid;
-            newInstrumento.instrumento = "Tuba";
-            const response = await request(app).put('/api/instrumentos/usuario/' + instrumentoId).send(newInstrumento).set('x-token', token);
-            
-            expect(response.statusCode).toBe(200);
-            expect(response.body.instrumentoActualizado.instrumento).toBe("Tuba");
-        });
+        
 
         test("Editar instrumento", async () => {
             newInstrumento.usuario = uid;
@@ -71,6 +220,7 @@ describe('Pruebas sobre la API de instrumeto', () => {
             expect(response.statusCode).toBe(200);
             expect(response.body.instrumentoActualizado.instrumento).toBe("Tuba");
         });
+
 
         test("Obtener instrumento por su id", async () => {
             const response = await request(app).get('/api/instrumentos/instrumentosById/' + instrumentoId).set('x-token', token);
@@ -93,7 +243,8 @@ describe('Pruebas sobre la API de instrumeto', () => {
         });
 
         beforeAll(async () => {
-            await request(app).delete('/api/auth/' + uid).set('x-token', token);
+            const response = await request(app).delete('/api/auth/' + uid).set('x-token', token);
+            expect(response.statusCode).toBe(200);
         });
     });
 
@@ -157,6 +308,29 @@ describe('Pruebas sobre la API de instrumeto', () => {
             
             expect(response.statusCode).toBe(404);
         });
+
+        test("Crear instrumento con datos inválidos", async () => {
+            newInstrumento.usuario = uid;
+            newInstrumento.instrumento = "asdasd";
+            const response = await request(app).post('/api/instrumentos/usuario').send(newInstrumento).set('x-token', token);
+            expect(response.statusCode).toBe(400);
+
+            const response2 = await request(app).post('/api/instrumentos/banda').send(newInstrumento).set('x-token', token);
+            expect(response2.statusCode).toBe(400);
+        });
+
+        test("Editar instrumento con datos inválidos", async () => {
+            newInstrumento.usuario = uid;
+            newInstrumento.instrumento = "asdasd";
+            const response = await request(app).put('/api/instrumentos/usuario/' + instrumentoId).send(newInstrumento).set('x-token', token);
+            expect(response.statusCode).toBe(400);
+
+            const response2 = await request(app).put('/api/instrumentos/banda/' + instrumentoId).send(newInstrumento).set('x-token', token);
+            expect(response2.statusCode).toBe(400);
+            
+        });
+
+
 
         afterAll(async () => {
             const response = await request(app).delete('/api/instrumentos/' + instrumentoId).set('x-token', token);

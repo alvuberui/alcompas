@@ -4,27 +4,6 @@ const Directivo = require("../models/Directivo");
 const jwt = require("jsonwebtoken");
 
 /*
-* Finalizar un archivero
-*/
-const eliminarArchiveros = async (req, res = express.response) => {
-  const usuarioId = req.params.id;
-  try {
-    const archivero = await Archivero.deleteMany({ usuario: usuarioId });
-
-    return res.status(201).json({
-      ok: true,
-      archivero,
-    });
-  } catch (error) {
-    console.log(error);
-    res.status(500).json({
-      ok: false,
-      msg: "Por favor hable con el administrador.",
-    });
-  }
-};
-
-/*
 * Obtener todos los roles de archiveros de un usuario
 */
 const getArchiveroByUserId = async (req, res = express.response) => {
@@ -172,7 +151,6 @@ const finalizarArchivero = async (req, res = express.response) => {
 
 module.exports = {
   finalizarArchivero,
-  eliminarArchiveros,
   getArchiveroByUserId,
   esArchiveroByBandaId,
   obtenerArchiverosByBanda,

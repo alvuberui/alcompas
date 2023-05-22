@@ -154,6 +154,28 @@ describe('Pruebas sobre la API de estudios', () => {
             expect(response.statusCode).toBe(400);
         });
 
+        test("Crear estudios con valores invalidos", async () => {
+            newEstudio.tipoEstudio = "fwefwefwe";
+            const response = await request(app).post('/api/estudios').send(newEstudio).set('x-token', token);
+            expect(response.statusCode).toBe(400);
+
+            newEstudio.tipoEstudio = "Grado elemental";
+            newEstudio.fechaInicio = "2032-01-01";
+            const response2 = await request(app).post('/api/estudios').send(newEstudio).set('x-token', token);
+            expect(response2.statusCode).toBe(400);
+        });
+
+        test("Editar estudios con valores invalidos", async () => {
+            newEstudio.tipoEstudio = "fwefwefwe";
+            const response = await request(app).put('/api/estudios/'+ estudioId).send(newEstudio).set('x-token', token);
+            expect(response.statusCode).toBe(400);
+
+            newEstudio.tipoEstudio = "Grado elemental";
+            newEstudio.fechaInicio = "2032-01-01";
+            const response2 = await request(app).put('/api/estudios/'+ estudioId).send(newEstudio).set('x-token', token);
+            expect(response2.statusCode).toBe(400);
+        });
+
 
         afterAll(async () => {
             await request(app).delete('/api/auth/' + uid).set('x-token', token);

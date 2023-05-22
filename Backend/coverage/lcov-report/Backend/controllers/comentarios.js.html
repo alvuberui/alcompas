@@ -145,13 +145,14 @@
 <a name='L80'></a><a href='#L80'>80</a>
 <a name='L81'></a><a href='#L81'>81</a>
 <a name='L82'></a><a href='#L82'>82</a>
-<a name='L83'></a><a href='#L83'>83</a>
-<a name='L84'></a><a href='#L84'>84</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">10x</span>
-<span class="cline-any cline-yes">10x</span>
-<span class="cline-any cline-yes">10x</span>
+<a name='L83'></a><a href='#L83'>83</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">23x</span>
+<span class="cline-any cline-yes">23x</span>
+<span class="cline-any cline-yes">23x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">10x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">23x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -168,15 +169,15 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">23x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -188,8 +189,10 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">10x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">23x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
@@ -205,7 +208,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -220,106 +222,101 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">23x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">10x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">const express = require('express');
-const Comentario = require('../models/Comentario');
-const jwt = require('jsonwebtoken');
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">const express = require("express");
+const Comentario = require("../models/Comentario");
+const jwt = require("jsonwebtoken");
 &nbsp;
-const getComentarioByBandaId = async(req, res = <span class="branch-0 cbranch-no" title="branch not covered" >express.response)</span> =&gt; {
-    
-    try {
-        const bandaId = req.params.bandaId;
-        const comentarios = await Comentario.find({'banda': bandaId});
-        res.json({
-            ok: true,
-            comentarios
-        });
-    } catch (error) {
-<span class="cstat-no" title="statement not covered" >        res.status(500).json({</span>
-            ok: false, 
-            msg: 'Por favor hable con el administrador'
-        });
+/*
+ *  Obtener comentarios por banda
+ */
+const getComentarioByBandaId = async (req, res = <span class="branch-0 cbranch-no" title="branch not covered" >express.response)</span> =&gt; {
+  try {
+    const bandaId = req.params.bandaId;
+    const comentarios = await Comentario.find({ banda: bandaId });
+    res.json({
+      ok: true,
+      comentarios,
+    });
+  } catch (error) {
+<span class="cstat-no" title="statement not covered" >    res.status(500).json({</span>
+      ok: false,
+      msg: "Por favor hable con el administrador",
+    });
+  }
+};
+&nbsp;
+/*
+ *  Crear comentario
+ */
+const crearComentario = async (req, res = <span class="branch-0 cbranch-no" title="branch not covered" >express.response)</span> =&gt; {
+  try {
+    const comentario = new Comentario(req.body);
+    comentario.fecha = new Date();
+    const nuevoComentario = await comentario.save();
+&nbsp;
+    res.json({
+      ok: true,
+      nuevoComentario,
+    });
+  } catch (error) {
+<span class="cstat-no" title="statement not covered" >    res.status(500).json({</span>
+      ok: false,
+      msg: "Por favor hable con el administrador",
+    });
+  }
+};
+&nbsp;
+/*
+ *  Eliminar comentario
+ */
+const eliminarComentario = async (req, res = <span class="branch-0 cbranch-no" title="branch not covered" >express.response)</span> =&gt; {
+  try {
+    const c = req.params.comentarioId;
+    const comentario = await Comentario.findById(req.params.comentarioId);
+    // Validar que el usuario es directivo de la banda
+    const token = req.header("x-token");
+    const payload = jwt.verify(token, process.env.SECRET_JWT_SEED);
+    const payloadId = payload.uid;
+&nbsp;
+    if (comentario.usuario != payloadId) {
+      return res.status(400).json({
+        ok: false,
+        msg: "No tiene permisos para eliminar este comentario",
+      });
     }
-    
-}
 &nbsp;
-const crearComentario = async(req, res = <span class="branch-0 cbranch-no" title="branch not covered" >express.response)</span> =&gt; {
-    try {
-        
-        const  comentario = new Comentario(req.body);
-        comentario.fecha = new Date();
-        const nuevoComentario = await comentario.save();
-&nbsp;
-        res.json({
-            ok: true,
-            nuevoComentario
-        });
-&nbsp;
-    } catch (error) {
-<span class="cstat-no" title="statement not covered" >        res.status(500).json({</span>
-            ok: false, 
-            msg: 'Por favor hable con el administrador'
-        });
-    }
-}
-&nbsp;
-const eliminarComentario = async(req, res = <span class="branch-0 cbranch-no" title="branch not covered" >express.response)</span> =&gt; {
-&nbsp;
-    try {
-        const c= req.params.comentarioId;
-        const comentario = await Comentario.findById(req.params.comentarioId);
-        // Validar que el usuario es directivo de la banda
-        const token = req.header('x-token');
-        const payload = jwt.verify(token,process.env.SECRET_JWT_SEED);
-        const payloadId = payload.uid;
-&nbsp;
-        if(comentario.usuario != payloadId) {
-            return res.status(400).json({
-                ok: false,
-                msg: 'No tiene permisos para eliminar este comentario'
-            });
-        }
-&nbsp;
-        
-        await comentario.remove();
-        res.json({
-            ok: true,
-            msg: 'Comentario eliminado',
-            comentario
-        });
-    } catch (error) {
-<span class="cstat-no" title="statement not covered" >        res.status(500).json({</span>
-            ok: false, 
-            msg: 'Por favor hable con el administrador'
-        });
-    }
-}
-&nbsp;
-&nbsp;
-&nbsp;
-&nbsp;
-&nbsp;
+    await comentario.remove();
+    res.json({
+      ok: true,
+      msg: "Comentario eliminado",
+      comentario,
+    });
+  } catch (error) {
+<span class="cstat-no" title="statement not covered" >    res.status(500).json({</span>
+      ok: false,
+      msg: "Por favor hable con el administrador",
+    });
+  }
+};
 &nbsp;
 module.exports = {
-    getComentarioByBandaId,
-    crearComentario,
-    eliminarComentario
-}</pre></td></tr></table></pre>
+  getComentarioByBandaId,
+  crearComentario,
+  eliminarComentario,
+};
+&nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
             </div><!-- /wrapper -->
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2023-02-25T10:16:04.595Z
+                at 2023-05-22T20:05:38.198Z
             </div>
         <script src="../../prettify.js"></script>
         <script>

@@ -17,8 +17,15 @@ const Actuacion = require("../models/Actuacion");
 const Ensayo = require("../models/Ensayo");
 const Procesion = require("../models/Procesion");
 const Repertorio = require("../models/Repertorio");
-const Instrumento = require("../models/Prestamo");
+const Instrumento = require("../models/Instrumento");
 const Vestimenta = require("../models/Vestimenta");
+const mongoose = require("mongoose");
+const Contratado = require("../models/Contratado");
+const Prestamo = require("../models/Prestamo");
+const Obra = require("../models/Obra");
+const Partitura = require("../models/Partitura");
+const Asistencia = require("../models/Asistencia");
+
 
 /*
  * Crear una banda
@@ -228,9 +235,68 @@ const eliminar_banda = async (req, res = express.response) => {
       }
     }
 
+
     // Eliminamos todas las composiciones de la banda
     const redes = await RedSocial.find({ banda: bandaId });
     const comentarios = await Comentario.find({ banda: bandaId });
+
+    //Eliminar todas las asistencias de los eventos de la banda y sus contratados
+    const procesiones = await Procesion.find({ banda: bandaId });
+    const actuaciones = await Actuacion.find({ banda: bandaId });
+    const ensayos = await Ensayo.find({ banda: bandaId });
+
+    for (i = 0; i < procesiones.length; i++) {
+      let procesion = procesiones[i];
+      await Asistencia.deleteMany({ referencia: procesion._id });
+      await Contratado.deleteMany({ referencia: procesion._id });
+    }
+
+    for (i = 0; i < actuaciones.length; i++) {
+      let actuacion = actuaciones[i];
+      await Asistencia.deleteMany({ referencia: actuacion._id });
+      await Contratado.deleteMany({ referencia: actuacion._id });
+    }
+
+    for (i = 0; i < ensayos.length; i++) {
+      let ensayo = ensayos[i];
+      await Asistencia.deleteMany({ referencia: ensayo._id });
+      await Contratado.deleteMany({ referencia: ensayo._id });
+    }
+
+    // Eliminamos todos los prestamos de vestimentas y de instrumentos de la banda
+    const instrumentos = await Instrumento.find({ banda: bandaId });
+    const vestimentas = await Vestimenta.find({ banda: bandaId });
+
+    for (i = 0; i < instrumentos.length; i++) {
+      let instrumento = instrumentos[i];
+      await Prestamo.deleteMany({ referencia: instrumento._id });
+    }
+
+    for (i = 0; i < vestimentas.length; i++) {
+      let vestimenta = vestimentas[i];
+      await Prestamo.deleteMany({ referencia: vestimenta._id });
+    }
+
+    // Eliminar todas las obras y sus partituras 
+    const repertorios = await Repertorio.find({ banda: bandaId });
+
+    for (i = 0; i < repertorios.length; i++) {
+      let repertorio = repertorios[i];
+      const obras = await Obra.find({ repertorio: repertorio._id });
+      for (j = 0; j < obras.length; j++) {
+        let obra = obras[j];
+        const partituras = await Partitura.find({ obra: obra._id });
+        for (k = 0; k < partituras.length; k++) {
+          let partitura = partituras[k];
+          await partitura.remove();
+        }
+        await obra.remove();
+      }
+      await repertorio.remove();
+    }
+
+
+
     await Like.deleteMany({ banda: bandaId });
     await Transaccion.deleteMany({ banda: bandaId });
     await Noticia.deleteMany({ banda: bandaId });
@@ -240,6 +306,7 @@ const eliminar_banda = async (req, res = express.response) => {
     await Repertorio.deleteMany({ banda: bandaId });
     await Instrumento.deleteMany({ banda: bandaId });
     await Vestimenta.deleteMany({ banda: bandaId });
+    await Peticion.deleteMany({ banda: bandaId });
 
     for (i = 0; i < redes.length; i++) {
       let red = redes[i];

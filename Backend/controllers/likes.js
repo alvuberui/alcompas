@@ -21,7 +21,7 @@ const publicarLike = async (req, res = express.response) => {
     const payload = jwt.verify(token, process.env.SECRET_JWT_SEED);
     const payloadId = payload.uid;
 
-    const likes = Like.find({
+    const likes = await Like.find({
       usuario: payloadId,
       tipo: likeReq.tipo,
       referencia: likeReq.referencia,
@@ -88,6 +88,7 @@ const publicarLike = async (req, res = express.response) => {
         });
       }
     }
+    like.usuario = payloadId;
     const likeDB = await like.save();
     res.json({
       ok: true,
