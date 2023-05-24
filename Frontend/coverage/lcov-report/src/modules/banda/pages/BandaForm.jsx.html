@@ -167,14 +167,7 @@
 <a name='L102'></a><a href='#L102'>102</a>
 <a name='L103'></a><a href='#L103'>103</a>
 <a name='L104'></a><a href='#L104'>104</a>
-<a name='L105'></a><a href='#L105'>105</a>
-<a name='L106'></a><a href='#L106'>106</a>
-<a name='L107'></a><a href='#L107'>107</a>
-<a name='L108'></a><a href='#L108'>108</a>
-<a name='L109'></a><a href='#L109'>109</a>
-<a name='L110'></a><a href='#L110'>110</a>
-<a name='L111'></a><a href='#L111'>111</a>
-<a name='L112'></a><a href='#L112'>112</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L105'></a><a href='#L105'>105</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -218,11 +211,8 @@
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -233,16 +223,12 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -252,8 +238,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
@@ -273,6 +257,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -285,117 +271,110 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React, { useEffect, useState } from 'react';
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React, { useEffect, useState } from "react";
 &nbsp;
-import { useNavigate } from 'react-router-dom';
-import Swal from 'sweetalert2';
-import { CrearBandaDos, CrearBandaTres, CrearBandaUno } from '../';
-import { validarBanda } from '../../../helpers/validarBanda';
-import { useBandasStore } from '../../../hooks/useBandasStore';
+import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
+import { CrearBandaDos, CrearBandaTres, CrearBandaUno } from "../";
+import { validarBanda } from "../../../helpers/validarBanda";
+import { useBandasStore } from "../../../hooks/useBandasStore";
 &nbsp;
 const state = {
-    nombre: '',
-    tipo: 'Agrupación Musical',
-    localidad: '',
-    provincia: '',
-    codigo_postal: '',
-    direccion: '',
-    año_fundacion: '',
-    descripcion: '',
-    telefono: '',
-    correo: '',
-    cif:  '',
-}
+  nombre: "",
+  tipo: "Agrupación Musical",
+  localidad: "",
+  provincia: "",
+  codigo_postal: "",
+  direccion: "",
+  año_fundacion: "",
+  descripcion: "",
+  telefono: "",
+  correo: "",
+  cif: "",
+};
 &nbsp;
-export const  BandaForm = () =&gt; {
-    const [step, setStep] = useState(1);
+export const BandaForm = () =&gt; {
+  const [step, setStep] = useState(1);
 &nbsp;
-    const  { crearBanda, mensajeError } = useBandasStore();
+  const { crearBanda, mensajeError } = useBandasStore();
 &nbsp;
-    let navigate = useNavigate();
+  let navigate = useNavigate();
 &nbsp;
-    useEffect(() =&gt; {
-        <span class="missing-if-branch" title="if path not taken" >I</span>if(  mensajeError !== '' &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >mensajeError !== '200' </span>){
-<span class="cstat-no" title="statement not covered" >          Swal.fire('Error en la autenticación', mensajeError, 'error');</span>
-        }
-        setTimeout(<span class="fstat-no" title="function not covered" >()</span>=&gt; {
-<span class="cstat-no" title="statement not covered" >            if ( mensajeError === '200') {</span>
-<span class="cstat-no" title="statement not covered" >                navigate('/');</span>
-<span class="cstat-no" title="statement not covered" >                setValues(state);</span>
-            }
-        }, 100);
-      }, [mensajeError])
-&nbsp;
-    const [values, setValues] = useState(state)
-      
-&nbsp;
-    // Siguiente paso
-    const siguiente = () =&gt; {
-  
-        setStep(step +1)
-        
+  useEffect(() =&gt; {
+    <span class="missing-if-branch" title="if path not taken" >I</span>if (mensajeError !== "" &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >mensajeError !== "200")</span> {
+<span class="cstat-no" title="statement not covered" >      Swal.fire("Error en la autenticación", mensajeError, "error");</span>
     }
+    setTimeout(<span class="fstat-no" title="function not covered" >()</span> =&gt; {
+<span class="cstat-no" title="statement not covered" >      if (mensajeError === "200") {</span>
+<span class="cstat-no" title="statement not covered" >        navigate("/");</span>
+<span class="cstat-no" title="statement not covered" >        setValues(state);</span>
+      }
+    }, 100);
+  }, [mensajeError]);
 &nbsp;
-    // Anterior paso
-    const previo = <span class="fstat-no" title="function not covered" >()</span> =&gt; {
-<span class="cstat-no" title="statement not covered" >        setStep(step -1)</span>
+  const [values, setValues] = useState(state);
+&nbsp;
+  // Siguiente paso
+  const siguiente = () =&gt; {
+    setStep(step + 1);
+  };
+&nbsp;
+  // Anterior paso
+  const previo = <span class="fstat-no" title="function not covered" >()</span> =&gt; {
+<span class="cstat-no" title="statement not covered" >    setStep(step - 1);</span>
+  };
+&nbsp;
+  // Confirmar
+&nbsp;
+  const confirmar = <span class="fstat-no" title="function not covered" >()</span> =&gt; {
+    let error = <span class="cstat-no" title="statement not covered" >validarBanda(values);</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    if (error == "") {</span>
+<span class="cstat-no" title="statement not covered" >      crearBanda(values);</span>
+    } else {
+<span class="cstat-no" title="statement not covered" >      Swal.fire("Error en la autenticación", error, "error");</span>
     }
+  };
 &nbsp;
-    // Confirmar
-    
-    const confirmar = <span class="fstat-no" title="function not covered" >()</span> =&gt; {
-        
-        let error = <span class="cstat-no" title="statement not covered" >validarBanda(values);</span>
-       
-<span class="cstat-no" title="statement not covered" >        if(error == '') {</span>
-<span class="cstat-no" title="statement not covered" >            crearBanda(values);</span>
-        }
-        else {
-<span class="cstat-no" title="statement not covered" >            Swal.fire('Error en la autenticación', error, 'error') </span>
-        }
+  // Manejar los inputs
+  const handleChange = (input) =&gt; <span class="fstat-no" title="function not covered" >(e</span>) =&gt; {
+<span class="cstat-no" title="statement not covered" >    values[input] = e.target.value;</span>
+  };
 &nbsp;
-        
-    } 
+  //const cambiar = (step) =&gt; {
+  switch (step) {
+    case 1:
+      return (
+        &lt;CrearBandaUno
+          siguiente={siguiente}
+          handleChange={handleChange}
+          values={values}
+          titulo="Crear Banda"
+        /&gt;
+      );
+    case 2:
+      return (
+        &lt;CrearBandaDos
+          siguiente={siguiente}
+          retroceder={previo}
+          handleChange={handleChange}
+          values={values}
+          titulo="Crear Banda"
+        /&gt;
+      );
+    case 3:
+      return (
+        &lt;CrearBandaTres
+          confirmar={confirmar}
+          retroceder={previo}
+          values={values}
+          titulo="Crear Banda"
+        /&gt;
+      );
+  }
+};
 &nbsp;
-    // Manejar los inputs
-    const handleChange = input =&gt; <span class="fstat-no" title="function not covered" >e </span>=&gt; { 
-<span class="cstat-no" title="statement not covered" >        values[input] =  e.target.value;</span>
-    }
-&nbsp;
-    
-&nbsp;
-    //const cambiar = (step) =&gt; {   
-        switch(step) {
-            case 1:
-                return (
-                    &lt;CrearBandaUno
-                        siguiente = {siguiente}
-                        handleChange = { handleChange }
-                        values = { values }
-                        titulo = 'Crear Banda'
-                    /&gt;
-                );
-            case 2:
-                return (&lt;CrearBandaDos
-                siguiente = {siguiente}
-                retroceder = { previo }
-                handleChange = { handleChange }
-                values = { values }
-                titulo = 'Crear Banda'
-                /&gt;);
-            case 3:
-                return  &lt;CrearBandaTres
-                confirmar = {confirmar}
-                retroceder = { previo }
-                values = { values }
-                titulo = 'Crear Banda'
-                /&gt;
-    }
-    
-    
-}
-&nbsp;
-export default BandaForm
+export default BandaForm;
 &nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
@@ -403,7 +382,7 @@ export default BandaForm
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2023-03-10T19:34:49.563Z
+                at 2023-05-24T17:26:13.139Z
             </div>
         <script src="../../../../prettify.js"></script>
         <script>

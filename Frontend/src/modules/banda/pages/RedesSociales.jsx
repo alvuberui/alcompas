@@ -133,6 +133,7 @@ export const RedesSociales = () => {
             <Typography
               variant="h4"
               sx={{ textAlign: "center", color: "white" }}
+              aria-label="titulo"
             >
               Administración de redes sociales
             </Typography>
@@ -156,6 +157,7 @@ export const RedesSociales = () => {
               align="center"
               sx={{ color: "white" }}
               fullWidth
+              aria-label="añadir"
             >
               Añadir Red Social
             </Button>

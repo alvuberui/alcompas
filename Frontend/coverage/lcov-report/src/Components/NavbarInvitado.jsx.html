@@ -109,9 +109,13 @@
 <a name='L44'></a><a href='#L44'>44</a>
 <a name='L45'></a><a href='#L45'>45</a>
 <a name='L46'></a><a href='#L46'>46</a>
-<a name='L47'></a><a href='#L47'>47</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L47'></a><a href='#L47'>47</a>
+<a name='L48'></a><a href='#L48'>48</a>
+<a name='L49'></a><a href='#L49'>49</a>
+<a name='L50'></a><a href='#L50'>50</a>
+<a name='L51'></a><a href='#L51'>51</a>
+<a name='L52'></a><a href='#L52'>52</a>
+<a name='L53'></a><a href='#L53'>53</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -155,52 +159,66 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
-import * as React from 'react';
-import {
-  NavLink
-} from "react-router-dom";
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import AppBar from "@mui/material/AppBar";
+import Box from "@mui/material/Box";
+import Toolbar from "@mui/material/Toolbar";
+import Typography from "@mui/material/Typography";
+import * as React from "react";
+import { NavLink } from "react-router-dom";
 &nbsp;
 export const NavbarInvitado = () =&gt; {
   return (
     &lt;Box sx={{ flexGrow: 1 }}&gt;
       &lt;AppBar position="static"&gt;
         &lt;Toolbar&gt;
-            &lt;img
-                src='/Imagenes/logo.png'
-                alt='logo'
-                loading="lazy"
-                width={60}
-                height={50}
-                style={{marginRight: 25 + 'px'}}
-            /&gt;
-            &lt;Box sx={{ flexGrow: 1 }}&gt;
-                &lt;Typography variant="h5"  component="div" sx={{ flexGrow: 1 }}&gt;
-                    AlCompás
-                &lt;/Typography&gt;
-            &lt;/Box&gt;
-            
-              &lt;NavLink style={{textDecoration: "none", color: "white"}}  to={'/auth/login'}&gt;
-                &lt;Typography  component="div"  style={{textAlign:"center"}} &gt;
-                    Iniciar Sesión
-                &lt;/Typography&gt;
-              &lt;/NavLink&gt;
-          
-         
-              &lt;NavLink style={{textDecoration: "none", color: "white"}}  to={'/auth/register'}&gt;
-                &lt;Typography  component="div" sx={{ml:'20px'}} style={{textAlign:"center"}} &gt;
-                    Crear Cuenta
-                &lt;/Typography&gt;
-              &lt;/NavLink&gt;
-            
+          &lt;img
+            src="/Imagenes/logo.png"
+            alt="logo"
+            loading="lazy"
+            width={60}
+            height={50}
+            style={{ marginRight: 25 + "px" }}
+          /&gt;
+          &lt;Box sx={{ flexGrow: 1 }}&gt;
+            &lt;Typography variant="h5" component="div" sx={{ flexGrow: 1 }}&gt;
+              AlCompás
+            &lt;/Typography&gt;
+          &lt;/Box&gt;
+&nbsp;
+          &lt;NavLink
+            style={{ textDecoration: "none", color: "white" }}
+            to={"/auth/login"}
+          &gt;
+            &lt;Typography component="div" style={{ textAlign: "center" }}&gt;
+              Iniciar Sesión
+            &lt;/Typography&gt;
+          &lt;/NavLink&gt;
+&nbsp;
+          &lt;NavLink
+            style={{ textDecoration: "none", color: "white" }}
+            to={"/auth/register"}
+          &gt;
+            &lt;Typography
+              component="div"
+              sx={{ ml: "20px" }}
+              style={{ textAlign: "center" }}
+            &gt;
+              Crear Cuenta
+            &lt;/Typography&gt;
+          &lt;/NavLink&gt;
         &lt;/Toolbar&gt;
       &lt;/AppBar&gt;
     &lt;/Box&gt;
-  )
-}
+  );
+};
 &nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
@@ -208,7 +226,7 @@ export const NavbarInvitado = () =&gt; {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2023-03-10T19:34:49.563Z
+                at 2023-05-24T17:26:13.139Z
             </div>
         <script src="../../prettify.js"></script>
         <script>

@@ -287,6 +287,52 @@ describe('Pruebas en useBandasStore', () => {
             expect(mensajeError).toEqual('No hay token en la petición');
     });
 
+    test("Pertenece usuario a banda", async() => {
+        const mockStore = getMockStore({ ...authenticatedState2 });
+        const { result } = renderHook( () => useBandasStore(), {
+            wrapper: ({ children }) => <Provider store={ mockStore } >{ children }</Provider>
+        });
+        
+        const spy = jest.spyOn( alcompasAPI, 'get' ).mockReturnValue({
+            data: {
+                resultado : true
+            }
+            
+        });
+    
+            await act(async() => {
+                const res = await result.current.perteneceUsuarioBanda("63c9bae47a25636b0a55411f");
+                
+                expect(res).toEqual(true);
+            });
+    
+            spy.mockRestore();
+    });
+
+    
+
+    test("Obtener todos los componentes de una bada", async() => {
+        const mockStore = getMockStore({ ...authenticatedState2 });
+        const { result } = renderHook( () => useBandasStore(), {
+            wrapper: ({ children }) => <Provider store={ mockStore } >{ children }</Provider>
+        });
+        
+        const spy = jest.spyOn( alcompasAPI, 'get' ).mockReturnValue({
+            data: {
+                componentes : banda1.componentes
+            }
+            
+        });
+    
+            await act(async() => {
+                const res = await result.current.obtenerTodosCompontesBanda("63c9bae47a25636b0a55411f");
+                
+                expect(res).toEqual(banda1.componentes);
+            });
+    
+            spy.mockRestore();
+    });
+
     
 
 });

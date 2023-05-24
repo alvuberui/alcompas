@@ -121,14 +121,9 @@
 <a name='L56'></a><a href='#L56'>56</a>
 <a name='L57'></a><a href='#L57'>57</a>
 <a name='L58'></a><a href='#L58'>58</a>
-<a name='L59'></a><a href='#L59'>59</a>
-<a name='L60'></a><a href='#L60'>60</a>
-<a name='L61'></a><a href='#L61'>61</a>
-<a name='L62'></a><a href='#L62'>62</a>
-<a name='L63'></a><a href='#L63'>63</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L59'></a><a href='#L59'>59</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">45x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">46x</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -140,15 +135,12 @@
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">4x</span>
@@ -164,7 +156,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
@@ -173,9 +164,9 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">4x</span>
@@ -187,76 +178,73 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { useEffect, useMemo, useState } from 'react';
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { useEffect, useMemo, useState } from "react";
 &nbsp;
-export const useForm = ( initialForm = <span class="branch-0 cbranch-no" title="branch not covered" >{},</span> formValidations = {}) =&gt; {
-  
-    const [ formState, setFormState ] = useState( initialForm );
-    const [ formValidation, setFormValidation ] = useState({});
+export const useForm = (initialForm = <span class="branch-0 cbranch-no" title="branch not covered" >{},</span> formValidations = {}) =&gt; {
+  const [formState, setFormState] = useState(initialForm);
+  const [formValidation, setFormValidation] = useState({});
 &nbsp;
-    useEffect(() =&gt; {
-        createValidators();
-    }, [ formState ])
+  useEffect(() =&gt; {
+    createValidators();
+  }, [formState]);
 &nbsp;
-    useEffect(() =&gt; {
-        setFormState( initialForm );
-    }, [ initialForm ])
-    
-    
-    const isFormValid = useMemo( () =&gt; {
+  useEffect(() =&gt; {
+    setFormState(initialForm);
+  }, [initialForm]);
 &nbsp;
-        for (const formValue of Object.keys( formValidation )) {
-<span class="cstat-no" title="statement not covered" >            if ( formValidation[formValue] !== null ) <span class="cstat-no" title="statement not covered" >return false;</span></span>
-        }
-&nbsp;
-        return true;
-    }, [ formValidation ])
-&nbsp;
-&nbsp;
-    const onInputChange = <span class="fstat-no" title="function not covered" >({</span> target }) =&gt; {
-        const { name, value } = <span class="cstat-no" title="statement not covered" >target;</span>
-<span class="cstat-no" title="statement not covered" >        setFormState({</span>
-            ...formState,
-            [ name ]: value
-        });
+  const isFormValid = useMemo(() =&gt; {
+    for (const formValue of Object.keys(formValidation)) {
+<span class="cstat-no" title="statement not covered" >      if (formValidation[formValue] !== null) <span class="cstat-no" title="statement not covered" >return false;</span></span>
     }
 &nbsp;
-    const onResetForm = <span class="fstat-no" title="function not covered" >()</span> =&gt; {
-<span class="cstat-no" title="statement not covered" >        setFormState( initialForm );</span>
+    return true;
+  }, [formValidation]);
+&nbsp;
+  const onInputChange = <span class="fstat-no" title="function not covered" >({</span> target }) =&gt; {
+    const { name, value } = <span class="cstat-no" title="statement not covered" >target;</span>
+<span class="cstat-no" title="statement not covered" >    setFormState({</span>
+      ...formState,
+      [name]: value,
+    });
+  };
+&nbsp;
+  const onResetForm = <span class="fstat-no" title="function not covered" >()</span> =&gt; {
+<span class="cstat-no" title="statement not covered" >    setFormState(initialForm);</span>
+  };
+&nbsp;
+  const createValidators = () =&gt; {
+    const formCheckedValues = {};
+&nbsp;
+    for (const formField of Object.keys(formValidations)) {
+      const [fn, errorMessage] = <span class="cstat-no" title="statement not covered" >formValidations[formField];</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >      formCheckedValues[`${formField}Valid`] = fn(formState[formField])</span>
+        ? null
+        : errorMessage;
     }
 &nbsp;
-    const createValidators = () =&gt; {
-        
-        const formCheckedValues = {};
-        
-        for (const formField of Object.keys( formValidations )) {
-            const [ fn, errorMessage ] = <span class="cstat-no" title="statement not covered" >formValidations[formField];</span>
+    setFormValidation(formCheckedValues);
+  };
 &nbsp;
-<span class="cstat-no" title="statement not covered" >            formCheckedValues[`${ formField }Valid`] = fn( formState[formField] ) ? null : errorMessage;</span>
-        }
+  return {
+    ...formState,
+    formState,
+    onInputChange,
+    onResetForm,
 &nbsp;
-        setFormValidation( formCheckedValues );
-    }
-&nbsp;
-&nbsp;
-&nbsp;
-    return {
-        ...formState,
-        formState,
-        onInputChange,
-        onResetForm,
-&nbsp;
-        ...formValidation,
-        isFormValid
-    }
-}</pre></td></tr></table></pre>
+    ...formValidation,
+    isFormValid,
+  };
+};
+&nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
             </div><!-- /wrapper -->
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2023-03-10T19:34:49.563Z
+                at 2023-05-24T17:26:13.139Z
             </div>
         <script src="../../prettify.js"></script>
         <script>

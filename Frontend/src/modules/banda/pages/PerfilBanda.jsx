@@ -643,6 +643,7 @@ export const PerfilBanda = () => {
                 color="white"
                 sx={{ fontWeight: "bold", mt: 2, textAlign: "center" }}
                 variant="h7"
+                aria-label="contacto"
               >
                 ¿Quieres contactar con nosotros?
               </Typography>

@@ -40,8 +40,9 @@ describe('Pruebas en el  <Estudio />', () => {
         });
 
         usePeticionesStore.mockReturnValue({
-            aceptarPeticion: jest.fn(),
+            aceptarPeticion: jest.fn().mockResolvedValue('Resultado esperado'),
             rechazarPeticion: jest.fn(),
+            getPeticionesByBandaId: jest.fn().mockReturnValue([]),
         });
 
         useAuthStore.mockReturnValue({
@@ -49,13 +50,14 @@ describe('Pruebas en el  <Estudio />', () => {
             user: testUserCredentials2,
         });
 
+
         
         await act(async() => {
             
             render(
                 <Provider store={ storeAutenticado }>
                     <MemoryRouter>
-                        <Peticion estado={"Pendiente"} usuario={"63f23b7c574f95917e3595ff"} />
+                        <Peticion estado={"Pendiente"} usuario={"63f23b7c574f95917e3595ff"} tipo={"Usuario"} setPeticiones={ jest.fn() } />
                     </MemoryRouter>
                 </Provider>
             );
@@ -76,8 +78,9 @@ describe('Pruebas en el  <Estudio />', () => {
         });
 
         usePeticionesStore.mockReturnValue({
-            aceptarPeticion: jest.fn(),
-            rechazarPeticion: jest.fn(),
+            aceptarPeticion: jest.fn().mockReturnValue({}),
+            rechazarPeticion: jest.fn().mockReturnValue({}),
+            getPeticionesByBandaId: jest.fn().mockReturnValue([]),
         });
 
         useAuthStore.mockReturnValue({
@@ -86,12 +89,14 @@ describe('Pruebas en el  <Estudio />', () => {
         });
 
         
+
+        
         await act(async() => {
             
             render(
                 <Provider store={ storeAutenticado }>
                     <MemoryRouter>
-                        <Peticion estado={"Pendiente"} usuario={"63f23b7c574f95917e3595ff"} />
+                        <Peticion estado={"Pendiente"} usuario={"63f23b7c574f95917e3595ff"} tipo={"Usuario"} setPeticiones={ jest.fn() } />
                     </MemoryRouter>
                 </Provider>
             );

@@ -61,6 +61,7 @@ describe('Pruebas en <PerfilBanda />', () => {
         useMusicosStore.mockReturnValue({
             getMusicosBanda: jest.fn().mockReturnValue({ 'Trompeta': [musico1]}),
             abandonarBandaMusico: jest.fn(),
+            esMusicoByBandaId: jest.fn().mockReturnValue(true),
         });
 
         useUploadsStore.mockReturnValue({
@@ -84,7 +85,7 @@ describe('Pruebas en <PerfilBanda />', () => {
                 </Provider>
             );
         });
-        const boton =  screen.getByText('Contacto');
+        const boton =  screen.getByLabelText('contacto');
         expect( boton ).not.toBe( undefined);
     });
 });

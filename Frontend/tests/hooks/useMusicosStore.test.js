@@ -225,4 +225,88 @@ describe('Pruebas en useMusicosStore', () => {
             });
     
     });
+
+    test("Obtener musicos by intrumento y localidad", async() => {
+        const mockStore = getMockStore({ ...authenticatedState2 });
+        const { result } = renderHook( () => useMusicosStore(), {
+            wrapper: ({ children }) => <Provider store={ mockStore } >{ children }</Provider>
+        });
+        
+
+        const spy = jest.spyOn( alcompasAPI, 'get' ).mockReturnValue({
+            data: {
+                musicosFiltrados : [musico1]
+            }
+            
+        });
+    
+            await act(async() => {
+                const res = await result.current.getMusicosByIntrumentoAndLocalidad(musico1.instrumento, musico1.localidad)
+
+                expect(res).toEqual([musico1])
+            });
+    
+            spy.mockRestore();
+    });
+
+    test("Prueba negativa obteninedo musicos by intrumento y localidad", async() => {
+        const mockStore = getMockStore({ ...authenticatedState2 });
+        const { result } = renderHook( () => useMusicosStore(), {
+            wrapper: ({ children }) => <Provider store={ mockStore } >{ children }</Provider>
+        });
+        
+    
+            await act(async() => {
+                await result.current.getMusicosByIntrumentoAndLocalidad('INVENTADO', 'INVENTADO')
+                const logSpy = jest.spyOn(console, 'log');
+
+                console.log('Error obteniendo músicos del usuario');
+
+                expect(logSpy).toHaveBeenCalledWith('Error obteniendo músicos del usuario');
+            });
+    
+    });
+
+
+    test("esmusico by bandaId", async() => {
+        const mockStore = getMockStore({ ...authenticatedState2 });
+        const { result } = renderHook( () => useMusicosStore(), {
+            wrapper: ({ children }) => <Provider store={ mockStore } >{ children }</Provider>
+        });
+        
+
+        const spy = jest.spyOn( alcompasAPI, 'get' ).mockReturnValue({
+            data: {
+                esMusico : true
+            }
+            
+        });
+    
+            await act(async() => {
+                const res = await result.current.esMusicoByBandaId(musico1.banda)
+
+                expect(res).toEqual(true)
+            });
+    
+            spy.mockRestore();
+    });
+
+    test("Prueba negativa esmusico by bandaId", async() => {
+
+        const mockStore = getMockStore({ ...authenticatedState2 });
+        const { result } = renderHook( () => useMusicosStore(), {
+            wrapper: ({ children }) => <Provider store={ mockStore } >{ children }</Provider>
+        });
+        
+    
+            await act(async() => {
+                await result.current.esMusicoByBandaId('INVENTADO')
+                const logSpy = jest.spyOn(console, 'log');
+
+                console.log('Error obteniendo músicos del usuario');
+
+                expect(logSpy).toHaveBeenCalledWith('Error obteniendo músicos del usuario');
+            });
+    
+    });
 });

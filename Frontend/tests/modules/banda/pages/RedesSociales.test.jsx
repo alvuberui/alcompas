@@ -65,7 +65,7 @@ describe('Pruebas en <RedesSociales />', () => {
             );
         });
 
-            const texto = screen.getByText('Administración de Redes Sociales');
+            const texto = screen.getByLabelText('añadir');
             expect( texto ).not.toBe( undefined);   
 
     });

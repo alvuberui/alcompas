@@ -412,6 +412,7 @@ export const Perfil = () => {
                 color="white"
                 sx={{ fontWeight: "bold", mt: 2, textAlign: "center" }}
                 variant="h7"
+                aria-label="desc"
               >
                 Descripción:
               </Typography>

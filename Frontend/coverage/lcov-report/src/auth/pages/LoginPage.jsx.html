@@ -158,7 +158,25 @@
 <a name='L93'></a><a href='#L93'>93</a>
 <a name='L94'></a><a href='#L94'>94</a>
 <a name='L95'></a><a href='#L95'>95</a>
-<a name='L96'></a><a href='#L96'>96</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L96'></a><a href='#L96'>96</a>
+<a name='L97'></a><a href='#L97'>97</a>
+<a name='L98'></a><a href='#L98'>98</a>
+<a name='L99'></a><a href='#L99'>99</a>
+<a name='L100'></a><a href='#L100'>100</a>
+<a name='L101'></a><a href='#L101'>101</a>
+<a name='L102'></a><a href='#L102'>102</a>
+<a name='L103'></a><a href='#L103'>103</a>
+<a name='L104'></a><a href='#L104'>104</a>
+<a name='L105'></a><a href='#L105'>105</a>
+<a name='L106'></a><a href='#L106'>106</a>
+<a name='L107'></a><a href='#L107'>107</a>
+<a name='L108'></a><a href='#L108'>108</a>
+<a name='L109'></a><a href='#L109'>109</a>
+<a name='L110'></a><a href='#L110'>110</a>
+<a name='L111'></a><a href='#L111'>111</a>
+<a name='L112'></a><a href='#L112'>112</a>
+<a name='L113'></a><a href='#L113'>113</a>
+<a name='L114'></a><a href='#L114'>114</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -171,11 +189,13 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">2x</span>
@@ -188,7 +208,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -253,101 +272,136 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { Grid, TextField, Button, Link } from '@mui/material';
-import { Link as RouterLink, useNavigate} from 'react-router-dom';
-import { AuthLayout } from '../layout/AuthLayout';
-import { useForm, useAuthStore } from '../../hooks';
-import { useEffect } from 'react';
-import Swal from 'sweetalert2';
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { Button, Grid, Link, TextField } from "@mui/material";
+import { useEffect } from "react";
+import { Link as RouterLink } from "react-router-dom";
+import Swal from "sweetalert2";
+import { useAuthStore, useForm } from "../../hooks";
+import { AuthLayout } from "../layout/AuthLayout";
 &nbsp;
 const loginFormCampos = {
-  loginEmail: '',
-  loginContraseña: ''
-}
+  loginEmail: "",
+  loginContraseña: "",
+};
 &nbsp;
 export const LoginPage = () =&gt; {
+  const { startLogin, errorMessage } = useAuthStore();
 &nbsp;
-  const  { startLogin, errorMessage } = useAuthStore();
-&nbsp;
-  const { loginEmail, loginContraseña, onInputChange:onLoginInputChange } = useForm(loginFormCampos);
-  
+  const {
+    loginEmail,
+    loginContraseña,
+    onInputChange: onLoginInputChange,
+  } = useForm(loginFormCampos);
 &nbsp;
   const loginSubmit = (event) =&gt; {
     event.preventDefault();
-    startLogin({correo: loginEmail, contraseña: loginContraseña});
-  }
+    startLogin({ correo: loginEmail, contraseña: loginContraseña });
+  };
 &nbsp;
   useEffect(() =&gt; {
-    if(  errorMessage !== undefined ) {
-      Swal.fire('Error en la autenticación', errorMessage, 'error');
+    if (errorMessage !== undefined) {
+      Swal.fire("Error en la autenticación", errorMessage, "error");
     }
-  }, [errorMessage])
-  
+  }, [errorMessage]);
 &nbsp;
   return (
     &lt;AuthLayout title="Iniciar Sesión"&gt;
       &lt;form onSubmit={loginSubmit}&gt;
         &lt;Grid container&gt;
-&nbsp;
-          &lt;Grid item xs={ 12 } sx={{ mt: 2}}&gt;
-            &lt;TextField 
+          &lt;Grid item xs={12} sx={{ mt: 2 }}&gt;
+            &lt;TextField
               label="Correo electrónico"
               type="email"
-              aria-label='correo'
+              aria-label="correo"
               placeholder="correo@gmail.com"
               fullWidth
               name="loginEmail"
-              color='secondary'
+              color="secondary"
               defaultValue={loginEmail}
               onChange={onLoginInputChange}
-              inputProps={{ style: { color: 'white' } }} 
+              inputProps={{ style: { color: "white" } }}
               focused
             /&gt;
           &lt;/Grid&gt;
-          &lt;Grid item xs={ 12 } sx={{ mt: 2}}&gt;
-            &lt;TextField 
+          &lt;Grid item xs={12} sx={{ mt: 2 }}&gt;
+            &lt;TextField
               aria-label="contraseña"
               label="Contraseña"
               type="password"
               fullWidth
-              color='secondary'
+              color="secondary"
               name="loginContraseña"
-              placeholder='Contraseña'
-              inputProps={{ style: { color: 'white' } }} 
+              placeholder="Contraseña"
+              inputProps={{ style: { color: "white" } }}
               defaultValue={loginContraseña}
               onChange={onLoginInputChange}
               focused
             /&gt;
           &lt;/Grid&gt;
-            &lt;Grid container justifyContent='center' spacing={ 2 } sx={{ mb: 2, mt: 1 }}&gt;
-              &lt;Grid  item xs={ 12 } &gt;
-                &lt;Button  aria-label='submit' variant='contained' color='secondary' fullWidth type='submit'&gt;
-                  Iniciar Sesión
-                &lt;/Button&gt;
-              &lt;/Grid&gt;
+          &lt;Grid
+            container
+            justifyContent="center"
+            spacing={2}
+            sx={{ mb: 2, mt: 1 }}
+          &gt;
+            &lt;Grid item xs={12}&gt;
+              &lt;Button
+                aria-label="submit"
+                variant="contained"
+                color="secondary"
+                fullWidth
+                type="submit"
+              &gt;
+                Iniciar Sesión
+              &lt;/Button&gt;
             &lt;/Grid&gt;
-          &lt;Grid container direction='row' &gt;
-            &lt;Grid item  justifyContent='start'&gt;
-              &lt;Link aria-label='link' component={ RouterLink } style={{textDecoration:"none", color:"white"}} color='inherit' to="/"&gt;
+          &lt;/Grid&gt;
+          &lt;Grid container direction="row"&gt;
+            &lt;Grid item justifyContent="start"&gt;
+              &lt;Link
+                aria-label="link"
+                component={RouterLink}
+                style={{ textDecoration: "none", color: "white" }}
+                color="inherit"
+                to="/"
+              &gt;
                 Volver al inicio
               &lt;/Link&gt;
             &lt;/Grid&gt;
-            
-            &lt;Grid item  sx={{ ml:'20px' }} justifyContent='end'&gt;
-              &lt;Link component={ RouterLink } style={{textDecoration:"none", color:"white"}} color='inherit' to="/auth/register"&gt;
+&nbsp;
+            &lt;Grid item sx={{ ml: "20px" }} justifyContent="end"&gt;
+              &lt;Link
+                component={RouterLink}
+                style={{ textDecoration: "none", color: "white" }}
+                color="inherit"
+                to="/auth/register"
+              &gt;
                 Crear una cuenta
               &lt;/Link&gt;
             &lt;/Grid&gt;
           &lt;/Grid&gt;
-&nbsp;
         &lt;/Grid&gt;
       &lt;/form&gt;
     &lt;/AuthLayout&gt;
-&nbsp;
-  )
-}
-&nbsp;
-&nbsp;
+  );
+};
 &nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
@@ -355,7 +409,7 @@ export const LoginPage = () =&gt; {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2023-03-10T19:34:49.563Z
+                at 2023-05-24T17:26:13.139Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>

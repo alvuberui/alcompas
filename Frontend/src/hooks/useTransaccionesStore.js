@@ -33,13 +33,15 @@ export const useTransaccionesStore = () => {
       const transacciones = data.transacciones;
       return transacciones;
     } catch (error) {
-      setErrores([]);
+      setErrores("No tienes acceso a esta operación");
     }
   };
 
   const deleteById = async (id) => {
     try {
       const { data } = await alcompasAPI.delete(`transacciones/${id}`);
+      const transaccionDB = data.transaccionDB;
+      return transaccionDB;
     } catch (error) {
       setErrores("No tienes acceso a esta operación");
     }

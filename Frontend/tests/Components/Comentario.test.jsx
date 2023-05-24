@@ -47,7 +47,7 @@ describe('Pruebas en el  <Buscador />', () => {
                 </Provider>
             );
         });
-        const boton = screen.getByLabelText("eliminar");
+        const boton = screen.getByLabelText("settings");
         fireEvent.click(boton);
 
         
