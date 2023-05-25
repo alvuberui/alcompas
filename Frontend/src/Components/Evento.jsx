@@ -210,6 +210,7 @@ export const Evento = ({ evento, index, style, setEventos }) => {
     const esDirectivo = async () => {
       const directivos = await getDirectivoByUserId(user.uid);
       for (let i = 0; i < directivos.length; i++) {
+        console.log(directivos[i].banda, banda._id)
         if (directivos[i].banda === banda._id && !directivos[i].fecha_final) {
           setEsDirectivo(true);
           break;
@@ -334,7 +335,7 @@ export const Evento = ({ evento, index, style, setEventos }) => {
 
                         <IconButton
                           onClick={handleDelete}
-                          aria-label="settings"
+                          aria-label="delete"
                         >
                           <DeleteIcon />
                         </IconButton>
@@ -834,7 +835,7 @@ export const Evento = ({ evento, index, style, setEventos }) => {
             alignItems: "center",
           }}
         >
-          <CircularProgress />
+          <CircularProgress aria-label="loading"/>
         </Box>
       </>
     );

@@ -230,7 +230,7 @@ export const Musico = ({
                 <IconButton
                   onClick={handleEliminarContratado}
                   sx={{ alignSelf: "flex-end" }}
-                  aria-label="upload picture"
+                  aria-label="contratado"
                   component="label"
                 >
                   <DeleteIcon style={{ color: "#FF0000" }}></DeleteIcon>

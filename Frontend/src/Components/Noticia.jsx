@@ -188,7 +188,7 @@ export const Noticia = ({ noticia, index, style, setNoticias }) => {
               }
               action={
                 esDirectivo && (
-                  <IconButton onClick={handleDelete} aria-label="settings">
+                  <IconButton onClick={handleDelete} aria-label="delete">
                     <DeleteIcon />
                   </IconButton>
                 )

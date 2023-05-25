@@ -65,6 +65,7 @@ export const Repertorio = ({
 
   return (
     <Card
+      aria-label="repertorio"
       onClick={handleObras}
       onMouseOver={handleMouseOver}
       onMouseOut={handleMouseOut}

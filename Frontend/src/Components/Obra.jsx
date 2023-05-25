@@ -85,6 +85,7 @@ export const Obra = ({
 
   return (
     <Card
+      aria-label="obra"
       onClick={handlePartituras}
       onMouseOver={handleMouseOver}
       onMouseOut={handleMouseOut}

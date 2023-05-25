@@ -4,11 +4,12 @@ import React from 'react';
 import { Provider } from 'react-redux';
 import { MemoryRouter } from 'react-router-dom';
 import { Comentario } from '../../src/Components/Comentario';
-import { useAuthStore, useComentariosStore } from '../../src/hooks';
+import { useAuthStore, useComentariosStore, useLikesStore, useUploadsStore } from '../../src/hooks';
 import { authSlice } from '../../src/store/auth/authSlice';
 import { authenticatedState2 } from '../fixtures/authFixtures';
 import { testUserCredentials2 } from '../fixtures/testUser';
 import { comentario1 } from '../fixtures/comentarioFixtures';
+import { likeFixtures } from '../fixtures/likeFixtures';
 
 
 const storeAutenticado = configureStore({
@@ -21,6 +22,8 @@ const storeAutenticado = configureStore({
 });
 jest.mock('../../src/hooks/useComentariosStore');
 jest.mock('../../src/hooks/useAuthStore');
+jest.mock('../../src/hooks/useUploadsStore');
+jest.mock('../../src/hooks/useLikesStore');
 
 describe('Pruebas en el  <Buscador />', () => {
 
@@ -36,6 +39,18 @@ describe('Pruebas en el  <Buscador />', () => {
             eliminarComentario: jest.fn(),
         });
 
+        useUploadsStore.mockReturnValue({
+            getFotoPerfilUsuario: jest.fn(),
+        });
+
+        useLikesStore.mockReturnValue({
+            publicarLike: jest.fn(),
+            publicarDislike: jest.fn(),
+            getLikeByTipoAndReferencia: jest.fn(),
+            errores: [],
+            getNumeroLikes: jest.fn(),
+        });
+
         
         await act(async() => {
             
@@ -49,6 +64,9 @@ describe('Pruebas en el  <Buscador />', () => {
         });
         const boton = screen.getByLabelText("settings");
         fireEvent.click(boton);
+        const meGusta = screen.getByLabelText("add to favorites");
+        fireEvent.click(meGusta);
+        fireEvent.click(meGusta);
 
         
     });
