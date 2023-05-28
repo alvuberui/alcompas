@@ -545,6 +545,7 @@ export const Perfil = () => {
                 onClick={handleOpenEstudio}
                 sx={{ mx: "auto", mb: "5px", width: "20vh", maxWidth: "4opx" }}
                 variant="contained"
+                aria-label="añadirEstudio"
               >
                 <Typography sx={{ fontWeight: "bold" }}>AÑADIR</Typography>
               </Button>
@@ -573,6 +574,7 @@ export const Perfil = () => {
                 onClick={handleOpenAñadir}
                 sx={{ mx: "auto", mb: "5px", width: "20vh", maxWidth: "4opx" }}
                 variant="contained"
+                aria-label="añadirInstrumento"
               >
                 <Typography sx={{ fontWeight: "bold" }}>AÑADIR</Typography>
               </Button>

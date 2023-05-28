@@ -12,63 +12,17 @@ import { NuevoTransaccion } from "../../banda/modals/NuevaTransaccion";
 
 export const Eventos = () => {
   // Estados
-  const [transacciones, setTransacciones] = React.useState([]);
   const [transaccion, setTransaccion] = React.useState(undefined);
   const [open, setOpen] = useState(false);
   const [openEditar, setOpenEditar] = useState(false);
-  const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(25);
-  const [total, setTotal] = useState(0);
   const [esDirectivo, setEsDirectivo] = useState(false);
   const [loading, setLoading] = useState(true);
-  const [esTesorero, setEsTesorero] = useState(false);
   const navigate = useNavigate();
 
-  // Avoid a layout jump when reaching the last page with empty rows.
-  const emptyRows =
-    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - transacciones.length) : 0;
-
-  const handleChangePage = (event, newPage) => {
-    setPage(newPage);
-  };
-
-  const handleChangeRowsPerPage = (event) => {
-    setRowsPerPage(parseInt(event.target.value, 10));
-    setPage(0);
-  };
-
   // Hooks
-  const { getByBanda, deleteById } = useTransaccionesStore();
   const { bandaId } = useParams();
   const { user } = useAuthStore();
   const { getDirectivoByUserId } = useDirectivosStore();
-
-  const updateFecha = (t) => {
-    const transacciones2 = [];
-    let cantidad = 0;
-    for (let i = 0; i < t.length; i++) {
-      const fecha = new Date(t[i].fecha);
-      const año = fecha.getFullYear();
-      const mes =
-        (fecha.getMonth() + 1).toString().length == 1
-          ? "0" + (fecha.getMonth() + 1)
-          : fecha.getMonth() + 1;
-      const dia =
-        fecha.getDate().toString().length == 1
-          ? "0" + fecha.getDate()
-          : fecha.getDate();
-      const fecha2 = año + "-" + mes + "-" + dia;
-      t[i].fecha = fecha2;
-      transacciones2.push(t[i]);
-      if (t[i].tipo === "Beneficio") {
-        cantidad = cantidad + t[i].cantidad;
-      } else {
-        cantidad = cantidad - t[i].cantidad;
-      }
-    }
-    setTotal(cantidad);
-    return transacciones2.reverse();
-  };
 
   const handleClose = (event, newValue) => {
     event.preventDefault();
@@ -77,41 +31,12 @@ export const Eventos = () => {
     setOpen(false);
   };
 
-  const handleOpen = (event, newValue) => {
-    event.preventDefault();
-    setOpen(true);
-  };
-
-  const handleOpenEditar = (newValue) => {
-    setTransaccion(newValue);
-    setOpenEditar(true);
-    setOpen(true);
-  };
 
   const renviarCrear = async (event) => {
     event.preventDefault();
     navigate("/banda/panel/eventos/crear/" + bandaId);
   };
 
-  const handleDelete = async (id) => {
-    Swal.fire({
-      title: "¿Estás seguro de que quiere eliminar la transacción?",
-      text: "¡No podrás revertir esto!",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "¡Sí, bórrala!",
-    }).then(async (result) => {
-      if (result.isConfirmed) {
-        await deleteById(id);
-        const transacciones = await getByBanda(bandaId);
-        const transacciones2 = updateFecha(transacciones);
-        setTransacciones(transacciones2);
-        Swal.fire("¡Borrada!", "La transacción ha sido borrada.", "success");
-      }
-    });
-  };
 
   useEffect(() => {
     const getDirectivo = async () => {
@@ -119,24 +44,12 @@ export const Eventos = () => {
       for (let i = 0; i < directivos.length; i++) {
         if (directivos[i].banda === bandaId && !directivos[i].fecha_final) {
           setEsDirectivo(true);
-          if (directivos[i].cargo === "Tesorero") {
-            setEsTesorero(true);
-          }
         }
       }
       setLoading(false);
     };
     getDirectivo();
   }, []);
-
-  useEffect(() => {
-    const getTransacciones = async () => {
-      const transacciones = await getByBanda(bandaId);
-      const transacciones2 = updateFecha(transacciones);
-      setTransacciones(transacciones2);
-    };
-    getTransacciones();
-  }, [bandaId]);
 
   if (loading) {
     return <CircularProgress />;
@@ -193,6 +106,7 @@ export const Eventos = () => {
                 align="center"
                 sx={{ color: "white" }}
                 fullWidth
+                aria-label="add"
               >
                 Añadir Evento
               </Button>

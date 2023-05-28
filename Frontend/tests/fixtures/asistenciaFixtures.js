@@ -1,5 +1,5 @@
 export const asistencia1 = {
-    "id": "5f9f1b0b4b3b0c0017b5b1a3",
+    "_id": "5f9f1b0b4b3b0c0017b5b1a3",
     "respuesta": "Asisto",
     "tipo": "Procesion",
     "comentario": "Comentario de prueba",

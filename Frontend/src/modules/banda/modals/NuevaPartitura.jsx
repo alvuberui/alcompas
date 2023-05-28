@@ -139,9 +139,10 @@ export const NuevaPartitura = ({
                   label="Age"
                   sx={{ width: "45vh", color: "white" }}
                   onChange={handleChangeInput("instrumento")}
+                  aria-label="instrumento"
                 >
                   {instrumentos.map((tipo, index) => (
-                    <MenuItem key={index} value={tipo}>
+                    <MenuItem aria-label={index} key={index} value={tipo}>
                       {tipo}
                     </MenuItem>
                   ))}

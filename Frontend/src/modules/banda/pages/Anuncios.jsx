@@ -135,6 +135,7 @@ export const Anuncios = () => {
               }}
             >
               <Button
+                aria-label="añadir"
                 color="primary"
                 onClick={handleOpen}
                 sx={{ mx: "auto", mb: "5px", width: "30vh", maxWidth: "4opx" }}

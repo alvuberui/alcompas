@@ -390,7 +390,7 @@ const getTodasAsistenciasByEvento = async (req, res = express.response) => {
         resultado[["", "Archivero"]] = [[usuario, asistencia]];
       }
     }
-
+    console.log(resultado)
     res.status(200).json({
       ok: true,
       resultado,

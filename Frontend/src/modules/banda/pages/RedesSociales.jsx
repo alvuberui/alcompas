@@ -201,8 +201,8 @@ export const RedesSociales = () => {
                           onClick={() => handleEliminar(row._id)}
                           sx={{ alignSelf: "flex-end" }}
                           color="error"
-                          aria-label="upload picture"
                           component="label"
+                          aria-label="eliminar"
                         >
                           <DeleteIcon></DeleteIcon>
                         </IconButton>

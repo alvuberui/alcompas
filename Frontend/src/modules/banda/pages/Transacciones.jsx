@@ -243,6 +243,7 @@ export const Transacciones = () => {
   if (loading) {
     return <CircularProgress />;
   } else {
+    
     return (
       <>
         {esDirectivo === false && <Navigate to="/" />}
@@ -293,6 +294,7 @@ export const Transacciones = () => {
                 variant="contained"
                 align="center"
                 sx={{ color: "white", width: 125 }}
+                aria-label="Añadir"
               >
                 Añadir
               </Button>
@@ -304,6 +306,7 @@ export const Transacciones = () => {
                   variant="contained"
                   align="center"
                   sx={{ color: "white", width: 125, ml: 2 }}
+                  aria-label="Imprimir"
                 >
                   Imprimir
                 </Button>
@@ -314,6 +317,7 @@ export const Transacciones = () => {
                   variant="contained"
                   align="center"
                   sx={{ color: "white", width: 125, ml: 2 }}
+                  aria-label="todas"
                 >
                   Ver todas
                 </Button>
@@ -323,6 +327,7 @@ export const Transacciones = () => {
                   variant="contained"
                   align="center"
                   sx={{ color: "white", width: 125, ml: 2 }}
+                  aria-label="ultimo"
                 >
                   Último año
                 </Button>
@@ -428,11 +433,11 @@ export const Transacciones = () => {
                       <TableCell style={{ width: "5%" }}>
                         {esTesorero ? (
                           <>
-                            <IconButton onClick={() => handleDelete(row._id)}>
+                            <IconButton aria-label="delete" onClick={() => handleDelete(row._id)}>
                               {" "}
                               <DeleteIcon />{" "}
                             </IconButton>
-                            <IconButton onClick={() => handleOpenEditar(row)}>
+                            <IconButton aria-label="editar" onClick={() => handleOpenEditar(row)}>
                               {" "}
                               <EditIcon />{" "}
                             </IconButton>

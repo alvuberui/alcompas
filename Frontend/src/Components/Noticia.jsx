@@ -83,7 +83,8 @@ export const Noticia = ({ noticia, index, style, setNoticias }) => {
   useEffect(() => {
     const esDirectivo = async () => {
       const directivos = await getDirectivoByUserId(user.uid);
-      if (directivos.length === 0) setEsDirectivo(false);
+      if ( directivos && directivos.length === 0) setEsDirectivo(false);
+      if( directivos ) {
       for (let i = 0; i < directivos.length; i++) {
         if (directivos[i].banda === banda._id && !directivos[i].fecha_final) {
           setEsDirectivo(true);
@@ -91,7 +92,7 @@ export const Noticia = ({ noticia, index, style, setNoticias }) => {
         } else {
           setEsDirectivo(false);
         }
-      }
+      }}
     };
     esDirectivo();
   }, [banda, user]);

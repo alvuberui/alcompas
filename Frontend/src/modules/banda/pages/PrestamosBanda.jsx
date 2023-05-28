@@ -49,7 +49,7 @@ export const PrestamosBanda = () => {
     getPermiso();
     getPrestamos();
   }, []);
-
+  
   if (permiso === "")
     return (
       <>
@@ -65,6 +65,7 @@ export const PrestamosBanda = () => {
       </>
     );
   else {
+   
     return (
       <>
         {permiso === false && <Navigate to="/" />}

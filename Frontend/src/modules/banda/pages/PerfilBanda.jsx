@@ -564,6 +564,7 @@ export const PerfilBanda = () => {
               )}
               {isLiked ? (
                 <Button
+                  aria-label="like"
                   onClick={handleDislike}
                   sx={{
                     mt: 2,
@@ -578,6 +579,7 @@ export const PerfilBanda = () => {
                 </Button>
               ) : (
                 <Button
+                  aria-label="dislike"
                   onClick={handleLike}
                   sx={{
                     mt: 2,
@@ -757,6 +759,7 @@ export const PerfilBanda = () => {
                     variant="contained"
                     align="center"
                     onClick={handleAbadonarBanda}
+                    aria-label="abandonarmusico"
                   >
                     Abandonar Banda COMO MÚSICO
                   </Button>
@@ -770,6 +773,7 @@ export const PerfilBanda = () => {
                     variant="contained"
                     align="center"
                     onClick={handleAbadonarBandaArchivero}
+                    aria-label="abandonararchivero"
                   >
                     Abandonar Banda como archivero
                   </Button>
@@ -829,11 +833,11 @@ export const PerfilBanda = () => {
                   },
                 }}
               >
-                <Tab label="Anuncios" />
-                <Tab label="Eventos" />
-                <Tab label="Comentarios" />
-                <Tab label="Repertorios" />
-                <Tab label="Plantilla" />
+                <Tab aria-label="1" label="Anuncios" />
+                <Tab aria-label="2" label="Eventos" />
+                <Tab aria-label="3" label="Comentarios" />
+                <Tab aria-label="4" label="Repertorios" />
+                <Tab aria-label="5" label="Plantilla" />
               </Tabs>
             </Box>
           </Grid>

@@ -307,7 +307,7 @@ export const PanelDirectivo = () => {
             </Box>
             <Box textAlign="center" sx={{ mt: "10px", minWidth: "50vh" }}>
               <Button
-                aria-label="directivo"
+                aria-label="abandonar"
                 onClick={handleAbadonarBanda}
                 variant="contained"
                 sx={{ color: "black", fontWeight: "bold" }}
@@ -324,7 +324,7 @@ export const PanelDirectivo = () => {
                 sx={{ mt: "10px", mb: "10px", minWidth: "50vh" }}
               >
                 <Button
-                  aria-label="banda"
+                  aria-label="eliminar"
                   onClick={handleEliminarBanda}
                   variant="contained"
                   align="center"

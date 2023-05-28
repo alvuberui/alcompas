@@ -133,6 +133,7 @@ export const AsistenciaEvento = () => {
       if (lista) {
         for (let j = 0; j < lista.length; j++) {
           const value = lista[j];
+         
           html.push(
             <Musico
               key={(j + 1) * (i + 1)}
@@ -165,9 +166,10 @@ export const AsistenciaEvento = () => {
         </Grid>
       );
       if (value) {
+        
         html.push(
           <Musico
-            key={key[1]}
+            key={key[1] + 2*i}
             usuario={value}
             tipo={"Directivo"}
             contratado={true}
@@ -177,6 +179,7 @@ export const AsistenciaEvento = () => {
         );
       }
     }
+
     return html;
   };
 
@@ -229,7 +232,7 @@ export const AsistenciaEvento = () => {
             alignItems="center"
           >
             {esDirectivo && (
-              <Button sx={{ mb: 2, ml: 2 }} variant="contained" color="primary">
+              <Button aria-label="contratado" sx={{ mb: 2, ml: 2 }} variant="contained" color="primary">
                 <NavLink
                   style={{ textDecoration: "none", color: "white" }}
                   to={`/banda/panel/eventos/asistencia/contratar/${eventoId}/${tipoEvento}`}

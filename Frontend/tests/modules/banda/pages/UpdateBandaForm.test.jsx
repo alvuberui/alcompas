@@ -90,7 +90,33 @@ describe('Pruebas en el  <UpdateBandaForm />', () => {
             // CrearBanda3
             const usuario = screen.getByLabelText('telefono');
             expect( usuario ).not.toBe( undefined);
+            const retroceder3 = screen.getByLabelText('retroceder');
+            retroceder3.click();
 
+        });
+        await waitFor(() => {
+            const retroceder2 = screen.getByLabelText('retroceder');
+            retroceder2.click();
+
+        });
+
+        await waitFor(() => {
+            // Crear banda uno
+            const btnSiguiente = screen.getByLabelText('link');
+            expect( btnSiguiente ).not.toBe( undefined);
+            btnSiguiente.click();
+        });
+
+        await waitFor(() => {
+            const boton = screen.getByLabelText('link');
+            boton.click();
+        });
+
+        await waitFor(() => {
+            const usuario = screen.getByLabelText('telefono');
+            expect( usuario ).not.toBe( undefined);
+            const confirmar = screen.getByLabelText('confirmar');
+            confirmar.click();
         });
     });    
 });

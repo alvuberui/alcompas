@@ -35,3 +35,22 @@ export const testUserCredentials2 = {
     contraseña: "asdf1234",
     administrador: true,
 }
+
+export const testUserCredentials3 = {
+    _id: "63f23b7c574f95917e3595ff",
+    nombre: "Álvaro",
+    primer_apellido: "Úbeda",
+    segundo_apellido: "Ruiz",
+    fecha_nacimiento: "2001-01-28T00:00:00.000+00:00",
+    correo: "alvaro.uber8@gmail.com",
+    descripcion: "Hola!",
+    localidad: "Écija",
+    provincia: "Sevilla",
+    codigo_postal: "41400",
+    direccion: "Albaizín sn",
+    nif: "17480690T",
+    telefono: "666777666",
+    usuario: "alvaro_ubeda8",
+    contraseña: "asdf1234",
+    administrador: true,
+}

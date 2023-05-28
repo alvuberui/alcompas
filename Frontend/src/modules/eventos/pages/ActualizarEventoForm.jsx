@@ -140,7 +140,7 @@ export const ActualizarEventoForm = () => {
               alignItems: "center",
             }}
           >
-            <CircularProgress size={200} />
+            <CircularProgress aria-label="loading" size={200} />
           </Box>
         </>
       );

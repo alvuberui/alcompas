@@ -165,13 +165,13 @@ export const Musico = ({
             >
               <NavLink
                 style={{ textDecoration: "none", color: "black" }}
-                to={`/perfil/${usuario._id}`}
+                to={`/perfil/${usuario? usuario._id : ""}`}
               >
                 <Typography
                   sx={{ ml: "10px", mt: "10px", textAlign: "center" }}
                 >
-                  {usuario.nombre} {usuario.primer_apellido}{" "}
-                  {usuario.segundo_apellido}
+                  {usuario && usuario.nombre} {usuario &&  usuario.primer_apellido}{" "}
+                  {usuario &&  usuario.segundo_apellido}
                 </Typography>
               </NavLink>
             </Grid>

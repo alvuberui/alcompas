@@ -174,6 +174,7 @@ export class CrearBandaTres extends Component {
                   color="secondary"
                   fullWidth
                   onClick={this.retroceder}
+                  aria-label="retroceder"
                 >
                   Retroceder
                 </Button>
@@ -184,6 +185,7 @@ export class CrearBandaTres extends Component {
                   color="secondary"
                   fullWidth
                   onClick={this.confirmar}
+                  aria-label="confirmar"
                 >
                   Finalizar
                 </Button>

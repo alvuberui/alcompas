@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">9.09% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>1/11</span>
+                <span class='fraction'>11/11</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/2</span>
+                <span class='fraction'>2/2</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/4</span>
+                <span class='fraction'>4/4</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">9.09% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>1/11</span>
+                <span class='fraction'>11/11</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line low'></div>
+    <div class='status-line high'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -125,22 +125,20 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">18x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">31x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -162,7 +160,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -182,20 +182,20 @@ import React, { useEffect, useState } from "react";
 import { Prestamo } from "../../../Components";
 import { useAuthStore, usePrestamosStore } from "../../../hooks";
 &nbsp;
-export const Prestamos = <span class="fstat-no" title="function not covered" >()</span> =&gt; {
-  const [prestamos, setPrestamos] = <span class="cstat-no" title="statement not covered" >useState([]);</span>
-  const { user } = <span class="cstat-no" title="statement not covered" >useAuthStore();</span>
-  const { obtenerPrestamosUsuario } = <span class="cstat-no" title="statement not covered" >usePrestamosStore();</span>
+export const Prestamos = () =&gt; {
+  const [prestamos, setPrestamos] = useState([]);
+  const { user } = useAuthStore();
+  const { obtenerPrestamosUsuario } = usePrestamosStore();
 &nbsp;
-<span class="cstat-no" title="statement not covered" >  useEffect(<span class="fstat-no" title="function not covered" >()</span> =&gt; {</span>
-    const getPrestamos = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >as</span>ync () =&gt; {</span>
-      const userreq = <span class="cstat-no" title="statement not covered" >await obtenerPrestamosUsuario(user.uid);</span>
-<span class="cstat-no" title="statement not covered" >      setPrestamos(userreq.reverse());</span>
+  useEffect(() =&gt; {
+    const getPrestamos = async () =&gt; {
+      const userreq = await obtenerPrestamosUsuario(user.uid);
+      setPrestamos(userreq.reverse());
     };
-<span class="cstat-no" title="statement not covered" >    getPrestamos();</span>
+    getPrestamos();
   }, []);
 &nbsp;
-<span class="cstat-no" title="statement not covered" >  return (</span>
+  return (
     &lt;&gt;
       &lt;Grid container justifyContent="center" alignItems="center"&gt;
         &lt;Grid
@@ -218,8 +218,8 @@ export const Prestamos = <span class="fstat-no" title="function not covered" >()
           sx={{ mt: "20px", justifyContent: "center", display: "-ms-flexbox" }}
           item
         &gt;
-          {prestamos.map(<span class="fstat-no" title="function not covered" >(p</span>res, index) =&gt; (
-<span class="cstat-no" title="statement not covered" >            &lt;Prestamo prestamo={pres} key={index} /&gt;</span>
+          {prestamos.map((pres, index) =&gt; (
+            &lt;Prestamo prestamo={pres} key={index} /&gt;
           ))}
           {prestamos.length === 0 &amp;&amp; (
             &lt;Grid item lg={12} xs={12}&gt;
@@ -241,7 +241,7 @@ export const Prestamos = <span class="fstat-no" title="function not covered" >()
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2023-05-25T17:18:45.322Z
+                at 2023-05-28T13:31:14.927Z
             </div>
         <script src="../../../../prettify.js"></script>
         <script>

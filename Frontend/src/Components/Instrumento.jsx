@@ -5,7 +5,7 @@ import Swal from "sweetalert2";
 import { usePrestamosStore } from "../hooks";
 import { useInstrumentosStore } from "../hooks/useInstrumentosStore";
 import { NuevoPrestamo } from "../modules/banda/modals/NuevoPrestamo";
-import { AñadirInstrumentoModal } from "../modules/user/";
+import { AñadirInstrumentoModal } from "../modules/user";
 
 export const Instrumento = ({
   _id,
@@ -232,6 +232,7 @@ export const Instrumento = ({
                   onClick={handleOpenEditar}
                   sx={{ mr: "5px" }}
                   variant="contained"
+                  aria-label="Editar"
                 >
                   <Typography sx={{ fontWeight: "bold", fontSize: "12px" }}>
                     Editar
@@ -242,6 +243,7 @@ export const Instrumento = ({
                   onClick={handleElminar}
                   sx={{ ml: "5px" }}
                   variant="contained"
+                  aria-label="Eliminar"
                 >
                   <Typography sx={{ fontWeight: "bold", fontSize: "12px" }}>
                     Eliminar
@@ -255,6 +257,7 @@ export const Instrumento = ({
                         onClick={handleOpenPrestamo}
                         sx={{ ml: "5px" }}
                         variant="contained"
+                        aria-label="Prestar"
                       >
                         <Typography
                           sx={{ fontWeight: "bold", fontSize: "12px" }}
@@ -268,6 +271,7 @@ export const Instrumento = ({
                         onClick={handleCancelarPrestamo}
                         sx={{ ml: "5px" }}
                         variant="contained"
+                        aria-label="Cancelar"
                       >
                         <Typography
                           sx={{ fontWeight: "bold", fontSize: "12px" }}

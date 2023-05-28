@@ -148,6 +148,7 @@ export const Instrumentos = () => {
               variant="contained"
               align="center"
               sx={{ color: "white" }}
+              aria-label="añadir"
             >
               Nuevo
             </Button>
@@ -156,6 +157,7 @@ export const Instrumentos = () => {
               variant="contained"
               align="center"
               sx={{ color: "white", ml: 2 }}
+              aria-label="todos"
             >
               Todos
             </Button>
@@ -164,6 +166,7 @@ export const Instrumentos = () => {
               variant="contained"
               align="center"
               sx={{ color: "white", ml: 2 }}
+              aria-label="prestados"
             >
               Prestados
             </Button>
@@ -172,6 +175,7 @@ export const Instrumentos = () => {
               variant="contained"
               align="center"
               sx={{ color: "white", ml: 2 }}
+              aria-label="sinprestar"
             >
               Sin Prestar
             </Button>

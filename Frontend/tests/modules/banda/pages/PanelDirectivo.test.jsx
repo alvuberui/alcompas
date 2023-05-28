@@ -65,11 +65,12 @@ describe('Pruebas en <PanelDirectivo />', () => {
                 </Provider>
             );
         });
-        waitFor(() => {
-            const directivo = screen.getByLabelText('directivo');
-            const banda = screen.getByLabelText('banda');
-            expect( directivo ).not.toBe( undefined);
-            expect( banda ).not.toBe( undefined);    
+        await waitFor(() => {
+            
+            const abandonar = screen.getByLabelText('abandonar');
+            fireEvent.click( abandonar );
+            const eliminar = screen.getByLabelText('eliminar');
+            fireEvent.click( eliminar );  
         });
         
         

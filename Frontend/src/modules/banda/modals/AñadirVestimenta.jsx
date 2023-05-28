@@ -44,7 +44,6 @@ export const AñadirVestimenta = ({
 
   // Funciones
   const { crearVestimenta, editarVestimenta } = useVestimentasStore();
-  const { user } = useAuthStore();
 
   const validarVestimenta = () => {
     let error = "";
@@ -131,6 +130,7 @@ export const AñadirVestimenta = ({
                   Tipo de vestimenta
                 </Typography>
                 <Select
+                  aria-label="tipo"
                   style={{ color: "white", border: "1px solid #e2e2e1" }}
                   inputProps={{ style: { color: "white" } }}
                   labelId="demo-simple-select-label"
@@ -169,7 +169,7 @@ export const AñadirVestimenta = ({
               )}
               {editar === true && (
                 <Button
-                  aria-label="crear"
+                  aria-label="editar"
                   color="secondary"
                   sx={{ backgroundColor: "white", color: "black" }}
                   variant="contained"

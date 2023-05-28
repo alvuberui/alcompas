@@ -147,6 +147,7 @@ export const Vestimentas = () => {
               align="center"
               sx={{ color: "white" }}
               fullWidth
+              aria-label="Añadir"
             >
               Nueva
             </Button>
@@ -156,6 +157,7 @@ export const Vestimentas = () => {
               align="center"
               sx={{ color: "white", ml: 2 }}
               fullWidth
+              aria-label="todas"
             >
               Todas
             </Button>
@@ -165,6 +167,7 @@ export const Vestimentas = () => {
               align="center"
               sx={{ color: "white", ml: 2 }}
               fullWidth
+              aria-label="prestadas"
             >
               Prestadas
             </Button>
@@ -174,6 +177,7 @@ export const Vestimentas = () => {
               align="center"
               sx={{ color: "white", ml: 2 }}
               fullWidth
+              aria-label="sinprestar"
             >
               Sin Prestar
             </Button>

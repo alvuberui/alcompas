@@ -100,6 +100,7 @@ export class CrearBandaDos extends Component {
                   color="secondary"
                   fullWidth
                   onClick={this.retroceder}
+                  aria-label="retroceder" 
                 >
                   Retroceder
                 </Button>

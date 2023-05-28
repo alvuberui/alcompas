@@ -29,7 +29,6 @@ export const NuevaObra = ({
 }) => {
   const [values, setValues] = useState({ titulo: "", compositor: "" });
   const { crearObra } = useObrasStore();
-  const { bandaId } = useParams();
 
   const handleForm = async (e) => {
     e.preventDefault();
@@ -91,8 +90,10 @@ export const NuevaObra = ({
                   placeholder="Nombre"
                   fullWidth
                   focused
+                  defaultValue={values.titulo}
                   style={{ border: "1px solid #e2e2e1", borderRadius: "5px" }}
                   onChange={handleChangeInput("titulo")}
+                  aria-label="titulo"
                 />
               </Grid>
               <Grid item xs={12} sx={{ mt: 2 }}>
@@ -104,8 +105,10 @@ export const NuevaObra = ({
                   placeholder="Compositor"
                   fullWidth
                   focused
+                  defaultValue={values.compositor}
                   style={{ border: "1px solid #e2e2e1", borderRadius: "5px" }}
                   onChange={handleChangeInput("compositor")}
+                  aria-label="compositor"
                 />
               </Grid>
             </Grid>

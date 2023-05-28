@@ -130,6 +130,7 @@ export const EditarFoto = ({ setFoto, open, handleClose, setOpen, tipo }) => {
             >
               {tipo === "usuario" ? (
                 <Button
+                aria-label="añadir"
                   color="secondary"
                   sx={{ backgroundColor: "white", color: "black" }}
                   variant="contained"
@@ -139,6 +140,7 @@ export const EditarFoto = ({ setFoto, open, handleClose, setOpen, tipo }) => {
                 </Button>
               ) : tipo === "banda" ? (
                 <Button
+                aria-label="añadir"
                   color="secondary"
                   sx={{ backgroundColor: "white", color: "black" }}
                   variant="contained"
