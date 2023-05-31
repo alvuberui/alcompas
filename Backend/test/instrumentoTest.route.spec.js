@@ -183,6 +183,11 @@ describe('Pruebas sobre la API de instrumeto', () => {
             
         });
 
+     
+            afterAll(async () => {
+                await request(app).delete('/api/auth/' + uid).set('x-token', token);
+            });
+
       
     });
 

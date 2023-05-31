@@ -101,7 +101,7 @@ export const CrearPeticion = ({
     voz: "Primero",
     usuario: "",
   });
-  const [rol, setRol] = useState("Músico");
+
   const { id } = useParams();
   const [openBuscador, setOpenBuscador] = React.useState(false);
   const [options, setOptions] = React.useState([]);

@@ -247,11 +247,7 @@
 <a name='L182'></a><a href='#L182'>182</a>
 <a name='L183'></a><a href='#L183'>183</a>
 <a name='L184'></a><a href='#L184'>184</a>
-<a name='L185'></a><a href='#L185'>185</a>
-<a name='L186'></a><a href='#L186'>186</a>
-<a name='L187'></a><a href='#L187'>187</a>
-<a name='L188'></a><a href='#L188'>188</a>
-<a name='L189'></a><a href='#L189'>189</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">23x</span>
+<a name='L185'></a><a href='#L185'>185</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">23x</span>
 <span class="cline-any cline-yes">23x</span>
 <span class="cline-any cline-yes">23x</span>
 <span class="cline-any cline-yes">23x</span>
@@ -317,8 +313,6 @@
 <span class="cline-any cline-yes">23x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -404,8 +398,6 @@
 <span class="cline-any cline-yes">23x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -502,38 +494,36 @@ const añadirFoto = <span class="fstat-no" title="function not covered" >as</spa
 /*
     Mostrar imagen de usuario
 */
-const mostrarImagenUsuario = async(req, res = <span class="branch-0 cbranch-no" title="branch not covered" >response </span>) =&gt; {
+const mostrarImagenUsuario = async (req, res = <span class="branch-0 cbranch-no" title="branch not covered" >response)</span> =&gt; {
     try {
         const { userId } = req.params;
 &nbsp;
-        let modelo;
-&nbsp;
-        modelo = await Usuario.findById(userId);
-        <span class="missing-if-branch" title="if path not taken" >I</span>if ( !modelo ) {
+        const modelo = await Usuario.findById(userId);
+        <span class="missing-if-branch" title="if path not taken" >I</span>if (!modelo) {
 <span class="cstat-no" title="statement not covered" >            return res.status(400).json({</span>
-                msg: `No existe un usuario con el id ${ id }`
+                msg: `No existe un usuario con el id ${userId}`
             });
         }
 &nbsp;
-        // Si tiene imagen devuelve la ruta de su imagen
-        <span class="missing-if-branch" title="if path not taken" >I</span>if ( modelo.img ) {
-            const pathImagen = <span class="cstat-no" title="statement not covered" >path.join( __dirname, '../uploads/opt/usuarios', modelo.img );</span>
-<span class="cstat-no" title="statement not covered" >            if ( fs.existsSync( pathImagen ) ) {</span>
-<span class="cstat-no" title="statement not covered" >                return res.sendFile( pathImagen )</span>
+        // Si tiene imagen, devuelve la ruta de su imagen
+        <span class="missing-if-branch" title="if path not taken" >I</span>if (modelo.img) {
+            const pathImagen = <span class="cstat-no" title="statement not covered" >path.join(__dirname, '../uploads/opt/usuarios', modelo.img);</span>
+<span class="cstat-no" title="statement not covered" >            if (fs.existsSync(pathImagen)) {</span>
+<span class="cstat-no" title="statement not covered" >                return res.sendFile(pathImagen);</span>
             }
         }
 &nbsp;
-        // Si no tiene imagen devuelve la imagen por defecto
-        const pathImagen = path.join( __dirname, '../uploads/imgs/usuarios/no-image.webp');
-        res.sendFile( pathImagen );
+        // Si no tiene imagen, devuelve la imagen por defecto
+        const pathImagenDefault = path.join(__dirname, '../uploads/imgs/usuarios/no-image.webp');
+        return res.sendFile(pathImagenDefault);
     } catch (error) {
-<span class="cstat-no" title="statement not covered" >        console.log(error)</span>
-<span class="cstat-no" title="statement not covered" >        res.status(500).json({</span>
+<span class="cstat-no" title="statement not covered" >        console.log(error);</span>
+<span class="cstat-no" title="statement not covered" >        return res.status(500).json({</span>
             ok: false,
             msg: 'Por favor hable con el administrador.'
         });
     }
-}
+};
 &nbsp;
 /*
     Añadir foto de banda
@@ -593,9 +583,7 @@ const mostrarImagenBanda = async(req, res = <span class="branch-0 cbranch-no" ti
     try {
         const { bandaId } = req.params;
 &nbsp;
-        let modelo;
-&nbsp;
-        modelo = await Banda.findById(bandaId);
+        const modelo = await Banda.findById(bandaId);
         <span class="missing-if-branch" title="if path not taken" >I</span>if ( !modelo ) {
 <span class="cstat-no" title="statement not covered" >            return res.status(400).json({</span>
                 msg: `No existe un usuario con el id ${ id }`
@@ -612,7 +600,7 @@ const mostrarImagenBanda = async(req, res = <span class="branch-0 cbranch-no" ti
 &nbsp;
         // Si no tiene imagen devuelve la imagen por defecto
         const pathImagen = path.join( __dirname, '../uploads/imgs/bandas/no-image.png');
-        res.sendFile( pathImagen );
+        return res.sendFile( pathImagen );
     } catch (error) {
 <span class="cstat-no" title="statement not covered" >        console.log(error)</span>
 <span class="cstat-no" title="statement not covered" >        res.status(500).json({</span>
@@ -634,7 +622,7 @@ module.exports = {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2023-05-31T07:53:10.863Z
+                at 2023-05-31T16:24:27.392Z
             </div>
         <script src="../../prettify.js"></script>
         <script>

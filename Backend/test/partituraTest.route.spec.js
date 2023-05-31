@@ -141,6 +141,7 @@ describe("Pruebas de la api de partituras", () => {
         afterAll(async () => {
             await request(app).delete('/api/bandas/' + bandaId).set('x-token', token);
             await request(app).delete('/api/auth/' + uid).set('x-token', token);
+            await request(app).delete('/api/auth/' + uid2).set('x-token', token2);
 
         });
     });
