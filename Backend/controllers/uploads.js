@@ -61,38 +61,36 @@ const añadirFoto = async(req, res = express.response) => {
 /*
     Mostrar imagen de usuario
 */
-const mostrarImagenUsuario = async(req, res = response ) => {
+const mostrarImagenUsuario = async (req, res = response) => {
     try {
         const { userId } = req.params;
 
-        let modelo;
-
-        modelo = await Usuario.findById(userId);
-        if ( !modelo ) {
+        const modelo = await Usuario.findById(userId);
+        if (!modelo) {
             return res.status(400).json({
-                msg: `No existe un usuario con el id ${ id }`
+                msg: `No existe un usuario con el id ${userId}`
             });
         }
 
-        // Si tiene imagen devuelve la ruta de su imagen
-        if ( modelo.img ) {
-            const pathImagen = path.join( __dirname, '../uploads/opt/usuarios', modelo.img );
-            if ( fs.existsSync( pathImagen ) ) {
-                return res.sendFile( pathImagen )
+        // Si tiene imagen, devuelve la ruta de su imagen
+        if (modelo.img) {
+            const pathImagen = path.join(__dirname, '../uploads/opt/usuarios', modelo.img);
+            if (fs.existsSync(pathImagen)) {
+                return res.sendFile(pathImagen);
             }
         }
 
-        // Si no tiene imagen devuelve la imagen por defecto
-        const pathImagen = path.join( __dirname, '../uploads/imgs/usuarios/no-image.webp');
-        res.sendFile( pathImagen );
+        // Si no tiene imagen, devuelve la imagen por defecto
+        const pathImagenDefault = path.join(__dirname, '../uploads/imgs/usuarios/no-image.webp');
+        return res.sendFile(pathImagenDefault);
     } catch (error) {
-        console.log(error)
-        res.status(500).json({
+        console.log(error);
+        return res.status(500).json({
             ok: false,
             msg: 'Por favor hable con el administrador.'
         });
     }
-}
+};
 
 /*
     Añadir foto de banda
@@ -152,9 +150,7 @@ const mostrarImagenBanda = async(req, res = response ) => {
     try {
         const { bandaId } = req.params;
 
-        let modelo;
-
-        modelo = await Banda.findById(bandaId);
+        const modelo = await Banda.findById(bandaId);
         if ( !modelo ) {
             return res.status(400).json({
                 msg: `No existe un usuario con el id ${ id }`
@@ -171,7 +167,7 @@ const mostrarImagenBanda = async(req, res = response ) => {
 
         // Si no tiene imagen devuelve la imagen por defecto
         const pathImagen = path.join( __dirname, '../uploads/imgs/bandas/no-image.png');
-        res.sendFile( pathImagen );
+        return res.sendFile( pathImagen );
     } catch (error) {
         console.log(error)
         res.status(500).json({

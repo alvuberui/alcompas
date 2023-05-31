@@ -33,19 +33,24 @@ const Search = styled("div")(({ theme }) => ({
 
 export const NavBar = () => {
   const { startLogout, user, getUserByiD } = useAuthStore();
-  const [fotoPerfil, setFotoPerfil] = useState();
+  const [fotoPerfil, setFotoPerfil] = useState("");
   const { getFotoPerfilUsuario } = useUploadsStore();
   const [admin, setAdmin] = useState("");
-  const [usuario, setUsuario] = useState("");
-
+  
   useEffect(() => {
     const getFoto = async () => {
+        if(user) {
       const foto = await getFotoPerfilUsuario(user.uid);
       setFotoPerfil(foto);
+        }
+      
     };
+    getFoto();
+  }, [user]);
+
+  useEffect(() => {
     const getAdmin = async () => {
       const u = await getUserByiD(user.uid);
-      setUsuario(u);
       if (u.administrador) {
         setAdmin(true);
       } else {
@@ -53,10 +58,10 @@ export const NavBar = () => {
       }
     };
     getAdmin();
-    getFoto();
-  }, [usuario]);
+  }, [user]);
 
   const cerrarSesion = () => {
+
     startLogout();
     handleMenuClose();
   };

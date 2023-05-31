@@ -72,13 +72,18 @@ export const Noticia = ({ noticia, index, style, setNoticias }) => {
       bandareq.titulo = bandareq.tipo + " " + bandareq.nombre;
       setBanda(bandareq);
     };
+    getBanda();
+  }, [noticia]);
+
+  useEffect(() => {
     const getFoto = async () => {
+      if(noticia) {
       const fotoreq = await getFotoPerfilBanda(noticia.banda);
       setFotoPerfil(fotoreq);
+      }
     };
     getFoto();
-    getBanda();
-  }, []);
+  }, [ noticia]);
 
   useEffect(() => {
     const esDirectivo = async () => {

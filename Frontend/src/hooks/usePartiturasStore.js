@@ -22,7 +22,6 @@ export const usePartiturasStore = () => {
     })
       .then(function (data) {
         const partitura = data.data.nuevaPartitura;
-        console.log(partitura)
         return partitura;
       })
       .catch(function (error) {

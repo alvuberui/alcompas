@@ -8,27 +8,27 @@ import { LocationRegister } from "./LocationRegister";
 import { PersonalRegister } from "./PersonalRegister";
 import { UserRegister } from "./UserRegister";
 
-const state = {
-  nombre: "",
-  primer_apellido: "",
-  segundo_apellido: "",
-  correo: "",
-  descripcion: "",
-  localidad: "",
-  provincia: "",
-  codigo_postal: "",
-  direccion: "",
-  nif: "",
-  telefono: "",
-  usuario: "",
-  contraseña: "",
-  confirmacion_contraseña: "",
-  fecha_nacimiento: "",
-};
+
 
 export const RegisterFrom = () => {
   const [step, setStep] = useState(1);
-  const [values, setValues] = useState(state);
+  const [values, setValues] = useState({
+    nombre: "",
+    primer_apellido: "",
+    segundo_apellido: "",
+    correo: "",
+    descripcion: "",
+    localidad: "",
+    provincia: "",
+    codigo_postal: "",
+    direccion: "",
+    nif: "",
+    telefono: "",
+    usuario: "",
+    contraseña: "",
+    confirmacion_contraseña: "",
+    fecha_nacimiento: "",
+  });
 
   const { startRegister, errorMessage, status } = useAuthStore();
   let navigate = useNavigate();
@@ -71,7 +71,7 @@ export const RegisterFrom = () => {
         fecha_nacimiento: values.fecha_nacimiento,
       });
 
-      if (data !== undefined) {
+      if (data) {
         setValues({
           nombre: "",
           primer_apellido: "",
@@ -97,7 +97,7 @@ export const RegisterFrom = () => {
 
   // Manejar los inputs
   const handleChange = (input) => (e) => {
-    state[input] = e.target.value;
+    values[input] = e.target.value;
   };
 
   //const cambiar = (step) => {

@@ -657,20 +657,21 @@ export const PerfilBanda = () => {
                 {banda.correo}
               </Typography>
               <Typography
-                sx={{ textAlign: "center" }}
+                sx={{ textAlign: "center", mb: 2  }}
                 color="white"
                 variant="h7"
               >
                 {banda.telefono}
               </Typography>
+              <Grid container spacing={2} justifyContent="center" flexWrap="wrap">
               {redesSociales.map((redSocial) => (
-                <Grid key={redSocial._id} item xs={4} display="inline-block">
+                <Grid key={redSocial._id} item xs={2} display="flex" sx={{ ml:1, mr:1, mt:1}}
+                justifyContent="center"
+                alignItems="center">
                   <Button
                     sx={{
                       backgroundColor: "white",
                       color: "primary.main",
-                      mt: 1,
-                      ml: 2,
                     }}
                     color="secondary"
                     href={redSocial.url}
@@ -751,6 +752,7 @@ export const PerfilBanda = () => {
                   </Button>
                 </Grid>
               ))}
+              </Grid>
               {perteneceMusico && (
                 <Box textAlign="center" sx={{ mt: 3 }}>
                   <Button
@@ -1033,7 +1035,7 @@ export const PerfilBanda = () => {
                         sx={{ textAlign: "center", mt: 2 }}
                         variant="h7"
                       >
-                        No hay partituras en esta banda
+                        No hay partituras en esta obra
                       </Typography>
                     </Grid>
                   )
@@ -1060,7 +1062,7 @@ export const PerfilBanda = () => {
                           sx={{ textAlign: "center", mt: 2 }}
                           variant="h7"
                         >
-                          No hay obras en esta banda
+                          No hay obras en este repertorio
                         </Typography>
                       </Grid>
                     )}
@@ -1096,6 +1098,7 @@ export const PerfilBanda = () => {
                   tipo="Músicos"
                   directivo={perteneceDirectivo}
                   setComponente={setMusicos}
+                  key={331}
                 />
                 <Plantilla
                   musicos={directivos}
@@ -1103,6 +1106,7 @@ export const PerfilBanda = () => {
                   tipo="Directivos"
                   directivo={perteneceDirectivo}
                   setComponente={setDirectivos}
+                  key={5}
                 />
                 <Plantilla
                   musicos={archiveros}
@@ -1110,6 +1114,7 @@ export const PerfilBanda = () => {
                   tipo="Archiveros"
                   directivo={perteneceDirectivo}
                   setComponente={setArchiveros}
+                  key={31231}
                 />
               </>
             )}

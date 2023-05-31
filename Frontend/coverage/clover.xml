@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1685280675522" clover="3.2.0">
-  <project timestamp="1685280675522" name="All files">
-    <metrics statements="4141" coveredstatements="3382" conditionals="1482" coveredconditionals="892" methods="896" coveredmethods="657" elements="6519" coveredelements="4931" complexity="0" loc="4141" ncloc="4141" packages="25" files="141" classes="141"/>
+<coverage generated="1685483165208" clover="3.2.0">
+  <project timestamp="1685483165208" name="All files">
+    <metrics statements="4133" coveredstatements="3359" conditionals="1508" coveredconditionals="905" methods="895" coveredmethods="654" elements="6536" coveredelements="4918" complexity="0" loc="4133" ncloc="4133" packages="25" files="141" classes="141"/>
     <package name="src.Components">
-      <metrics statements="768" coveredstatements="613" conditionals="379" coveredconditionals="233" methods="184" coveredmethods="134"/>
+      <metrics statements="767" coveredstatements="612" conditionals="389" coveredconditionals="250" methods="184" coveredmethods="134"/>
       <file name="Archivo.jsx" path="C:\Users\alvar\Desktop\Universidad\Segundo Cuatrimestre\TFG\alcompas\Frontend\src\Components\Archivo.jsx">
         <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
         <line num="3" count="35" type="stmt"/>
@@ -224,7 +224,7 @@
         <line num="75" count="11" type="stmt"/>
       </file>
       <file name="Evento.jsx" path="C:\Users\alvar\Desktop\Universidad\Segundo Cuatrimestre\TFG\alcompas\Frontend\src\Components\Evento.jsx">
-        <metrics statements="138" coveredstatements="122" conditionals="91" coveredconditionals="71" methods="29" coveredmethods="22"/>
+        <metrics statements="137" coveredstatements="121" conditionals="91" coveredconditionals="71" methods="29" coveredmethods="22"/>
         <line num="31" count="36" type="stmt"/>
         <line num="32" count="21" type="stmt"/>
         <line num="33" count="21" type="stmt"/>
@@ -334,35 +334,34 @@
         <line num="210" count="18" type="stmt"/>
         <line num="211" count="18" type="stmt"/>
         <line num="212" count="18" type="stmt"/>
-        <line num="213" count="2" type="stmt"/>
-        <line num="214" count="2" type="cond" truecount="4" falsecount="0"/>
+        <line num="213" count="2" type="cond" truecount="4" falsecount="0"/>
+        <line num="214" count="1" type="stmt"/>
         <line num="215" count="1" type="stmt"/>
-        <line num="216" count="1" type="stmt"/>
+        <line num="219" count="18" type="stmt"/>
         <line num="220" count="18" type="stmt"/>
         <line num="221" count="18" type="stmt"/>
-        <line num="222" count="18" type="stmt"/>
+        <line num="223" count="18" type="stmt"/>
         <line num="224" count="18" type="stmt"/>
-        <line num="225" count="18" type="stmt"/>
-        <line num="228" count="52" type="stmt"/>
-        <line num="229" count="1" type="stmt"/>
-        <line num="238" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="239" count="0" type="stmt"/>
+        <line num="227" count="52" type="stmt"/>
+        <line num="228" count="1" type="stmt"/>
+        <line num="237" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="238" count="0" type="stmt"/>
+        <line num="240" count="0" type="stmt"/>
         <line num="241" count="0" type="stmt"/>
-        <line num="242" count="0" type="stmt"/>
-        <line num="247" count="0" type="stmt"/>
-        <line num="256" count="52" type="stmt"/>
-        <line num="257" count="30" type="stmt"/>
-        <line num="258" count="30" type="cond" truecount="2" falsecount="0"/>
-        <line num="268" count="29" type="stmt"/>
-        <line num="270" count="1" type="stmt"/>
-        <line num="273" count="30" type="stmt"/>
-        <line num="285" count="52" type="stmt"/>
-        <line num="286" count="0" type="stmt"/>
-        <line num="289" count="52" type="stmt"/>
-        <line num="290" count="0" type="stmt"/>
-        <line num="293" count="52" type="cond" truecount="2" falsecount="0"/>
-        <line num="294" count="41" type="stmt"/>
-        <line num="829" count="11" type="stmt"/>
+        <line num="246" count="0" type="stmt"/>
+        <line num="255" count="52" type="stmt"/>
+        <line num="256" count="30" type="stmt"/>
+        <line num="257" count="30" type="cond" truecount="2" falsecount="0"/>
+        <line num="267" count="29" type="stmt"/>
+        <line num="269" count="1" type="stmt"/>
+        <line num="272" count="30" type="stmt"/>
+        <line num="284" count="52" type="stmt"/>
+        <line num="285" count="0" type="stmt"/>
+        <line num="288" count="52" type="stmt"/>
+        <line num="289" count="0" type="stmt"/>
+        <line num="292" count="52" type="cond" truecount="2" falsecount="0"/>
+        <line num="293" count="41" type="stmt"/>
+        <line num="828" count="11" type="stmt"/>
       </file>
       <file name="Experiencia.jsx" path="C:\Users\alvar\Desktop\Universidad\Segundo Cuatrimestre\TFG\alcompas\Frontend\src\Components\Experiencia.jsx">
         <metrics statements="9" coveredstatements="9" conditionals="12" coveredconditionals="7" methods="3" coveredmethods="3"/>
@@ -434,16 +433,16 @@
         <line num="12" count="2" type="stmt"/>
       </file>
       <file name="Musico.jsx" path="C:\Users\alvar\Desktop\Universidad\Segundo Cuatrimestre\TFG\alcompas\Frontend\src\Components\Musico.jsx">
-        <metrics statements="53" coveredstatements="28" conditionals="49" coveredconditionals="18" methods="11" coveredmethods="5"/>
+        <metrics statements="53" coveredstatements="28" conditionals="49" coveredconditionals="27" methods="11" coveredmethods="5"/>
         <line num="16" count="33" type="stmt"/>
-        <line num="26" count="10" type="stmt"/>
-        <line num="27" count="10" type="stmt"/>
-        <line num="28" count="10" type="stmt"/>
-        <line num="29" count="10" type="stmt"/>
-        <line num="30" count="10" type="stmt"/>
-        <line num="31" count="10" type="stmt"/>
-        <line num="32" count="10" type="stmt"/>
-        <line num="34" count="10" type="stmt"/>
+        <line num="26" count="8" type="stmt"/>
+        <line num="27" count="8" type="stmt"/>
+        <line num="28" count="8" type="stmt"/>
+        <line num="29" count="8" type="stmt"/>
+        <line num="30" count="8" type="stmt"/>
+        <line num="31" count="8" type="stmt"/>
+        <line num="32" count="8" type="stmt"/>
+        <line num="34" count="8" type="stmt"/>
         <line num="35" count="1" type="stmt"/>
         <line num="36" count="1" type="stmt"/>
         <line num="46" count="0" type="cond" truecount="0" falsecount="2"/>
@@ -451,7 +450,7 @@
         <line num="48" count="0" type="stmt"/>
         <line num="49" count="0" type="stmt"/>
         <line num="50" count="0" type="stmt"/>
-        <line num="55" count="10" type="stmt"/>
+        <line num="55" count="8" type="stmt"/>
         <line num="56" count="1" type="stmt"/>
         <line num="57" count="1" type="stmt"/>
         <line num="67" count="0" type="cond" truecount="0" falsecount="2"/>
@@ -459,11 +458,11 @@
         <line num="69" count="0" type="stmt"/>
         <line num="70" count="0" type="stmt"/>
         <line num="71" count="0" type="stmt"/>
-        <line num="76" count="10" type="stmt"/>
+        <line num="76" count="8" type="stmt"/>
         <line num="77" count="0" type="stmt"/>
-        <line num="80" count="10" type="stmt"/>
+        <line num="80" count="8" type="stmt"/>
         <line num="81" count="0" type="stmt"/>
-        <line num="84" count="10" type="stmt"/>
+        <line num="84" count="8" type="stmt"/>
         <line num="85" count="1" type="stmt"/>
         <line num="86" count="1" type="stmt"/>
         <line num="87" count="1" type="stmt"/>
@@ -479,15 +478,15 @@
         <line num="108" count="0" type="stmt"/>
         <line num="109" count="0" type="stmt"/>
         <line num="111" count="0" type="stmt"/>
-        <line num="116" count="10" type="stmt"/>
-        <line num="117" count="2" type="stmt"/>
-        <line num="118" count="2" type="stmt"/>
+        <line num="116" count="8" type="stmt"/>
+        <line num="117" count="1" type="stmt"/>
+        <line num="118" count="1" type="stmt"/>
         <line num="127" count="0" type="cond" truecount="0" falsecount="2"/>
         <line num="128" count="0" type="stmt"/>
         <line num="129" count="0" type="stmt"/>
         <line num="137" count="0" type="stmt"/>
         <line num="138" count="0" type="stmt"/>
-        <line num="147" count="10" type="stmt"/>
+        <line num="147" count="8" type="stmt"/>
       </file>
       <file name="NavBar.jsx" path="C:\Users\alvar\Desktop\Universidad\Segundo Cuatrimestre\TFG\alcompas\Frontend\src\Components\NavBar.jsx">
         <metrics statements="43" coveredstatements="41" conditionals="8" coveredconditionals="8" methods="11" coveredmethods="9"/>
@@ -498,42 +497,42 @@
         <line num="37" count="8" type="stmt"/>
         <line num="38" count="8" type="stmt"/>
         <line num="39" count="8" type="stmt"/>
-        <line num="41" count="8" type="stmt"/>
-        <line num="42" count="6" type="stmt"/>
+        <line num="42" count="8" type="stmt"/>
         <line num="43" count="6" type="stmt"/>
         <line num="44" count="6" type="stmt"/>
-        <line num="46" count="6" type="stmt"/>
+        <line num="45" count="6" type="stmt"/>
         <line num="47" count="6" type="stmt"/>
         <line num="48" count="6" type="stmt"/>
-        <line num="49" count="6" type="cond" truecount="2" falsecount="0"/>
-        <line num="50" count="2" type="stmt"/>
-        <line num="52" count="4" type="stmt"/>
-        <line num="55" count="6" type="stmt"/>
+        <line num="49" count="6" type="stmt"/>
+        <line num="50" count="6" type="cond" truecount="2" falsecount="0"/>
+        <line num="51" count="2" type="stmt"/>
+        <line num="53" count="4" type="stmt"/>
         <line num="56" count="6" type="stmt"/>
-        <line num="59" count="8" type="stmt"/>
-        <line num="60" count="1" type="stmt"/>
-        <line num="61" count="1" type="stmt"/>
-        <line num="64" count="8" type="stmt"/>
-        <line num="65" count="1" type="stmt"/>
-        <line num="66" count="1" type="stmt"/>
-        <line num="69" count="8" type="stmt"/>
-        <line num="70" count="8" type="stmt"/>
+        <line num="57" count="6" type="stmt"/>
+        <line num="60" count="8" type="stmt"/>
+        <line num="62" count="1" type="stmt"/>
+        <line num="63" count="1" type="stmt"/>
+        <line num="66" count="8" type="stmt"/>
+        <line num="67" count="1" type="stmt"/>
+        <line num="68" count="1" type="stmt"/>
+        <line num="71" count="8" type="stmt"/>
         <line num="72" count="8" type="stmt"/>
-        <line num="73" count="8" type="stmt"/>
+        <line num="74" count="8" type="stmt"/>
         <line num="75" count="8" type="stmt"/>
-        <line num="76" count="0" type="stmt"/>
-        <line num="79" count="8" type="stmt"/>
-        <line num="80" count="2" type="stmt"/>
-        <line num="83" count="8" type="stmt"/>
-        <line num="84" count="2" type="stmt"/>
-        <line num="85" count="2" type="stmt"/>
-        <line num="88" count="8" type="stmt"/>
-        <line num="89" count="0" type="stmt"/>
-        <line num="92" count="8" type="stmt"/>
+        <line num="77" count="8" type="stmt"/>
+        <line num="78" count="0" type="stmt"/>
+        <line num="81" count="8" type="stmt"/>
+        <line num="82" count="2" type="stmt"/>
+        <line num="85" count="8" type="stmt"/>
+        <line num="86" count="2" type="stmt"/>
+        <line num="87" count="2" type="stmt"/>
+        <line num="90" count="8" type="stmt"/>
+        <line num="91" count="0" type="stmt"/>
         <line num="94" count="8" type="stmt"/>
-        <line num="161" count="8" type="stmt"/>
+        <line num="96" count="8" type="stmt"/>
         <line num="163" count="8" type="stmt"/>
-        <line num="244" count="8" type="stmt"/>
+        <line num="165" count="8" type="stmt"/>
+        <line num="246" count="8" type="stmt"/>
       </file>
       <file name="NavbarInvitado.jsx" path="C:\Users\alvar\Desktop\Universidad\Segundo Cuatrimestre\TFG\alcompas\Frontend\src\Components\NavbarInvitado.jsx">
         <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
@@ -678,7 +677,7 @@
         <line num="77" count="3" type="stmt"/>
       </file>
       <file name="Peticion.jsx" path="C:\Users\alvar\Desktop\Universidad\Segundo Cuatrimestre\TFG\alcompas\Frontend\src\Components\Peticion.jsx">
-        <metrics statements="47" coveredstatements="43" conditionals="15" coveredconditionals="10" methods="8" coveredmethods="8"/>
+        <metrics statements="47" coveredstatements="43" conditionals="25" coveredconditionals="18" methods="8" coveredmethods="8"/>
         <line num="11" count="33" type="stmt"/>
         <line num="27" count="6" type="stmt"/>
         <line num="28" count="6" type="stmt"/>
@@ -713,7 +712,7 @@
         <line num="76" count="2" type="stmt"/>
         <line num="78" count="2" type="stmt"/>
         <line num="79" count="2" type="stmt"/>
-        <line num="80" count="2" type="stmt"/>
+        <line num="80" count="2" type="cond" truecount="1" falsecount="1"/>
         <line num="81" count="2" type="stmt"/>
         <line num="83" count="2" type="stmt"/>
         <line num="84" count="2" type="stmt"/>
@@ -871,7 +870,7 @@
       </file>
     </package>
     <package name="src.auth.pages">
-      <metrics statements="103" coveredstatements="97" conditionals="38" coveredconditionals="32" methods="29" coveredmethods="28"/>
+      <metrics statements="102" coveredstatements="96" conditionals="38" coveredconditionals="32" methods="29" coveredmethods="28"/>
       <file name="ConfirmationRegister.jsx" path="C:\Users\alvar\Desktop\Universidad\Segundo Cuatrimestre\TFG\alcompas\Frontend\src\auth\pages\ConfirmationRegister.jsx">
         <metrics statements="8" coveredstatements="8" conditionals="0" coveredconditionals="0" methods="3" coveredmethods="3"/>
         <line num="9" count="6" type="stmt"/>
@@ -917,11 +916,10 @@
         <line num="14" count="7" type="stmt"/>
       </file>
       <file name="RegisterFrom.jsx" path="C:\Users\alvar\Desktop\Universidad\Segundo Cuatrimestre\TFG\alcompas\Frontend\src\auth\pages\RegisterFrom.jsx">
-        <metrics statements="27" coveredstatements="24" conditionals="10" coveredconditionals="6" methods="7" coveredmethods="7"/>
-        <line num="11" count="1" type="stmt"/>
-        <line num="29" count="1" type="stmt"/>
-        <line num="30" count="11" type="stmt"/>
-        <line num="31" count="11" type="stmt"/>
+        <metrics statements="26" coveredstatements="23" conditionals="10" coveredconditionals="6" methods="7" coveredmethods="7"/>
+        <line num="13" count="1" type="stmt"/>
+        <line num="14" count="11" type="stmt"/>
+        <line num="15" count="11" type="stmt"/>
         <line num="33" count="11" type="stmt"/>
         <line num="34" count="11" type="stmt"/>
         <line num="35" count="11" type="stmt"/>
@@ -1161,7 +1159,7 @@
       </file>
     </package>
     <package name="src.hooks">
-      <metrics statements="1082" coveredstatements="951" conditionals="54" coveredconditionals="26" methods="194" coveredmethods="167"/>
+      <metrics statements="1081" coveredstatements="952" conditionals="56" coveredconditionals="27" methods="194" coveredmethods="168"/>
       <file name="index.js" path="C:\Users\alvar\Desktop\Universidad\Segundo Cuatrimestre\TFG\alcompas\Frontend\src\hooks\index.js">
         <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
       </file>
@@ -1271,9 +1269,9 @@
         <line num="106" count="9" type="stmt"/>
       </file>
       <file name="useAuthStore.js" path="C:\Users\alvar\Desktop\Universidad\Segundo Cuatrimestre\TFG\alcompas\Frontend\src\hooks\useAuthStore.js">
-        <metrics statements="121" coveredstatements="114" conditionals="10" coveredconditionals="7" methods="19" coveredmethods="19"/>
+        <metrics statements="121" coveredstatements="114" conditionals="12" coveredconditionals="8" methods="19" coveredmethods="19"/>
         <line num="13" count="80" type="stmt"/>
-        <line num="14" count="86" type="stmt"/>
+        <line num="14" count="84" type="stmt"/>
         <line num="15" count="69" type="stmt"/>
         <line num="16" count="69" type="stmt"/>
         <line num="18" count="69" type="stmt"/>
@@ -1289,113 +1287,113 @@
         <line num="31" count="1" type="stmt"/>
         <line num="32" count="1" type="stmt"/>
         <line num="37" count="69" type="stmt"/>
-        <line num="53" count="2" type="stmt"/>
+        <line num="54" count="2" type="stmt"/>
         <line num="55" count="2" type="stmt"/>
-        <line num="56" count="2" type="stmt"/>
-        <line num="72" count="1" type="stmt"/>
+        <line num="72" count="1" type="cond" truecount="1" falsecount="1"/>
         <line num="73" count="1" type="stmt"/>
         <line num="74" count="1" type="stmt"/>
-        <line num="76" count="1" type="stmt"/>
+        <line num="75" count="1" type="stmt"/>
         <line num="77" count="1" type="stmt"/>
         <line num="79" count="1" type="stmt"/>
-        <line num="80" count="1" type="stmt"/>
         <line num="81" count="1" type="stmt"/>
-        <line num="82" count="0" type="stmt"/>
-        <line num="83" count="0" type="stmt"/>
+        <line num="82" count="1" type="stmt"/>
+        <line num="83" count="1" type="stmt"/>
         <line num="84" count="0" type="stmt"/>
-        <line num="87" count="1" type="cond" truecount="1" falsecount="1"/>
-        <line num="89" count="1" type="stmt"/>
-        <line num="90" count="1" type="stmt"/>
-        <line num="95" count="69" type="stmt"/>
-        <line num="110" count="2" type="stmt"/>
-        <line num="111" count="2" type="stmt"/>
-        <line num="126" count="1" type="stmt"/>
-        <line num="127" count="1" type="stmt"/>
+        <line num="85" count="0" type="stmt"/>
+        <line num="86" count="0" type="stmt"/>
+        <line num="89" count="1" type="cond" truecount="1" falsecount="1"/>
+        <line num="91" count="1" type="stmt"/>
+        <line num="92" count="1" type="stmt"/>
+        <line num="97" count="69" type="stmt"/>
+        <line num="112" count="2" type="stmt"/>
+        <line num="113" count="2" type="stmt"/>
         <line num="128" count="1" type="stmt"/>
         <line num="129" count="1" type="stmt"/>
+        <line num="130" count="1" type="stmt"/>
         <line num="131" count="1" type="stmt"/>
-        <line num="132" count="1" type="stmt"/>
         <line num="133" count="1" type="stmt"/>
-        <line num="134" count="1" type="cond" truecount="1" falsecount="1"/>
+        <line num="134" count="1" type="stmt"/>
         <line num="135" count="1" type="stmt"/>
-        <line num="136" count="1" type="stmt"/>
+        <line num="136" count="1" type="cond" truecount="1" falsecount="1"/>
         <line num="137" count="1" type="stmt"/>
-        <line num="140" count="0" type="stmt"/>
-        <line num="142" count="1" type="stmt"/>
+        <line num="138" count="1" type="stmt"/>
+        <line num="139" count="1" type="stmt"/>
+        <line num="142" count="0" type="stmt"/>
         <line num="144" count="1" type="stmt"/>
-        <line num="145" count="1" type="stmt"/>
+        <line num="146" count="1" type="stmt"/>
         <line num="147" count="1" type="stmt"/>
-        <line num="150" count="69" type="stmt"/>
-        <line num="151" count="2" type="stmt"/>
-        <line num="152" count="2" type="stmt"/>
-        <line num="157" count="1" type="stmt"/>
+        <line num="149" count="1" type="stmt"/>
+        <line num="152" count="69" type="stmt"/>
+        <line num="153" count="2" type="stmt"/>
+        <line num="154" count="2" type="stmt"/>
         <line num="159" count="1" type="stmt"/>
-        <line num="160" count="1" type="stmt"/>
         <line num="161" count="1" type="stmt"/>
         <line num="162" count="1" type="stmt"/>
         <line num="163" count="1" type="stmt"/>
         <line num="164" count="1" type="stmt"/>
-        <line num="167" count="1" type="cond" truecount="2" falsecount="0"/>
-        <line num="169" count="1" type="stmt"/>
-        <line num="170" count="1" type="stmt"/>
-        <line num="175" count="69" type="stmt"/>
-        <line num="176" count="2" type="stmt"/>
-        <line num="177" count="2" type="cond" truecount="2" falsecount="0"/>
-        <line num="179" count="1" type="stmt"/>
-        <line num="180" count="1" type="stmt"/>
+        <line num="165" count="1" type="stmt"/>
+        <line num="166" count="1" type="stmt"/>
+        <line num="169" count="1" type="cond" truecount="2" falsecount="0"/>
+        <line num="171" count="1" type="stmt"/>
+        <line num="172" count="1" type="stmt"/>
+        <line num="177" count="69" type="stmt"/>
+        <line num="178" count="2" type="stmt"/>
+        <line num="179" count="2" type="cond" truecount="2" falsecount="0"/>
         <line num="181" count="1" type="stmt"/>
         <line num="182" count="1" type="stmt"/>
+        <line num="183" count="1" type="stmt"/>
         <line num="184" count="1" type="stmt"/>
-        <line num="186" count="0" type="stmt"/>
-        <line num="187" count="0" type="stmt"/>
-        <line num="191" count="69" type="stmt"/>
-        <line num="192" count="1" type="stmt"/>
-        <line num="193" count="1" type="stmt"/>
-        <line num="196" count="69" type="stmt"/>
-        <line num="197" count="2" type="stmt"/>
-        <line num="198" count="2" type="stmt"/>
+        <line num="186" count="1" type="stmt"/>
+        <line num="188" count="0" type="stmt"/>
+        <line num="189" count="0" type="stmt"/>
+        <line num="193" count="69" type="stmt"/>
+        <line num="194" count="1" type="stmt"/>
+        <line num="195" count="1" type="stmt"/>
+        <line num="198" count="69" type="stmt"/>
         <line num="199" count="2" type="stmt"/>
-        <line num="200" count="1" type="stmt"/>
+        <line num="200" count="2" type="stmt"/>
+        <line num="201" count="2" type="stmt"/>
         <line num="202" count="1" type="stmt"/>
-        <line num="203" count="1" type="stmt"/>
+        <line num="204" count="1" type="stmt"/>
         <line num="205" count="1" type="stmt"/>
-        <line num="206" count="1" type="stmt"/>
         <line num="207" count="1" type="stmt"/>
         <line num="208" count="1" type="stmt"/>
-        <line num="213" count="69" type="stmt"/>
-        <line num="214" count="2" type="stmt"/>
-        <line num="215" count="2" type="stmt"/>
-        <line num="217" count="1" type="stmt"/>
+        <line num="209" count="1" type="stmt"/>
+        <line num="210" count="1" type="stmt"/>
+        <line num="215" count="69" type="stmt"/>
+        <line num="216" count="2" type="stmt"/>
+        <line num="217" count="2" type="stmt"/>
         <line num="219" count="1" type="stmt"/>
-        <line num="223" count="69" type="stmt"/>
-        <line num="224" count="6" type="stmt"/>
-        <line num="225" count="6" type="cond" truecount="1" falsecount="1"/>
+        <line num="221" count="1" type="stmt"/>
+        <line num="225" count="69" type="stmt"/>
         <line num="226" count="6" type="stmt"/>
-        <line num="227" count="3" type="stmt"/>
+        <line num="227" count="6" type="cond" truecount="1" falsecount="1"/>
+        <line num="228" count="6" type="stmt"/>
         <line num="229" count="3" type="stmt"/>
-        <line num="232" count="3" type="stmt"/>
-        <line num="239" count="69" type="stmt"/>
-        <line num="240" count="1" type="stmt"/>
-        <line num="241" count="1" type="stmt"/>
+        <line num="231" count="3" type="stmt"/>
+        <line num="234" count="3" type="stmt"/>
+        <line num="241" count="69" type="stmt"/>
         <line num="242" count="1" type="stmt"/>
         <line num="243" count="1" type="stmt"/>
-        <line num="245" count="0" type="stmt"/>
-        <line num="252" count="69" type="stmt"/>
-        <line num="253" count="2" type="stmt"/>
-        <line num="254" count="2" type="stmt"/>
-        <line num="255" count="1" type="stmt"/>
-        <line num="256" count="1" type="stmt"/>
+        <line num="244" count="1" type="stmt"/>
+        <line num="245" count="1" type="stmt"/>
+        <line num="247" count="0" type="stmt"/>
+        <line num="254" count="69" type="stmt"/>
+        <line num="255" count="2" type="stmt"/>
+        <line num="256" count="2" type="stmt"/>
+        <line num="257" count="1" type="stmt"/>
         <line num="258" count="1" type="stmt"/>
-        <line num="262" count="69" type="stmt"/>
-        <line num="263" count="2" type="stmt"/>
-        <line num="264" count="2" type="stmt"/>
-        <line num="265" count="1" type="stmt"/>
-        <line num="266" count="1" type="stmt"/>
+        <line num="260" count="1" type="stmt"/>
+        <line num="264" count="69" type="stmt"/>
+        <line num="265" count="2" type="stmt"/>
+        <line num="266" count="2" type="stmt"/>
+        <line num="267" count="1" type="stmt"/>
         <line num="268" count="1" type="stmt"/>
-        <line num="272" count="69" type="stmt"/>
+        <line num="270" count="1" type="stmt"/>
+        <line num="274" count="69" type="stmt"/>
       </file>
       <file name="useBandasStore.js" path="C:\Users\alvar\Desktop\Universidad\Segundo Cuatrimestre\TFG\alcompas\Frontend\src\hooks\useBandasStore.js">
-        <metrics statements="83" coveredstatements="71" conditionals="4" coveredconditionals="2" methods="14" coveredmethods="13"/>
+        <metrics statements="83" coveredstatements="72" conditionals="4" coveredconditionals="2" methods="14" coveredmethods="14"/>
         <line num="4" count="82" type="stmt"/>
         <line num="5" count="43" type="stmt"/>
         <line num="7" count="43" type="stmt"/>
@@ -1465,7 +1463,7 @@
         <line num="113" count="1" type="stmt"/>
         <line num="115" count="0" type="stmt"/>
         <line num="117" count="1" type="stmt"/>
-        <line num="118" count="0" type="stmt"/>
+        <line num="118" count="1" type="stmt"/>
         <line num="123" count="43" type="stmt"/>
         <line num="124" count="1" type="stmt"/>
         <line num="125" count="1" type="stmt"/>
@@ -1928,49 +1926,49 @@
       <file name="useMusicosStore.js" path="C:\Users\alvar\Desktop\Universidad\Segundo Cuatrimestre\TFG\alcompas\Frontend\src\hooks\useMusicosStore.js">
         <metrics statements="44" coveredstatements="43" conditionals="0" coveredconditionals="0" methods="8" coveredmethods="8"/>
         <line num="3" count="83" type="stmt"/>
-        <line num="4" count="20" type="stmt"/>
+        <line num="4" count="18" type="stmt"/>
         <line num="5" count="3" type="stmt"/>
         <line num="6" count="3" type="stmt"/>
         <line num="9" count="1" type="stmt"/>
         <line num="11" count="1" type="stmt"/>
         <line num="13" count="2" type="stmt"/>
-        <line num="17" count="20" type="stmt"/>
+        <line num="17" count="18" type="stmt"/>
         <line num="18" count="2" type="stmt"/>
         <line num="19" count="2" type="stmt"/>
         <line num="22" count="1" type="stmt"/>
         <line num="23" count="1" type="stmt"/>
         <line num="25" count="1" type="stmt"/>
-        <line num="29" count="20" type="stmt"/>
+        <line num="29" count="18" type="stmt"/>
         <line num="30" count="1" type="stmt"/>
         <line num="31" count="1" type="stmt"/>
         <line num="34" count="1" type="stmt"/>
         <line num="35" count="1" type="stmt"/>
         <line num="37" count="0" type="stmt"/>
-        <line num="41" count="20" type="stmt"/>
+        <line num="41" count="18" type="stmt"/>
         <line num="42" count="2" type="stmt"/>
         <line num="43" count="2" type="stmt"/>
         <line num="44" count="1" type="stmt"/>
         <line num="45" count="1" type="stmt"/>
         <line num="47" count="1" type="stmt"/>
-        <line num="51" count="20" type="stmt"/>
+        <line num="51" count="18" type="stmt"/>
         <line num="52" count="2" type="stmt"/>
         <line num="53" count="2" type="stmt"/>
         <line num="54" count="1" type="stmt"/>
         <line num="56" count="1" type="stmt"/>
         <line num="58" count="1" type="stmt"/>
-        <line num="62" count="20" type="stmt"/>
+        <line num="62" count="18" type="stmt"/>
         <line num="63" count="2" type="stmt"/>
         <line num="64" count="2" type="stmt"/>
         <line num="67" count="1" type="stmt"/>
         <line num="68" count="1" type="stmt"/>
         <line num="70" count="1" type="stmt"/>
-        <line num="74" count="20" type="stmt"/>
+        <line num="74" count="18" type="stmt"/>
         <line num="75" count="2" type="stmt"/>
         <line num="76" count="2" type="stmt"/>
         <line num="77" count="1" type="stmt"/>
         <line num="78" count="1" type="stmt"/>
         <line num="80" count="1" type="stmt"/>
-        <line num="84" count="20" type="stmt"/>
+        <line num="84" count="18" type="stmt"/>
       </file>
       <file name="useObrasStore.js" path="C:\Users\alvar\Desktop\Universidad\Segundo Cuatrimestre\TFG\alcompas\Frontend\src\hooks\useObrasStore.js">
         <metrics statements="28" coveredstatements="26" conditionals="2" coveredconditionals="1" methods="4" coveredmethods="4"/>
@@ -2004,7 +2002,7 @@
         <line num="66" count="13" type="stmt"/>
       </file>
       <file name="usePartiturasStore.js" path="C:\Users\alvar\Desktop\Universidad\Segundo Cuatrimestre\TFG\alcompas\Frontend\src\hooks\usePartiturasStore.js">
-        <metrics statements="37" coveredstatements="17" conditionals="2" coveredconditionals="0" methods="9" coveredmethods="3"/>
+        <metrics statements="36" coveredstatements="17" conditionals="2" coveredconditionals="0" methods="9" coveredmethods="3"/>
         <line num="6" count="85" type="stmt"/>
         <line num="7" count="11" type="stmt"/>
         <line num="9" count="11" type="stmt"/>
@@ -2015,33 +2013,32 @@
         <line num="14" count="0" type="stmt"/>
         <line num="24" count="0" type="stmt"/>
         <line num="25" count="0" type="stmt"/>
-        <line num="26" count="0" type="stmt"/>
+        <line num="29" count="0" type="stmt"/>
         <line num="30" count="0" type="stmt"/>
-        <line num="31" count="0" type="stmt"/>
+        <line num="32" count="0" type="stmt"/>
         <line num="33" count="0" type="stmt"/>
         <line num="34" count="0" type="stmt"/>
-        <line num="35" count="0" type="stmt"/>
-        <line num="38" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="39" count="0" type="stmt"/>
-        <line num="46" count="0" type="stmt"/>
-        <line num="56" count="11" type="stmt"/>
+        <line num="37" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="38" count="0" type="stmt"/>
+        <line num="45" count="0" type="stmt"/>
+        <line num="55" count="11" type="stmt"/>
+        <line num="56" count="2" type="stmt"/>
         <line num="57" count="2" type="stmt"/>
-        <line num="58" count="2" type="stmt"/>
+        <line num="58" count="1" type="stmt"/>
         <line num="59" count="1" type="stmt"/>
-        <line num="60" count="1" type="stmt"/>
-        <line num="62" count="1" type="stmt"/>
-        <line num="66" count="11" type="stmt"/>
-        <line num="67" count="0" type="stmt"/>
-        <line num="73" count="0" type="stmt"/>
-        <line num="75" count="0" type="stmt"/>
-        <line num="79" count="0" type="stmt"/>
-        <line num="83" count="11" type="stmt"/>
+        <line num="61" count="1" type="stmt"/>
+        <line num="65" count="11" type="stmt"/>
+        <line num="66" count="0" type="stmt"/>
+        <line num="72" count="0" type="stmt"/>
+        <line num="74" count="0" type="stmt"/>
+        <line num="78" count="0" type="stmt"/>
+        <line num="82" count="11" type="stmt"/>
+        <line num="83" count="2" type="stmt"/>
         <line num="84" count="2" type="stmt"/>
-        <line num="85" count="2" type="stmt"/>
+        <line num="85" count="1" type="stmt"/>
         <line num="86" count="1" type="stmt"/>
-        <line num="87" count="1" type="stmt"/>
-        <line num="89" count="1" type="stmt"/>
-        <line num="93" count="11" type="stmt"/>
+        <line num="88" count="1" type="stmt"/>
+        <line num="92" count="11" type="stmt"/>
       </file>
       <file name="usePeticionesStore.js" path="C:\Users\alvar\Desktop\Universidad\Segundo Cuatrimestre\TFG\alcompas\Frontend\src\hooks\usePeticionesStore.js">
         <metrics statements="40" coveredstatements="39" conditionals="2" coveredconditionals="1" methods="6" coveredmethods="6"/>
@@ -2140,8 +2137,8 @@
       <file name="useRedesSocialesStore.js" path="C:\Users\alvar\Desktop\Universidad\Segundo Cuatrimestre\TFG\alcompas\Frontend\src\hooks\useRedesSocialesStore.js">
         <metrics statements="26" coveredstatements="24" conditionals="0" coveredconditionals="0" methods="6" coveredmethods="5"/>
         <line num="3" count="83" type="stmt"/>
-        <line num="4" count="10" type="stmt"/>
-        <line num="6" count="10" type="stmt"/>
+        <line num="4" count="9" type="stmt"/>
+        <line num="6" count="9" type="stmt"/>
         <line num="7" count="3" type="stmt"/>
         <line num="8" count="3" type="stmt"/>
         <line num="9" count="2" type="stmt"/>
@@ -2150,13 +2147,13 @@
         <line num="13" count="2" type="stmt"/>
         <line num="14" count="2" type="stmt"/>
         <line num="15" count="2" type="stmt"/>
-        <line num="20" count="10" type="stmt"/>
+        <line num="20" count="9" type="stmt"/>
         <line num="21" count="1" type="stmt"/>
         <line num="22" count="1" type="stmt"/>
         <line num="23" count="1" type="stmt"/>
         <line num="24" count="1" type="stmt"/>
         <line num="26" count="0" type="stmt"/>
-        <line num="30" count="10" type="stmt"/>
+        <line num="30" count="9" type="stmt"/>
         <line num="31" count="2" type="stmt"/>
         <line num="32" count="2" type="stmt"/>
         <line num="33" count="1" type="stmt"/>
@@ -2164,7 +2161,7 @@
         <line num="36" count="1" type="stmt"/>
         <line num="37" count="1" type="stmt"/>
         <line num="38" count="0" type="stmt"/>
-        <line num="43" count="10" type="stmt"/>
+        <line num="43" count="9" type="stmt"/>
       </file>
       <file name="useRepertoriosStore.js" path="C:\Users\alvar\Desktop\Universidad\Segundo Cuatrimestre\TFG\alcompas\Frontend\src\hooks\useRepertoriosStore.js">
         <metrics statements="35" coveredstatements="31" conditionals="4" coveredconditionals="2" methods="4" coveredmethods="4"/>
@@ -2801,7 +2798,7 @@
       </file>
     </package>
     <package name="src.modules.banda.pages">
-      <metrics statements="725" coveredstatements="609" conditionals="253" coveredconditionals="155" methods="180" coveredmethods="118"/>
+      <metrics statements="724" coveredstatements="596" conditionals="253" coveredconditionals="151" methods="180" coveredmethods="114"/>
       <file name="Anuncios.jsx" path="C:\Users\alvar\Desktop\Universidad\Segundo Cuatrimestre\TFG\alcompas\Frontend\src\modules\banda\pages\Anuncios.jsx">
         <metrics statements="39" coveredstatements="32" conditionals="11" coveredconditionals="4" methods="10" coveredmethods="6"/>
         <line num="14" count="5" type="stmt"/>
@@ -2845,35 +2842,34 @@
         <line num="150" count="0" type="stmt"/>
       </file>
       <file name="BandaForm.jsx" path="C:\Users\alvar\Desktop\Universidad\Segundo Cuatrimestre\TFG\alcompas\Frontend\src\modules\banda\pages\BandaForm.jsx">
-        <metrics statements="28" coveredstatements="22" conditionals="11" coveredconditionals="6" methods="8" coveredmethods="6"/>
-        <line num="9" count="4" type="stmt"/>
-        <line num="23" count="4" type="stmt"/>
-        <line num="24" count="7" type="stmt"/>
-        <line num="26" count="7" type="stmt"/>
-        <line num="28" count="7" type="stmt"/>
-        <line num="30" count="7" type="stmt"/>
-        <line num="31" count="1" type="cond" truecount="2" falsecount="2"/>
-        <line num="32" count="0" type="stmt"/>
-        <line num="34" count="1" type="stmt"/>
-        <line num="35" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="36" count="0" type="stmt"/>
-        <line num="37" count="0" type="stmt"/>
+        <metrics statements="27" coveredstatements="21" conditionals="11" coveredconditionals="6" methods="8" coveredmethods="6"/>
+        <line num="11" count="4" type="stmt"/>
+        <line num="12" count="7" type="stmt"/>
+        <line num="14" count="7" type="stmt"/>
+        <line num="16" count="7" type="stmt"/>
+        <line num="18" count="7" type="stmt"/>
+        <line num="19" count="1" type="cond" truecount="2" falsecount="2"/>
+        <line num="20" count="0" type="stmt"/>
+        <line num="22" count="1" type="stmt"/>
+        <line num="23" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="24" count="0" type="stmt"/>
+        <line num="25" count="0" type="stmt"/>
         <line num="42" count="7" type="stmt"/>
-        <line num="45" count="7" type="stmt"/>
-        <line num="46" count="5" type="stmt"/>
-        <line num="50" count="7" type="stmt"/>
-        <line num="51" count="2" type="stmt"/>
-        <line num="56" count="7" type="stmt"/>
-        <line num="57" count="1" type="stmt"/>
-        <line num="59" count="1" type="cond" truecount="1" falsecount="1"/>
-        <line num="60" count="0" type="stmt"/>
-        <line num="62" count="1" type="stmt"/>
-        <line num="67" count="27" type="stmt"/>
-        <line num="68" count="0" type="stmt"/>
-        <line num="72" count="7" type="cond" truecount="3" falsecount="0"/>
-        <line num="74" count="2" type="stmt"/>
-        <line num="83" count="3" type="stmt"/>
-        <line num="93" count="2" type="stmt"/>
+        <line num="57" count="7" type="stmt"/>
+        <line num="58" count="5" type="stmt"/>
+        <line num="62" count="7" type="stmt"/>
+        <line num="63" count="2" type="stmt"/>
+        <line num="68" count="7" type="stmt"/>
+        <line num="69" count="1" type="stmt"/>
+        <line num="71" count="1" type="cond" truecount="1" falsecount="1"/>
+        <line num="72" count="0" type="stmt"/>
+        <line num="74" count="1" type="stmt"/>
+        <line num="79" count="27" type="stmt"/>
+        <line num="80" count="0" type="stmt"/>
+        <line num="84" count="7" type="cond" truecount="3" falsecount="0"/>
+        <line num="86" count="2" type="stmt"/>
+        <line num="95" count="3" type="stmt"/>
+        <line num="105" count="2" type="stmt"/>
       </file>
       <file name="CrearBandaDos.jsx" path="C:\Users\alvar\Desktop\Universidad\Segundo Cuatrimestre\TFG\alcompas\Frontend\src\modules\banda\pages\CrearBandaDos.jsx">
         <metrics statements="8" coveredstatements="8" conditionals="0" coveredconditionals="0" methods="3" coveredmethods="3"/>
@@ -2906,53 +2902,53 @@
         <line num="13" count="4" type="stmt"/>
       </file>
       <file name="Instrumentos.jsx" path="C:\Users\alvar\Desktop\Universidad\Segundo Cuatrimestre\TFG\alcompas\Frontend\src\modules\banda\pages\Instrumentos.jsx">
-        <metrics statements="47" coveredstatements="41" conditionals="11" coveredconditionals="9" methods="12" coveredmethods="8"/>
+        <metrics statements="47" coveredstatements="29" conditionals="11" coveredconditionals="5" methods="12" coveredmethods="4"/>
         <line num="12" count="11" type="stmt"/>
-        <line num="14" count="5" type="stmt"/>
-        <line num="15" count="4" type="stmt"/>
-        <line num="16" count="4" type="stmt"/>
-        <line num="17" count="4" type="stmt"/>
-        <line num="18" count="4" type="stmt"/>
-        <line num="19" count="4" type="stmt"/>
-        <line num="24" count="4" type="stmt"/>
-        <line num="26" count="4" type="stmt"/>
+        <line num="14" count="1" type="stmt"/>
+        <line num="15" count="1" type="stmt"/>
+        <line num="16" count="1" type="stmt"/>
+        <line num="17" count="1" type="stmt"/>
+        <line num="18" count="1" type="stmt"/>
+        <line num="19" count="1" type="stmt"/>
+        <line num="24" count="1" type="stmt"/>
+        <line num="26" count="1" type="stmt"/>
         <line num="27" count="0" type="stmt"/>
         <line num="28" count="0" type="stmt"/>
-        <line num="31" count="4" type="stmt"/>
-        <line num="32" count="2" type="stmt"/>
-        <line num="33" count="2" type="stmt"/>
-        <line num="34" count="2" type="stmt"/>
-        <line num="37" count="4" type="stmt"/>
-        <line num="38" count="2" type="stmt"/>
-        <line num="39" count="2" type="stmt"/>
-        <line num="40" count="2" type="stmt"/>
-        <line num="43" count="4" type="stmt"/>
-        <line num="44" count="2" type="stmt"/>
-        <line num="45" count="2" type="stmt"/>
-        <line num="46" count="2" type="stmt"/>
-        <line num="49" count="4" type="stmt"/>
-        <line num="50" count="2" type="stmt"/>
-        <line num="51" count="2" type="stmt"/>
-        <line num="54" count="4" type="stmt"/>
+        <line num="31" count="1" type="stmt"/>
+        <line num="32" count="0" type="stmt"/>
+        <line num="33" count="0" type="stmt"/>
+        <line num="34" count="0" type="stmt"/>
+        <line num="37" count="1" type="stmt"/>
+        <line num="38" count="0" type="stmt"/>
+        <line num="39" count="0" type="stmt"/>
+        <line num="40" count="0" type="stmt"/>
+        <line num="43" count="1" type="stmt"/>
+        <line num="44" count="0" type="stmt"/>
+        <line num="45" count="0" type="stmt"/>
+        <line num="46" count="0" type="stmt"/>
+        <line num="49" count="1" type="stmt"/>
+        <line num="50" count="0" type="stmt"/>
+        <line num="51" count="0" type="stmt"/>
+        <line num="54" count="1" type="stmt"/>
         <line num="55" count="0" type="stmt"/>
         <line num="56" count="0" type="stmt"/>
         <line num="58" count="0" type="stmt"/>
-        <line num="61" count="4" type="stmt"/>
-        <line num="62" count="2" type="stmt"/>
-        <line num="63" count="2" type="stmt"/>
-        <line num="64" count="2" type="stmt"/>
-        <line num="66" count="2" type="stmt"/>
-        <line num="67" count="2" type="stmt"/>
-        <line num="68" count="2" type="stmt"/>
-        <line num="69" count="2" type="stmt"/>
-        <line num="70" count="2" type="cond" truecount="1" falsecount="1"/>
-        <line num="75" count="2" type="stmt"/>
-        <line num="78" count="2" type="stmt"/>
-        <line num="80" count="2" type="stmt"/>
-        <line num="81" count="2" type="stmt"/>
-        <line num="84" count="4" type="cond" truecount="2" falsecount="0"/>
-        <line num="85" count="2" type="stmt"/>
-        <line num="99" count="2" type="stmt"/>
+        <line num="61" count="1" type="stmt"/>
+        <line num="62" count="1" type="stmt"/>
+        <line num="63" count="1" type="stmt"/>
+        <line num="64" count="1" type="stmt"/>
+        <line num="66" count="1" type="stmt"/>
+        <line num="67" count="1" type="stmt"/>
+        <line num="68" count="1" type="stmt"/>
+        <line num="69" count="1" type="stmt"/>
+        <line num="70" count="1" type="cond" truecount="1" falsecount="1"/>
+        <line num="75" count="1" type="stmt"/>
+        <line num="78" count="1" type="stmt"/>
+        <line num="80" count="1" type="stmt"/>
+        <line num="81" count="1" type="stmt"/>
+        <line num="84" count="1" type="cond" truecount="1" falsecount="1"/>
+        <line num="85" count="1" type="stmt"/>
+        <line num="99" count="0" type="stmt"/>
         <line num="186" count="0" type="stmt"/>
       </file>
       <file name="MisBandas.jsx" path="C:\Users\alvar\Desktop\Universidad\Segundo Cuatrimestre\TFG\alcompas\Frontend\src\modules\banda\pages\MisBandas.jsx">
@@ -3286,12 +3282,12 @@
         <line num="478" count="1" type="stmt"/>
         <line num="481" count="2" type="stmt"/>
         <line num="484" count="7" type="stmt"/>
-        <line num="667" count="50" type="stmt"/>
-        <line num="853" count="5" type="stmt"/>
-        <line num="901" count="0" type="stmt"/>
-        <line num="1021" count="0" type="stmt"/>
-        <line num="1045" count="0" type="stmt"/>
-        <line num="1071" count="0" type="stmt"/>
+        <line num="668" count="50" type="stmt"/>
+        <line num="855" count="5" type="stmt"/>
+        <line num="903" count="0" type="stmt"/>
+        <line num="1023" count="0" type="stmt"/>
+        <line num="1047" count="0" type="stmt"/>
+        <line num="1073" count="0" type="stmt"/>
       </file>
       <file name="PrestamosBanda.jsx" path="C:\Users\alvar\Desktop\Universidad\Segundo Cuatrimestre\TFG\alcompas\Frontend\src\modules\banda\pages\PrestamosBanda.jsx">
         <metrics statements="30" coveredstatements="28" conditionals="11" coveredconditionals="8" methods="6" coveredmethods="5"/>
@@ -3689,11 +3685,11 @@
         <metrics statements="3" coveredstatements="3" conditionals="2" coveredconditionals="2" methods="1" coveredmethods="1"/>
         <line num="4" count="34" type="stmt"/>
         <line num="19" count="34" type="stmt"/>
-        <line num="20" count="2" type="stmt"/>
+        <line num="20" count="3" type="stmt"/>
       </file>
     </package>
     <package name="src.modules.eventos.pages">
-      <metrics statements="284" coveredstatements="245" conditionals="143" coveredconditionals="94" methods="58" coveredmethods="48"/>
+      <metrics statements="276" coveredstatements="235" conditionals="143" coveredconditionals="93" methods="57" coveredmethods="48"/>
       <file name="ActualizarEventoForm.jsx" path="C:\Users\alvar\Desktop\Universidad\Segundo Cuatrimestre\TFG\alcompas\Frontend\src\modules\eventos\pages\ActualizarEventoForm.jsx">
         <metrics statements="64" coveredstatements="56" conditionals="35" coveredconditionals="25" methods="12" coveredmethods="11"/>
         <line num="13" count="33" type="stmt"/>
@@ -3762,7 +3758,7 @@
         <line num="163" count="4" type="stmt"/>
       </file>
       <file name="AsistenciaEvento.jsx" path="C:\Users\alvar\Desktop\Universidad\Segundo Cuatrimestre\TFG\alcompas\Frontend\src\modules\eventos\pages\AsistenciaEvento.jsx">
-        <metrics statements="81" coveredstatements="77" conditionals="42" coveredconditionals="29" methods="12" coveredmethods="12"/>
+        <metrics statements="81" coveredstatements="71" conditionals="42" coveredconditionals="28" methods="12" coveredmethods="12"/>
         <line num="14" count="33" type="stmt"/>
         <line num="15" count="5" type="stmt"/>
         <line num="16" count="5" type="stmt"/>
@@ -3829,21 +3825,21 @@
         <line num="132" count="1" type="stmt"/>
         <line num="133" count="1" type="cond" truecount="1" falsecount="1"/>
         <line num="134" count="1" type="stmt"/>
-        <line num="135" count="2" type="stmt"/>
-        <line num="137" count="2" type="stmt"/>
+        <line num="135" count="1" type="stmt"/>
+        <line num="137" count="1" type="stmt"/>
         <line num="149" count="1" type="stmt"/>
         <line num="150" count="1" type="stmt"/>
-        <line num="151" count="1" type="stmt"/>
-        <line num="153" count="1" type="stmt"/>
-        <line num="154" count="1" type="stmt"/>
-        <line num="156" count="1" type="stmt"/>
-        <line num="168" count="1" type="cond" truecount="1" falsecount="1"/>
-        <line num="170" count="1" type="stmt"/>
+        <line num="151" count="0" type="stmt"/>
+        <line num="153" count="0" type="stmt"/>
+        <line num="154" count="0" type="stmt"/>
+        <line num="156" count="0" type="stmt"/>
+        <line num="168" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="170" count="0" type="stmt"/>
         <line num="183" count="1" type="stmt"/>
         <line num="186" count="5" type="cond" truecount="2" falsecount="0"/>
         <line num="187" count="4" type="stmt"/>
         <line num="195" count="1" type="stmt"/>
-        <line num="258" count="5" type="stmt"/>
+        <line num="255" count="2" type="stmt"/>
       </file>
       <file name="ContratarMusico.jsx" path="C:\Users\alvar\Desktop\Universidad\Segundo Cuatrimestre\TFG\alcompas\Frontend\src\modules\eventos\pages\ContratarMusico.jsx">
         <metrics statements="48" coveredstatements="41" conditionals="16" coveredconditionals="10" methods="11" coveredmethods="9"/>
@@ -3946,36 +3942,28 @@
         <line num="144" count="2" type="stmt"/>
       </file>
       <file name="Eventos.jsx" path="C:\Users\alvar\Desktop\Universidad\Segundo Cuatrimestre\TFG\alcompas\Frontend\src\modules\eventos\pages\Eventos.jsx">
-        <metrics statements="29" coveredstatements="22" conditionals="10" coveredconditionals="4" methods="5" coveredmethods="3"/>
+        <metrics statements="21" coveredstatements="18" conditionals="10" coveredconditionals="4" methods="4" coveredmethods="3"/>
         <line num="13" count="33" type="stmt"/>
         <line num="15" count="1" type="stmt"/>
         <line num="16" count="1" type="stmt"/>
         <line num="17" count="1" type="stmt"/>
-        <line num="18" count="1" type="stmt"/>
-        <line num="19" count="1" type="stmt"/>
         <line num="20" count="1" type="stmt"/>
-        <line num="23" count="1" type="stmt"/>
-        <line num="24" count="1" type="stmt"/>
-        <line num="25" count="1" type="stmt"/>
-        <line num="27" count="1" type="stmt"/>
+        <line num="21" count="1" type="stmt"/>
+        <line num="22" count="1" type="stmt"/>
+        <line num="26" count="1" type="stmt"/>
+        <line num="27" count="0" type="stmt"/>
         <line num="28" count="0" type="stmt"/>
-        <line num="29" count="0" type="stmt"/>
-        <line num="30" count="0" type="stmt"/>
-        <line num="31" count="0" type="stmt"/>
+        <line num="32" count="1" type="stmt"/>
+        <line num="33" count="1" type="stmt"/>
+        <line num="34" count="1" type="stmt"/>
         <line num="35" count="1" type="stmt"/>
-        <line num="36" count="0" type="stmt"/>
-        <line num="37" count="0" type="stmt"/>
-        <line num="41" count="1" type="stmt"/>
+        <line num="36" count="1" type="cond" truecount="3" falsecount="1"/>
+        <line num="37" count="1" type="stmt"/>
+        <line num="40" count="1" type="stmt"/>
         <line num="42" count="1" type="stmt"/>
-        <line num="43" count="1" type="stmt"/>
-        <line num="44" count="1" type="stmt"/>
-        <line num="45" count="1" type="cond" truecount="3" falsecount="1"/>
+        <line num="45" count="1" type="cond" truecount="1" falsecount="1"/>
         <line num="46" count="1" type="stmt"/>
-        <line num="49" count="1" type="stmt"/>
-        <line num="51" count="1" type="stmt"/>
-        <line num="54" count="1" type="cond" truecount="1" falsecount="1"/>
-        <line num="55" count="1" type="stmt"/>
-        <line num="57" count="0" type="stmt"/>
+        <line num="48" count="0" type="stmt"/>
       </file>
       <file name="PrimerPasoForm.jsx" path="C:\Users\alvar\Desktop\Universidad\Segundo Cuatrimestre\TFG\alcompas\Frontend\src\modules\eventos\pages\PrimerPasoForm.jsx">
         <metrics statements="7" coveredstatements="5" conditionals="2" coveredconditionals="2" methods="4" coveredmethods="2"/>
@@ -4007,9 +3995,9 @@
       </file>
     </package>
     <package name="src.modules.peticiones.modals">
-      <metrics statements="101" coveredstatements="56" conditionals="47" coveredconditionals="19" methods="23" coveredmethods="16"/>
+      <metrics statements="103" coveredstatements="56" conditionals="61" coveredconditionals="19" methods="23" coveredmethods="16"/>
       <file name="CrearPeticion.jsx" path="C:\Users\alvar\Desktop\Universidad\Segundo Cuatrimestre\TFG\alcompas\Frontend\src\modules\peticiones\modals\CrearPeticion.jsx">
-        <metrics statements="101" coveredstatements="56" conditionals="47" coveredconditionals="19" methods="23" coveredmethods="16"/>
+        <metrics statements="103" coveredstatements="56" conditionals="61" coveredconditionals="19" methods="23" coveredmethods="16"/>
         <line num="22" count="2" type="stmt"/>
         <line num="36" count="2" type="stmt"/>
         <line num="68" count="2" type="stmt"/>
@@ -4070,47 +4058,49 @@
         <line num="165" count="0" type="stmt"/>
         <line num="166" count="0" type="stmt"/>
         <line num="170" count="0" type="stmt"/>
-        <line num="171" count="0" type="stmt"/>
+        <line num="171" count="0" type="cond" truecount="0" falsecount="2"/>
         <line num="172" count="0" type="stmt"/>
-        <line num="181" count="0" type="stmt"/>
-        <line num="185" count="8" type="stmt"/>
-        <line num="186" count="0" type="stmt"/>
-        <line num="187" count="0" type="stmt"/>
-        <line num="188" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="191" count="2" type="stmt"/>
-        <line num="192" count="1" type="cond" truecount="1" falsecount="1"/>
-        <line num="193" count="0" type="stmt"/>
-        <line num="194" count="0" type="stmt"/>
-        <line num="195" count="0" type="stmt"/>
+        <line num="173" count="0" type="stmt"/>
+        <line num="182" count="0" type="stmt"/>
+        <line num="184" count="0" type="stmt"/>
+        <line num="196" count="8" type="stmt"/>
         <line num="197" count="0" type="stmt"/>
         <line num="198" count="0" type="stmt"/>
+        <line num="199" count="0" type="cond" truecount="0" falsecount="2"/>
         <line num="202" count="2" type="stmt"/>
-        <line num="203" count="1" type="stmt"/>
-        <line num="205" count="1" type="cond" truecount="1" falsecount="1"/>
+        <line num="203" count="1" type="cond" truecount="1" falsecount="1"/>
+        <line num="204" count="0" type="stmt"/>
+        <line num="205" count="0" type="stmt"/>
         <line num="206" count="0" type="stmt"/>
-        <line num="209" count="1" type="stmt"/>
-        <line num="210" count="1" type="stmt"/>
-        <line num="212" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="213" count="0" type="stmt"/>
-        <line num="214" count="0" type="stmt"/>
-        <line num="218" count="1" type="stmt"/>
-        <line num="219" count="1" type="stmt"/>
-        <line num="223" count="2" type="stmt"/>
-        <line num="224" count="1" type="cond" truecount="1" falsecount="1"/>
-        <line num="225" count="1" type="stmt"/>
-        <line num="229" count="2" type="stmt"/>
-        <line num="230" count="0" type="stmt"/>
-        <line num="231" count="0" type="stmt"/>
+        <line num="208" count="0" type="stmt"/>
+        <line num="209" count="0" type="stmt"/>
+        <line num="213" count="2" type="stmt"/>
+        <line num="214" count="1" type="stmt"/>
+        <line num="216" count="1" type="cond" truecount="1" falsecount="1"/>
+        <line num="217" count="0" type="stmt"/>
+        <line num="220" count="1" type="stmt"/>
+        <line num="221" count="1" type="stmt"/>
+        <line num="223" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="224" count="0" type="stmt"/>
+        <line num="225" count="0" type="stmt"/>
+        <line num="229" count="1" type="stmt"/>
+        <line num="230" count="1" type="stmt"/>
         <line num="234" count="2" type="stmt"/>
-        <line num="265" count="6" type="stmt"/>
-        <line num="285" count="0" type="stmt"/>
-        <line num="288" count="0" type="stmt"/>
-        <line num="291" count="0" type="stmt"/>
-        <line num="294" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="299" count="3" type="stmt"/>
-        <line num="337" count="0" type="stmt"/>
-        <line num="358" count="60" type="stmt"/>
-        <line num="379" count="8" type="stmt"/>
+        <line num="235" count="1" type="cond" truecount="1" falsecount="1"/>
+        <line num="236" count="1" type="stmt"/>
+        <line num="240" count="2" type="stmt"/>
+        <line num="241" count="0" type="stmt"/>
+        <line num="242" count="0" type="stmt"/>
+        <line num="245" count="2" type="stmt"/>
+        <line num="276" count="6" type="stmt"/>
+        <line num="296" count="0" type="stmt"/>
+        <line num="299" count="0" type="stmt"/>
+        <line num="302" count="0" type="stmt"/>
+        <line num="305" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="310" count="3" type="stmt"/>
+        <line num="348" count="0" type="stmt"/>
+        <line num="369" count="60" type="stmt"/>
+        <line num="390" count="8" type="stmt"/>
       </file>
     </package>
     <package name="src.modules.peticiones.pages">
@@ -4359,41 +4349,41 @@
       </file>
     </package>
     <package name="src.modules.user.pages">
-      <metrics statements="131" coveredstatements="96" conditionals="41" coveredconditionals="23" methods="41" coveredmethods="21"/>
+      <metrics statements="133" coveredstatements="97" conditionals="41" coveredconditionals="23" methods="41" coveredmethods="21"/>
       <file name="Perfil.jsx" path="C:\Users\alvar\Desktop\Universidad\Segundo Cuatrimestre\TFG\alcompas\Frontend\src\modules\user\pages\Perfil.jsx">
-        <metrics statements="120" coveredstatements="85" conditionals="39" coveredconditionals="21" methods="37" coveredmethods="17"/>
+        <metrics statements="122" coveredstatements="86" conditionals="39" coveredconditionals="21" methods="37" coveredmethods="17"/>
         <line num="28" count="31" type="stmt"/>
         <line num="43" count="31" type="stmt"/>
         <line num="49" count="31" type="stmt"/>
-        <line num="51" count="5" type="stmt"/>
-        <line num="52" count="5" type="stmt"/>
-        <line num="53" count="5" type="stmt"/>
-        <line num="54" count="5" type="stmt"/>
-        <line num="55" count="5" type="stmt"/>
-        <line num="56" count="5" type="stmt"/>
-        <line num="57" count="5" type="stmt"/>
-        <line num="58" count="5" type="stmt"/>
-        <line num="59" count="5" type="stmt"/>
-        <line num="60" count="5" type="stmt"/>
-        <line num="61" count="5" type="stmt"/>
-        <line num="62" count="5" type="stmt"/>
-        <line num="63" count="5" type="stmt"/>
-        <line num="66" count="5" type="stmt"/>
-        <line num="67" count="5" type="stmt"/>
-        <line num="68" count="5" type="stmt"/>
-        <line num="69" count="5" type="stmt"/>
-        <line num="70" count="5" type="stmt"/>
-        <line num="71" count="5" type="stmt"/>
-        <line num="72" count="5" type="stmt"/>
-        <line num="74" count="5" type="stmt"/>
+        <line num="51" count="4" type="stmt"/>
+        <line num="52" count="4" type="stmt"/>
+        <line num="53" count="4" type="stmt"/>
+        <line num="54" count="4" type="stmt"/>
+        <line num="55" count="4" type="stmt"/>
+        <line num="56" count="4" type="stmt"/>
+        <line num="57" count="4" type="stmt"/>
+        <line num="58" count="4" type="stmt"/>
+        <line num="59" count="4" type="stmt"/>
+        <line num="60" count="4" type="stmt"/>
+        <line num="61" count="4" type="stmt"/>
+        <line num="62" count="4" type="stmt"/>
+        <line num="63" count="4" type="stmt"/>
+        <line num="66" count="4" type="stmt"/>
+        <line num="67" count="4" type="stmt"/>
+        <line num="68" count="4" type="stmt"/>
+        <line num="69" count="4" type="stmt"/>
+        <line num="70" count="4" type="stmt"/>
+        <line num="71" count="4" type="stmt"/>
+        <line num="72" count="4" type="stmt"/>
+        <line num="74" count="4" type="stmt"/>
         <line num="75" count="2" type="stmt"/>
-        <line num="77" count="5" type="stmt"/>
+        <line num="77" count="4" type="stmt"/>
         <line num="78" count="0" type="stmt"/>
         <line num="79" count="0" type="stmt"/>
         <line num="87" count="0" type="cond" truecount="0" falsecount="2"/>
         <line num="90" count="0" type="stmt"/>
         <line num="91" count="0" type="stmt"/>
-        <line num="95" count="5" type="stmt"/>
+        <line num="95" count="4" type="stmt"/>
         <line num="96" count="0" type="stmt"/>
         <line num="97" count="0" type="stmt"/>
         <line num="98" count="0" type="cond" truecount="0" falsecount="2"/>
@@ -4406,82 +4396,84 @@
         <line num="107" count="0" type="stmt"/>
         <line num="109" count="0" type="stmt"/>
         <line num="112" count="0" type="stmt"/>
-        <line num="116" count="10" type="stmt"/>
+        <line num="116" count="8" type="stmt"/>
         <line num="117" count="0" type="stmt"/>
-        <line num="120" count="5" type="stmt"/>
-        <line num="121" count="5" type="stmt"/>
-        <line num="123" count="5" type="stmt"/>
+        <line num="120" count="4" type="stmt"/>
+        <line num="121" count="4" type="stmt"/>
+        <line num="123" count="4" type="stmt"/>
         <line num="124" count="0" type="stmt"/>
         <line num="125" count="0" type="stmt"/>
-        <line num="128" count="5" type="stmt"/>
+        <line num="128" count="4" type="stmt"/>
         <line num="129" count="0" type="stmt"/>
         <line num="130" count="0" type="stmt"/>
-        <line num="133" count="5" type="stmt"/>
+        <line num="133" count="4" type="stmt"/>
         <line num="134" count="0" type="stmt"/>
         <line num="135" count="0" type="stmt"/>
-        <line num="138" count="5" type="stmt"/>
+        <line num="138" count="4" type="stmt"/>
         <line num="139" count="0" type="stmt"/>
         <line num="140" count="0" type="stmt"/>
-        <line num="143" count="5" type="stmt"/>
+        <line num="143" count="4" type="stmt"/>
         <line num="144" count="0" type="stmt"/>
         <line num="145" count="0" type="stmt"/>
-        <line num="148" count="5" type="stmt"/>
+        <line num="148" count="4" type="stmt"/>
         <line num="149" count="0" type="stmt"/>
         <line num="150" count="0" type="stmt"/>
-        <line num="153" count="5" type="stmt"/>
+        <line num="153" count="4" type="stmt"/>
         <line num="155" count="0" type="stmt"/>
         <line num="156" count="0" type="stmt"/>
-        <line num="160" count="5" type="stmt"/>
+        <line num="160" count="4" type="stmt"/>
         <line num="162" count="0" type="stmt"/>
-        <line num="165" count="5" type="stmt"/>
-        <line num="166" count="5" type="stmt"/>
-        <line num="168" count="5" type="stmt"/>
+        <line num="165" count="4" type="stmt"/>
+        <line num="166" count="4" type="stmt"/>
+        <line num="168" count="4" type="stmt"/>
         <line num="169" count="1" type="stmt"/>
         <line num="170" count="1" type="stmt"/>
         <line num="171" count="1" type="stmt"/>
         <line num="174" count="1" type="stmt"/>
-        <line num="176" count="1" type="stmt"/>
-        <line num="179" count="5" type="stmt"/>
-        <line num="180" count="1" type="stmt"/>
+        <line num="177" count="1" type="stmt"/>
+        <line num="180" count="4" type="stmt"/>
         <line num="181" count="1" type="stmt"/>
-        <line num="183" count="1" type="stmt"/>
-        <line num="185" count="1" type="stmt"/>
-        <line num="188" count="5" type="stmt"/>
-        <line num="189" count="2" type="stmt"/>
-        <line num="190" count="2" type="cond" truecount="1" falsecount="1"/>
-        <line num="192" count="2" type="stmt"/>
-        <line num="195" count="5" type="stmt"/>
-        <line num="196" count="1" type="stmt"/>
+        <line num="182" count="1" type="stmt"/>
+        <line num="184" count="1" type="stmt"/>
+        <line num="186" count="1" type="stmt"/>
+        <line num="189" count="4" type="stmt"/>
+        <line num="190" count="1" type="stmt"/>
+        <line num="191" count="1" type="cond" truecount="1" falsecount="1"/>
+        <line num="192" count="1" type="stmt"/>
+        <line num="194" count="0" type="stmt"/>
         <line num="197" count="1" type="stmt"/>
-        <line num="198" count="1" type="stmt"/>
-        <line num="200" count="1" type="stmt"/>
-        <line num="203" count="5" type="stmt"/>
-        <line num="204" count="1" type="stmt"/>
+        <line num="200" count="4" type="stmt"/>
+        <line num="201" count="1" type="stmt"/>
+        <line num="202" count="1" type="stmt"/>
+        <line num="203" count="1" type="stmt"/>
         <line num="205" count="1" type="stmt"/>
-        <line num="206" count="1" type="stmt"/>
-        <line num="208" count="1" type="stmt"/>
-        <line num="211" count="5" type="stmt"/>
-        <line num="212" count="1" type="stmt"/>
+        <line num="208" count="4" type="stmt"/>
+        <line num="209" count="1" type="stmt"/>
+        <line num="210" count="1" type="stmt"/>
+        <line num="211" count="1" type="stmt"/>
         <line num="213" count="1" type="stmt"/>
-        <line num="215" count="1" type="stmt"/>
-        <line num="216" count="1" type="stmt"/>
+        <line num="216" count="4" type="stmt"/>
         <line num="217" count="1" type="stmt"/>
         <line num="218" count="1" type="stmt"/>
-        <line num="219" count="1" type="stmt"/>
         <line num="220" count="1" type="stmt"/>
         <line num="221" count="1" type="stmt"/>
         <line num="222" count="1" type="stmt"/>
-        <line num="223" count="1" type="cond" truecount="1" falsecount="1"/>
-        <line num="224" count="0" type="stmt"/>
+        <line num="223" count="1" type="stmt"/>
+        <line num="224" count="1" type="stmt"/>
         <line num="225" count="1" type="stmt"/>
         <line num="226" count="1" type="stmt"/>
-        <line num="229" count="1" type="stmt"/>
+        <line num="227" count="1" type="stmt"/>
+        <line num="228" count="1" type="cond" truecount="1" falsecount="1"/>
+        <line num="229" count="0" type="stmt"/>
+        <line num="230" count="1" type="stmt"/>
         <line num="231" count="1" type="stmt"/>
-        <line num="233" count="1" type="stmt"/>
-        <line num="236" count="5" type="stmt"/>
-        <line num="555" count="1" type="stmt"/>
-        <line num="584" count="0" type="stmt"/>
-        <line num="604" count="2" type="stmt"/>
+        <line num="234" count="1" type="stmt"/>
+        <line num="236" count="1" type="stmt"/>
+        <line num="238" count="1" type="stmt"/>
+        <line num="241" count="4" type="stmt"/>
+        <line num="560" count="1" type="stmt"/>
+        <line num="589" count="0" type="stmt"/>
+        <line num="609" count="1" type="stmt"/>
       </file>
       <file name="Prestamos.jsx" path="C:\Users\alvar\Desktop\Universidad\Segundo Cuatrimestre\TFG\alcompas\Frontend\src\modules\user\pages\Prestamos.jsx">
         <metrics statements="11" coveredstatements="11" conditionals="2" coveredconditionals="2" methods="4" coveredmethods="4"/>
@@ -4503,9 +4495,9 @@
       <file name="authSlice.js" path="C:\Users\alvar\Desktop\Universidad\Segundo Cuatrimestre\TFG\alcompas\Frontend\src\store\auth\authSlice.js">
         <metrics statements="16" coveredstatements="16" conditionals="0" coveredconditionals="0" methods="6" coveredmethods="6"/>
         <line num="5" count="132" type="stmt"/>
-        <line num="15" count="4" type="stmt"/>
-        <line num="16" count="4" type="stmt"/>
-        <line num="17" count="4" type="stmt"/>
+        <line num="15" count="2" type="stmt"/>
+        <line num="16" count="2" type="stmt"/>
+        <line num="17" count="2" type="stmt"/>
         <line num="20" count="3" type="stmt"/>
         <line num="21" count="3" type="stmt"/>
         <line num="22" count="3" type="stmt"/>

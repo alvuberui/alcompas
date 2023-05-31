@@ -1,1 +1,1 @@
-cmd /k yarn test
+cmd /k yarn test --silent

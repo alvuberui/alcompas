@@ -38,37 +38,47 @@ export const useUploadsStore = () => {
   };
 
   const getFotoPerfilUsuario = async (userId) => {
-    return axios
-      .get(VITE_API_URL + "/fotos/get/foto/usuario/" + userId, {
+    try {
+      const response = await axios.get(VITE_API_URL + "/fotos/get/foto/usuario/" + userId, {
         responseType: "arraybuffer",
         headers: { "x-token": localStorage.getItem("token") },
-      })
-      .then((res) => {
-        const base64 = btoa(
-          new Uint8Array(res.data).reduce(
-            (data, byte) => data + String.fromCharCode(byte),
-            ""
-          )
-        );
-        return base64;
       });
+    
+      const arrayBuffer = response.data;
+      const base64 = btoa(
+        new Uint8Array(arrayBuffer).reduce(
+          (data, byte) => data + String.fromCharCode(byte),
+          ""
+        )
+      );
+    
+      return base64;
+    } catch (error) {
+      console.error("Error al cargar la foto:", error);
+      throw error;
+    }
   };
 
   const getFotoPerfilBanda = async (bandaId) => {
-    return axios
-      .get(VITE_API_URL + "/fotos/get/foto/banda/" + bandaId, {
+    try {
+      const response = await axios.get(VITE_API_URL + "/fotos/get/foto/banda/" + bandaId, {
         responseType: "arraybuffer",
         headers: { "x-token": localStorage.getItem("token") },
-      })
-      .then((res) => {
-        const base64 = btoa(
-          new Uint8Array(res.data).reduce(
-            (data, byte) => data + String.fromCharCode(byte),
-            ""
-          )
-        );
-        return base64;
       });
+    
+      const arrayBuffer = response.data;
+      const base64 = btoa(
+        new Uint8Array(arrayBuffer).reduce(
+          (data, byte) => data + String.fromCharCode(byte),
+          ""
+        )
+      );
+    
+      return base64;
+    } catch (error) {
+      console.error("Error al cargar la foto:", error);
+      throw error;
+    }
   };
 
   const editarFotoBanda = async (foto, bandaId) => {

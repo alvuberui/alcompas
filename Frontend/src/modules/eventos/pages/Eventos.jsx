@@ -12,9 +12,6 @@ import { NuevoTransaccion } from "../../banda/modals/NuevaTransaccion";
 
 export const Eventos = () => {
   // Estados
-  const [transaccion, setTransaccion] = React.useState(undefined);
-  const [open, setOpen] = useState(false);
-  const [openEditar, setOpenEditar] = useState(false);
   const [esDirectivo, setEsDirectivo] = useState(false);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
@@ -24,12 +21,6 @@ export const Eventos = () => {
   const { user } = useAuthStore();
   const { getDirectivoByUserId } = useDirectivosStore();
 
-  const handleClose = (event, newValue) => {
-    event.preventDefault();
-    setOpenEditar(false);
-    setTransaccion(undefined);
-    setOpen(false);
-  };
 
 
   const renviarCrear = async (event) => {
@@ -57,16 +48,7 @@ export const Eventos = () => {
     return (
       <>
         {esDirectivo === false && <Navigate to="/" />}
-        <NuevoTransaccion
-          handleClose={handleClose}
-          open={open}
-          setOpen={setOpen}
-          setTransacciones={setTransacciones}
-          editar={openEditar}
-          transaccion={transaccion}
-          setTotal={setTotal}
-          setOpenEditar={setOpenEditar}
-        />
+        
         <Grid container justifyContent="center" alignItems="center">
           <Grid
             xs={9}

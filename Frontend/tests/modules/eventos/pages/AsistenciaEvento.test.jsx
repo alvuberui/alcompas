@@ -81,7 +81,7 @@ describe('Pruebas en <Vestimentas />', () => {
         });
 
         useAsistenciasStore.mockReturnValue({
-            getTodasAsistenciasByEvento: jest.fn().mockReturnValue( { ['Directivo: ,Presidente']: [testUserCredentials3, asistencia1]} ),
+            getTodasAsistenciasByEvento: jest.fn().mockReturnValue( { ['Directivo: ,Presidente']: [[testUserCredentials3, asistencia1]]} ),
         });
 
         useArchiverosStore.mockReturnValue({
@@ -89,7 +89,7 @@ describe('Pruebas en <Vestimentas />', () => {
         });
 
         useContratadosStore.mockReturnValue({
-            getContratadosByEnveto: jest.fn().mockReturnValue( [contratadoFixture] ),
+            getContratadosByEnveto: jest.fn(),
         });
         
          act(() => {
@@ -102,7 +102,7 @@ describe('Pruebas en <Vestimentas />', () => {
             );
         });
         await  waitFor (() => {
-            const contratado = screen.getByLabelText('contratado');
+            const contratado = screen.getByText('Directivo: Presidente');
             fireEvent.click(contratado);
         });
             

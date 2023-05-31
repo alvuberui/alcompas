@@ -34,7 +34,7 @@ const ProcesionSchema = Schema({
     },
     beneficios: {
         type: Number,
-        required: true,
+        required: true, 
     },
     comentarioEconomico: {
         type: String,
@@ -42,7 +42,7 @@ const ProcesionSchema = Schema({
     dia: {
         type: String,
         enum: ['Viernes Dolores', 'Sábado de Pasión', 'Domingo de Resurreción', 'Lunes Santo',
-         'Martes Santo', 'Miércoles Santo', 'Jueves Santo', 'Viernes Santo', 'Sábado Santo', 'Domingo de Ramos'],
+         'Martes Santo', 'Miércoles Santo', 'Jueves Santo', 'Viernes Santo', 'Sábado Santo', 'Domingo de Ramos', 'Madrugá'],
     },
     tipo: {
         type: String,

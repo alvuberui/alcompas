@@ -12,11 +12,13 @@ export const Estadistica = ({ banda, tipo }) => {
 
   useEffect(() => {
     const getFoto = async () => {
+      if(banda) { 
       const foto = await getFotoPerfilBanda(banda._id);
       setFoto(foto);
+      }
     };
     getFoto();
-  }, []);
+  }, [banda, tipo]);
 
   return (
     <Card sx={{ mt: 1 }}>

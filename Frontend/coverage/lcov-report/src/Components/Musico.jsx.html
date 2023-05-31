@@ -30,9 +30,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">36.73% </span>
+                <span class="strong">55.1% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>18/49</span>
+                <span class='fraction'>27/49</span>
             </div>
         
             
@@ -386,15 +386,15 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">10x</span>
-<span class="cline-any cline-yes">10x</span>
-<span class="cline-any cline-yes">10x</span>
-<span class="cline-any cline-yes">10x</span>
-<span class="cline-any cline-yes">10x</span>
-<span class="cline-any cline-yes">10x</span>
-<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -415,7 +415,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -436,15 +436,15 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -476,9 +476,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">10x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -507,7 +507,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -808,7 +808,7 @@ export const Musico = ({
   return (
     &lt;&gt;
       {asistencia &amp;&amp; (
-<span class="branch-1 cbranch-no" title="branch not covered" >        &lt;VerMotivo</span>
+        &lt;VerMotivo
           open={open}
           handleClose={handleClose}
           motivo={asistencia.comentario}
@@ -826,7 +826,7 @@ export const Musico = ({
             &gt;
               &lt;NavLink
                 style={{ textDecoration: "none", color: "black" }}
-                to={`/perfil/${usuario? usuario._id : ""}`}
+                to={`/perfil/${usuario? usuario._id : <span class="branch-1 cbranch-no" title="branch not covered" >""}</span>`}
               &gt;
                 &lt;Typography
                   sx={{ ml: "10px", mt: "10px", textAlign: "center" }}
@@ -899,7 +899,7 @@ export const Musico = ({
               &lt;/Grid&gt;
             )}
             {asistencia !== undefined &amp;&amp; (
-<span class="branch-1 cbranch-no" title="branch not covered" >              &lt;Grid</span>
+              &lt;Grid
                 item
                 xs={12}
                 lg={1}
@@ -927,7 +927,7 @@ export const Musico = ({
                   &gt;
                     &lt;DoneIcon style={{ color: "green" }}&gt;&lt;/DoneIcon&gt;
                   &lt;/IconButton&gt;
-                ) : asistencia !== null &amp;&amp;
+                ) : <span class="branch-1 cbranch-no" title="branch not covered" >asistencia !== null &amp;&amp;</span>
                   asistencia !== undefined &amp;&amp;
                   asistencia.respuesta === "No asisto" ? (
                   &lt;IconButton
@@ -941,7 +941,7 @@ export const Musico = ({
                   &lt;&gt;&lt;/&gt;
                 )}
                 {asistencia === null &amp;&amp; (
-                  &lt;IconButton
+<span class="branch-1 cbranch-no" title="branch not covered" >                  &lt;IconButton</span>
                     sx={{ alignSelf: "flex-end" }}
                     aria-label="upload picture"
                     component="label"
@@ -964,7 +964,7 @@ export const Musico = ({
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2023-05-28T13:31:14.927Z
+                at 2023-05-30T21:46:04.639Z
             </div>
         <script src="../../prettify.js"></script>
         <script>

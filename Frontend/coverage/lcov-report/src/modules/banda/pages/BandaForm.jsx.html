@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">79.31% </span>
+                <span class="strong">78.57% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>23/29</span>
+                <span class='fraction'>22/28</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">78.57% </span>
+                <span class="strong">77.77% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>22/28</span>
+                <span class='fraction'>21/27</span>
             </div>
         
             
@@ -167,19 +167,19 @@
 <a name='L102'></a><a href='#L102'>102</a>
 <a name='L103'></a><a href='#L103'>103</a>
 <a name='L104'></a><a href='#L104'>104</a>
-<a name='L105'></a><a href='#L105'>105</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L105'></a><a href='#L105'>105</a>
+<a name='L106'></a><a href='#L106'>106</a>
+<a name='L107'></a><a href='#L107'>107</a>
+<a name='L108'></a><a href='#L108'>108</a>
+<a name='L109'></a><a href='#L109'>109</a>
+<a name='L110'></a><a href='#L110'>110</a>
+<a name='L111'></a><a href='#L111'>111</a>
+<a name='L112'></a><a href='#L112'>112</a>
+<a name='L113'></a><a href='#L113'>113</a>
+<a name='L114'></a><a href='#L114'>114</a>
+<a name='L115'></a><a href='#L115'>115</a>
+<a name='L116'></a><a href='#L116'>116</a>
+<a name='L117'></a><a href='#L117'>117</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -208,7 +208,31 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">7x</span>
@@ -279,19 +303,7 @@ import { CrearBandaDos, CrearBandaTres, CrearBandaUno } from "../";
 import { validarBanda } from "../../../helpers/validarBanda";
 import { useBandasStore } from "../../../hooks/useBandasStore";
 &nbsp;
-const state = {
-  nombre: "",
-  tipo: "Agrupación Musical",
-  localidad: "",
-  provincia: "",
-  codigo_postal: "",
-  direccion: "",
-  año_fundacion: "",
-  descripcion: "",
-  telefono: "",
-  correo: "",
-  cif: "",
-};
+&nbsp;
 &nbsp;
 export const BandaForm = () =&gt; {
   const [step, setStep] = useState(1);
@@ -307,12 +319,36 @@ export const BandaForm = () =&gt; {
     setTimeout(<span class="fstat-no" title="function not covered" >()</span> =&gt; {
 <span class="cstat-no" title="statement not covered" >      if (mensajeError === "200") {</span>
 <span class="cstat-no" title="statement not covered" >        navigate("/");</span>
-<span class="cstat-no" title="statement not covered" >        setValues(state);</span>
+<span class="cstat-no" title="statement not covered" >        setValues({</span>
+          nombre: "",
+          tipo: "Agrupación Musical",
+          localidad: "",
+          provincia: "",
+          codigo_postal: "",
+          direccion: "",
+          año_fundacion: "",
+          descripcion: "",
+          telefono: "",
+          correo: "",
+          cif: "",
+        });
       }
     }, 100);
   }, [mensajeError]);
 &nbsp;
-  const [values, setValues] = useState(state);
+  const [values, setValues] = useState({
+    nombre: "",
+    tipo: "Agrupación Musical",
+    localidad: "",
+    provincia: "",
+    codigo_postal: "",
+    direccion: "",
+    año_fundacion: "",
+    descripcion: "",
+    telefono: "",
+    correo: "",
+    cif: "",
+  });
 &nbsp;
   // Siguiente paso
   const siguiente = () =&gt; {
@@ -330,7 +366,7 @@ export const BandaForm = () =&gt; {
     let error = validarBanda(values);
 &nbsp;
     <span class="missing-if-branch" title="if path not taken" >I</span>if (error == "") {
-<span class="cstat-no" title="statement not covered" >      crearBanda(values);</span>
+      const b = <span class="cstat-no" title="statement not covered" >crearBanda(values);</span>
     } else {
       Swal.fire("Error en la autenticación", error, "error");
     }
@@ -382,7 +418,7 @@ export default BandaForm;
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2023-05-28T13:31:14.927Z
+                at 2023-05-30T21:46:04.639Z
             </div>
         <script src="../../../../prettify.js"></script>
         <script>

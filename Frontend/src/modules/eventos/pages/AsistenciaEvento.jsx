@@ -122,7 +122,7 @@ export const AsistenciaEvento = () => {
       const clave = keys[i];
       const key = clave.split(",");
       html.push(
-        <Grid justifyContent="center" alignItems="center" key={key} container>
+        <Grid justifyContent="center" alignItems="center" key={key + i} container>
           <Typography sx={{ mt: 2 }} variant="h6" align="center" color="white">
             {" "}
             {key[0] + key[1]}{" "}
@@ -133,10 +133,10 @@ export const AsistenciaEvento = () => {
       if (lista) {
         for (let j = 0; j < lista.length; j++) {
           const value = lista[j];
-         
+    
           html.push(
             <Musico
-              key={(j + 1) * (i + 1)}
+              key={(j + 1) * (i + 1) + value[0]._id}
               usuario={value[0]}
               tipo={"Directivo"}
               asistencia={value[1]}
@@ -169,7 +169,7 @@ export const AsistenciaEvento = () => {
         
         html.push(
           <Musico
-            key={key[1] + 2*i}
+            key={key[1] + 2*i + value._id}
             usuario={value}
             tipo={"Directivo"}
             contratado={true}
@@ -243,11 +243,8 @@ export const AsistenciaEvento = () => {
             )}
 
             <Grid
-              item
-              xs={11}
-              justifyContent="center"
-              alignItems="center"
-              sx={{
+              
+              container spacing={1} sx={{
                 backgroundColor: "#262254",
                 mt: "10px",
                 borderRadius: "5px",

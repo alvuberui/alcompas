@@ -57,7 +57,7 @@ export const Perfil = () => {
   const [userU, setUser] = React.useState([]);
   const [instrumentos, setInstrumentos] = useState([]);
   const [estudios, setEstudios] = useState([]);
-  const [fotoPerfil, setFotoPerfil] = useState([]);
+  const [fotoPerfil, setFotoPerfil] = useState("");
   const [experiencias, setExperiencias] = useState([]);
   const [iguales, setIguales] = useState(false);
   let navigate = useNavigate();
@@ -173,8 +173,9 @@ export const Perfil = () => {
       ).toLocaleDateString();
       setUser(userreq);
     };
+    
     getUser();
-  }, []);
+  }, [id]);
 
   useEffect(() => {
     const getFotoPerfil = async () => {
@@ -183,14 +184,18 @@ export const Perfil = () => {
       setFotoPerfil(resultado);
     };
     getFotoPerfil();
-  }, []);
+  }, [id]);
 
   useEffect(() => {
-    const getIguales = async () => {
-      if (userU._id === user.uid) setIguales(true);
+    const getIguales = () => {
+      if (userU._id === user.uid) {
+        setIguales(true);
+      } else {
+        setIguales(false);
+      }
     };
     getIguales();
-  }, [user, userU]);
+  }, [userU._id]);
 
   useEffect(() => {
     const getEstudios = async () => {
@@ -198,7 +203,7 @@ export const Perfil = () => {
       setEstudios(estudios);
     };
     getEstudios();
-  }, []);
+  }, [id]);
 
   useEffect(() => {
     const getInstrumentos = async () => {
@@ -206,7 +211,7 @@ export const Perfil = () => {
       setInstrumentos(instrumentos);
     };
     getInstrumentos();
-  }, []);
+  }, [id]);
   // Efectos
   useEffect(() => {
     const getExperiencias = async () => {
@@ -231,7 +236,7 @@ export const Perfil = () => {
       setExperiencias(res);
     };
     getExperiencias();
-  }, []);
+  }, [id]);
 
   return (
     <>
