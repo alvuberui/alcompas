@@ -112,7 +112,7 @@ export const PublicarAsistenciaModal = ({
 
   useEffect(() => {
     if (errores !== "") {
-      Swal.fire("Error al publicar asistencia", errores, "error");
+      Swal.fire("Error al publicar asistencia", errores.toString(), "error");
       setErrores("");
     }
   }, [errores]);
@@ -141,7 +141,7 @@ export const PublicarAsistenciaModal = ({
           evento._id,
           t
         );
-
+         
         if (asistencia) {
           setModo("actualizar");
           setAsistencia(asistencia);
@@ -229,7 +229,8 @@ export const PublicarAsistenciaModal = ({
             >
               {modo === "crear" ? (
                 <Button
-                  aria-label="enviar"
+
+                  aria-label="crear"
                   color="secondary"
                   sx={{ backgroundColor: "white", color: "black" }}
                   variant="contained"
@@ -239,7 +240,7 @@ export const PublicarAsistenciaModal = ({
                 </Button>
               ) : (
                 <Button
-                  aria-label="enviar"
+                  aria-label="editar"
                   color="secondary"
                   sx={{ backgroundColor: "white", color: "black" }}
                   variant="contained"

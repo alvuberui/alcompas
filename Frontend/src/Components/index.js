@@ -4,7 +4,7 @@ export * from './MenuFlotante';
 export * from './Peticion';
 export * from './Banda';
 export * from './Estudio';
-export * from './Intrumento';
+export * from './Instrumento';
 export * from './Plantilla';
 export * from './Musico';
 export * from './Experiencia';

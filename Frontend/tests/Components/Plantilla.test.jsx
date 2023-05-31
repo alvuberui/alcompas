@@ -11,6 +11,7 @@ import { banda1 } from '../fixtures/bandaFixtures';
 import { testUserCredentials2 } from '../fixtures/testUser';
 import { directivo1 } from '../fixtures/directivoFixtures';
 import { musico1 } from '../fixtures/musicoFixtures';
+import { archivero1 } from '../fixtures/archiveroFixtures';
 
 
 const storeAutenticado = configureStore({
@@ -62,6 +63,26 @@ describe('Pruebas en el  <Estudio />', () => {
         });
         
         const boton = screen.getByText("Directivos");
+        expect(boton).not.toBe(undefined);
+
+    });
+
+    test('Debe mostrar el componente correctamente', async() => {
+        
+
+        
+        await act(async() => {
+            
+            render(
+                <Provider store={ storeAutenticado }>
+                    <MemoryRouter>
+                        <Plantilla tipo={"Archiveros"} musicos={ {'Archivero': [archivero1]}} usuarios={ {'Archivero': [testUserCredentials2]} } />
+                    </MemoryRouter>
+                </Provider>
+            );
+        });
+        
+        const boton = screen.getByText("Archivero");
         expect(boton).not.toBe(undefined);
 
     });

@@ -64,7 +64,7 @@ export const VerMotivo = ({ open, handleClose, motivo }) => {
             alignContent={"center"}
             justifyContent={"center"}
           >
-            <Button variant="contained" color="secondary" onClick={handleClose}>
+            <Button aria-label="cerrar" variant="contained" color="secondary" onClick={handleClose}>
               Cerrar
             </Button>
           </Grid>

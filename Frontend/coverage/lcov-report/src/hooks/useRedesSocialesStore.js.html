@@ -115,14 +115,9 @@
 <a name='L50'></a><a href='#L50'>50</a>
 <a name='L51'></a><a href='#L51'>51</a>
 <a name='L52'></a><a href='#L52'>52</a>
-<a name='L53'></a><a href='#L53'>53</a>
-<a name='L54'></a><a href='#L54'>54</a>
-<a name='L55'></a><a href='#L55'>55</a>
-<a name='L56'></a><a href='#L56'>56</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L53'></a><a href='#L53'>53</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">44x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">83x</span>
 <span class="cline-any cline-yes">9x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">9x</span>
@@ -154,7 +149,6 @@
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -173,61 +167,58 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { useState } from 'react';
-import { alcompasAPI } from '../api';
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { useState } from "react";
+import { alcompasAPI } from "../api";
 export const useRedesSocialesStore = () =&gt; {
-  
+  const [errores, setErrores] = useState("");
 &nbsp;
-    const [ errores, setErrores ] = useState(''); 
-&nbsp;
-    const crearRedSocial= async(bandaId, nuevaRedSocial) =&gt; {
-        try {
-            nuevaRedSocial.banda = bandaId;
-            const { data } = await alcompasAPI.post('redes/', nuevaRedSocial);
-            const red = data.nuevaRedSocial;
-            return red;
-        } catch(error) {
-            setErrores("Error creando la red social");
-            setTimeout(()=&gt; {
-                setErrores('');
-            }, 10); 
-        }
+  const crearRedSocial = async (bandaId, nuevaRedSocial) =&gt; {
+    try {
+      nuevaRedSocial.banda = bandaId;
+      const { data } = await alcompasAPI.post("redes/", nuevaRedSocial);
+      const red = data.nuevaRedSocial;
+      return red;
+    } catch (error) {
+      setErrores("Error creando la red social");
+      setTimeout(() =&gt; {
+        setErrores("");
+      }, 10);
     }
+  };
 &nbsp;
-    const getAllByBandaId = async(bandaId) =&gt; {
-        try {   
-            const { data } = await alcompasAPI.get(`redes/banda/id/${bandaId}`);   
-            const redes = data.redes;   
-            return redes;
-        } catch(error) {
-<span class="cstat-no" title="statement not covered" >            console.log("Error obteniendo las redes sociales de la banda");</span>
-        }
+  const getAllByBandaId = async (bandaId) =&gt; {
+    try {
+      const { data } = await alcompasAPI.get(`redes/banda/id/${bandaId}`);
+      const redes = data.redes;
+      return redes;
+    } catch (error) {
+<span class="cstat-no" title="statement not covered" >      console.log("Error obteniendo las redes sociales de la banda");</span>
     }
+  };
 &nbsp;
-    const eliminarRedSocial = async(redId) =&gt; {
-        try {
-            const { data } = await alcompasAPI.delete(`redes/${redId}`);
-            return data.red
-        }
-        catch(error) {
-            console.log("Error eliminando la red social");
-            setErrores("Error eliminando la red social");
-            setTimeout(<span class="fstat-no" title="function not covered" >()</span>=&gt; {
-<span class="cstat-no" title="statement not covered" >                setErrores('');</span>
-            }, 10); 
-        }
+  const eliminarRedSocial = async (redId) =&gt; {
+    try {
+      const { data } = await alcompasAPI.delete(`redes/${redId}`);
+      return data.red;
+    } catch (error) {
+      console.log("Error eliminando la red social");
+      setErrores("Error eliminando la red social");
+      setTimeout(<span class="fstat-no" title="function not covered" >()</span> =&gt; {
+<span class="cstat-no" title="statement not covered" >        setErrores("");</span>
+      }, 10);
     }
+  };
 &nbsp;
-    return {
-        // Estado
-        errores,
-        setErrores,
-        // Funciones
-        crearRedSocial,
-        getAllByBandaId,
-        eliminarRedSocial
-    }
-}
+  return {
+    // Estado
+    errores,
+    setErrores,
+    // Funciones
+    crearRedSocial,
+    getAllByBandaId,
+    eliminarRedSocial,
+  };
+};
 &nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
@@ -235,7 +226,7 @@ export const useRedesSocialesStore = () =&gt; {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2023-03-10T19:34:49.563Z
+                at 2023-05-31T16:29:50.488Z
             </div>
         <script src="../../prettify.js"></script>
         <script>

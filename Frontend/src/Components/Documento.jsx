@@ -54,7 +54,7 @@ export const Documento = ({ transacciones }) => {
                 <Text>Tipo</Text>
               </View>
               <View style={styles.tableColHeader}>
-                <Text>Cantidad</Text>
+                <Text >Cantidad</Text>
               </View>
             </View>
             {transacciones.map((item) => (

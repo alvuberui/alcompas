@@ -416,6 +416,7 @@ export class SegundoPasoForm extends Component {
                   color="secondary"
                   fullWidth
                   onClick={this.retroceder}
+                  aria-label="retroceder"
                 >
                   Retroceder
                 </Button>
@@ -426,6 +427,7 @@ export class SegundoPasoForm extends Component {
                   color="secondary"
                   fullWidth
                   onClick={this.confirmar}
+                  aria-label="confirmar"
                 >
                   Publicar evento
                 </Button>

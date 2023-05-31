@@ -93,6 +93,7 @@ export const Vestimenta = ({
           vestimenta._id,
           "Vestimenta"
         );
+      
         if (prestamo) {
           prestamo.fechaInicio = new Date(
             prestamo.fechaInicio
@@ -105,7 +106,8 @@ export const Vestimenta = ({
   }, [vestimenta]);
 
   if (prestamo === "") {
-    <CircularProgress size={200}></CircularProgress>;
+    return (
+    <CircularProgress aria-label="loading" size={200}></CircularProgress>);
   } else {
     return (
       <Grid
@@ -211,6 +213,7 @@ export const Vestimenta = ({
                   onClick={handleOpenEditar}
                   sx={{ mr: "5px" }}
                   variant="contained"
+                  aria-label="Editar"
                 >
                   <Typography sx={{ fontWeight: "bold", fontSize: "12px" }}>
                     Editar
@@ -221,6 +224,7 @@ export const Vestimenta = ({
                   onClick={handleElminar}
                   sx={{ ml: "5px" }}
                   variant="contained"
+                  aria-label="Eliminar"
                 >
                   <Typography sx={{ fontWeight: "bold", fontSize: "12px" }}>
                     Eliminar
@@ -232,6 +236,7 @@ export const Vestimenta = ({
                     onClick={handleOpenPrestamo}
                     sx={{ ml: "5px" }}
                     variant="contained"
+                    aria-label="Prestar"
                   >
                     <Typography sx={{ fontWeight: "bold", fontSize: "12px" }}>
                       Prestar
@@ -243,6 +248,7 @@ export const Vestimenta = ({
                     onClick={handleCancelarPrestamo}
                     sx={{ ml: "5px" }}
                     variant="contained"
+                    aria-label="Cancelar"
                   >
                     <Typography sx={{ fontWeight: "bold", fontSize: "12px" }}>
                       Cancelar

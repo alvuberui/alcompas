@@ -174,6 +174,7 @@ const crearInstrumentoBanda = async (req, res = express.response) => {
     const payload = jwt.verify(token, process.env.SECRET_JWT_SEED);
     const payloadId = payload.uid;
 
+
     // Comprobar que la banda existe
     const banda = await Banda.findById(instrumento.banda);
     if (!banda) {
@@ -189,6 +190,7 @@ const crearInstrumentoBanda = async (req, res = express.response) => {
       banda: instrumento.banda,
       fecha_final: undefined,
     });
+    
     if (directivos.length === 0) {
       return res.status(400).json({
         ok: false,

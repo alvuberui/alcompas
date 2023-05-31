@@ -317,7 +317,7 @@ export const AñadirInstrumentoModal = ({
               )}
               {editar === true && (
                 <Button
-                  aria-label="crear"
+                  aria-label="editar"
                   color="secondary"
                   sx={{ backgroundColor: "white", color: "black" }}
                   variant="contained"

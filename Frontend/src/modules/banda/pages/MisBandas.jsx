@@ -34,7 +34,7 @@ export const MisBandas = ({ titulo }) => {
           height: "100vh",
         }}
       >
-        <CircularProgress size={200} />
+        <CircularProgress aria-label="loading" size={200} />
       </Box>
     );
   } else {

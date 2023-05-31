@@ -89,66 +89,93 @@
 <a name='L24'></a><a href='#L24'>24</a>
 <a name='L25'></a><a href='#L25'>25</a>
 <a name='L26'></a><a href='#L26'>26</a>
-<a name='L27'></a><a href='#L27'>27</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">10x</span>
-<span class="cline-any cline-yes">10x</span>
-<span class="cline-any cline-yes">10x</span>
-<span class="cline-any cline-yes">10x</span>
-<span class="cline-any cline-yes">10x</span>
-<span class="cline-any cline-yes">10x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">10x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">10x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">10x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L27'></a><a href='#L27'>27</a>
+<a name='L28'></a><a href='#L28'>28</a>
+<a name='L29'></a><a href='#L29'>29</a>
+<a name='L30'></a><a href='#L30'>30</a>
+<a name='L31'></a><a href='#L31'>31</a>
+<a name='L32'></a><a href='#L32'>32</a>
+<a name='L33'></a><a href='#L33'>33</a>
+<a name='L34'></a><a href='#L34'>34</a>
+<a name='L35'></a><a href='#L35'>35</a>
+<a name='L36'></a><a href='#L36'>36</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">23x</span>
+<span class="cline-any cline-yes">23x</span>
+<span class="cline-any cline-yes">23x</span>
+<span class="cline-any cline-yes">23x</span>
+<span class="cline-any cline-yes">23x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">23x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">23x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">10x</span></td><td class="text"><pre class="prettyprint lang-js">const { Router }= require('express');
+<span class="cline-any cline-yes">23x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">23x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">23x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">23x</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">const { Router } = require("express");
 const router = Router();
-const { check } = require('express-validator');
-const { validarJWT } = require('../middlewares/validar-jwt');
-const { validarCampos } = require('../middlewares/validar-campos');
-const { getComentarioByBandaId, crearComentario, eliminarComentario } = require('../controllers/comentarios');
+const { check } = require("express-validator");
+const { validarJWT } = require("../middlewares/validar-jwt");
+const { validarCampos } = require("../middlewares/validar-campos");
+const {
+  getComentarioByBandaId,
+  crearComentario,
+  eliminarComentario,
+} = require("../controllers/comentarios");
 &nbsp;
+// Validar JWT
+router.use(validarJWT, validarCampos);
 &nbsp;
-    // Validar JWT
-router.use( validarJWT, validarCampos);
+// Obtener comentarios asignados a una banda
+router.get("/:bandaId", getComentarioByBandaId);
 &nbsp;
-    // Obtener comentarios asignados a una banda
-router.get('/:bandaId', getComentarioByBandaId);
+// Crear comentario
+router.post(
+  "/",
+  check("titulo", "El título es obligatorio").isLength({ min: 1, max: 25 }),
+  check("texto", "El texto debe contener entre 1 y 500 caracteres").isLength({
+    min: 1,
+    max: 500,
+  }),
+  check("banda", "La banda es obligatoria").isMongoId(),
+  check("usuario", "El usuario es obligatorio").isMongoId(),
+  validarCampos,
+  crearComentario
+);
 &nbsp;
-  // Crear comentario
-router.post('/',
-    check('titulo', 'El título es obligatorio').isLength({min:1, max:25}),
-    check('texto', 'El texto debe contener entre 1 y 500 caracteres').isLength({min:1, max:500}),
-    check('banda', 'La banda es obligatoria').isMongoId(),
-    check('usuario', 'El usuario es obligatorio').isMongoId(),
-    validarCampos,
-    crearComentario); 
+// Eliminar un comentario por su id
+router.delete("/:comentarioId", eliminarComentario);
 &nbsp;
-router.delete('/:comentarioId', eliminarComentario); 
-&nbsp;
-    
-module.exports = router;  </pre></td></tr></table></pre>
+module.exports = router;
+&nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
             </div><!-- /wrapper -->
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2023-02-25T10:16:04.595Z
+                at 2023-05-31T16:24:27.392Z
             </div>
         <script src="../../prettify.js"></script>
         <script>

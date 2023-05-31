@@ -15,7 +15,6 @@ export const useEventosStore = () => {
 
       return banda;
     } catch (error) {
-      console.log(error);
       let fallo = "";
       const objetos = Object(error.response.data.errors);
       for (const objeto in objetos) {
@@ -45,7 +44,6 @@ export const useEventosStore = () => {
 
       return banda;
     } catch (error) {
-      console.log(error);
       let fallo = "";
       const objetos = Object(error.response.data.errors);
       for (const objeto in objetos) {
@@ -75,7 +73,6 @@ export const useEventosStore = () => {
 
       return banda;
     } catch (error) {
-      console.log(error);
       let fallo = "";
       const objetos = Object(error.response.data.errors);
       for (const objeto in objetos) {
@@ -94,21 +91,6 @@ export const useEventosStore = () => {
     }
   };
 
-  const eliminarBanda = async (bandaId) => {
-    try {
-      const { data } = await alcompasAPI.delete("bandas/" + bandaId);
-      const banda = data.banda_eliminada;
-      return banda;
-    } catch (error) {
-      Swal.fire({
-        title: "Error",
-        text: "No tiene permisos para eliminar la banda",
-        icon: "error",
-        confirmButtonText: "Aceptar",
-      });
-    }
-  };
-
   const actualizarProcesion = async (values, id) => {
     try {
       const { data } = await alcompasAPI.put("eventos/procesion/" + id, values);
@@ -119,7 +101,6 @@ export const useEventosStore = () => {
       }, 10);
       return procesion;
     } catch (error) {
-      console.log(error);
       let fallo = "";
       const objetos = Object(error.response.data.errors);
       for (const objeto in objetos) {
@@ -148,7 +129,6 @@ export const useEventosStore = () => {
       }, 10);
       return actuacion;
     } catch (error) {
-      console.log(error);
       let fallo = "";
       const objetos = Object(error.response.data.errors);
       for (const objeto in objetos) {
@@ -204,7 +184,6 @@ export const useEventosStore = () => {
       const eventos = data.eventos;
       return eventos;
     } catch (error) {
-      console.log(error);
       setMensajeError("Error obteniendo los eventos");
     }
   };
@@ -215,7 +194,7 @@ export const useEventosStore = () => {
       const eventos = data.eventos;
       return eventos;
     } catch (error) {
-      console.log(error);
+      console.log("Error obteniendo el evento");
     }
   };
 
@@ -225,7 +204,7 @@ export const useEventosStore = () => {
       const evento = data.evento;
       return evento;
     } catch (error) {
-      console.log(error);
+      console.log("Error obteniendo el evento");
     }
   };
 

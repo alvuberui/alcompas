@@ -19,7 +19,7 @@ export const Plantilla = ({
       for (let i = 0; i < keys.length; i++) {
         const key = keys[i];
         html.push(
-          <Grid justifyContent="center" alignItems="center" key={key} container>
+          <Grid justifyContent="center" alignItems="center" key={key + i} container>
             <Typography variant="h6" align="center" color="white">
               {" "}
               {key}{" "}
@@ -32,7 +32,7 @@ export const Plantilla = ({
             const value = listaUsuarios[j];
             html.push(
               <Musico
-                key={(j + 1) * (i + 1)}
+                key={(j + 1) * (i + 1) + value._id}
                 usuario={value}
                 tipo={"musico"}
                 directivo={directivo}
@@ -48,7 +48,7 @@ export const Plantilla = ({
       for (let i = 0; i < keys.length; i++) {
         const key = keys[i];
         html.push(
-          <Grid justifyContent="center" alignItems="center" key={key} container>
+          <Grid justifyContent="center" alignItems="center" key={key + i} container>
             <Typography variant="h6" align="center" color="white">
               {" "}
               {key}{" "}
@@ -61,7 +61,7 @@ export const Plantilla = ({
             const value = listaUsuarios[j];
             html.push(
               <Musico
-                key={(j + 1) * (i + 1)}
+                key={(j + 1) * (i + 1) + value._id}
                 usuario={value}
                 tipo={"directivo"}
                 directivo={directivo}
@@ -77,7 +77,7 @@ export const Plantilla = ({
       for (let i = 0; i < keys.length; i++) {
         const key = keys[i];
         html.push(
-          <Grid justifyContent="center" alignItems="center" key={key} container>
+          <Grid justifyContent="center" alignItems="center" key={key + i} container>
             <Typography variant="h6" align="center" color="white">
               {" "}
               {key}{" "}
@@ -90,7 +90,7 @@ export const Plantilla = ({
             const value = listaUsuarios[j];
             html.push(
               <Musico
-                key={(j + 1) * (i + 1)}
+                key={(j + 1) * (i + 1) + value._id}
                 usuario={value}
                 tipo={"archivero"}
                 directivo={directivo}

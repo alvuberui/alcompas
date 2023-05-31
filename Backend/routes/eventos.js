@@ -27,6 +27,7 @@ const dias = [
   "Viernes Santo",
   "Sábado Santo",
   "Domingo de Ramos",
+  "Madrugá"
 ];
 const tipos = ["Gloria", "Semana Santa"];
 const tipoActuacion = [

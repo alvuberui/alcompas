@@ -143,7 +143,7 @@ export const Comentario = ({ comentario, eliminar }) => {
         }
         action={
           user.uid === comentario.usuario && (
-            <IconButton onClick={handleElminar} aria-label="settings">
+            <IconButton  onClick={handleElminar} aria-label="settings">
               <DeleteIcon />
             </IconButton>
           )

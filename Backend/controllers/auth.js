@@ -328,22 +328,13 @@ const deleteById = async (req, res = express.response) => {
 
     await Comentario.deleteMany({ usuario: uid });
     await Musico.deleteMany({ usuario: uid });
-    await Directivo.deleteMany({ usuario: uid });
+    await Directivo.deleteMany({ "usuario": uid });
     await Archivero.deleteMany({ usuario: uid });
     await Estudio.deleteMany({ usuario: uid });
     await Instrumento.deleteMany({ usuario: uid });
     await Like.deleteMany({ usuario: uid });
+    await Peticion.deleteMany({ usuario: uid });
 
-    const peticiones = await Peticion.find({ usuario: uid });
-
-    // Elimina solo aquellas peticiones en la que la banda haya sido eliminada
-    for (let i = 0; i < peticiones.length; i++) {
-      const p = peticiones[i];
-      const b = p.banda;
-      const banda = await Banda.findById(b);
-
-      if (!banda) await Peticion.findByIdAndDelete(p._id);
-    }
 
     const usuario = await Usuario.findByIdAndDelete(uid);
 
@@ -379,7 +370,7 @@ const deleteAdminById = async (req, res = express.response) => {
         msg: "No tiene privilegios para eliminar el usuario",
       });
     }
-
+    
     await Comentario.deleteMany({ usuario: uid });
     await Musico.deleteMany({ usuario: uid });
     await Directivo.deleteMany({ usuario: uid });
@@ -387,16 +378,7 @@ const deleteAdminById = async (req, res = express.response) => {
     await Estudio.deleteMany({ usuario: uid });
     await Instrumento.deleteMany({ usuario: uid });
     await Like.deleteMany({ usuario: uid });
-
-    const peticiones = await Peticion.find({ usuario: uid });
-
-    // Elimina solo aquellas peticiones en la que la banda haya sido eliminada
-    for (let i = 0; i < peticiones.length; i++) {
-      const p = peticiones[i];
-      const b = p.banda;
-      const banda = await Banda.findById(b);
-      if (!banda) await Peticion.findByIdAndDelete(p._id);
-    }
+    await Peticion.deleteMany({ usuario: uid });
 
     const usuario = await Usuario.findByIdAndDelete(uid);
     res.json({

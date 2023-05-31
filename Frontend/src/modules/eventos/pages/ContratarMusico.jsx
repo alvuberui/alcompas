@@ -251,6 +251,7 @@ export const ContratarMusico = () => {
           >
             <Button
               variant="contained"
+              aria-label="buscar"
               sx={{
                 mt: "20px",
                 mb: "20px",

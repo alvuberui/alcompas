@@ -63,6 +63,7 @@ export const Calendario = ({ tipo }) => {
             sx={{ mb: 5, width: "100%", border: "0px !important" }}
           >
             <List
+              aria-label="lista"
               sx={{
                 width: "100%",
                 bgcolor: "background.paper",
@@ -73,7 +74,7 @@ export const Calendario = ({ tipo }) => {
             >
               {eventos.length > 0 ? (
                 eventos.map((evento, index) => (
-                  <Evento evento={evento} key={index} setEventos={setEventos} />
+                  <Evento  evento={evento} key={index} setEventos={setEventos} />
                 ))
               ) : (
                 <>

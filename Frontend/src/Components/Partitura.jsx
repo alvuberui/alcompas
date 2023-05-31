@@ -76,6 +76,7 @@ export const Partitura = ({
 
   return (
     <Card
+      aria-label="partitura"
       onClick={handleClick}
       onMouseOver={handleMouseOver}
       onMouseOut={handleMouseOut}

@@ -85,7 +85,7 @@ describe('Pruebas en <Perfil />', () => {
             );
         });
         
-        const texto = screen.getByText('Descripción');
+        const texto = screen.getByLabelText('desc');
         expect(texto).not.toBeNull();
 
         await act( async() => {

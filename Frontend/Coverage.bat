@@ -1,1 +1,1 @@
-cmd /k yarn test --coverage
+cmd /k yarn test --coverage --silent

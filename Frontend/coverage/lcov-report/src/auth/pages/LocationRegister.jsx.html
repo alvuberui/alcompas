@@ -163,8 +163,21 @@
 <a name='L98'></a><a href='#L98'>98</a>
 <a name='L99'></a><a href='#L99'>99</a>
 <a name='L100'></a><a href='#L100'>100</a>
-<a name='L101'></a><a href='#L101'>101</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L101'></a><a href='#L101'>101</a>
+<a name='L102'></a><a href='#L102'>102</a>
+<a name='L103'></a><a href='#L103'>103</a>
+<a name='L104'></a><a href='#L104'>104</a>
+<a name='L105'></a><a href='#L105'>105</a>
+<a name='L106'></a><a href='#L106'>106</a>
+<a name='L107'></a><a href='#L107'>107</a>
+<a name='L108'></a><a href='#L108'>108</a>
+<a name='L109'></a><a href='#L109'>109</a>
+<a name='L110'></a><a href='#L110'>110</a>
+<a name='L111'></a><a href='#L111'>111</a>
+<a name='L112'></a><a href='#L112'>112</a>
+<a name='L113'></a><a href='#L113'>113</a>
+<a name='L114'></a><a href='#L114'>114</a>
+<a name='L115'></a><a href='#L115'>115</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -263,114 +276,143 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React, { Component } from 'react'
-import { AuthLayout } from '../layout/AuthLayout';
-import { Grid, TextField, Button, Link } from '@mui/material';
-import { Link as RouterLink} from 'react-router-dom';
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { Button, Grid, TextField } from "@mui/material";
+import React, { Component } from "react";
+import { AuthLayout } from "../layout/AuthLayout";
 &nbsp;
 export class LocationRegister extends Component {
-    continuar = e =&gt; {
-        e.preventDefault();
-        this.props.siguiente();
-    }
+  continuar = (e) =&gt; {
+    e.preventDefault();
+    this.props.siguiente();
+  };
 &nbsp;
-    retroceder = e =&gt; {
-        e.preventDefault();
-        this.props.retroceder();
-    }
+  retroceder = (e) =&gt; {
+    e.preventDefault();
+    this.props.retroceder();
+  };
 &nbsp;
   render() {
     const { values, handleChange, titulo } = this.props;
     return (
-        &lt;AuthLayout  title={titulo} &gt;
+      &lt;AuthLayout title={titulo}&gt;
         &lt;form&gt;
           &lt;Grid container&gt;
-  
-            &lt;Grid item xs={ 12 } sx={{ mt: 2}}&gt;
-              &lt;TextField 
-                aria-label='localidadlabel'
+            &lt;Grid item xs={12} sx={{ mt: 2 }}&gt;
+              &lt;TextField
+                aria-label="localidadlabel"
                 label="Localidad"
                 type="text"
                 placeholder="Localidad"
                 fullWidth
-                color='secondary'
-                onChange={handleChange('localidad')}
+                color="secondary"
+                onChange={handleChange("localidad")}
                 defaultValue={values.localidad}
-                inputProps={{ style: { color: 'white' } }}
+                inputProps={{ style: { color: "white" } }}
                 focused
               /&gt;
             &lt;/Grid&gt;
-            &lt;Grid item xs={ 12 } sx={{ mt: 2}}&gt;
-              &lt;TextField 
-                aria-label='provincialabel'
+            &lt;Grid item xs={12} sx={{ mt: 2 }}&gt;
+              &lt;TextField
+                aria-label="provincialabel"
                 label="Provincia"
                 type="text"
                 placeholder="Provincia"
                 fullWidth
-                color='secondary'
-                onChange={handleChange('provincia')}
+                color="secondary"
+                onChange={handleChange("provincia")}
                 defaultValue={values.provincia}
-                inputProps={{ style: { color: 'white' } }}
+                inputProps={{ style: { color: "white" } }}
                 focused
               /&gt;
             &lt;/Grid&gt;
-            &lt;Grid item xs={ 12 } sx={{ mt: 2}}&gt;
-              &lt;TextField 
-                aria-label='codigoPostallabel'
+            &lt;Grid item xs={12} sx={{ mt: 2 }}&gt;
+              &lt;TextField
+                aria-label="codigoPostallabel"
                 label="Código postal"
                 type="text"
                 placeholder="Código postal"
                 fullWidth
-                color='secondary'
-                onChange={handleChange('codigo_postal')}
+                color="secondary"
+                onChange={handleChange("codigo_postal")}
                 defaultValue={values.codigo_postal}
-                inputProps={{ style: { color: 'white' } }}
+                inputProps={{ style: { color: "white" } }}
                 focused
               /&gt;
             &lt;/Grid&gt;
-            &lt;Grid item xs={ 12 } sx={{ mt: 2}}&gt;
-              &lt;TextField 
+            &lt;Grid item xs={12} sx={{ mt: 2 }}&gt;
+              &lt;TextField
                 label="Dirección"
                 type="text"
-                aria-label='direccion'
+                aria-label="direccion"
                 placeholder="Direccion"
                 fullWidth
-                color='secondary'
-                onChange={handleChange('direccion')}
+                color="secondary"
+                onChange={handleChange("direccion")}
                 defaultValue={values.direccion}
-                inputProps={{ style: { color: 'white' } }}
+                inputProps={{ style: { color: "white" } }}
                 focused
               /&gt;
             &lt;/Grid&gt;
-              &lt;Grid container justifyContent='center' spacing={ 2 } sx={{ mb: 2, mt: 1 }}&gt;
-                &lt;Grid  item xs={ 6 } &gt;
-                  &lt;Button aria-label='retroceder' variant='contained' color='secondary' fullWidth onClick={this.retroceder}&gt;
-                    Retroceder
-                  &lt;/Button&gt;
-                &lt;/Grid&gt;
-                &lt;Grid  item xs={ 6 } &gt;
-                  &lt;Button aria-label='link' variant='contained' color='secondary' fullWidth onClick={this.continuar}&gt;
-                    Siguiente
-                  &lt;/Button&gt;
-                &lt;/Grid&gt;
+            &lt;Grid
+              container
+              justifyContent="center"
+              spacing={2}
+              sx={{ mb: 2, mt: 1 }}
+            &gt;
+              &lt;Grid item xs={6}&gt;
+                &lt;Button
+                  aria-label="retroceder"
+                  variant="contained"
+                  color="secondary"
+                  fullWidth
+                  onClick={this.retroceder}
+                &gt;
+                  Retroceder
+                &lt;/Button&gt;
               &lt;/Grid&gt;
-   
-  
+              &lt;Grid item xs={6}&gt;
+                &lt;Button
+                  aria-label="link"
+                  variant="contained"
+                  color="secondary"
+                  fullWidth
+                  onClick={this.continuar}
+                &gt;
+                  Siguiente
+                &lt;/Button&gt;
+              &lt;/Grid&gt;
+            &lt;/Grid&gt;
           &lt;/Grid&gt;
         &lt;/form&gt;
       &lt;/AuthLayout&gt;
-    )
+    );
   }
 }
 &nbsp;
-export default LocationRegister</pre></td></tr></table></pre>
+export default LocationRegister;
+&nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
             </div><!-- /wrapper -->
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2023-03-10T19:34:49.563Z
+                at 2023-05-31T16:29:50.488Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>

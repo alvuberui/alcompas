@@ -40,20 +40,88 @@ describe('Pruebas en <EditarFoto />', () => {
             errores: [],
             setErrores: jest.fn(),
             editarFotoBanda: jest.fn(),
+            getFotoPerfilUsuario: jest.fn().mockReturnValue( "" ),
+            getFotoPerfilBanda: jest.fn().mockReturnValue( "" ),
         });
 
         await act(async() => {
             render(
                 <Provider store={ store }>
                     <MemoryRouter>
-                        <EditarFoto open />
+                        <EditarFoto open setFoto={jest.fn()} handleClose={jest.fn()}  setOpen={jest.fn()} tipo={"usuario"}/>
                     </MemoryRouter>
                 </Provider>
             );
         });
-        const texto = screen.getByText('AÑADIR FOTO');
-        expect( texto ).not.toBe( undefined);  
-        const boton = screen.getByLabelText('añadir'); 
-        fireEvent.click( boton );
+        await waitFor(() => {
+            const texto = screen.getByText('AÑADIR FOTO');
+            expect( texto ).not.toBe( undefined);  
+            const boton = screen.getByLabelText('añadir'); 
+            fireEvent.click( boton );
+        });
+    });
+
+    test('debe de mostrar el componente correctamente', async() => {
+
+        useAuthStore.mockReturnValue({
+            user: authenticatedState2.user,
+        });
+
+        useUploadsStore.mockReturnValue({
+            editarFotoUsuario: jest.fn(),
+            errores: [],
+            setErrores: jest.fn(),
+            editarFotoBanda: jest.fn(),
+            getFotoPerfilUsuario: jest.fn().mockReturnValue( "" ),
+            getFotoPerfilBanda: jest.fn().mockReturnValue( "" ),
+        });
+
+        await act(async() => {
+            render(
+                <Provider store={ store }>
+                    <MemoryRouter>
+                        <EditarFoto open setFoto={jest.fn()} handleClose={jest.fn()}  setOpen={jest.fn()} tipo={"banda"}/>
+                    </MemoryRouter>
+                </Provider>
+            );
+        });
+        await waitFor(() => {
+            const texto = screen.getByText('AÑADIR FOTO');
+            expect( texto ).not.toBe( undefined);  
+            const boton = screen.getByLabelText('añadir'); 
+            fireEvent.click( boton );
+        });
+    });
+
+    test('debe de mostrar el componente correctamente', async() => {
+
+        useAuthStore.mockReturnValue({
+            user: authenticatedState2.user,
+        });
+
+        useUploadsStore.mockReturnValue({
+            editarFotoUsuario: jest.fn(),
+            errores: [],
+            setErrores: jest.fn(),
+            editarFotoBanda: jest.fn(),
+            getFotoPerfilUsuario: jest.fn().mockReturnValue( "" ),
+            getFotoPerfilBanda: jest.fn().mockReturnValue( "" ),
+        });
+
+        await act(async() => {
+            render(
+                <Provider store={ store }>
+                    <MemoryRouter>
+                        <EditarFoto open setFoto={jest.fn()} handleClose={jest.fn()}  setOpen={jest.fn()} tipo={"bafsdsdnda"}/>
+                    </MemoryRouter>
+                </Provider>
+            );
+        });
+        await waitFor(() => {
+            const texto = screen.getByText('AÑADIR FOTO');
+            expect( texto ).not.toBe( undefined);  
+            const boton = screen.getByLabelText('añadir'); 
+            fireEvent.click( boton );
+        });
     });
 });

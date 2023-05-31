@@ -64,9 +64,12 @@ describe('Pruebas en <RedesSociales />', () => {
                 </Provider>
             );
         });
-
-            const texto = screen.getByText('Administración de Redes Sociales');
+       
+            const texto = screen.getByLabelText('añadir');
             expect( texto ).not.toBe( undefined);   
+            const eliminar = screen.getByLabelText('eliminar');
+            expect( eliminar ).not.toBe( undefined);
+        
 
     });
 

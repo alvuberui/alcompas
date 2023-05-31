@@ -22,7 +22,10 @@ export const useLikesStore = () => {
     try {
       const { data } = await alcompasAPI.delete(
         "likes/tipo/" + like.tipo + "/referencia/" + like.referencia
+        
       );
+      const likeDB = data.likeDB;
+      return likeDB;
     } catch (error) {
       setErrores("No se pudo completar el dislike");
       setTimeout(() => {

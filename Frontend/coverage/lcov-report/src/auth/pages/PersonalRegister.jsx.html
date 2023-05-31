@@ -213,7 +213,25 @@
 <a name='L148'></a><a href='#L148'>148</a>
 <a name='L149'></a><a href='#L149'>149</a>
 <a name='L150'></a><a href='#L150'>150</a>
-<a name='L151'></a><a href='#L151'>151</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L151'></a><a href='#L151'>151</a>
+<a name='L152'></a><a href='#L152'>152</a>
+<a name='L153'></a><a href='#L153'>153</a>
+<a name='L154'></a><a href='#L154'>154</a>
+<a name='L155'></a><a href='#L155'>155</a>
+<a name='L156'></a><a href='#L156'>156</a>
+<a name='L157'></a><a href='#L157'>157</a>
+<a name='L158'></a><a href='#L158'>158</a>
+<a name='L159'></a><a href='#L159'>159</a>
+<a name='L160'></a><a href='#L160'>160</a>
+<a name='L161'></a><a href='#L161'>161</a>
+<a name='L162'></a><a href='#L162'>162</a>
+<a name='L163'></a><a href='#L163'>163</a>
+<a name='L164'></a><a href='#L164'>164</a>
+<a name='L165'></a><a href='#L165'>165</a>
+<a name='L166'></a><a href='#L166'>166</a>
+<a name='L167'></a><a href='#L167'>167</a>
+<a name='L168'></a><a href='#L168'>168</a>
+<a name='L169'></a><a href='#L169'>169</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -363,164 +381,200 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React, { Component } from 'react'
-import { AuthLayout } from '../layout/AuthLayout';
-import { Grid, TextField, Button, Link } from '@mui/material';
-import { Link as RouterLink} from 'react-router-dom';
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { Button, Grid, Link, TextField } from "@mui/material";
+import React, { Component } from "react";
+import { Link as RouterLink } from "react-router-dom";
+import { AuthLayout } from "../layout/AuthLayout";
 &nbsp;
 export class PersonalRegister extends Component {
-    continuar = e =&gt; {
-        e.preventDefault();
-        this.props.siguiente()
-    }
+  continuar = (e) =&gt; {
+    e.preventDefault();
+    this.props.siguiente();
+  };
   render() {
     const { values, handleChange, titulo } = this.props;
-    
+&nbsp;
     return (
-        &lt;AuthLayout  title={titulo} &gt;
+      &lt;AuthLayout title={titulo}&gt;
         &lt;form&gt;
           &lt;Grid container&gt;
-  
-            &lt;Grid item xs={ 12 } sx={{ mt: 2}}&gt;
-              &lt;TextField 
-                aria-label='nombrelabel'
+            &lt;Grid item xs={12} sx={{ mt: 2 }}&gt;
+              &lt;TextField
+                aria-label="nombrelabel"
                 label="Nombre"
                 type="text"
-                color='secondary'
+                color="secondary"
                 placeholder="Nombre"
                 fullWidth
-                onChange={handleChange('nombre')}
-                inputProps={{ style: { color: 'white' } }} 
+                onChange={handleChange("nombre")}
+                inputProps={{ style: { color: "white" } }}
                 defaultValue={values.nombre}
                 focused
               /&gt;
             &lt;/Grid&gt;
-            &lt;Grid item xs={ 12 } sx={{ mt: 2}}&gt;
-              &lt;TextField 
-                aria-label='primerApellidolabel'
+            &lt;Grid item xs={12} sx={{ mt: 2 }}&gt;
+              &lt;TextField
+                aria-label="primerApellidolabel"
                 label="Primer apellido"
                 type="text"
-                color='secondary'
+                color="secondary"
                 placeholder="Apellido 1"
                 fullWidth
-                onChange={handleChange('primer_apellido')}
-                inputProps={{ style: { color: 'white' } }} 
+                onChange={handleChange("primer_apellido")}
+                inputProps={{ style: { color: "white" } }}
                 defaultValue={values.primer_apellido}
                 focused
               /&gt;
             &lt;/Grid&gt;
-            &lt;Grid item xs={ 12 } sx={{ mt: 2}}&gt;
-              &lt;TextField 
-                aria-label='segundoApellidolabel'
+            &lt;Grid item xs={12} sx={{ mt: 2 }}&gt;
+              &lt;TextField
+                aria-label="segundoApellidolabel"
                 label="Segundo Apellido"
                 type="text"
-                color='secondary'
+                color="secondary"
                 placeholder="Apellido 2"
                 fullWidth
-                onChange={handleChange('segundo_apellido')}
-                inputProps={{ style: { color: 'white' } }} 
+                onChange={handleChange("segundo_apellido")}
+                inputProps={{ style: { color: "white" } }}
                 defaultValue={values.segundo_apellido}
                 focused
               /&gt;
             &lt;/Grid&gt;
-            &lt;Grid item xs={ 12 } sx={{ mt: 2}}&gt;
-              &lt;TextField 
-                aria-label='dnilabel'
+            &lt;Grid item xs={12} sx={{ mt: 2 }}&gt;
+              &lt;TextField
+                aria-label="dnilabel"
                 label="DNI"
                 type="text"
-                color='secondary'
+                color="secondary"
                 placeholder="DNI"
                 fullWidth
-                onChange={handleChange('nif')}
-                inputProps={{ style: { color: 'white' } }} 
+                onChange={handleChange("nif")}
+                inputProps={{ style: { color: "white" } }}
                 defaultValue={values.nif}
                 focused
               /&gt;
             &lt;/Grid&gt;
-            &lt;Grid item xs={ 12 } sx={{ mt: 2}}&gt;
+            &lt;Grid item xs={12} sx={{ mt: 2 }}&gt;
               &lt;TextField
-                aria-label='fechaNacimientolabel'
+                aria-label="fechaNacimientolabel"
                 label="Fecha nacimiento"
                 type="date"
                 fullWidth
-                color='secondary'
+                color="secondary"
                 InputLabelProps={{
-                shrink: true,
+                  shrink: true,
                 }}
-                inputProps={{ style: { color: 'white' } }} 
-                onChange={handleChange('fecha_nacimiento')}
+                inputProps={{ style: { color: "white" } }}
+                onChange={handleChange("fecha_nacimiento")}
                 focused
                 defaultValue={values.fecha_nacimiento}
-                
               /&gt;
             &lt;/Grid&gt;
-            &lt;Grid item xs={ 12 } sx={{ mt: 2}}&gt;
+            &lt;Grid item xs={12} sx={{ mt: 2 }}&gt;
               &lt;TextField
-                aria-label='correolabel'
+                aria-label="correolabel"
                 label="Correo electrónico"
                 type="email"
-                color='secondary'
+                color="secondary"
                 placeholder="correo@gmail.com"
                 fullWidth
-                inputProps={{ style: { color: 'white' } }} 
-                onChange={handleChange('correo')}
+                inputProps={{ style: { color: "white" } }}
+                onChange={handleChange("correo")}
                 defaultValue={values.correo}
                 focused
               /&gt;
             &lt;/Grid&gt;
-            &lt;Grid item xs={ 12 } sx={{ mt: 2}}&gt;
+            &lt;Grid item xs={12} sx={{ mt: 2 }}&gt;
               &lt;TextField
-                aria-label='telefonolabel'
+                aria-label="telefonolabel"
                 label="Teléfono"
                 type="tel"
-                color='secondary'
+                color="secondary"
                 placeholder="666666666"
                 fullWidth
-                inputProps={{ style: { color: 'white' } }} 
-                onChange={handleChange('telefono')}
+                inputProps={{ style: { color: "white" } }}
+                onChange={handleChange("telefono")}
                 defaultValue={values.telefono}
                 focused
               /&gt;
             &lt;/Grid&gt;
-            
-              &lt;Grid container justifyContent='center' spacing={ 2 } sx={{ mb: 2, mt: 1 }}&gt;
-                &lt;Grid  item xs={ 6 } &gt;
-                  &lt;Button aria-label='link' variant='contained'  color='secondary' fullWidth onClick={this.continuar}&gt;
-                    Siguiente
-                  &lt;/Button&gt;
-                &lt;/Grid&gt;
+&nbsp;
+            &lt;Grid
+              container
+              justifyContent="center"
+              spacing={2}
+              sx={{ mb: 2, mt: 1 }}
+            &gt;
+              &lt;Grid item xs={6}&gt;
+                &lt;Button
+                  aria-label="link"
+                  variant="contained"
+                  color="secondary"
+                  fullWidth
+                  onClick={this.continuar}
+                &gt;
+                  Siguiente
+                &lt;/Button&gt;
               &lt;/Grid&gt;
-            &lt;Grid container direction='row' &gt;
-            &lt;Grid item  justifyContent='start'&gt;
-              &lt;Link component={ RouterLink } color='secondary' style={{textDecoration:"none", color:"white"}}  to="/"&gt;
-                Inicio
-              &lt;/Link&gt;
             &lt;/Grid&gt;
-            { titulo === 'Crear Cuenta' &amp;&amp;
-            &lt;Grid item  sx={{ ml:'20px' }} justifyContent='end'&gt;
-              &lt;Link component={ RouterLink } color='secondary' style={{textDecoration:"none", color:"white"}}  to="/auth/login"&gt;
-                Iniciar Sesión
-              &lt;/Link&gt;
+            &lt;Grid container direction="row"&gt;
+              &lt;Grid item justifyContent="start"&gt;
+                &lt;Link
+                  component={RouterLink}
+                  color="secondary"
+                  style={{ textDecoration: "none", color: "white" }}
+                  to="/"
+                &gt;
+                  Inicio
+                &lt;/Link&gt;
+              &lt;/Grid&gt;
+              {titulo === "Crear Cuenta" &amp;&amp; (
+                &lt;Grid item sx={{ ml: "20px" }} justifyContent="end"&gt;
+                  &lt;Link
+                    component={RouterLink}
+                    color="secondary"
+                    style={{ textDecoration: "none", color: "white" }}
+                    to="/auth/login"
+                  &gt;
+                    Iniciar Sesión
+                  &lt;/Link&gt;
+                &lt;/Grid&gt;
+              )}
             &lt;/Grid&gt;
-          }
-          &lt;/Grid&gt;
-              
-  
           &lt;/Grid&gt;
         &lt;/form&gt;
       &lt;/AuthLayout&gt;
-    )
+    );
   }
 }
 &nbsp;
-export default PersonalRegister</pre></td></tr></table></pre>
+export default PersonalRegister;
+&nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
             </div><!-- /wrapper -->
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2023-03-10T19:34:49.563Z
+                at 2023-05-31T16:29:50.488Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>

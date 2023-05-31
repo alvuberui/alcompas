@@ -54,17 +54,17 @@ export const Evento = ({ evento, index, style, setEventos }) => {
   const horaSalida =
     new Date(evento.fechaSalida).getHours() +
     ":" +
-    new Date(evento.fechaSalida).getMinutes();
+    new Date(evento.fechaSalida).getMinutes().toString().padStart(2, "0");
   const fechaSalida = new Date(evento.fechaSalida).toLocaleDateString();
   const horaInicio =
     new Date(evento.fechaInicio).getHours() +
     ":" +
-    new Date(evento.fechaInicio).getMinutes();
+    new Date(evento.fechaInicio).getMinutes().toString().padStart(2, "0");
   const fechaInicio = new Date(evento.fechaInicio).toLocaleDateString();
   const horaFin =
     new Date(evento.fechaFin).getHours() +
     ":" +
-    new Date(evento.fechaFin).getMinutes();
+    new Date(evento.fechaFin).getMinutes().toString().padStart(2, "0");
   const fechaFin = new Date(evento.fechaFin).toLocaleDateString();
 
   // Hooks
@@ -87,12 +87,14 @@ export const Evento = ({ evento, index, style, setEventos }) => {
 
   useEffect(() => {
     const getFoto = async () => {
+      if(evento) {
       const fotoreq = await getFotoPerfilBanda(evento.banda);
       setFotoPerfil(fotoreq);
+      }
     };
 
     getFoto();
-  }, [evento]);
+  }, [evento, banda]);
 
   useEffect(() => {
     const getBanda = async () => {
@@ -334,7 +336,7 @@ export const Evento = ({ evento, index, style, setEventos }) => {
 
                         <IconButton
                           onClick={handleDelete}
-                          aria-label="settings"
+                          aria-label="delete"
                         >
                           <DeleteIcon />
                         </IconButton>
@@ -834,7 +836,7 @@ export const Evento = ({ evento, index, style, setEventos }) => {
             alignItems: "center",
           }}
         >
-          <CircularProgress />
+          <CircularProgress aria-label="loading"/>
         </Box>
       </>
     );

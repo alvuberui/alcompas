@@ -46,7 +46,6 @@ export const useContratadosStore = () => {
       const resultados = data.resultados;
       return resultados;
     } catch (error) {
-      console.log(error);
       setErrores("No tienes acceso a esta operación");
       setTimeout(() => {
         setErrores([]);
@@ -60,7 +59,6 @@ export const useContratadosStore = () => {
       const contratadoDB = data.eliminado;
       return contratadoDB;
     } catch (error) {
-      console.log(error);
       setErrores("No tienes acceso a esta operación");
       setTimeout(() => {
         setErrores([]);

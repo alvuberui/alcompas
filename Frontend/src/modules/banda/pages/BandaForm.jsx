@@ -6,19 +6,7 @@ import { CrearBandaDos, CrearBandaTres, CrearBandaUno } from "../";
 import { validarBanda } from "../../../helpers/validarBanda";
 import { useBandasStore } from "../../../hooks/useBandasStore";
 
-const state = {
-  nombre: "",
-  tipo: "Agrupación Musical",
-  localidad: "",
-  provincia: "",
-  codigo_postal: "",
-  direccion: "",
-  año_fundacion: "",
-  descripcion: "",
-  telefono: "",
-  correo: "",
-  cif: "",
-};
+
 
 export const BandaForm = () => {
   const [step, setStep] = useState(1);
@@ -34,12 +22,36 @@ export const BandaForm = () => {
     setTimeout(() => {
       if (mensajeError === "200") {
         navigate("/");
-        setValues(state);
+        setValues({
+          nombre: "",
+          tipo: "Agrupación Musical",
+          localidad: "",
+          provincia: "",
+          codigo_postal: "",
+          direccion: "",
+          año_fundacion: "",
+          descripcion: "",
+          telefono: "",
+          correo: "",
+          cif: "",
+        });
       }
     }, 100);
   }, [mensajeError]);
 
-  const [values, setValues] = useState(state);
+  const [values, setValues] = useState({
+    nombre: "",
+    tipo: "Agrupación Musical",
+    localidad: "",
+    provincia: "",
+    codigo_postal: "",
+    direccion: "",
+    año_fundacion: "",
+    descripcion: "",
+    telefono: "",
+    correo: "",
+    cif: "",
+  });
 
   // Siguiente paso
   const siguiente = () => {
@@ -57,7 +69,7 @@ export const BandaForm = () => {
     let error = validarBanda(values);
 
     if (error == "") {
-      crearBanda(values);
+      const b = crearBanda(values);
     } else {
       Swal.fire("Error en la autenticación", error, "error");
     }

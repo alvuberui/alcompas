@@ -68,7 +68,7 @@ export const Peticiones = () => {
             <Grid item lg={12} xs={12}>
               <Typography align="center" variant="h5">
                 {" "}
-                No hay préstamos...{" "}
+                No hay peticiones...{" "}
               </Typography>
             </Grid>
           )}

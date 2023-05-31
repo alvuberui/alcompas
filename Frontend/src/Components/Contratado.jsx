@@ -92,7 +92,7 @@ export const Contratado = ({ musico }) => {
         subheader={usuario.localidad + " " + usuario.provincia}
       />
       <CardActions disableSpacing>
-        <Button variant="contained" onClick={handleContratar} color="primary">
+        <Button aria-label="boton" variant="contained" onClick={handleContratar} color="primary">
           Contratar
         </Button>
       </CardActions>

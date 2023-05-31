@@ -92,6 +92,18 @@ describe("Tests sobre la api de archiveros", () => {
             expect(response.statusCode).toBe(201);
         });
 
+        test("Obtener músico por su instrumento y localidad", async () => {
+            const response = await request(app).get('/api/musicos/instrumento/Tuba/localidad/TestBanda').set('x-token', token);
+            expect(response.statusCode).toBe(201);
+            expect(response.body.musicosFiltrados.length).toBe(1);
+        });
+
+        test("Obtener si es músico by banda id", async () => {
+            const response = await request(app).get('/api/musicos/banda/' + bandaId).set('x-token', token);
+            expect(response.statusCode).toBe(200);
+            expect( response.body.esMusico ).toBe(true);
+        });
+
         test("Finalizar musico", async () => {
             const response = await request(app).put('/api/musicos/finalizar/' + uid + '/' + bandaId).set('x-token', token);
             expect(response.statusCode).toBe(201); 

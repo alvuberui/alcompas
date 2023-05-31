@@ -19,7 +19,7 @@ export const Dashboard = () => {
     };
     getAnuncios();
   }, []);
-
+ 
   return (
     <>
       <Grid container direction="row">

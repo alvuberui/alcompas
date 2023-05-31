@@ -2,7 +2,7 @@ import dayjs from 'dayjs';
 
 export const validarEvento = (values) => {
     const dias = ['Viernes Dolores', 'Sábado de Pasión', 'Domingo de Resurreción', 'Lunes Santo',
-    'Martes Santo', 'Miércoles Santo', 'Jueves Santo', 'Viernes Santo', 'Sábado Santo', 'Domingo de Ramos'];
+    'Martes Santo', 'Miércoles Santo', 'Jueves Santo', 'Madrugá', 'Viernes Santo', 'Sábado Santo', 'Domingo de Ramos'];
     const tipos = ['Gloria', 'Semana Santa'];
     const fechaHoy = new Date();
     const tipoActuacion = ['Concierto', 'Encuentro de Bandas', 'Corrida de Toros', 'Pasacalles'];
@@ -10,7 +10,7 @@ export const validarEvento = (values) => {
         let error = '';
         if( values.titulo.length < 1)  error = '-El título es obligatorio';
         if( values.titulo.length > 50) error = error + ' <br> -La longitud máxima del título es 50 caracteres'
-        if( values.descripcion.length > 200) error = error + ' <br> -La longitud máxima de la descripción es 2000 caracteres'
+        if( values.descripcion.length > 2000) error = error + ' <br> -La longitud máxima de la descripción es 2000 caracteres'
         if( values.localidad.length < 1)  error = error + ' <br> -La localidad es obligatoria';
         if( values.localidad.length > 20) error = error + ' <br> -La longitud máxima de la localidad es 20 caracteres'
         if( values.provincia.length < 1)  error = error + ' <br> -La provincia es obligatoria';

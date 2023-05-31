@@ -87,7 +87,7 @@ export const useAsistenciasStore = () => {
       const asistencia = data.asistencia;
       return asistencia;
     } catch (error) {
-      console.log(error);
+      console.log("Error cargando asistencia");
     }
   };
 
@@ -99,7 +99,7 @@ export const useAsistenciasStore = () => {
       const asistencias = data.resultado;
       return asistencias;
     } catch (error) {
-      console.log(error);
+      console.log("Error cargando asistencias");
     }
   };
 

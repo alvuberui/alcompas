@@ -52,6 +52,7 @@ describe('Pruebas en useAuthStore', () => {
             startDelete:    expect.any(Function),
             startUpdate:    expect.any(Function),
             startUpdatePassword: expect.any(Function),
+            obtenerTodasLocalidades: expect.any(Function),
         });
     });
 
@@ -566,6 +567,51 @@ describe('Pruebas en useAuthStore', () => {
                 console.log('Error cargando usuario');
 
                 expect(logSpy).toHaveBeenCalledWith('Error cargando usuario');
+            });
+    
+    });
+
+    test("Prueba obteniendo todas las localidades", async() => {
+        const mockStore = getMockStore({ ...authenticatedState2 });
+        const { result } = renderHook( () => useAuthStore(), {
+            wrapper: ({ children }) => <Provider store={ mockStore } >
+                { children }
+            </Provider>
+        });
+        
+        const localidades = ['Granada', 'Madrid']
+        const spy = jest.spyOn( alcompasAPI, 'get' ).mockReturnValue({
+            data: {
+                localidades : localidades
+            }
+            
+        });
+    
+            await act(async() => {
+                const res = await result.current.obtenerTodasLocalidades()
+
+                expect(res).toEqual(localidades)
+            });
+    
+            spy.mockRestore();
+    });
+
+    test("Prueba negativa obteniendo todas las localidades", async() => {
+        const mockStore = getMockStore({ ...authenticatedState2 });
+        const { result } = renderHook( () => useAuthStore(), {
+            wrapper: ({ children }) => <Provider store={ mockStore }>
+                { children }
+            </Provider>
+        });
+        
+    
+            await act(async() => {
+                await result.current.obtenerTodasLocalidades()
+                const logSpy = jest.spyOn(console, 'log');
+
+                console.log('Error cargando localidades');
+
+                expect(logSpy).toHaveBeenCalledWith('Error cargando localidades');
             });
     
     });

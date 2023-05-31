@@ -50,7 +50,6 @@ export const useAuthStore = () => {
     contraseña,
     fecha_nacimiento,
   }) => {
-    dispatch(onChecking());
 
     try {
       const { data } = await alcompasAPI.post("/auth/register", {
@@ -69,11 +68,14 @@ export const useAuthStore = () => {
         contraseña,
         fecha_nacimiento,
       });
+
+      if(data) {
       navigate("/");
       localStorage.setItem("token", data.token);
       localStorage.setItem("token-init-date", new Date().getTime());
 
       dispatch(onLogin({ nombre: data.nombre, uid: data.uid }));
+      }
       return data;
     } catch (error) {
       let fallo = "";

@@ -101,7 +101,7 @@ export const CrearPeticion = ({
     voz: "Primero",
     usuario: "",
   });
-  const [rol, setRol] = useState("Músico");
+
   const { id } = useParams();
   const [openBuscador, setOpenBuscador] = React.useState(false);
   const [options, setOptions] = React.useState([]);
@@ -168,6 +168,7 @@ export const CrearPeticion = ({
       }
       // Crear la petición
       const p = await crearPeticion(peticion, id, d._id);
+      if(p) {
       setPeticiones([p, ...peticiones]);
       setPeticion({
         rol: "Músico",
@@ -179,6 +180,16 @@ export const CrearPeticion = ({
       });
 
       setOpen(false);
+      } else {
+      setPeticion({
+        rol: peticion.rol ? peticion.rol : "Músico",
+        cargo: peticion.cargo ? peticion.cargo : "Presidente",
+        mensaje: peticion.mensaje ? peticion.mensaje : "",
+        instrumento: peticion.instrumento? peticion.instrumento : "Corneta",
+        voz: peticion.voz ? peticion.voz : "Primero",
+        usuario: peticion.usuario ? peticion.usuario : "",
+      });
+    }
     }
   };
 
@@ -230,6 +241,7 @@ export const CrearPeticion = ({
     event.preventDefault();
     peticion["usuario"] = values.usuario;
   };
+
 
   return (
     <div>
@@ -320,7 +332,7 @@ export const CrearPeticion = ({
                   )}
                 />
               </Grid>
-              {rol === "Directivo" && (
+              {peticion.rol === "Directivo" && (
                 <Grid item xs={12} sx={{ mt: 2 }}>
                   <Typography sx={{ color: "white" }}>Cargo</Typography>
                   <Select
@@ -341,7 +353,7 @@ export const CrearPeticion = ({
                   </Select>
                 </Grid>
               )}
-              {rol === "Músico" && (
+              {peticion.rol === "Músico" && (
                 <Grid item xs={12} sx={{ mt: 2 }}>
                   <Typography sx={{ color: "white" }}>Instrumento</Typography>
                   <Select
@@ -362,7 +374,7 @@ export const CrearPeticion = ({
                   </Select>
                 </Grid>
               )}
-              {rol === "Músico" && (
+              {peticion.rol === "Músico" && (
                 <Grid item xs={12} sx={{ mt: 2 }}>
                   <Typography sx={{ color: "white" }}>Voz</Typography>
                   <Select

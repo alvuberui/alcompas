@@ -10,11 +10,13 @@ export const Banda = ({ _id, nombre, tipo }) => {
 
   useEffect(() => {
     const getFoto = async () => {
-      const foto = await getFotoPerfilBanda(_id);
-      setFotoPerfil(foto);
+      if(_id) {
+        const foto = await getFotoPerfilBanda(_id);
+        setFotoPerfil(foto);
+      }
     };
     getFoto();
-  }, []);
+  }, [_id]);
 
   return (
     <Grid

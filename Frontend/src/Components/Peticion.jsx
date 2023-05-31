@@ -77,7 +77,7 @@ export const Peticion = ({
     };
     const getDirectivo = async () => {
       const directivoreq = await getDirectivoById(directivo);
-      const usuarioreq = await getUserByiD(directivoreq.usuario);
+      const usuarioreq = await getUserByiD(directivoreq ? directivoreq.usuario : "");
       setDirectivo_nombre(usuarioreq);
     };
     const convertirFecha = () => {
@@ -120,7 +120,7 @@ export const Peticion = ({
             variant="h6"
             sx={{ fontWeight: "bold", textAlign: "center", color: "black" }}
           >
-            {banda_nombre.tipo + " " + banda_nombre.nombre}
+            {banda_nombre ? banda_nombre.tipo + " " + banda_nombre.nombre : ""}
           </Typography>
         </>
       </Grid>
@@ -166,9 +166,9 @@ export const Peticion = ({
           )}
           <div>
             <Typography style={{ display: "inline-block" }}>
-              <b>Directivo:</b> {directivo_nombre.nombre}{" "}
-              {directivo_nombre.primer_apellido}{" "}
-              {directivo_nombre.segundo_apellido}
+              <b>Directivo:</b> {directivo_nombre && directivo_nombre.nombre}{" "}
+              {directivo_nombre && directivo_nombre.primer_apellido}{" "}
+              {directivo_nombre && directivo_nombre.segundo_apellido}
             </Typography>
           </div>
           {usuarioObjeto && (

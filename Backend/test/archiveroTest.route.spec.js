@@ -79,6 +79,21 @@ describe("Tests sobre la api de archiveros", () => {
             expect(response.statusCode).toBe(201);
         });
 
+        test('Comprobamos si un usuario es archivero de una banda', async () => {
+            const response = await request(app).get('/api/archiveros/banda/' + bandaId).set('x-token', token);
+            expect(response.statusCode).toBe(201);
+            // Comprobamos que la propiedad esArchivero sea true
+            expect(response.body.esArchivero).toBe(true);
+        });
+
+        test('Obtenemos los archiveros de una banda', async () => {
+            const response = await request(app).get('/api/archiveros/archivero/banda/' + bandaId).set('x-token', token);
+            expect(response.statusCode).toBe(201);
+            // Comprobamos que la propiedad diccionario se una map con clave "Archivero" y valor un array con el archivero
+            expect(response.body.diccionario["Archivero"][0].banda).toEqual(bandaId);
+            expect(response.body.diccionario["Archivero"][0].usuario).toEqual(uid);
+        });
+
         test('Finalizar rol de archivero', async () => {
             const response = await request(app).put('/api/archiveros/'+ uid + '/' + bandaId).set('x-token', token);
             expect(response.statusCode).toBe(201);

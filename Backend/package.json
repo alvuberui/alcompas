@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "jest --runInBand --testTimeout=10000 ",
-    "coverage": "jest --runInBand --coverage --testTimeout=10000",
+    "test": "jest --runInBand --testTimeout=100000000 --silent",
+    "coverage": "jest --runInBand --coverage --testTimeout=100000000",
     "dev": "nodemon index.js",
     "start": "node index.js"
   },

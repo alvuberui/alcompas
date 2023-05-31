@@ -122,7 +122,7 @@ export const AsistenciaEvento = () => {
       const clave = keys[i];
       const key = clave.split(",");
       html.push(
-        <Grid justifyContent="center" alignItems="center" key={key} container>
+        <Grid justifyContent="center" alignItems="center" key={key + i} container>
           <Typography sx={{ mt: 2 }} variant="h6" align="center" color="white">
             {" "}
             {key[0] + key[1]}{" "}
@@ -133,9 +133,10 @@ export const AsistenciaEvento = () => {
       if (lista) {
         for (let j = 0; j < lista.length; j++) {
           const value = lista[j];
+    
           html.push(
             <Musico
-              key={(j + 1) * (i + 1)}
+              key={(j + 1) * (i + 1) + value[0]._id}
               usuario={value[0]}
               tipo={"Directivo"}
               asistencia={value[1]}
@@ -165,9 +166,10 @@ export const AsistenciaEvento = () => {
         </Grid>
       );
       if (value) {
+        
         html.push(
           <Musico
-            key={key[1]}
+            key={key[1] + 2*i + value._id}
             usuario={value}
             tipo={"Directivo"}
             contratado={true}
@@ -177,6 +179,7 @@ export const AsistenciaEvento = () => {
         );
       }
     }
+
     return html;
   };
 
@@ -229,7 +232,7 @@ export const AsistenciaEvento = () => {
             alignItems="center"
           >
             {esDirectivo && (
-              <Button sx={{ mb: 2, ml: 2 }} variant="contained" color="primary">
+              <Button aria-label="contratado" sx={{ mb: 2, ml: 2 }} variant="contained" color="primary">
                 <NavLink
                   style={{ textDecoration: "none", color: "white" }}
                   to={`/banda/panel/eventos/asistencia/contratar/${eventoId}/${tipoEvento}`}
@@ -240,11 +243,8 @@ export const AsistenciaEvento = () => {
             )}
 
             <Grid
-              item
-              xs={11}
-              justifyContent="center"
-              alignItems="center"
-              sx={{
+              
+              container spacing={1} sx={{
                 backgroundColor: "#262254",
                 mt: "10px",
                 borderRadius: "5px",

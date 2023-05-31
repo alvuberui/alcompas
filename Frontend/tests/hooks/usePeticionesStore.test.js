@@ -233,5 +233,46 @@ describe('Pruebas en usePeticionesStore', () => {
     
     });
 
+    test("Obtener peticiones por bandaId", async() => {
+        const mockStore = getMockStore({ ...authenticatedState2 });
+        const { result } = renderHook( () => usePeticionesStore(), {
+            wrapper: ({ children }) => <Provider store={ mockStore } >{ children }</Provider>
+        });
+        
+
+        const spy = jest.spyOn( alcompasAPI, 'get' ).mockReturnValue({
+            data: {
+                peticiones : [peticion2]
+            }
+            
+        });
+    
+            await act(async() => {
+                const res = await result.current.getPeticionesByBandaId(peticion2.banda)
+
+                expect(res).toEqual([peticion2])
+            });
+    
+            spy.mockRestore();
+    });
+
+    test("Prueba negativa obteniendo peticiones por bandaId", async() => {
+        const mockStore = getMockStore({ ...authenticatedState2 });
+        const { result } = renderHook( () => usePeticionesStore(), {
+            wrapper: ({ children }) => <Provider store={ mockStore } >{ children }</Provider>
+        });
+        
+    
+            await act(async() => {
+                await result.current.getPeticionesByBandaId('INVENTADO')
+                const logSpy = jest.spyOn(console, 'log');
+
+                console.log('Error cargando peticiones');
+
+                expect(logSpy).toHaveBeenCalledWith('Error cargando peticiones');
+            });
+    
+    });
+
 });
 

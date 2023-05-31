@@ -53,7 +53,7 @@ router.post(
       .custom((value) => {
         const lista = ["Procesion", "Actuacion", "Ensayo"];
         if (!lista.includes(value)) {
-          throw new Error("La transacción no es válido");
+          throw new Error("El tipo no es válido");
         }
         return true;
       }),

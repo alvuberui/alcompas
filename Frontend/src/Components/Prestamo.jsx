@@ -3,7 +3,8 @@ import { NavLink } from "react-router-dom";
 
 export const Prestamo = ({ prestamo, tipo }) => {
   if (!prestamo) {
-    <CircularProgress size={200}></CircularProgress>;
+    return(
+    <CircularProgress aria-label="loading" size={200}></CircularProgress>);
   } else {
     const fecha = new Date(prestamo.fechaInicio).toLocaleDateString();
 

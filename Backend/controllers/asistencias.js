@@ -58,7 +58,7 @@ const perteneceABanda = async (payloadId, asistencia) => {
     ).length > 0
       ? true
       : false;
-
+      
   if (!esMusico && !esDirectivo && !esArchivero) {
     return false;
   } else {
@@ -390,7 +390,6 @@ const getTodasAsistenciasByEvento = async (req, res = express.response) => {
         resultado[["", "Archivero"]] = [[usuario, asistencia]];
       }
     }
-
     res.status(200).json({
       ok: true,
       resultado,
