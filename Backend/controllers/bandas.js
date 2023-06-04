@@ -178,6 +178,7 @@ const eliminar_banda = async (req, res = express.response) => {
     const token = req.header("x-token");
     const payload = jwt.verify(token, process.env.SECRET_JWT_SEED);
     const payloadId = payload.uid;
+    const usuario = await Usuario.findById(payloadId);
 
     // Finalizar roles de archiveros, musicos, directivos
     const archiveros = await Archivero.find({ banda: bandaId });
@@ -189,14 +190,6 @@ const eliminar_banda = async (req, res = express.response) => {
     });
     let presidente_actual;
 
-    const d = await Directivo.find({ usuario: payloadId, banda: bandaId });
-
-    if (d.length == 0) {
-      return res.status(400).json({
-        ok: false,
-        msg: "No eres directivo de esta banda",
-      });
-    }
 
     // Comprobar que es el presidente quien quiere eliminar la banda
     for (i = 0; i < presidentes.length; i++) {
@@ -206,10 +199,10 @@ const eliminar_banda = async (req, res = express.response) => {
       }
     }
 
-    if (presidente_actual == null || presidente_actual.usuario != payloadId) {
+    if ((presidente_actual == null || presidente_actual.usuario != payloadId) && !usuario.administrador) {
       return res.status(400).json({
         ok: false,
-        msg: "Solo el presidente puede eliminar la banda",
+        msg: "No tiene permisos para eliminar la banda",
       });
     }
 
@@ -288,6 +281,14 @@ const eliminar_banda = async (req, res = express.response) => {
         const partituras = await Partitura.find({ obra: obra._id });
         for (k = 0; k < partituras.length; k++) {
           let partitura = partituras[k];
+          const pathImagen = path.join(
+            __dirname,
+            "../public/uploads/partituras/",
+            partitura.url
+          );
+          if (fs.existsSync(pathImagen)) {
+            fs.unlinkSync(pathImagen);
+          }
           await partitura.remove();
         }
         await obra.remove();
@@ -321,11 +322,17 @@ const eliminar_banda = async (req, res = express.response) => {
     if (banda.img) {
       const pathImagen = path.join(
         __dirname,
-        "../uploads/imgs/bandas",
+        "../public/uploads/imgs/bandas",
+        banda.img
+      );
+      const pathImagen2 = path.join(
+        __dirname,
+        "../public/uploads/opt/bandas",
         banda.img
       );
       if (fs.existsSync(pathImagen)) {
         fs.unlinkSync(pathImagen);
+        fs.unlinkSync(pathImagen2);
       }
     }
 

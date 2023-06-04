@@ -7,7 +7,9 @@ const Archivero = require("../models/Archivero");
 const Directivo = require("../models/Directivo");
 const Estudio = require("../models/Estudio");
 const Peticion = require("../models/Peticion");
+const path = require("path");
 const Banda = require("../models/Banda");
+const fs = require("fs");
 const bcrypt = require("bcryptjs");
 const { generarJWT } = require("../helpers/jwt");
 const jwt = require("jsonwebtoken");
@@ -325,10 +327,24 @@ const deleteById = async (req, res = express.response) => {
         msg: "No tiene privilegios para eliminar el usuario",
       });
     }
+    const directivos = await Directivo.find({ usuario: uid, fecha_final: null });
 
+    for(let i = 0; i < directivos.length; i++){
+      const d = directivos[i];
+      const banda = await Banda.findById(d.banda);
+      const directivosBanda = await Directivo.find({ banda: banda._id, fecha_final: null });
+      if(directivosBanda.length === 1){
+        return res.status(400).json({
+          ok: false,
+          msg: "No puede eliminar su cuenta porque es el único directivo de la banda " + banda.nombre,
+        });
+      }
+    }
+
+
+    await Directivo.deleteMany({ "usuario": uid });
     await Comentario.deleteMany({ usuario: uid });
     await Musico.deleteMany({ usuario: uid });
-    await Directivo.deleteMany({ "usuario": uid });
     await Archivero.deleteMany({ usuario: uid });
     await Estudio.deleteMany({ usuario: uid });
     await Instrumento.deleteMany({ usuario: uid });
@@ -337,6 +353,24 @@ const deleteById = async (req, res = express.response) => {
 
 
     const usuario = await Usuario.findByIdAndDelete(uid);
+    if(usuario) {
+    if (usuario.img) {
+      const pathImagen = path.join(
+        __dirname,
+        "../public/uploads/imgs/usuarios",
+        usuario.img
+      );
+      const pathImagen2 = path.join(
+        __dirname,
+        "../public/uploads/opt/usuarios",
+        usuario.img
+      );
+      if (fs.existsSync(pathImagen)) {
+        fs.unlinkSync(pathImagen2);
+        fs.unlinkSync(pathImagen);
+      }
+    }
+  }
 
     res.json({
       ok: true,
@@ -371,6 +405,21 @@ const deleteAdminById = async (req, res = express.response) => {
       });
     }
     
+    const directivos = await Directivo.find({ usuario: uid, fecha_final: null });
+
+    for(let i = 0; i < directivos.length; i++){
+      const d = directivos[i];
+      const banda = await Banda.findById(d.banda);
+      const directivosBanda = await Directivo.find({ banda: banda._id, fecha_final: null });
+      console.log(directivosBanda)
+      if(directivosBanda.length === 1){
+        return res.status(400).json({
+          ok: false,
+          msg: "No puede eliminar su cuenta porque es el único directivo de la banda " + banda.nombre,
+        });
+      }
+    }
+
     await Comentario.deleteMany({ usuario: uid });
     await Musico.deleteMany({ usuario: uid });
     await Directivo.deleteMany({ usuario: uid });
@@ -381,6 +430,25 @@ const deleteAdminById = async (req, res = express.response) => {
     await Peticion.deleteMany({ usuario: uid });
 
     const usuario = await Usuario.findByIdAndDelete(uid);
+    if(usuario) {
+    if (usuario.img) {
+      const pathImagen = path.join(
+        __dirname,
+        "../public/uploads/imgs/usuarios",
+        usuario.img
+      );
+      const pathImagen2 = path.join(
+        __dirname,
+        "../public/uploads/opt/usuarios",
+        usuario.img
+      );
+      if (fs.existsSync(pathImagen)) {
+        fs.unlinkSync(pathImagen);
+        fs.unlinkSync(pathImagen2);
+      }
+    }
+  }
+    
     res.json({
       ok: true,
       usuario,

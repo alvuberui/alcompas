@@ -1,4 +1,4 @@
-import { Button, CircularProgress, Grid, Typography } from "@mui/material";
+import { Box, Button, CircularProgress, Grid, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import Swal from "sweetalert2";
@@ -107,7 +107,17 @@ export const Vestimenta = ({
 
   if (prestamo === "") {
     return (
-    <CircularProgress aria-label="loading" size={200}></CircularProgress>);
+      <>
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <CircularProgress aria-label="loading" size={200} />
+      </Box>
+      </>)
   } else {
     return (
       <Grid

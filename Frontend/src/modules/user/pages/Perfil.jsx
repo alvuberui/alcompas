@@ -83,12 +83,17 @@ export const Perfil = () => {
       showCancelButton: true,
       confirmButtonText: "Sí, eliminar",
       cancelButtonText: "Cancelar",
-    }).then((resultado) => {
+    }).then(async(resultado) => {
       if (resultado.value) {
         // Hicieron click en "Sí"
 
-        startDelete();
-        navigate("/");
+        const eliminado = await startDelete();
+  
+        if(eliminado) {
+          navigate("/");
+        } else {
+          Swal.fire("Error", "No se ha podido eliminar la cuenta, revisa si eres el último directivo de una banda", "error");
+        }
       }
     });
   };

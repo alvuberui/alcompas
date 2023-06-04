@@ -197,15 +197,19 @@ export const useAuthStore = () => {
 
   const startDelete = async () => {
     try {
-      dispatch(onLogout());
+      
       const { data } = await alcompasAPI.delete("/auth/" + user.uid);
-      localStorage.clear();
+      if(data.usuario) {
+        dispatch(onLogout());
+        localStorage.clear();
+      }
+      return data.usuario;
     } catch (error) {
       console.log("Error eliminando usuario");
       let fallo = "Error eliminando usuario";
 
       dispatch(onErrorUpdate(fallo));
-      console.log(errorMessage);
+   
       setTimeout(() => {
         dispatch(ClearErrorMessage());
       }, 10);

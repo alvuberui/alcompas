@@ -171,7 +171,7 @@ describe("Pruebas de la api de bandas", () => {
             token = loginReponse.body.token;
             uid = loginReponse.body.uid;
 
-            loginReponse = await request(app).post('/api/auth').send({"correo": "alvaro.uber8@gmail.com", "contraseña": "asdf1234"});
+            loginReponse = await request(app).post('/api/auth').send({"correo": "cristinacl2002@gmail.com", "contraseña": "asdf1234"});
             tokenInvalido = loginReponse.body.token;
             uidInvalido = loginReponse.body.uid;
 

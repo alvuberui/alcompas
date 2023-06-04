@@ -322,8 +322,11 @@ describe('Pruebas en useAuthStore', () => {
 
             expect({ errorMessage, status, user }).toEqual({
                 errorMessage: undefined,
-                status: 'no-autenticado',
-                user: {  }
+                "status": "autenticado",
+                  "user": {
+                 "nombre": "Fernando",
+                    "uid": "62a10a4954e8230e568a49ab",
+                },
             });
     
             spy.mockRestore();
