@@ -16,8 +16,8 @@ const subirArchivo = ( files, extensionesValidas = ['png','jpg','jpeg'], carpeta
         }
         
         const nombreTemp = uuidv4() + '.' + extension;
-        const uploadPath = path.join( __dirname, '../uploads/', carpeta, nombreTemp );
-        const uploadPathOpt = path.join( __dirname, '../uploads/', opt, nombreTemp );
+        const uploadPath = path.join( __dirname, '../public/uploads/', carpeta, nombreTemp );
+        const uploadPathOpt = path.join( __dirname, '../public/uploads/', opt, nombreTemp );
         
         
         archivo.mv(uploadPath, (err) => {
@@ -55,7 +55,7 @@ const subirPartitura = ( files, extensionesValidas = ['pdf'], carpeta = '' ) => 
         }
         
         const nombreTemp = uuidv4() + '.' + extension;
-        const uploadPath = path.join( __dirname, '../uploads/', carpeta, nombreTemp );
+        const uploadPath = path.join( __dirname, '../public/uploads/', carpeta, nombreTemp );
 
         archivo.mv(uploadPath, (err) => {
             if (err) {

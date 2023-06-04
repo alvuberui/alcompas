@@ -39,16 +39,9 @@ export const NavBar = () => {
   
   useEffect(() => {
     const getFoto = async () => {
-        if(user) {
-      const foto = await getFotoPerfilUsuario(user.uid);
-      setFotoPerfil(foto);
-        }
-      
+        const foto = await getFotoPerfilUsuario(user.uid);
+        setFotoPerfil(foto);
     };
-    getFoto();
-  }, [user]);
-
-  useEffect(() => {
     const getAdmin = async () => {
       const u = await getUserByiD(user.uid);
       if (u.administrador) {
@@ -58,6 +51,7 @@ export const NavBar = () => {
       }
     };
     getAdmin();
+    getFoto();
   }, [user]);
 
   const cerrarSesion = () => {

@@ -1,7 +1,7 @@
 import Avatar from '@material-ui/core/Avatar';
 import { Box, Button, Grid, Typography } from '@mui/material';
 import React, { useEffect, useState } from 'react';
-import { Navigate } from "react-router-dom";
+import { NavLink, Navigate } from "react-router-dom";
 import Swal from 'sweetalert2';
 import { Buscador } from '../../../Components/Buscador';
 import { useAuthStore, useBandasStore, useUploadsStore } from '../../../hooks';
@@ -129,11 +129,13 @@ export const AdministrarBandas = () => {
                   flexDirection: "column",
                 }}
               >
+                <NavLink to={`/banda/${banda._id}`}>
                 <Avatar
                   style={{ height: "150px", width: "150px" }}
                   alt="Remy Sharp"
                   src={`data:image/png;base64,${fotoPerfil}`}
                 />
+                </NavLink>
               </Box>
               <Box
                 sx={{

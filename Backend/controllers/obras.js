@@ -107,7 +107,7 @@ const eliminarObra = async(req, res = express.response) => {
 
         for(let i = 0; i < partituras.length; i++){
             const partitura = partituras[i];
-            const pathImagen = path.join( __dirname, '../uploads/partituras/', partitura.url );
+            const pathImagen = path.join( __dirname, '../public/uploads/partituras/', partitura.url );
             if ( fs.existsSync( pathImagen ) ) {
                 fs.unlinkSync( pathImagen );
             }

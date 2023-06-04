@@ -78,6 +78,7 @@ describe('Pruebas sobre la API de instrumeto', () => {
             expect(eliminar.statusCode).toBe(201);
 
             const response5 = await request(app).delete('/api/auth/' + uid).set('x-token', token);
+           
             expect(response5.statusCode).toBe(200);
             
         });

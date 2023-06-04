@@ -22,6 +22,7 @@ import {
   useLikesStore,
   useUploadsStore,
 } from "../hooks";
+import { NavLink } from "react-router-dom";
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -186,11 +187,13 @@ export const Noticia = ({ noticia, index, style, setNoticias }) => {
           <Card sx={{ width: "100%" }}>
             <CardHeader
               avatar={
+                <NavLink to={`/banda/${banda._id}`}>
                 <Avatar
                   sx={{ bgcolor: red[500] }}
                   aria-label="recipe"
                   src={`data:image/png;base64,${fotoPerfil}`}
                 ></Avatar>
+                </NavLink>
               }
               action={
                 esDirectivo && (

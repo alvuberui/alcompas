@@ -239,7 +239,7 @@ const getPartituraById = async (req, res = express.response) => {
 
     const pathImagen = path.join(
       __dirname,
-      "../uploads/partituras/",
+      "../public/uploads/partituras/",
       partitura.url
     );
     if (fs.existsSync(pathImagen)) {
@@ -309,7 +309,7 @@ const eliminarPartitura = async (req, res = express.response) => {
 
     const pathImagen = path.join(
       __dirname,
-      "../uploads/partituras/",
+      "../public/uploads/partituras/",
       partitura.url
     );
     if (fs.existsSync(pathImagen)) {

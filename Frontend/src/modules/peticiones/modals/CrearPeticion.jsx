@@ -196,7 +196,7 @@ export const CrearPeticion = ({
   const handleChangeInput = (input) => (e) => {
     const { value } = e.target;
     setPeticion({ ...peticion, [input]: value });
-    if (input === "rol") setRol(e.target.value);
+
   };
 
   useEffect(() => {

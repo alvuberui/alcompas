@@ -103,7 +103,7 @@ const eliminarRepertorio = async (req, res = express.response) => {
       for (let j = 0; j < partituras.length; j++) {
         const pathImagen = path.join(
           __dirname,
-          "../uploads/partituras/",
+          "../public/uploads/partituras/",
           partituras[j].url
         );
         if (fs.existsSync(pathImagen)) {

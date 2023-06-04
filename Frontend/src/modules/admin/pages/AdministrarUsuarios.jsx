@@ -4,7 +4,7 @@ import Autocomplete from "@mui/material/Autocomplete";
 import CircularProgress from "@mui/material/CircularProgress";
 import TextField from "@mui/material/TextField";
 import React, { useEffect, useState } from "react";
-import { Navigate } from "react-router-dom";
+import { NavLink, Navigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import { useAuthStore, useUploadsStore } from "../../../hooks";
 
@@ -54,8 +54,14 @@ export const AdministrarUsuarios = () => {
       confirmButtonText: "¡Sí, bórralo!",
     }).then(async (result) => {
       if (result.isConfirmed) {
-        await deleteAdminById(usuario._id);
-        setUsuario(undefined);
+        const eliminado = await deleteAdminById(usuario._id);
+        if (eliminado) {
+          Swal.fire("¡Eliminado!", "El usuario ha sido eliminado.", "success");
+          setUsuario(undefined);
+        } else {
+          Swal.fire("¡Error!", "El usuario no ha podido ser eliminado. Revise sus permisos o revise si el usuario es el último directivo de una banda", "error");
+        }
+        
       }
     });
   };
@@ -217,11 +223,13 @@ export const AdministrarUsuarios = () => {
                   flexDirection: "column",
                 }}
               >
+                <NavLink to={'/perfil/' + usuario._id}>
                 <Avatar
                   style={{ height: "150px", width: "150px" }}
                   alt="Remy Sharp"
                   src={`data:image/png;base64,${fotoPerfil}`}
                 />
+                </NavLink>
               </Box>
               <Box
                 sx={{
