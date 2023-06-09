@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1685911091588" clover="3.2.0">
-  <project timestamp="1685911091589" name="All files">
-    <metrics statements="4149" coveredstatements="3360" conditionals="1522" coveredconditionals="911" methods="894" coveredmethods="655" elements="6565" coveredelements="4926" complexity="0" loc="4149" ncloc="4149" packages="25" files="141" classes="141"/>
+<coverage generated="1685917045831" clover="3.2.0">
+  <project timestamp="1685917045831" name="All files">
+    <metrics statements="4148" coveredstatements="3360" conditionals="1520" coveredconditionals="911" methods="894" coveredmethods="655" elements="6562" coveredelements="4926" complexity="0" loc="4148" ncloc="4148" packages="25" files="141" classes="141"/>
     <package name="src.Components">
       <metrics statements="770" coveredstatements="615" conditionals="397" coveredconditionals="255" methods="185" coveredmethods="135"/>
       <file name="Archivo.jsx" path="C:\Users\alvar\Desktop\Universidad\Segundo Cuatrimestre\TFG\alcompas\Frontend\src\Components\Archivo.jsx">
@@ -2141,8 +2141,8 @@
       <file name="useRedesSocialesStore.js" path="C:\Users\alvar\Desktop\Universidad\Segundo Cuatrimestre\TFG\alcompas\Frontend\src\hooks\useRedesSocialesStore.js">
         <metrics statements="26" coveredstatements="24" conditionals="0" coveredconditionals="0" methods="6" coveredmethods="5"/>
         <line num="3" count="83" type="stmt"/>
-        <line num="4" count="10" type="stmt"/>
-        <line num="6" count="10" type="stmt"/>
+        <line num="4" count="9" type="stmt"/>
+        <line num="6" count="9" type="stmt"/>
         <line num="7" count="3" type="stmt"/>
         <line num="8" count="3" type="stmt"/>
         <line num="9" count="2" type="stmt"/>
@@ -2151,13 +2151,13 @@
         <line num="13" count="2" type="stmt"/>
         <line num="14" count="2" type="stmt"/>
         <line num="15" count="2" type="stmt"/>
-        <line num="20" count="10" type="stmt"/>
+        <line num="20" count="9" type="stmt"/>
         <line num="21" count="1" type="stmt"/>
         <line num="22" count="1" type="stmt"/>
         <line num="23" count="1" type="stmt"/>
         <line num="24" count="1" type="stmt"/>
         <line num="26" count="0" type="stmt"/>
-        <line num="30" count="10" type="stmt"/>
+        <line num="30" count="9" type="stmt"/>
         <line num="31" count="2" type="stmt"/>
         <line num="32" count="2" type="stmt"/>
         <line num="33" count="1" type="stmt"/>
@@ -2165,7 +2165,7 @@
         <line num="36" count="1" type="stmt"/>
         <line num="37" count="1" type="stmt"/>
         <line num="38" count="0" type="stmt"/>
-        <line num="43" count="10" type="stmt"/>
+        <line num="43" count="9" type="stmt"/>
       </file>
       <file name="useRepertoriosStore.js" path="C:\Users\alvar\Desktop\Universidad\Segundo Cuatrimestre\TFG\alcompas\Frontend\src\hooks\useRepertoriosStore.js">
         <metrics statements="35" coveredstatements="31" conditionals="4" coveredconditionals="2" methods="4" coveredmethods="4"/>
@@ -4010,9 +4010,9 @@
       </file>
     </package>
     <package name="src.modules.peticiones.modals">
-      <metrics statements="102" coveredstatements="55" conditionals="61" coveredconditionals="19" methods="23" coveredmethods="16"/>
+      <metrics statements="101" coveredstatements="55" conditionals="59" coveredconditionals="19" methods="23" coveredmethods="16"/>
       <file name="CrearPeticion.jsx" path="C:\Users\alvar\Desktop\Universidad\Segundo Cuatrimestre\TFG\alcompas\Frontend\src\modules\peticiones\modals\CrearPeticion.jsx">
-        <metrics statements="102" coveredstatements="55" conditionals="61" coveredconditionals="19" methods="23" coveredmethods="16"/>
+        <metrics statements="101" coveredstatements="55" conditionals="59" coveredconditionals="19" methods="23" coveredmethods="16"/>
         <line num="22" count="2" type="stmt"/>
         <line num="36" count="2" type="stmt"/>
         <line num="68" count="2" type="stmt"/>
@@ -4080,7 +4080,6 @@
         <line num="196" count="8" type="stmt"/>
         <line num="197" count="0" type="stmt"/>
         <line num="198" count="0" type="stmt"/>
-        <line num="199" count="0" type="cond" truecount="0" falsecount="2"/>
         <line num="202" count="2" type="stmt"/>
         <line num="203" count="1" type="cond" truecount="1" falsecount="1"/>
         <line num="204" count="0" type="stmt"/>
